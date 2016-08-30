@@ -1,12 +1,9 @@
 ---
 server:
-    install:  '1'
-    packages: [git]
+    hostname: corpsee-com-server
+    packages: [curl, wget, python-software-properties, git, mc]
     timezone: Asia/Novosibirsk
     locale:   en_US.UTF-8
-vagrant_local:
-    install: '1'
-    vm:      { hostname: corpsee-com-server }
 nginx:
     install:    '1'
     docroot:    /vagrant

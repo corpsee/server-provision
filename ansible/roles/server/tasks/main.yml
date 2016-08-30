@@ -1,31 +1,36 @@
 ---
+
 - name: Update apt
-  sudo: yes
-  apt: update_cache=yes
+  apt:  update_cache=yes
+  
+- name: Upgrade apt
+  apt:  upgrade=dist
 
-- name: Install System Packages
-  sudo: yes
-  apt: pkg={{ item }} state=latest
-  with_items:
-    - curl
-    - wget
-    - python-software-properties
+- name:       Install packages
+  apt:        pkg="{{ item }}" state=latest
+  with_items: "{{ server.packages }}"
+  when:       server.packages is defined
 
-- name: Install Extra Packages
-  sudo: yes
-  apt: pkg={{ item }} state=latest
-  with_items: server.packages
-  when: server.packages is defined
-
-- name: Configure the timezone
-  sudo: yes
+- name:     Configure the timezone
   template: src=timezone.tpl dest=/etc/timezone
+  notify:   Update tzdata
+  when:     server.timezone is defined
 
 - name: More Configure the timezone
-  sudo: yes
-  file: src=/usr/share/zoneinfo/{{server.timezone}} dest=/etc/localtime state=link force=yes backup=yes
+  file: src="/usr/share/zoneinfo/{{ server.timezone }}" dest=/etc/localtime state=link force=yes backup=yes
+  when: server.timezone is defined
 
-- name: Set default system language pack
-  shell: locale-gen {{server.locale}}
-  sudo: yes
+- name:  Set default system language pack
+  shell: locale-gen "{{ server.locale }}"
+  when:  server.locale is defined
 
+- name:  Set the hostname in /etc/hostname
+  shell: echo "{{ server.hostname }}" > /etc/hostname
+  when:  server.hostname is defined
+
+- name:  Set the hostname
+  shell: hostname "{{ server.hostname }}"
+  when:  server.hostname is defined
+
+- name:       Update /etc/hosts
+  lineinfile: dest=/etc/hosts regexp="^127\.0\.0\.1" line="127.0.0.1 localhost {{ server.hostname }}"

@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
     config.ssh.forward_agent = true
 
     config.vm.provider :virtualbox do |vb|
-        v.name = "default"
+        vb.name = "default"
         vb.customize [
             "modifyvm", :id,
             "--name", "default",
@@ -23,10 +23,5 @@ Vagrant.configure("2") do |config|
         ansible.limit          = 'all'
     end
 
-    config.vm.provision "shell" do |s|
-        s.path = "scripts/server-install.sh"
-        s.args = "/vagrant"
-    end
-
-    config.vm.synced_folder "./", "/vagrant", type: "nfs"
+    config.vm.synced_folder "./", "/vagrant"
 end
