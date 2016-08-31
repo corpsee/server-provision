@@ -1,6 +1,6 @@
 ---
 
-- hosts:       all
+- hosts:       web-server
   become:      true
   become_user: root
   vars_files:
