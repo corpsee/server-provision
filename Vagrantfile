@@ -18,8 +18,8 @@ Vagrant.configure("2") do |config|
     end
     
     config.vm.provision "ansible" do |ansible|
-        ansible.playbook       = "ansible/playbook.yml"
-        ansible.inventory_path = "ansible/inventories/dev"
+        ansible.playbook       = "ansible/web-server-playbook.yml"
+        ansible.inventory_path = "ansible/inventories/vagrant-inventory"
         ansible.limit          = 'all'
     end
 
