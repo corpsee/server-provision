@@ -26,7 +26,7 @@
     - current_timezone.stdout != server.timezone
 
 - name: More Configure the timezone
-  file: src="/usr/share/zoneinfo/{{ server.timezone }}" dest=/etc/localtime state=link force=yes backup=yes
+  file: src="/usr/share/zoneinfo/{{ server.timezone }}" dest=/etc/localtime state=link force=yes
   when: 
     - server.timezone is defined
     - current_timezone.stdout != server.timezone
