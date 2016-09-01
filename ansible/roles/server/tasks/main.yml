@@ -1,8 +1,9 @@
 ---
 
+# Packages
 - name: Update apt
   apt:  update_cache=yes
-  
+
 - name: Upgrade apt
   apt:  upgrade=dist
 
@@ -11,26 +12,48 @@
   with_items: "{{ server.packages }}"
   when:       server.packages is defined
 
-- name:     Configure the timezone
-  template: src=timezone.tpl dest=/etc/timezone
-  notify:   Update tzdata
-  when:     server.timezone is defined
+
+# Timezone
+- name:     Check current timezone
+  command:  cat /etc/timezone
+  register: current_timezone
+
+- name:    Configure the timezone
+  command: echo "{{ server.timezone }}" > /etc/timezone
+  notify:  Update tzdata
+  when:     
+    - server.timezone is defined
+    - current_timezone.stdout != server.timezone
 
 - name: More Configure the timezone
   file: src="/usr/share/zoneinfo/{{ server.timezone }}" dest=/etc/localtime state=link force=yes backup=yes
-  when: server.timezone is defined
+  when: 
+    - server.timezone is defined
+    - current_timezone.stdout != server.timezone
 
-- name:  Set default system language pack
-  shell: locale-gen "{{ server.locale }}"
-  when:  server.locale is defined
 
-- name:  Set the hostname in /etc/hostname
-  shell: echo "{{ server.hostname }}" > /etc/hostname
-  when:  server.hostname is defined
+# Locale
+- name:       Set local
+  locale_gen: name="{{ server.locale }}" state=present
+  when:       server.locale is defined
 
-- name:  Set the hostname
-  shell: hostname "{{ server.hostname }}"
-  when:  server.hostname is defined
+
+# Hostname
+- name:     Check current hostname
+  command:  cat /etc/hostname
+  register: current_hostname
+
+- name:    Set the hostname in /etc/hostname
+  command: echo "{{ server.hostname }}" > /etc/hostname
+  when:    
+    - server.hostname is defined
+    - current_hostname.stdout != server.hostname
+
+- name:    Set the hostname
+  command: hostname "{{ server.hostname }}"
+  when:    
+    - server.hostname is defined
+    - current_hostname.stdout != server.hostname
 
 - name:       Update /etc/hosts
   lineinfile: dest=/etc/hosts regexp="^127\.0\.0\.1" line="127.0.0.1 localhost {{ server.hostname }}"
