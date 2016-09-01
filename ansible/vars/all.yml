@@ -3,7 +3,10 @@ server:
     hostname: corpsee-com-server
     packages: [curl, wget, python-software-properties, git, mc]
     timezone: Asia/Novosibirsk
-    locale:   en_US.UTF-8
+    locales:
+      - en_US.UTF-8
+      - ru_RU.UTF-8
+    default_local: en_US.UTF-8
 nginx:
     install:    '1'
     docroot:    /vagrant

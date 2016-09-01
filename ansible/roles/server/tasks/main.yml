@@ -33,9 +33,13 @@
 
 
 # Locale
-- name:       Set local
-  locale_gen: name="{{ server.locale }}" state=present
-  when:       server.locale is defined
+- name:       Generate locales
+  locale_gen: name="{{ item }}" state=present
+  with_items: "{{ server.locales }}"
+  when:       server.locales is defined
+  
+- name:     Set default locale
+  template: src=locale.tpl dest=/etc/default/locale
 
 
 # Hostname
