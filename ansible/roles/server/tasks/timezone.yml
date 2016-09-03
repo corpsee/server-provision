@@ -1,0 +1,18 @@
+---
+
+- name:     Check current timezone
+  command:  cat /etc/timezone
+  register: current_timezone
+
+- name:    Configure the timezone
+  command: echo "{{ server.timezone }}" > /etc/timezone
+  notify:  Update tzdata
+  when:     
+    - server.timezone is defined
+    - current_timezone.stdout != server.timezone
+
+- name: More Configure the timezone
+  file: src="/usr/share/zoneinfo/{{ server.timezone }}" dest=/etc/localtime state=link force=yes
+  when: 
+    - server.timezone is defined
+    - current_timezone.stdout != server.timezone

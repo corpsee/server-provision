@@ -1,63 +1,9 @@
 ---
 
-# Packages
-- name: Update apt
-  apt:  update_cache=yes
+- include: packages.yml
 
-- name: Upgrade apt
-  apt:  upgrade=dist
+- include: timezone.yml
 
-- name:       Install packages
-  apt:        pkg="{{ item }}" state=latest
-  with_items: "{{ server.packages }}"
-  when:       server.packages is defined
+- include: locale.yml
 
-
-# Timezone
-- name:     Check current timezone
-  command:  cat /etc/timezone
-  register: current_timezone
-
-- name:    Configure the timezone
-  command: echo "{{ server.timezone }}" > /etc/timezone
-  notify:  Update tzdata
-  when:     
-    - server.timezone is defined
-    - current_timezone.stdout != server.timezone
-
-- name: More Configure the timezone
-  file: src="/usr/share/zoneinfo/{{ server.timezone }}" dest=/etc/localtime state=link force=yes
-  when: 
-    - server.timezone is defined
-    - current_timezone.stdout != server.timezone
-
-
-# Locale
-- name:       Generate locales
-  locale_gen: name="{{ item }}" state=present
-  with_items: "{{ server.locales }}"
-  when:       server.locales is defined
-  
-- name:     Set default locale
-  template: src=locale.tpl dest=/etc/default/locale
-
-
-# Hostname
-- name:     Check current hostname
-  command:  cat /etc/hostname
-  register: current_hostname
-
-- name:    Set the hostname in /etc/hostname
-  command: echo "{{ server.hostname }}" > /etc/hostname
-  when:    
-    - server.hostname is defined
-    - current_hostname.stdout != server.hostname
-
-- name:    Set the hostname
-  command: hostname "{{ server.hostname }}"
-  when:    
-    - server.hostname is defined
-    - current_hostname.stdout != server.hostname
-
-- name:       Update /etc/hosts
-  lineinfile: dest=/etc/hosts regexp="^127\.0\.0\.1" line="127.0.0.1 localhost {{ server.hostname }}"
+- include: hostname.yml

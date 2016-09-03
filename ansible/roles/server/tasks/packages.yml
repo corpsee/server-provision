@@ -1,0 +1,12 @@
+---
+
+- name: Update apt
+  apt:  update_cache=yes
+
+- name: Upgrade apt
+  apt:  upgrade=dist
+
+- name:       Install packages
+  apt:        pkg="{{ item }}" state=latest
+  with_items: "{{ server.packages }}"
+  when:       server.packages is defined
