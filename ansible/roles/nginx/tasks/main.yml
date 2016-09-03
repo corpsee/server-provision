@@ -13,8 +13,8 @@
   template: src=nginx.conf.tpl dest=/etc/nginx/nginx.conf
   notify:   Restart Nginx
   
-- name: Disable default host
-  file: path="/etc/nginx/sites-enabled/default" state=absent force=yes
+- name: Clean /etc/nginx/sites-enabled
+  file: path="/etc/nginx/sites-enabled/default" state=absent
   
-- name: Disable default host directory
-  file: path="/var/www/html" state=absent force=yes
+- name: Clean /var/www
+  file: path="/var/www/html" state=absent

@@ -41,3 +41,13 @@
 
 - name: Create log directory
   file: path="/var/log/php/{{ php.version }}" state=directory mode=0644 owner=www-data group=www-data
+
+- name: Clean /etc/php
+  file: path="/etc/php/{{ item }}" state=absent
+  with_items: "{{ php.clean_versions }}"
+
+- name: Clean /etc/apache2
+  file: path="/etc/apache2" state=absent
+
+- name: Clean /var/log/php-fpm.log
+  file: path="/var/log/php{{ php.version }}-fpm.log" state=absent
