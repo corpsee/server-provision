@@ -8,9 +8,36 @@
   with_items:
     - "php{{ php.version }}-cli"
     - "php{{ php.version }}-fpm"
-  notify: Restart PHP-FPM
 
 - name:       Install PHP packages
   apt:        pkg="php{{ php.version }}-{{ item }}" state=latest
   with_items: "{{ php.packages }}"
   when:       php.packages is defined
+
+- name:       Save origin PHP configs
+  command:    mv -fv "/etc/php/{{ php.version }}/{{ item }}/php.ini" "/etc/php/{{ php.version }}/{{ item }}/php.origin.ini" creates="/etc/php/{{ php.version }}/{{ item }}/php.origin.ini"
+  with_items:
+    - "cli"
+    - "fpm"
+
+- name:    Save origin PHP-FPM config
+  command: mv -fv "/etc/php/{{ php.version }}/fpm/php-fpm.conf" "/etc/php/{{ php.version }}/fpm/php-fpm.origin.conf" creates="/etc/php/{{ php.version }}/fpm/php-fpm.origin.conf"
+
+- name:    Save origin PHP-FPM www config
+  command: mv -fv "/etc/php/{{ php.version }}/fpm/pool.d/www.conf" "/etc/php/{{ php.version }}/fpm/pool.d/www.origin.conf" creates="/etc/php/{{ php.version }}/fpm/pool.d/www.origin.conf"
+
+- name:       Copy PHP configs
+  template:   src=php.ini.tpl dest="/etc/php/{{ php.version }}/{{ item }}/php.ini"
+  notify:     Restart PHP-FPM
+  with_items:
+      - "cli"
+      - "fpm"
+
+- name:       PHP-FPM config
+  template:   src=php-fpm.conf.tpl dest="/etc/php/{{ php.version }}/fpm/php-fpm.conf"
+
+- name:       PHP-FPM www config
+  template:   src=www.conf.tpl dest="/etc/php/{{ php.version }}/fpm/pool.d/www.conf"
+
+- name: Create log directory
+  file: path="/var/log/php/{{ php.version }}" state=directory mode=0644 owner=www-data group=www-data
