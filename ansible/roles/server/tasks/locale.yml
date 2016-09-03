@@ -6,4 +6,4 @@
   when:       server.locales is defined
 
 - name:     Set default locale
-  template: src=locale.tpl dest=/etc/default/locale
+  template: src=locale.j2 dest=/etc/default/locale
