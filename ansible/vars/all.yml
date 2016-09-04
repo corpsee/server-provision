@@ -19,6 +19,8 @@ php:
       - imagick
       - mysql
       - pgsql
+composer:
+    path: /usr/local/bin/composer
 mariadb:
     install: '1'
     root_password: 'root'

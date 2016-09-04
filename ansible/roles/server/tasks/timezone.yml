@@ -1,8 +1,9 @@
 ---
 
-- name:     Check current timezone
-  command:  cat /etc/timezone
-  register: current_timezone
+- name:         Check current timezone
+  command:      cat /etc/timezone
+  register:     current_timezone
+  changed_when: current_timezone.stdout != server.timezone
 
 - name:    Configure the timezone
   command: echo "{{ server.timezone }}" > /etc/timezone

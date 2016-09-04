@@ -1,8 +1,9 @@
 ---
 
-- name:     Check current hostname
-  command:  cat /etc/hostname
-  register: current_hostname
+- name:         Check current hostname
+  command:      cat /etc/hostname
+  register:     current_hostname
+  changed_when: current_hostname.stdout != server.hostname
 
 - name:    Set the hostname in /etc/hostname
   command: echo "{{ server.hostname }}" > /etc/hostname
