@@ -1,36 +1,25 @@
 ---
 
 server:
-    hostname: corpsee-com-server
-    packages: [curl, wget, python-software-properties, git, mc]
-    timezone: Asia/Novosibirsk
-    locales:
-      - en_US.UTF-8
-      - ru_RU.UTF-8
-    default_local: en_US.UTF-8
+  hostname: corpsee-com-server
+  packages: [curl, wget, python-software-properties, git, mc]
+  timezone: Asia/Novosibirsk
+  locales:
+    - en_US.UTF-8
+    - ru_RU.UTF-8
+  default_local: en_US.UTF-8
 php:
-    version: 5.6
-    clean_versions:
-      - 5.5
-      - 7.0
-    packages:
-      - curl
-      - gd
-      - imagick
-      - mysql
-      - pgsql
+  version: 5.6
+  clean_versions:
+    - 5.5
+    - 7.0
+  packages:
+    - curl
+    - gd
+    - imagick
+    - mysql
+    - pgsql
 composer:
-    path: /usr/local/bin/composer
-mariadb:
-    install: '1'
-    root_password: 'root'
-    database: db
-    user: user
-    password: password
-    dump: /vagrant/mariadb.sql
-pgsql:
-    install: '1'
-    database: db
-    user: user
-    password: password
-    dump: /vagrant/postgresql.sql
+  path: /usr/local/bin/composer
+postgresql:
+  version: 9.5

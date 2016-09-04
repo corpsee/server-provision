@@ -23,3 +23,6 @@
   command:      php "{{ composer.path }}" self-update
   register:     composer_update
   changed_when: "'Updating to version' in composer_update.stdout"
+
+- name: Clean Composer installer
+  file: path="/tmp/composer-installer.php" state=absent

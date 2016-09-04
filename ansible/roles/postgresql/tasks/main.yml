@@ -1,0 +1,23 @@
+---
+
+- name:           Add PostgreSQL repository
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main'
+
+- name:    Add keys for PostgreSQL repository
+  apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc state=present
+
+- name: Update apt
+  apt:  update_cache=yes
+
+- name:       Install PostgreSQL
+  apt:        pkg="{{ item }}" state=latest
+  with_items:
+    - "postgresql-{{ postgresql.version }}"
+    - "python-psycopg2"
+
+#- name:    Save origin PostgreSQL config
+#  command: mv -fv "/etc/postgresql/{{ postgresql.version }}/main/postgresql.conf" "/etc/postgresql/{{ postgresql.version }}/main/postgresql.origin.conf" creates="/etc/postgresql/{{ postgresql.version }}/main/postgresql.origin.conf"
+
+#- name:     Set PostgreSQL config
+#  template: src=postgresql.conf.j2 dest="/etc/postgresql/{{ postgresql.version }}/main/postgresql.conf"
+#  notify:   Restart PostgreSQL
