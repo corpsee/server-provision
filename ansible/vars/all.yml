@@ -22,4 +22,8 @@ php:
 composer:
   path: /usr/local/bin/composer
 postgresql:
-  version: 9.5
+  version:           9.5
+  postgres_password: postgres
+mariadb:
+  version:       10.1
+  root_password: root
