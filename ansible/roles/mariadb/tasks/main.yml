@@ -18,8 +18,6 @@
 - name:       Set MariaDB root user password
   mysql_user: name="root" host="{{ item }}" password="{{ mariadb.root_password }}" login_user="root" state=present
   with_items:
-    - "127.0.0.1"
-    - "::1"
     - "localhost"
   notify: Restart MariaDB
 
@@ -30,7 +28,7 @@
   command: mysql -ne "{{ item }}"
   with_items:
     - "DELETE FROM mysql.user WHERE User=''"
-    - "DELETE FROM mysql.user WHERE User = 'root' AND Host != 'localhost' AND Host != '127.0.0.1' AND Host != '::1'" 
+    - "DELETE FROM mysql.user WHERE User = 'root' AND Host != 'localhost'" 
     - "DROP DATABASE IF EXISTS test"
     - "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%'"
     - "FLUSH PRIVILEGES"
