@@ -1,6 +1,8 @@
 ---
 
 server:
+  # mode: production|debug
+  mode:     production
   hostname: corpsee-com-server
   packages: [curl, wget, python-software-properties, git, mc]
   timezone: Asia/Novosibirsk
@@ -9,7 +11,10 @@ server:
     - ru_RU.UTF-8
   default_local: en_US.UTF-8
 php:
+  # version: 5.6|7.0
   version: 5.6
+  # memory limit in MB
+  memory:  256
   clean_versions:
     - 5.5
     - 7.0
