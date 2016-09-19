@@ -1,7 +1,7 @@
 data_directory    = '/var/lib/postgresql/{{ postgresql.version }}/main'
 hba_file          = '/etc/postgresql/{{ postgresql.version }}/main/pg_hba.conf'
 ident_file        = '/etc/postgresql/{{ postgresql.version }}/main/pg_ident.conf'
-external_pid_file = '/var/run/postgresql/{{ postgresql.version }}-main.pid'
+external_pid_file = '/run/postgresql/{{ postgresql.version }}-main.pid'
 
 port            = 5432
 max_connections = 100
