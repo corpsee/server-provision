@@ -21,6 +21,8 @@ Vagrant.configure("2") do |config|
         ansible.playbook       = "ansible/web-server-playbook.yml"
         ansible.inventory_path = "ansible/inventories/vagrant-inventory"
         ansible.limit          = 'all'
+        ansible.ask_vault_pass = true
+        ansible.verbose        = "vvv"
     end
 
     config.vm.synced_folder "./", "/vagrant"

@@ -30,8 +30,6 @@ php:
 composer:
   path: /usr/local/bin/composer
 postgresql:
-  version:           9.5
-  postgres_password: postgres
+  version: 9.5
 mariadb:
-  version:       10.1
-  root_password: root
+  version: 10.1

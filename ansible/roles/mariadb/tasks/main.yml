@@ -16,7 +16,7 @@
     - "python-mysqldb"
 
 - name:       Set MariaDB root user password
-  mysql_user: name="root" host="{{ item }}" password="{{ mariadb.root_password }}" login_user="root" state=present
+  mysql_user: name="root" host="{{ item }}" password="{{ secret.mariadb.root_password }}" login_user="root" state=present
   with_items:
     - "localhost"
   notify: Restart MariaDB

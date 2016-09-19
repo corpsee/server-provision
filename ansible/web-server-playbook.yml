@@ -5,6 +5,7 @@
   become_user: root
   vars_files:
     - vars/all.yml
+    - vars/secret.yml
   roles:
     - server
     - nginx
