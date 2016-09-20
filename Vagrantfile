@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
         ansible.inventory_path = "ansible/inventories/vagrant-inventory"
         ansible.limit          = 'all'
         ansible.ask_vault_pass = true
-        ansible.verbose        = "vvv"
+        ansible.verbose        = "v"
     end
 
     config.vm.synced_folder "./", "/vagrant"

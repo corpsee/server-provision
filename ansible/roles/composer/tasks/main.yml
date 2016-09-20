@@ -12,15 +12,15 @@
   when: not composer_bin.stat.exists
   
 - name:    Run Composer installer
-  command: php composer-installer.php chdir=/tmp
+  command: php -d memory_limit=-1 composer-installer.php chdir=/tmp
   when:    not composer_bin.stat.exists
   
-- name:    Move Composer to gloabal path
+- name:    Move Composer to global path
   command: mv /tmp/composer.phar "{{ composer.path }}" creates="{{ composer.path }}"
   when:    not composer_bin.stat.exists
   
 - name:         Update Composer
-  command:      php "{{ composer.path }}" self-update
+  command:      php -d memory_limit=-1 "{{ composer.path }}" self-update
   register:     composer_update
   changed_when: "'Updating to version' in composer_update.stdout"
 
