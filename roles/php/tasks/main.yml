@@ -1,0 +1,53 @@
+---
+
+- name:           Add PHP repository
+  apt_repository: repo="ppa:ondrej/php" update_cache=yes
+
+- name: Install PHP
+  apt: pkg="{{ item }}" state=latest
+  with_items:
+    - "php{{ php_version }}-cli"
+    - "php{{ php_version }}-fpm"
+
+- name:       Install PHP packages
+  apt:        pkg="php{{ php_version }}-{{ item }}" state=latest
+  with_items: "{{ php_packages }}"
+  when:       php_packages is defined
+
+- name:       Save origin PHP configs
+  command:    mv -fv "/etc/php/{{ php_version }}/{{ item }}/php.ini" "/etc/php/{{ php_version }}/{{ item }}/php.origin.ini" creates="/etc/php/{{ php_version }}/{{ item }}/php.origin.ini"
+  with_items:
+    - "cli"
+    - "fpm"
+
+- name:    Save origin PHP-FPM config
+  command: mv -fv "/etc/php/{{ php_version }}/fpm/php-fpm.conf" "/etc/php/{{ php_version }}/fpm/php-fpm.origin.conf" creates="/etc/php/{{ php_version }}/fpm/php-fpm.origin.conf"
+
+- name:    Save origin PHP-FPM www config
+  command: mv -fv "/etc/php/{{ php_version }}/fpm/pool.d/www.conf" "/etc/php/{{ php_version }}/fpm/pool.d/www.origin.conf" creates="/etc/php/{{ php_version }}/fpm/pool.d/www.origin.conf"
+
+- name:       Set PHP configs
+  template:   src="{{ php_version }}/php.{{ server_mode }}.ini" dest="/etc/php/{{ php_version }}/{{ item }}/php.ini"
+  notify:     Restart PHP-FPM
+  with_items:
+      - "cli"
+      - "fpm"
+
+- name:     Set PHP-FPM config
+  template: src="{{ php_version }}/php-fpm.{{ server_mode }}.conf" dest="/etc/php/{{ php_version }}/fpm/php-fpm.conf"
+
+- name:     Set PHP-FPM www config
+  template: src="{{ php_version }}/www.{{ server_mode }}.conf" dest="/etc/php/{{ php_version }}/fpm/pool.d/www.conf"
+
+- name: Create log directory
+  file: path="/var/log/php/{{ php_version }}" state=directory mode=0644 owner=www-data group=www-data
+
+- name: Clean /etc/php
+  file: path="/etc/php/{{ item }}" state=absent
+  with_items: "{{ php_clean_versions }}"
+
+- name: Clean /etc/apache2
+  file: path="/etc/apache2" state=absent
+
+- name: Clean /var/log/php-fpm.log
+  file: path="/var/log/php{{ php_version }}-fpm.log" state=absent

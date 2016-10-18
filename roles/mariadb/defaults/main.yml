@@ -1,0 +1,5 @@
+---
+
+# version: 10.0|10.1
+mariadb_version:       10.1
+mariadb_root_password: root

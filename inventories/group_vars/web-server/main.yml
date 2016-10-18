@@ -1,0 +1,27 @@
+---
+
+# mode: production|debug
+server_mode:     production
+server_hostname: corpsee.com
+server_packages:
+  - curl
+  - wget
+  - python-software-properties
+  - git
+  - mc
+server_timezone: Asia/Novosibirsk
+server_locales:
+  - en_US.UTF-8
+  - ru_RU.UTF-8
+
+# memory limit in MB
+php_memory:  256
+php_packages:
+  - dom
+  - bcmath
+  - mbstring
+  - curl
+  - gd
+  - imagick
+  - mysql
+  - pgsql

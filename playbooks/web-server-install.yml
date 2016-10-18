@@ -1,0 +1,12 @@
+---
+
+- hosts:       web-server
+  become:      true
+  become_user: root
+  roles:
+    - server
+    - nginx
+    - php
+    - composer
+    - postgresql
+    - mariadb

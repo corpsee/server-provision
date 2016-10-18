@@ -1,0 +1,13 @@
+---
+
+# mode: production|debug
+server_mode:     debug
+server_hostname: corpsee.virtual
+server_packages:
+  - curl
+  - wget
+  - python-software-properties
+server_timezone: UTC
+server_locales:
+  - en_US.UTF-8
+server_default_local: en_US.UTF-8

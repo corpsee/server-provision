@@ -1,0 +1,15 @@
+---
+
+# version: 5.5|5.6|7.0
+php_version: 5.6
+php_memory:  128
+php_clean_versions:
+  - 5.5
+  - 7.0
+php_packages:
+  - dom
+  - bcmath
+  - mbstring
+  - curl
+  - gd
+  - imagick
