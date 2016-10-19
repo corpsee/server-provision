@@ -11,3 +11,8 @@ server_timezone: UTC
 server_locales:
   - en_US.UTF-8
 server_default_local: en_US.UTF-8
+
+server_user_name:     web-user
+server_user_password: web-user
+server_user_group:    web-user
+server_user_groups:   sudo

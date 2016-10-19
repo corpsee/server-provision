@@ -1,0 +1,4 @@
+---
+
+- name: Create user
+  user: name={{ server_user_name }} password={{ server_user_password | password_hash('sha512') }} group={{ server_user_group }} groups={{ server_user_groups }} state=present append=yes
