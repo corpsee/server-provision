@@ -17,7 +17,9 @@ server_locales:
 # memory limit in MB
 php_memory:  256
 php_packages:
-  - dom
+  - xml
+  - zip
+  - intl
   - bcmath
   - mbstring
   - curl

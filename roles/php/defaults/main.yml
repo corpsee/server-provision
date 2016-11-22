@@ -7,9 +7,11 @@ php_clean_versions:
   - 5.5
   - 7.0
 php_packages:
-  - dom
   - bcmath
   - mbstring
   - curl
   - gd
   - imagick
+  - xml
+  - zip
+  - intl
