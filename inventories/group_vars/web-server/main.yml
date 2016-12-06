@@ -2,7 +2,8 @@
 
 # mode: production|debug
 server_mode:     production
-server_hostname: corpsee.com
+server_hostname: corpsee
+server_domain:   corpsee.com
 server_packages:
   - curl
   - wget
@@ -15,7 +16,7 @@ server_locales:
   - ru_RU.UTF-8
 
 # memory limit in MB
-php_memory:  256
+php_memory: 256
 php_packages:
   - xml
   - zip

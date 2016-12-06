@@ -2,7 +2,8 @@
 
 # mode: production|debug
 server_mode:     debug
-server_hostname: corpsee.virtual
+server_hostname: corpsee
+server_domain:   corpsee.virtual
 server_packages:
   - curl
   - wget

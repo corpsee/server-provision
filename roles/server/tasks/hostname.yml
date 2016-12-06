@@ -1,17 +1,27 @@
 ---
 
-- name:         Check current hostname
-  command:      cat /etc/hostname
-  register:     current_hostname
-  changed_when: current_hostname.stdout != server_hostname
+- name: Update the hostname
+  hostname:
+    name: "{{ server_hostname }}"
 
-- name:    Set the hostname in /etc/hostname
-  command: echo "{{ server_hostname }}" > /etc/hostname
-  when:    current_hostname.stdout != server_hostname
+- name: Update the hostname (/etc/hostname)
+  copy:
+    content: "{{ server_hostname }}{{'\n'}}"
+    dest:    /etc/hostname
+    owner:   root
+    group:   root
+    mode:    0644
 
-- name:    Set the hostname
-  command: hostname "{{ server_hostname }}"
-  when:    current_hostname.stdout != server_hostname
+- name: Update the IPv4 hostname (/etc/hosts)
+  lineinfile:
+    dest:   /etc/hosts
+    regexp: "^127.0.0.1"
+    line:   "127.0.0.1{{ '\t' }}{{ server_domain }}{% if server_domain != server_hostname %}{{ '\t' }}{{ server_hostname }}{% endif %}{{ '\t' }}localhost"
+    state:  present
 
-- name:       Update /etc/hosts
-  lineinfile: dest=/etc/hosts regexp="^127\.0\.0\.1" line="127.0.0.1 localhost {{ server_hostname }}"
+- name: Update the IPv6 hostname (/etc/hosts)
+  lineinfile:
+    dest:   /etc/hosts
+    regexp: "^::1"
+    line:   "::1{{ '\t\t' }}{{ server_domain }}{% if server_domain != server_hostname %}{{ '\t' }}{{ server_hostname }}{% endif %}{{ '\t' }}localhost ip6-localhost ip6-loopback"
+    state:  present
