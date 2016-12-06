@@ -40,14 +40,7 @@
   template: src="{{ php_version }}/www.{{ server_mode }}.conf" dest="/etc/php/{{ php_version }}/fpm/pool.d/www.conf"
 
 - name: Create log directory
-  file: path="/var/log/php/{{ php_version }}" state=directory mode=0644 owner=www-data group=www-data
-
-- name: Clean /etc/php
-  file: path="/etc/php/{{ item }}" state=absent
-  with_items: "{{ php_clean_versions }}"
-
-- name: Clean /etc/apache2
-  file: path="/etc/apache2" state=absent
+  file: path="/var/log/php/{{ php_version }}" state=directory mode=0755 owner=www-data group=www-data
 
 - name: Clean /var/log/php-fpm.log
   file: path="/var/log/php{{ php_version }}-fpm.log" state=absent
