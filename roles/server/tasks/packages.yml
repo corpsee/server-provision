@@ -1,10 +1,7 @@
 ---
 
-- name: Update apt
-  apt:  update_cache=yes
-
 - name: Upgrade apt
-  apt:  upgrade=dist
+  apt:  upgrade=dist update_cache=yes
 
 - name:       Install packages
   apt:        pkg="{{ item }}" state=latest

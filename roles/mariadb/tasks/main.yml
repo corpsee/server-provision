@@ -1,13 +1,10 @@
 ---
 
-- name:           Add MariaDB repository
-  apt_repository: repo="deb http://mirror.timeweb.ru/mariadb/repo/{{ mariadb_version }}/ubuntu {{ ansible_distribution_release }} main"
-
 - name:    Add keys for MariaDB repository
   apt_key: url=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xcbcb082a1bb943db
 
-- name: Update apt
-  apt:  update_cache=yes
+- name:           Add MariaDB repository
+  apt_repository: repo="deb http://mirror.timeweb.ru/mariadb/repo/{{ mariadb_version }}/ubuntu {{ ansible_distribution_release }} main" update_cache=yes
 
 - name:       Install MariaDB
   apt:        pkg="{{ item }}" state=latest
