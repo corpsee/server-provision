@@ -1,4 +1,4 @@
 ---
 
-# version: 9.3|9.4|9.5
-postgresql_version: 9.5
+# version: 9.3|9.4|9.5|9.6
+postgresql_version: 9.6

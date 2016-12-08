@@ -11,18 +11,3 @@
   with_items:
     - "postgresql-{{ postgresql_version }}"
     - "python-psycopg2"
-
-#- name:            Set PostgreSQL postgres user password
-#  postgresql_user: name=postgres password="{{ secret.postgresql.postgres_password }}"
-#  become_user:     postgres
-#  become_method:   sudo
-
-#- name: Set PostgreSQL postgres system user password
-#  user: name=postgres update_password=always password="{{ secret.postgresql.postgres_password }}"
-
-#- name:    Save origin PostgreSQL config
-#  command: mv -fv "/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf" "/etc/postgresql/{{ postgresql_version }}/main/postgresql.origin.conf" creates="/etc/postgresql/{{ postgresql_version }}/main/postgresql.origin.conf"
-
-#- name:     Set PostgreSQL config
-#  template: src=postgresql.conf dest="/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf"
-#  notify:   Restart PostgreSQL

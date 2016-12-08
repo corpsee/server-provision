@@ -15,24 +15,11 @@
 - name:       Set MariaDB root user password
   mysql_user: name="root" host="{{ item }}" password="{{ mariadb_root_password }}" login_user="root" state=present
   with_items:
+    - "127.0.0.1"
+    - "::1"
+    - "{{ server_hostname }}"
     - "localhost"
   notify: Restart MariaDB
 
 - name:     Add .my.cnf for root
   template: src=.my.cnf dest=/root/.my.cnf owner=root group=root mode=0600
-
-- name:    Set MariaDB mysql_secure_installation
-  command: mysql -ne "{{ item }}"
-  with_items:
-    - "DELETE FROM mysql.user WHERE User=''"
-    - "DELETE FROM mysql.user WHERE User = 'root' AND Host != 'localhost'" 
-    - "DROP DATABASE IF EXISTS test"
-    - "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%'"
-    - "FLUSH PRIVILEGES"
-
-#- name:    Save origin MariaDB config
-#  command: mv -fv "/etc/mysql/my.cnf" "/etc/mysql/my.origin.cnf" creates="/etc/mysql/my.origin.cnf"
-
-#- name:     Set MariaDB config
-#  template: src="{{ mariadb_version }}/my.{{ server_mode }}.cnf" dest="/etc/mysql/my.cnf"
-#  notify:   Restart MariaDB
