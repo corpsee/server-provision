@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
         ansible.playbook       = "playbooks/web-server-install.yml"
         ansible.inventory_path = "inventories/vagrant.ini"
         ansible.limit          = 'all'
-        ansible.ask_vault_pass = true
+        #ansible.ask_vault_pass = true
         ansible.verbose        = "v"
     end
 
