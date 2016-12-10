@@ -4,19 +4,25 @@
 server_mode:     production
 server_hostname: corpsee
 server_domain:   corpsee.com
+
 server_packages:
+  - aptitude
   - curl
   - wget
   - python-software-properties
-  - git
   - mc
+  - htop
+  - git
+
 server_timezone: Asia/Novosibirsk
+
 server_locales:
   - en_US.UTF-8
   - ru_RU.UTF-8
 
 # memory limit in MB
 php_memory: 256
+
 php_packages:
   - xml
   - zip

@@ -4,13 +4,20 @@
 server_mode:     debug
 server_hostname: corpsee
 server_domain:   corpsee.virtual
+
 server_packages:
+  - aptitude
   - curl
   - wget
   - python-software-properties
+  - mc
+  - htop
+
 server_timezone: UTC
+
 server_locales:
   - en_US.UTF-8
+
 server_default_local: en_US.UTF-8
 
 server_user_name:     web-user
