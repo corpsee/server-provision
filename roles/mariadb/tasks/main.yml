@@ -1,13 +1,18 @@
 ---
 
-- name:    Add keys for MariaDB repository
-  apt_key: url=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xF1656F24C74CD1D8
+- name:    Add keys for MariaDB repository (trusty)
+  apt_key: id=0xcbcb082a1bb943db keyserver={{ mariadb_repo_keyserver }} state=present
+  when:    ansible_distribution_release == 'trusty'
+  
+- name:    Add keys for MariaDB repository (xenial)
+  apt_key: id=0xF1656F24C74CD1D8 keyserver={{ mariadb_repo_keyserver }} state=present
+  when:    ansible_distribution_release == 'xenial'
 
 - name:           Add MariaDB repository
-  apt_repository: repo="deb http://mirror.timeweb.ru/mariadb/repo/{{ mariadb_version }}/ubuntu {{ ansible_distribution_release }} main" update_cache=yes
+  apt_repository: repo="deb {{ mariadb_repo }}/repo/{{ mariadb_version }}/ubuntu {{ ansible_distribution_release | lower }} main" update_cache=yes
 
-- name:       Install MariaDB
-  apt:        pkg="{{ item }}"
+- name: Install MariaDB
+  apt:  pkg="{{ item }}"
   with_items:
     - "mariadb-server"
     - "python-mysqldb"

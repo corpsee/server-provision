@@ -5,8 +5,12 @@
   become_user:  root
   gather_facts: false
   pre_tasks:
-    - name:         Install python for Ansible
-      raw:          test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+    - name:         Install python2.7 as python for Ansible (xenial)
+      raw:          test -e /usr/bin/python || (apt-get -y update && apt-get install -y python-minimal)
+      changed_when: false
+      
+    - name:         Install aptitude for Ansible (xenial)
+      raw:          test -e aptitude || (apt-get -y update && apt-get install -y aptitude)
       changed_when: false
 
     - name:  Setup and gather facts

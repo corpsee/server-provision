@@ -20,6 +20,10 @@ server_locales:
   - en_US.UTF-8
   - ru_RU.UTF-8
 
+server_user_name:   corpsee
+server_user_group:  www-data
+server_user_groups: sudo
+
 # memory limit in MB
 php_memory: 256
 
@@ -34,7 +38,3 @@ php_packages:
   - imagick
   - mysql
   - pgsql
-
-server_user_name:   corpsee
-server_user_group:  www-data
-server_user_groups: sudo
