@@ -10,15 +10,15 @@
     dest: /tmp/composer-installer.php
     mode: 0755
   when: not composer_bin.stat.exists
-  
+
 - name:    Run Composer installer
   command: php -d memory_limit=-1 composer-installer.php chdir=/tmp
   when:    not composer_bin.stat.exists
-  
+
 - name:    Move Composer to global path
   command: mv /tmp/composer.phar "{{ composer_path }}" creates="{{ composer_path }}"
   when:    not composer_bin.stat.exists
-  
+
 - name:         Update Composer
   command:      php -d memory_limit=-1 "{{ composer_path }}" self-update
   register:     composer_update

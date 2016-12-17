@@ -7,7 +7,7 @@
   apt_repository: repo="deb http://mirror.timeweb.ru/mariadb/repo/{{ mariadb_version }}/ubuntu {{ ansible_distribution_release }} main" update_cache=yes
 
 - name:       Install MariaDB
-  apt:        pkg="{{ item }}" state=latest
+  apt:        pkg="{{ item }}"
   with_items:
     - "mariadb-server"
     - "python-mysqldb"

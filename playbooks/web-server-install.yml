@@ -9,7 +9,8 @@
       raw:          test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
       changed_when: false
 
-    - setup: # aka gather_facts
+    - name:  Setup and gather facts
+      setup:
   roles:
     - server
     - nginx
