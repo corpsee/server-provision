@@ -3,7 +3,7 @@
 - name:    Add keys for MariaDB repository (trusty)
   apt_key: id=0xcbcb082a1bb943db keyserver={{ mariadb_repo_keyserver }} state=present
   when:    ansible_distribution_release == 'trusty'
-  
+
 - name:    Add keys for MariaDB repository (xenial)
   apt_key: id=0xF1656F24C74CD1D8 keyserver={{ mariadb_repo_keyserver }} state=present
   when:    ansible_distribution_release == 'xenial'

@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
             "--cpus", 1,
         ]
     end
-    
+
     config.vm.provision "ansible" do |ansible|
         ansible.playbook       = "playbooks/web-server-install.yml"
         ansible.inventory_path = "inventories/vagrant.ini"
