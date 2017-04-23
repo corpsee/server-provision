@@ -1,0 +1,10 @@
+---
+
+- name: Create web user
+  user:
+    name:            "{{ webuser_name }}"
+    password:        "{{ webuser_password | password_hash('sha512') }}"
+    group:           "{{ webuser_group }}"
+    groups:          "{{ webuser_groups }}"
+    shell:           /bin/bash
+    update_password: on_create

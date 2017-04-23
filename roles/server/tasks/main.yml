@@ -7,5 +7,3 @@
 - include: locale.yml
 
 - include: hostname.yml
-
-- include: user.yml
