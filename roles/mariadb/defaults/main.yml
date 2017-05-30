@@ -1,9 +1,7 @@
 ---
 
-# version: 10.0|10.1
-mariadb_version:       10.1
-mariadb_root_password: root
-
+mariadb_version:        10.1 # version: 10.0|10.1
+mariadb_root_password:  root
 mariadb_repo_key:       0xF1656F24C74CD1D8
 mariadb_repo_keyserver: hkp://keyserver.ubuntu.com
 mariadb_repo:           http://ams2.mirrors.digitalocean.com/mariadb

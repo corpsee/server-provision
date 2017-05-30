@@ -20,3 +20,10 @@ ansible-vault encrypt ./inventories/group_vars/web-server/secret.yml
 ```bash
 ansible-vault decrypt ./inventories/group_vars/web-server/secret.yml
 ```
+
+Facts
+-----
+
+```bash
+ansible -m setup localhost
+```
