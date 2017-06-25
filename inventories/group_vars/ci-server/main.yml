@@ -3,8 +3,8 @@
 ### server role
 
 server_mode:     production # mode: production|debug
-server_hostname: corpsee
-server_domain:   corpsee.com
+server_hostname: php-censor
+server_domain:   php-censor.info
 
 server_packages:
   - aptitude
