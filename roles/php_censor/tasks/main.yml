@@ -1,0 +1,23 @@
+---
+
+- name:          Create PHP Censor DB
+  postgresql_db: name="{{ php_censor_db_name }}"
+
+- name:            Create PHP Censor DB user
+  postgresql_user: db="{{ php_censor_db_name }}" name="{{ php_censor_db_user }}" password="{{ php_censor_db_password }}" priv=ALL
+
+- name:            Set rights for PHP Censor DB user
+  postgresql_user: name="{{ php_censor_db_user }}" role_attr_flags=NOSUPERUSER,NOCREATEDB
+
+#- name: ensure no other user can access the database
+#  postgresql_privs: db="{{ php_censor_db_name }}" role=PUBLIC type=database priv=ALL state=absent
+
+- name:    Download latest PHP Censor
+  command: composer create-project corpsee/php-censor "{{ php_censor_hostname }}" --keep-vcs
+  args:
+    chdir: /var/www/
+
+- name:    Install PHP Censor
+  command: ./bin/console php-censor:install --config-from-file=yes --admin-name="{{ php_censor_admin_user }}" --admin-password="{{ php_censor_admin_password }}" --admin-email='{{ php_censor_admin_email }}'
+  args:
+    chdir: "/var/www/{{ php_censor_hostname }}"

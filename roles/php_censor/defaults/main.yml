@@ -1,0 +1,9 @@
+---
+
+php_censor_db_name:        php-censor-db
+php_censor_db_user:        php-censor
+php_censor_db_password:    php-censor
+php_censor_hostname:       php-censor.local
+php_censor_admin_user:     admin
+php_censor_admin_password: admin
+php_censor_admin_email:    admin@php-censor.local
