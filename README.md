@@ -10,6 +10,12 @@ Production deploy:
 ansible-playbook -i ./inventories/vscale.ini -k -u root ./playbooks/web-server-install.yml
 ```
 
+Desktop (Mint):
+
+```bash
+ansible-playbook -i ./inventories/desktop.ini -c local -K ./playbooks/desktop.yml
+```
+
 Secret data
 -----------
 
