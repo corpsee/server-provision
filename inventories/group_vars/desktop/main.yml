@@ -6,7 +6,7 @@ server_timezone:     Asia/Novosibirsk
 
 ### php role
 
-php_version: 7.1  # version: 5.6 | 7.0 | 7.1
+php_version: 7.2  # version: 5.6 | 7.0 | 7.1 | 7.2
 php_memory:  256M # memory limit in MB
 
 php_packages:
