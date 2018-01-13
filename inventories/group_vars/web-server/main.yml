@@ -2,9 +2,10 @@
 
 ### server role
 
-server_mode:     production # mode: production|debug
-server_hostname: corpsee
-server_domain:   corpsee.com
+server_mode:         production # mode: production|debug
+server_distributive: xenial
+server_hostname:     corpsee
+server_domain:       corpsee.com
 
 server_packages:
   - aptitude

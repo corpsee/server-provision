@@ -1,7 +1,7 @@
 ---
 
 - name:           Add Nginx repository
-  apt_repository: repo="ppa:nginx/stable" update_cache=yes
+  apt_repository: repo="ppa:nginx/stable" codename="{{ server_distributive }}" update_cache=yes
 
 - name: Install Nginx
   apt:  pkg=nginx

@@ -1,15 +1,20 @@
 ---
 
 # mode: production|debug
-server_mode:     debug
-server_hostname: corpsee
-server_domain:   corpsee.virtual
+server_mode:         debug
+server_distributive: xenial
+server_hostname:     corpsee
+server_domain:       corpsee.virtual
 
 server_packages:
   - aptitude
+  - apt-transport-https
+  - ca-certificates
   - curl
   - wget
+  - software-properties-common
   - python-software-properties
+  - sendmail
   - mc
   - htop
 

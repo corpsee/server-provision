@@ -2,9 +2,10 @@
 
 ### server role
 
-server_mode:     production # mode: production|debug
-server_hostname: php-censor
-server_domain:   php-censor.info
+server_mode:         production # mode: production|debug
+server_distributive: xenial
+server_hostname:     php-censor
+server_domain:       php-censor.info
 
 server_packages:
   - aptitude
