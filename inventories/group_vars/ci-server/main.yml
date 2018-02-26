@@ -9,9 +9,13 @@ server_domain:       php-censor.info
 
 server_packages:
   - aptitude
+  - apt-transport-https
+  - ca-certificates
   - curl
   - wget
+  - software-properties-common
   - python-software-properties
+  - sendmail
   - mc
   - htop
   - git
@@ -58,4 +62,4 @@ composer_path: /usr/local/bin/composer
 
 ### postgresql role
 
-postgresql_version: 9.6
+postgresql_version: 10.0

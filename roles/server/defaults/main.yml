@@ -17,6 +17,8 @@ server_packages:
   - sendmail
   - mc
   - htop
+  - git
+  - zsh
 
 server_timezone: UTC
 
