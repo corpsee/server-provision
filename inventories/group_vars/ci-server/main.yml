@@ -32,7 +32,7 @@ server_default_local: en_US.UTF-8
 
 ### webuser role
 
-webuser_name:   corpsee
+webuser_name:   web
 #webuser_password: in secret.yml
 webuser_group:  www-data
 webuser_groups: sudo
