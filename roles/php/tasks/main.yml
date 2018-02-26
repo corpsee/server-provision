@@ -15,16 +15,16 @@
   when:       php_packages is defined
 
 - name:       Save origin PHP configs
-  command:    mv -fv "/etc/php/{{ php_version }}/{{ item }}/php.ini" "/etc/php/{{ php_version }}/{{ item }}/php.origin.ini" creates="/etc/php/{{ php_version }}/{{ item }}/php.origin.ini"
+  command:    mv -fv "/etc/php/{{ php_version }}/{{ item }}/php.ini" "/etc/php/{{ php_version }}/{{ item }}/php.ini-origin" creates="/etc/php/{{ php_version }}/{{ item }}/php.ini-origin"
   with_items:
     - "cli"
     - "fpm"
 
 - name:    Save origin PHP-FPM config
-  command: mv -fv "/etc/php/{{ php_version }}/fpm/php-fpm.conf" "/etc/php/{{ php_version }}/fpm/php-fpm.origin.conf" creates="/etc/php/{{ php_version }}/fpm/php-fpm.origin.conf"
+  command: mv -fv "/etc/php/{{ php_version }}/fpm/php-fpm.conf" "/etc/php/{{ php_version }}/fpm/php-fpm.conf-origin" creates="/etc/php/{{ php_version }}/fpm/php-fpm.conf-origin"
 
 - name:    Save origin PHP-FPM www config
-  command: mv -fv "/etc/php/{{ php_version }}/fpm/pool.d/www.conf" "/etc/php/{{ php_version }}/fpm/pool.d/www.origin.conf" creates="/etc/php/{{ php_version }}/fpm/pool.d/www.origin.conf"
+  command: mv -fv "/etc/php/{{ php_version }}/fpm/pool.d/www.conf" "/etc/php/{{ php_version }}/fpm/pool.d/www.conf-origin" creates="/etc/php/{{ php_version }}/fpm/pool.d/www.conf-origin"
 
 - name:       Set PHP configs
   template:   src="{{ php_version }}/php.{{ server_mode }}.ini" dest="/etc/php/{{ php_version }}/{{ item }}/php.ini"
