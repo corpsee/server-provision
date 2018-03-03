@@ -1,6 +1,6 @@
 ---
 
-server_mode:         debug # mode: production|debug
+server_mode:         debug
 server_distributive: xenial
 server_timezone:     Asia/Novosibirsk
 
