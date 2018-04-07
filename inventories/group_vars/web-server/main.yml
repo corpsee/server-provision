@@ -62,4 +62,4 @@ composer_path: /usr/local/bin/composer
 
 ### postgresql role
 
-postgresql_version: 10.0
+postgresql_version: 10
