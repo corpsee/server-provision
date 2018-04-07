@@ -17,11 +17,11 @@ Vagrant.configure("2") do |config|
     end
 
     config.vm.provision "ansible" do |ansible|
-        ansible.playbook       = "playbooks/web-server-install.yml"
-        ansible.inventory_path = "inventories/vagrant.ini"
-        ansible.limit          = 'all'
-        #ansible.ask_vault_pass = true
-        ansible.verbose        = "v"
+        ansible.playbook           = "playbooks/web-server-install.yml"
+        ansible.inventory_path     = "inventories/vagrant.ini"
+        ansible.compatibility_mode = "2.0"
+        ansible.limit              = 'all'
+        ansible.verbose            = "v"
     end
 
     config.vm.synced_folder "./", "/vagrant"

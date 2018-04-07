@@ -1,8 +1,19 @@
 Server deployment
 =================
 
+Requirements
+------------
+
+* Ansible v2.0+ (v2.5).
+
 Deploy
 ------
+
+Debug deploy (Vagrant, Ubuntu Xenial 16.04):
+
+```bash
+vagrant up
+```
 
 Production deploy (Ubuntu Xenial 16.04):
 

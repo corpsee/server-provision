@@ -17,6 +17,7 @@
       setup:
   roles:
     - server
+    - webuser
     - nginx
     - php
     - composer
