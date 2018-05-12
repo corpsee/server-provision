@@ -18,7 +18,7 @@ vagrant up
 Production deploy (Ubuntu Xenial 16.04):
 
 ```bash
-ansible-playbook -i ./inventories/sprintbox.ini -k -u root ./playbooks/web-server-install.yml
+ansible-playbook -i ./inventories/sprintbox.ini -k -u root ./playbooks/web-server.yml
 ```
 
 Desktop (Mint 18.3, Ubuntu Xenial 16.04):

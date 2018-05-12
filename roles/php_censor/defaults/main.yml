@@ -1,9 +1,15 @@
 ---
 
+php_censor_php_version:    7.2
+php_censor_user:           www-data
+php_censor_group:          www-data
+php_censor_version:        0.22
 php_censor_db_name:        php-censor-db
 php_censor_db_user:        php-censor
 php_censor_db_password:    php-censor
-php_censor_hostname:       php-censor.local
+php_censor_queue_name:     php-censor
+php_censor_hostname:       php-censor.test
+php_censor_url:            "http://php-censor.test"
 php_censor_admin_user:     admin
 php_censor_admin_password: admin
-php_censor_admin_email:    admin@php-censor.local
+php_censor_admin_email:    admin@php-censor.test

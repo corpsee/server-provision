@@ -2,7 +2,7 @@
 
 - name: Create web user
   user:
-    name:            "{{ webuser_name }}"
+    name:            "{{ webuser_user }}"
     password:        "{{ webuser_password | password_hash('sha512') }}"
     group:           "{{ webuser_group }}"
     groups:          "{{ webuser_groups }}"

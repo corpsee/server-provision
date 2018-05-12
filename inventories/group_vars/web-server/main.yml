@@ -32,7 +32,7 @@ server_default_local: en_US.UTF-8
 
 ### webuser role
 
-webuser_name:   &user-reference "web"
+webuser_user:   &user-reference "web"
 #webuser_password: in secret.yml
 webuser_group:  &group-reference "www-data"
 webuser_groups: sudo
@@ -47,7 +47,7 @@ nginx_group:        *group-reference
 
 ### php role
 
-php_version:   7.2              # version: 5.6 | 7.0 | 7.1 | 7.2
+php_version:   7.1              # version: 5.6 | 7.0 | 7.1 | 7.2
 php_memory:    256M             # memory limit in MB
 php_fpm_user:  *user-reference
 php_fpm_group: *group-reference
@@ -75,3 +75,20 @@ composer_path: /usr/local/bin/composer
 
 postgresql_distributive: *distributive-reference
 postgresql_version:      10
+
+
+### php_censor role
+
+php_censor_php_version:    7.1
+php_censor_user:           *user-reference
+php_censor_group:          *group-reference
+php_censor_version:        0.22
+php_censor_db_name:        php-censor-db
+php_censor_db_user:        php-censor
+php_censor_db_password:    php-censor
+php_censor_queue_name:     php-censor
+php_censor_hostname:       php-censor.info
+php_censor_url:            "http://php-censor.info"
+php_censor_admin_user:     admin
+php_censor_admin_password: admin
+php_censor_admin_email:    admin@php-censor.test

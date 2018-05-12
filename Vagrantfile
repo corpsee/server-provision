@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
     end
 
     config.vm.provision "ansible" do |ansible|
-        ansible.playbook           = "playbooks/web-server-install.yml"
+        ansible.playbook           = "playbooks/web-server.yml"
         ansible.inventory_path     = "inventories/vagrant.ini"
         ansible.compatibility_mode = "2.0"
         ansible.limit              = 'all'

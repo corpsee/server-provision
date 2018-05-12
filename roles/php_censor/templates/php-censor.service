@@ -1,0 +1,13 @@
+[Unit]
+Description="PHPCensor Worker"
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/var/www/{{ php_censor_hostname }}/bin/console php-censor:worker
+Restart=always
+
+User={{ php_censor_user }}
+
+[Install]
+WantedBy=multi-user.target
