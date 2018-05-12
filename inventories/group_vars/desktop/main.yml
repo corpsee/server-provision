@@ -1,14 +1,25 @@
 ---
 
+### server role
+
 server_mode:         debug
-server_distributive: xenial
+server_distributive: &distributive-reference "xenial"
 server_timezone:     Asia/Novosibirsk
+
+
+### nginx role
+
+nginx_distributive: *distributive-reference
+nginx_user:         corpsee
+nginx_group:        www-data
+
 
 ### php role
 
-php_version: 7.2  # version: 5.6 | 7.0 | 7.1 | 7.2
-php_memory:  256M # memory limit in MB
-
+php_version:   7.2      # version: 5.6 | 7.0 | 7.1 | 7.2
+php_memory:    256M     # memory limit in MB
+php_fpm_user:  corpsee
+php_fpm_group: www-data
 php_packages:
   - bcmath
   - mbstring
@@ -18,6 +29,8 @@ php_packages:
   - xml
   - zip
   - intl
+  - sqlite3
+  - xdebug
   - pgsql
 
 
@@ -25,6 +38,8 @@ php_packages:
 
 composer_path: /usr/local/bin/composer
 
+
 ### postgresql role
 
-postgresql_version: 10
+postgresql_distributive: *distributive-reference
+postgresql_version:      10

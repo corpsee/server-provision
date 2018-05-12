@@ -1,7 +1,9 @@
 ---
 
-php_version: 7.2  # version: 5.6 | 7.0 | 7.1 | 7.2
-php_memory:  128M # memory limit in MB
+php_version:   7.2      # version: 5.6 | 7.0 | 7.1 | 7.2
+php_memory:    128M     # memory limit in MB
+php_fpm_user:  www-data
+php_fpm_group: www-data
 php_packages:
   - bcmath
   - mbstring
@@ -11,3 +13,5 @@ php_packages:
   - xml
   - zip
   - intl
+  - sqlite3
+  - xdebug

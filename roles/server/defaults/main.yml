@@ -3,8 +3,8 @@
 # mode: production|debug
 server_mode:         debug
 server_distributive: xenial
-server_hostname:     corpsee
-server_domain:       corpsee.virtual
+server_hostname:     example-hostname
+server_domain:       example-hostname.test
 
 server_packages:
   - aptitude

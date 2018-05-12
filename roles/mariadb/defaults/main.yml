@@ -1,5 +1,7 @@
 ---
 
+mariadb_distributive:   xenial
+mariadb_hostname:       example-hostname
 mariadb_version:        10.1 # version: 10.0 | 10.1 | 10.2
 mariadb_root_password:  root
 mariadb_repo_key:       0xF1656F24C74CD1D8

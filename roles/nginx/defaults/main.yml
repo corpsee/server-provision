@@ -1,0 +1,5 @@
+---
+
+nginx_distributive: xenial
+nginx_user:         www-data
+nginx_group:        www-data

@@ -3,7 +3,7 @@
 ### server role
 
 server_mode:         production
-server_distributive: xenial
+server_distributive: &distributive-reference "xenial"
 server_hostname:     corpsee
 server_domain:       corpsee.com
 
@@ -32,16 +32,25 @@ server_default_local: en_US.UTF-8
 
 ### webuser role
 
-webuser_name:   web
+webuser_name:   &user-reference "web"
 #webuser_password: in secret.yml
-webuser_group:  www-data
+webuser_group:  &group-reference "www-data"
 webuser_groups: sudo
+
+
+### nginx role
+
+nginx_distributive: *distributive-reference
+nginx_user:         *user-reference
+nginx_group:        *group-reference
 
 
 ### php role
 
-php_version: 7.2  # version: 5.6 | 7.0 | 7.1 | 7.2
-php_memory:  256M # memory limit in MB
+php_version:   7.2              # version: 5.6 | 7.0 | 7.1 | 7.2
+php_memory:    256M             # memory limit in MB
+php_fpm_user:  *user-reference
+php_fpm_group: *group-reference
 
 php_packages:
   - bcmath
@@ -52,6 +61,8 @@ php_packages:
   - xml
   - zip
   - intl
+  - sqlite3
+  - xdebug
   - pgsql
 
 
@@ -62,4 +73,5 @@ composer_path: /usr/local/bin/composer
 
 ### postgresql role
 
-postgresql_version: 10
+postgresql_distributive: *distributive-reference
+postgresql_version:      10
