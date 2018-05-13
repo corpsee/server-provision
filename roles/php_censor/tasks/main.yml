@@ -16,13 +16,13 @@
 - name:    Download latest PHP Censor
   command: composer create-project php-censor/php-censor "{{ php_censor_hostname }}" "{{ php_censor_version }}" --keep-vcs
   args:
-    chdir:   /var/www/
+    chdir:   /var/www
     creates: "/var/www/{{ php_censor_hostname }}"
 
 - name: Set permitions for PHP Censor directory
   file: path="/var/www/{{ php_censor_hostname }}" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwX,o=rX" recurse=yes
 
-- name: Set PHP Censor Console executable
+- name: Set PHP Censor console executable
   file: path="/var/www/{{ php_censor_hostname }}/bin" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ugo+x" recurse=yes
 
 - name:        Install PHP Censor
@@ -34,14 +34,14 @@
     creates: "/var/www/{{ php_censor_hostname }}/app/config.yml"
 
 - name:     Create PHP Censor host
-  template: src=php-censor.conf dest="/etc/nginx/sites-available/{{ php_censor_hostname }}.conf"
+  template: src=php_censor.conf dest="/etc/nginx/sites-available/{{ php_censor_hostname }}.conf"
 
 - name:   Enable PHP Censor host
   file:   src="/etc/nginx/sites-available/{{ php_censor_hostname }}.conf" dest="/etc/nginx/sites-enabled/{{ php_censor_hostname }}.conf" state=link
   notify: Restart Nginx
 
 - name:     Create PHP Censor worker systemd service
-  template: src=php-censor.service dest=/etc/systemd/system/php-censor.service
+  template: src=php_censor.service dest=/etc/systemd/system/php_censor.service
 
 - name:    Enable and start PHP Censor worker systemd service
-  systemd: name=php-censor.service state=started enabled=yes
+  systemd: name=php_censor.service state=started enabled=yes

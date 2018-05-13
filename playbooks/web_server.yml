@@ -1,7 +1,7 @@
 ---
 
 - hosts:        web-server
-  become:       true
+  become:       yes
   become_user:  root
   gather_facts: false
   pre_tasks:
@@ -23,3 +23,4 @@
     - composer
     - postgresql
     - php_censor
+    - corpsee_site
