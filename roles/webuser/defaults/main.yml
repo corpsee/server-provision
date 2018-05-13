@@ -1,6 +1,6 @@
 ---
 
-webuser_user:     web-user
-webuser_password: web-user
+webuser_user:     webuser
+webuser_password: webuser
 webuser_group:    www-data
 webuser_groups:   sudo

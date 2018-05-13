@@ -3,7 +3,7 @@
 ### server role
 
 server_mode:         production
-server_distributive: &distributive-reference "xenial"
+server_distributive: &distributive-reference "xenial" # xenial | bionic
 server_hostname:     corpsee
 server_domain:       corpsee.com
 
@@ -14,7 +14,6 @@ server_packages:
   - curl
   - wget
   - software-properties-common
-  - python-software-properties
   - sendmail
   - mc
   - htop
@@ -83,12 +82,12 @@ php_censor_php_version:    7.1
 php_censor_user:           *user-reference
 php_censor_group:          *group-reference
 php_censor_version:        0.22
-php_censor_db_name:        php-censor-db
+php_censor_db_name:        php-censor
 php_censor_db_user:        php-censor
-php_censor_db_password:    php-censor
+#php_censor_db_password: in secret.yml
 php_censor_queue_name:     php-censor
 php_censor_hostname:       php-censor.info
 php_censor_url:            "http://php-censor.info"
 php_censor_admin_user:     admin
-php_censor_admin_password: admin
-php_censor_admin_email:    admin@php-censor.test
+#php_censor_admin_password: in secret.yml
+php_censor_admin_email:    poisoncorpsee@gmail.com

@@ -4,24 +4,27 @@ Server deployment
 Requirements
 ------------
 
-* Ansible v2.0+ (v2.5).
+Tested on:
+
+* Ansible v2.5.
+* Ubuntu 16.04 xenial (image for server) and Mint 18.3 (for desktop).
 
 Deploy
 ------
 
-Debug deploy (Vagrant, Ubuntu Xenial 16.04):
+Debug deploy (Vagrant):
 
 ```bash
 vagrant up
 ```
 
-Production deploy (Ubuntu Xenial 16.04):
+Production deploy:
 
 ```bash
-ansible-playbook -i ./inventories/sprintbox.ini -k -u root ./playbooks/web-server.yml
+ansible-playbook -i ./inventories/production.ini -k -u root ./playbooks/web_server.yml
 ```
 
-Desktop (Mint 18.3, Ubuntu Xenial 16.04):
+Desktop:
 
 ```bash
 ansible-playbook -i ./inventories/desktop.ini -c local -K ./playbooks/desktop.yml

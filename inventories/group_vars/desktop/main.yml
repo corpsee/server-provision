@@ -3,7 +3,7 @@
 ### server role
 
 server_mode:         debug
-server_distributive: &distributive-reference "xenial"
+server_distributive: &distributive-reference "xenial" # xenial | bionic
 server_timezone:     Asia/Novosibirsk
 
 

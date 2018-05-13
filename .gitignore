@@ -1,0 +1,6 @@
+/.vagrant
+/.vault_password
+/inventories/group_vars/web-server/secret.yml
+/inventories/production.ini
+/playbooks/*.retry
+/*.log
