@@ -41,7 +41,7 @@
   notify: Restart Nginx
 
 - name:     Create PHP Censor worker systemd service
-  template: src=php_censor.service dest=/etc/systemd/system/php_censor.service
+  template: src=php_censor.service dest="/etc/systemd/system/{{ php_censor_queue_name }}.service"
 
 - name:    Enable and start PHP Censor worker systemd service
-  systemd: name=php_censor.service state=started enabled=yes
+  systemd: name="{{ php_censor_queue_name }}.service" state=started enabled=yes
