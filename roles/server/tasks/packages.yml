@@ -1,9 +1,9 @@
 ---
 
 - name: Upgrade apt
-  apt:  upgrade=safe update_cache=yes
+  apt:  upgrade=yes update_cache=yes cache_valid_time=3600
 
 - name:       Install packages
-  apt:        pkg="{{ item }}"
+  apt:        name="{{ item }}" state=latest
   with_items: "{{ server_packages }}"
   when:       server_packages is defined

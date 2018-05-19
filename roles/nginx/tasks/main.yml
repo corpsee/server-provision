@@ -4,7 +4,7 @@
   apt_repository: repo="ppa:nginx/stable" codename="{{ nginx_distributive }}" update_cache=yes
 
 - name: Install Nginx
-  apt:  pkg=nginx
+  apt:  name=nginx state=latest
 
 - name:    Save origin Nginx config
   command: mv -fv /etc/nginx/nginx.conf /etc/nginx/nginx.conf-origin creates=/etc/nginx/nginx.conf-origin

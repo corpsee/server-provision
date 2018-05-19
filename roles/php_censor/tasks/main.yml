@@ -11,7 +11,7 @@
   become_user:     postgres
 
 - name: Install Beanstalkd queue
-  apt:  pkg="beanstalkd"
+  apt:  name="beanstalkd" state=latest
 
 - name:    Download latest PHP Censor
   command: composer create-project php-censor/php-censor "{{ php_censor_hostname }}" "{{ php_censor_version }}" --keep-vcs

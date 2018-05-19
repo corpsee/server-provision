@@ -12,7 +12,7 @@
   apt_repository: repo="deb {{ mariadb_repo }}/repo/{{ mariadb_version }}/ubuntu {{ mariadb_distributive }} main" update_cache=yes
 
 - name: Install MariaDB
-  apt:  pkg="{{ item }}"
+  apt:  name="{{ item }}" state=latest
   with_items:
     - "mariadb-server"
     - "python-mysqldb"

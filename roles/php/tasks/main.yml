@@ -4,13 +4,13 @@
   apt_repository: repo="ppa:ondrej/php" codename="{{ server_distributive }}" update_cache=yes
 
 - name: Install PHP
-  apt: pkg="{{ item }}"
+  apt:  name="{{ item }}" state=latest
   with_items:
     - "php{{ php_version }}-cli"
     - "php{{ php_version }}-fpm"
 
 - name:       Install PHP packages
-  apt:        pkg="php{{ php_version }}-{{ item }}"
+  apt:        name="php{{ php_version }}-{{ item }}" state=latest
   with_items: "{{ php_packages }}"
   when:       php_packages is defined
 

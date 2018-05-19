@@ -56,6 +56,7 @@
   become_user: "{{ corpsee_site_user }}"
   args:
     chdir:   "/var/www/{{ corpsee_site_hostname }}"
+    creates: "/var/www/{{ corpsee_site_hostname }}/www/files/compiled/frontend.min.css"
 
 - name:     Create Corpsee site host
   template: src=corpsee_site.conf dest="/etc/nginx/sites-available/{{ corpsee_site_hostname }}.conf"
