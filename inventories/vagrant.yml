@@ -1,0 +1,12 @@
+all:
+  children:
+    web-server:
+      hosts:
+        192.168.56.10:
+          server_domain:            corpsee.test
+          server_mode:              debug
+          php_censor_hostname:      php-censor.test
+          php_censor_url:           "http://php-censor.test"
+          php_censor_hostname_test: php-censor-test.test
+          php_censor_url_test:      "http://php-censor-test.test"
+          corpsee_site_hostname:    corpsee.test

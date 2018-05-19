@@ -21,13 +21,13 @@ vagrant up
 Production deploy:
 
 ```bash
-ansible-playbook -i ./inventories/production.ini -k -u root ./playbooks/web_server.yml
+ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/web_server.yml
 ```
 
 Desktop:
 
 ```bash
-ansible-playbook -i ./inventories/desktop.ini -c local -K ./playbooks/desktop.yml
+ansible-playbook -i ./inventories/desktop.yml -c local -K ./playbooks/desktop.yml
 ```
 
 Secret data
