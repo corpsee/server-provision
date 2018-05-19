@@ -4,10 +4,18 @@ Server deployment
 Requirements
 ------------
 
-Tested on:
-
 * Ansible v2.5.
-* Ubuntu 16.04 xenial (image for server) and Mint 18.3 (for desktop).
+* Ubuntu 16.04 (14.04, 18.04) xenial (image for server) and Mint 18.3 (for desktop).
+
+Add files:
+
+* inventories/group_vars/web-server/secret.yml
+* inventories/production.yml
+* .vault_password
+* ~/.ssh/github.pub
+* ~/.ssh/github
+* roles/corpsee_site/files/corpsee_site.sql
+* roles/corpsee_site/files/www
 
 Deploy
 ------
