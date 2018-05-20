@@ -75,13 +75,13 @@
     chdir:   "/var/www/{{ corpsee_site_hostname }}/current"
     creates: "/var/www/{{ corpsee_site_hostname }}/current/www/files/compiled/frontend.min.css"
 
-- name:        Make migrations
-  command:     ./console migrations:migrate -e corpsee_site
-  become:      yes
-  become_user: "{{ corpsee_site_user }}"
-  when:        not site_directory.stat.exists
-  args:
-    chdir: "/var/www/{{ corpsee_site_hostname }}/current"
+#- name:        Make migrations
+#  command:     ./console migrations:migrate -e corpsee_site
+#  become:      yes
+#  become_user: "{{ corpsee_site_user }}"
+#  when:        not site_directory.stat.exists
+#  args:
+#    chdir: "/var/www/{{ corpsee_site_hostname }}/current"
 
 - name:     Create Corpsee site host
   template: src=corpsee_site.conf dest="/etc/nginx/sites-available/{{ corpsee_site_hostname }}.conf"
