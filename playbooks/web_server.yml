@@ -22,6 +22,7 @@
     - php
     - composer
     - postgresql
+
     - php_censor
     - role:                      php_censor
       php_censor_db_name:        "{{ php_censor_db_name_test }}"
@@ -31,4 +32,10 @@
       php_censor_hostname:       "{{ php_censor_hostname_test }}"
       php_censor_url:            "{{ php_censor_url_test }}"
       php_censor_admin_password: "{{ php_censor_admin_password_test }}"
+
     - corpsee_site
+    - role:                     corpsee_site
+      corpsee_site_db_name:     "{{ corpsee_site_db_name_test }}"
+      corpsee_site_db_user:     "{{ corpsee_site_db_user_test }}"
+      corpsee_site_db_password: "{{ corpsee_site_db_password_test }}"
+      corpsee_site_hostname:    "{{ corpsee_site_hostname_test }}"
