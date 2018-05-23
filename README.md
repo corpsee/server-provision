@@ -15,7 +15,10 @@ Add files:
 * ~/.ssh/github.pub
 * ~/.ssh/github
 * roles/corpsee_site/files/corpsee_site.sql
+* roles/corpsee_site/files/corpsee_site_test.sql
 * roles/corpsee_site/files/www
+* roles/php_censor/files/php_censor.sql
+* roles/php_censor/files/php_censor_test.sql
 
 Deploy
 ------

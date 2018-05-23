@@ -2,7 +2,8 @@
 /.vault_password
 /inventories/group_vars/web-server/secret.yml
 /inventories/production.yml
-/roles/corpsee_site/files/corpsee_site.sql
+/roles/corpsee_site/files/*.sql
+/roles/php_censor/files/*.sql
 /roles/corpsee_site/files/www
 /playbooks/*.retry
 /*.log

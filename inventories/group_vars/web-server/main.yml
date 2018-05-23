@@ -78,40 +78,40 @@ postgresql_version:      10
 
 ### php_censor role
 
-php_censor_php_version:    7.1
-php_censor_user:           *user-reference
-php_censor_group:          *group-reference
-php_censor_version:        0.22
-php_censor_db_name:        php_censor
-php_censor_db_user:        php_censor
+php_censor_php_version:      7.1
+php_censor_user:             *user-reference
+php_censor_group:            *group-reference
+php_censor_version:          0.22
+php_censor_db_name:          php_censor
+php_censor_db_user:          php_censor
 #php_censor_db_password: in secret.yml
-php_censor_queue_name:     php_censor
-php_censor_hostname:       ci.php-censor.info
-php_censor_url:            "http://ci.php-censor.info"
-php_censor_admin_user:     admin
-#php_censor_admin_password: in secret.yml
-php_censor_admin_email:    poisoncorpsee@gmail.com
+php_censor_db_dump_filename: php_censor
+php_censor_queue_name:       php_censor
+php_censor_hostname:         ci.php-censor.info
+php_censor_url:              "http://ci.php-censor.info"
 
-php_censor_db_name_test:        php_censor_test
-php_censor_db_user_test:        php_censor_test
-#php_censor_db_password_test:    in secret.yml
-php_censor_queue_name_test:     php_censor_test
-php_censor_hostname_test:       ci-test.php-censor.info
-php_censor_url_test:            "http://ci-test.php-censor.info"
-#php_censor_admin_password_test: in secret.yml
+php_censor_db_name_test:          php_censor_test
+php_censor_db_user_test:          php_censor_test
+#php_censor_db_password_test: in secret.yml
+php_censor_db_dump_filename_test: php_censor_test
+php_censor_queue_name_test:       php_censor_test
+php_censor_hostname_test:         ci-test.php-censor.info
+php_censor_url_test:              "http://ci-test.php-censor.info"
 
 
 ### corpsee_site role
 
-corpsee_site_php_version: 7.1
-corpsee_site_user:        *user-reference
-corpsee_site_group:       *group-reference
-corpsee_site_db_name:     corpsee_site
-corpsee_site_db_user:     corpsee_site
+corpsee_site_php_version:      7.1
+corpsee_site_user:             *user-reference
+corpsee_site_group:            *group-reference
+corpsee_site_db_name:          corpsee_site
+corpsee_site_db_user:          corpsee_site
 #corpsee_site_db_password: in secret.yml
-corpsee_site_hostname:    corpsee.com
+corpsee_site_db_dump_filename: corpsee_site
+corpsee_site_hostname:         corpsee.com
 
-corpsee_site_db_name_test:     corpsee_site_test
-corpsee_site_db_user_test:     corpsee_site_test
+corpsee_site_db_name_test:          corpsee_site_test
+corpsee_site_db_user_test:          corpsee_site_test
 #corpsee_site_db_password_test: in secret.yml
-corpsee_site_hostname_test:    test.corpsee.com
+corpsee_site_hostname_test:         test.corpsee.com
+corpsee_site_db_dump_filename_test: corpsee_site_test
