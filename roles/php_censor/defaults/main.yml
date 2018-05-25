@@ -10,7 +10,6 @@ php_censor_db_password:      php_censor
 php_censor_db_dump_filename: php_censor
 php_censor_queue_name:       php_censor
 php_censor_hostname:         php-censor.test
-php_censor_url:              "http://php-censor.test"
-#php_censor_admin_user:       admin
-#php_censor_admin_password:   admin
-#php_censor_admin_email:      admin@php-censor.test
+php_censor_url:              'http://php-censor.test'
+php_censor_from_email:       'PHP Censor <no-reply@php-censor.test>'
+php_censor_github_token:     null

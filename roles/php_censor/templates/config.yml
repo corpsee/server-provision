@@ -22,7 +22,7 @@ php-censor:
     notifications:
         enabled: false
     email_settings:
-        from_address: 'PHP Censor <no-reply@php-censor.local>'
+        from_address: '{{ php_censor_from_email }}'
         smtp_address: null
         smtp_port: null
         smtp_username: null
@@ -30,7 +30,7 @@ php-censor:
         smtp_encryption: false
     ssh:
         strength: 2048
-        comment: admin@php-censor
+        comment:  ''
     bitbucket:
         username: null
         app_password: null
@@ -40,12 +40,12 @@ php-censor:
         status:
             commit: false
     github:
-        token: null
+        token: '{{ php_censor_github_token }}'
         comments:
             commit: false
-            pull_request: false
+            pull_request: true
         status:
-            commit: false
+            commit: true
     build:
         remove_builds: true
         writer_buffer_size: 500

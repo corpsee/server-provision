@@ -89,6 +89,8 @@ php_censor_db_dump_filename: php_censor
 php_censor_queue_name:       php_censor
 php_censor_hostname:         ci.php-censor.info
 php_censor_url:              "http://ci.php-censor.info"
+php_censor_from_email:       'PHP Censor CI <ci@php-censor.info>'
+#php_censor_github_token: in secret.yml
 
 php_censor_db_name_test:          php_censor_test
 php_censor_db_user_test:          php_censor_test
@@ -97,6 +99,7 @@ php_censor_db_dump_filename_test: php_censor_test
 php_censor_queue_name_test:       php_censor_test
 php_censor_hostname_test:         ci-test.php-censor.info
 php_censor_url_test:              "http://ci-test.php-censor.info"
+php_censor_from_email_test:       'PHP Censor CI Test <ci-test@php-censor.info>'
 
 
 ### corpsee_site role

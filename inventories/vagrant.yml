@@ -6,8 +6,11 @@ all:
           server_domain:              corpsee.test
           server_mode:                debug
           php_censor_hostname:        php-censor.test
-          php_censor_url:             "http://php-censor.test"
           php_censor_hostname_test:   php-censor-test.test
-          php_censor_url_test:        "http://php-censor-test.test"
+          php_censor_url:             'http://php-censor.test'
+          php_censor_url_test:        'http://php-censor-test.test'
+          php_censor_from_email:      'PHP Censor CI <ci@php-censor.test>'
+          php_censor_from_email_test: 'PHP Censor CI Test <ci@php-censor-test.test>'
+          php_censor_github_token:    null
           corpsee_site_hostname:      corpsee.test
           corpsee_site_hostname_test: corpsee-test.test
