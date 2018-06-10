@@ -1,5 +1,14 @@
 ---
 
+- name:     Check if Corpsee site directory is exists
+  stat:     path="/var/www/{{ corpsee_site_hostname }}/current"
+  register: site_directory
+
+- name:     Register release datetime
+  command:  date +%Y%m%d%H%M%S
+  register: release_datetime
+  when:     not site_directory.stat.exists
+
 - name: Copy Corpsee site DB dump to host
   copy: src="{{ role_path }}/files/{{ corpsee_site_db_dump_filename }}.sql" dest="/tmp"
 
@@ -18,10 +27,6 @@
   postgresql_db: name="{{ corpsee_site_db_name }}" state=restore target="/tmp/{{ corpsee_site_db_dump_filename }}.sql" login_user="{{ corpsee_site_db_user }}" login_password="{{ corpsee_site_db_password }}" login_host=localhost
   when:          corpsee_site_database.changed
 
-- name:     Check if Corpsee site directory is exists
-  stat:     path="/var/www/{{ corpsee_site_hostname }}/current"
-  register: site_directory
-
 - name: Create the SSH public key file
   copy: content="{{lookup('file', '~/.ssh/github.pub')}}" dest=/root/.ssh/github.pub mode=0600
 
@@ -29,35 +34,77 @@
   copy: content="{{lookup('file', '~/.ssh/github')}}" dest=/root/.ssh/github mode=0600
 
 - name: Clone latest Corpsee site repository
-  git:  repo="git@github.com:corpsee/corpsee-com.git" dest="/var/www/{{ corpsee_site_hostname }}/current" key_file="/root/.ssh/github" accept_hostkey=yes
+  git:  repo="git@github.com:corpsee/corpsee-com.git" dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/github" accept_hostkey=yes
+  when: not site_directory.stat.exists
+
+- name: Set current release link
+  file: src="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ corpsee_site_hostname }}/current" state=link
   when: not site_directory.stat.exists
 
 - name: Copy Corpsee site files to host
-  copy: src="{{ role_path }}/files/www" dest="/var/www/{{ corpsee_site_hostname }}/current"
+  copy: src="{{ role_path }}/files/www" dest="/var/www/{{ corpsee_site_hostname }}/shared"
+  when: not site_directory.stat.exists
+
+- name: Delete shared directories
+  file: path="{{ item }}" state=absent
+  with_items:
+    - "/var/www/{{ corpsee_site_hostname }}/current/www/files/pictures/x"
+    - "/var/www/{{ corpsee_site_hostname }}/current/www/files/pictures/xgray"
+    - "/var/www/{{ corpsee_site_hostname }}/current/www/files/pictures/xmin"
+    - "/var/www/{{ corpsee_site_hostname }}/current/www/files/posts"
+    - "/var/www/{{ corpsee_site_hostname }}/current/www/files/projects"
+    - "/var/www/{{ corpsee_site_hostname }}/current/www/slides"
+    - "/var/www/{{ corpsee_site_hostname }}/current/www/yanka"
+  when: not site_directory.stat.exists
+
+- name: Set shared directories link
+  file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
+  loop:
+    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/files/pictures/x", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/files/pictures/x" }
+    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/files/pictures/xgray", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/files/pictures/xgray" }
+    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/files/pictures/xmin", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/files/pictures/xmin" }
+    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/files/posts", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/files/posts" }
+    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/files/projects", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/files/projects" }
+    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/slides", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/slides" }
+    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/yanka", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/yanka" }
+  when: not site_directory.stat.exists
 
 - name: Creates logs directory
-  file: path="/var/www/{{ corpsee_site_hostname }}/current/logs" state=directory
+  file: path="/var/www/{{ corpsee_site_hostname }}/shared/logs" state=directory
+  when: not site_directory.stat.exists
+
+- name: Set logs directory link
+  file: src="/var/www/{{ corpsee_site_hostname }}/shared/logs" dest="/var/www/{{ corpsee_site_hostname }}/current/logs" state=link
+  when: not site_directory.stat.exists
 
 - name:     Create Corpsee site config
   template: src=config.php dest="/var/www/{{ corpsee_site_hostname }}/current/src/configs/config.php"
+  when:     not site_directory.stat.exists
 
 - name:     Create Corpsee site index.php file
   template: src=index.php dest="/var/www/{{ corpsee_site_hostname }}/current/www/index.php"
+  when:     not site_directory.stat.exists
 
-- name:       Delete non-production files
-  file:       path="{{ item }}" state=absent
-  with_items:
+- name: Delete non-production files
+  file: path="{{ item }}" state=absent
+  loop:
     - "/var/www/{{ corpsee_site_hostname }}/current/.git"
     - "/var/www/{{ corpsee_site_hostname }}/current/src/configs/config.production.php"
     - "/var/www/{{ corpsee_site_hostname }}/current/src/configs/config.debug.php"
     - "/var/www/{{ corpsee_site_hostname }}/current/www/index.production.php"
     - "/var/www/{{ corpsee_site_hostname }}/current/www/index.debug.php"
+  when: not site_directory.stat.exists
 
 - name: Set permitions for Corpsee site directory
-  file: path="/var/www/{{ corpsee_site_hostname }}/current" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ug=rwX,o=rX" recurse=yes
+  file: path="{{ item }}" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ug=rwX,o=rX" recurse=yes
+  loop:
+    - "/var/www/{{ corpsee_site_hostname }}/releases"
+    - "/var/www/{{ corpsee_site_hostname }}/shared"
+  when: not site_directory.stat.exists
 
 - name: Set Corpsee site console executable
   file: path="/var/www/{{ corpsee_site_hostname }}/current/console" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ugo+x"
+  when: not site_directory.stat.exists
 
 - name:        Install Corpsee site dependencies
   command:     composer install --no-dev --optimize-autoloader
@@ -66,6 +113,7 @@
   args:
     chdir:   "/var/www/{{ corpsee_site_hostname }}/current"
     creates: "/var/www/{{ corpsee_site_hostname }}/current/vendor"
+  when: not site_directory.stat.exists
 
 - name:        Compile assets
   command:     ./console assets:compile --package frontend
@@ -74,6 +122,7 @@
   args:
     chdir:   "/var/www/{{ corpsee_site_hostname }}/current"
     creates: "/var/www/{{ corpsee_site_hostname }}/current/www/files/compiled/frontend.min.css"
+  when: not site_directory.stat.exists
 
 #- name:        Make migrations
 #  command:     ./console migrations:migrate -e corpsee_site
@@ -82,10 +131,13 @@
 #  when:        not site_directory.stat.exists
 #  args:
 #    chdir: "/var/www/{{ corpsee_site_hostname }}/current"
+#  when: not site_directory.stat.exists
 
 - name:     Create Corpsee site host
   template: src=corpsee_site.conf dest="/etc/nginx/sites-available/{{ corpsee_site_hostname }}.conf"
+  when:     not site_directory.stat.exists
 
 - name:   Enable Corpsee site host
   file:   src="/etc/nginx/sites-available/{{ corpsee_site_hostname }}.conf" dest="/etc/nginx/sites-enabled/{{ corpsee_site_hostname }}.conf" state=link
   notify: Restart Nginx
+  when:   not site_directory.stat.exists

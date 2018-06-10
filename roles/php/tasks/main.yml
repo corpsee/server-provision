@@ -14,8 +14,8 @@
   with_items: "{{ php_packages }}"
   when:       php_packages is defined
 
-- name:       Save origin PHP configs
-  command:    mv -fv "/etc/php/{{ php_version }}/{{ item }}/php.ini" "/etc/php/{{ php_version }}/{{ item }}/php.ini-origin" creates="/etc/php/{{ php_version }}/{{ item }}/php.ini-origin"
+- name:    Save origin PHP configs
+  command: mv -fv "/etc/php/{{ php_version }}/{{ item }}/php.ini" "/etc/php/{{ php_version }}/{{ item }}/php.ini-origin" creates="/etc/php/{{ php_version }}/{{ item }}/php.ini-origin"
   with_items:
     - "cli"
     - "fpm"
@@ -26,12 +26,12 @@
 - name:    Save origin PHP-FPM www config
   command: mv -fv "/etc/php/{{ php_version }}/fpm/pool.d/www.conf" "/etc/php/{{ php_version }}/fpm/pool.d/www.conf-origin" creates="/etc/php/{{ php_version }}/fpm/pool.d/www.conf-origin"
 
-- name:       Set PHP configs
-  template:   src="{{ php_version }}/php.{{ server_mode }}.ini" dest="/etc/php/{{ php_version }}/{{ item }}/php.ini"
-  notify:     Restart PHP-FPM
+- name:     Set PHP configs
+  template: src="{{ php_version }}/php.{{ server_mode }}.ini" dest="/etc/php/{{ php_version }}/{{ item }}/php.ini"
+  notify:   Restart PHP-FPM
   with_items:
-      - "cli"
-      - "fpm"
+    - "cli"
+    - "fpm"
 
 - name:     Set PHP-FPM config
   template: src="{{ php_version }}/php-fpm.{{ server_mode }}.conf" dest="/etc/php/{{ php_version }}/fpm/php-fpm.conf"
