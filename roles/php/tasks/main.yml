@@ -5,18 +5,18 @@
 
 - name: Install PHP
   apt:  name="{{ item }}" state=latest
-  with_items:
+  loop:
     - "php{{ php_version }}-cli"
     - "php{{ php_version }}-fpm"
 
-- name:       Install PHP packages
-  apt:        name="php{{ php_version }}-{{ item }}" state=latest
-  with_items: "{{ php_packages }}"
-  when:       php_packages is defined
+- name: Install PHP packages
+  apt:  name="php{{ php_version }}-{{ item }}" state=latest
+  loop: "{{ php_packages }}"
+  when: php_packages is defined
 
 - name:    Save origin PHP configs
   command: mv -fv "/etc/php/{{ php_version }}/{{ item }}/php.ini" "/etc/php/{{ php_version }}/{{ item }}/php.ini-origin" creates="/etc/php/{{ php_version }}/{{ item }}/php.ini-origin"
-  with_items:
+  loop:
     - "cli"
     - "fpm"
 
@@ -29,7 +29,7 @@
 - name:     Set PHP configs
   template: src="{{ php_version }}/php.{{ server_mode }}.ini" dest="/etc/php/{{ php_version }}/{{ item }}/php.ini"
   notify:   Restart PHP-FPM
-  with_items:
+  loop:
     - "cli"
     - "fpm"
 

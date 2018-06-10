@@ -13,13 +13,13 @@
 
 - name: Install MariaDB
   apt:  name="{{ item }}" state=latest
-  with_items:
+  loop:
     - "mariadb-server"
     - "python-mysqldb"
 
 - name:       Set MariaDB root user password
   mysql_user: name="root" host="{{ item }}" password="{{ mariadb_root_password }}" login_user="root" state=present
-  with_items:
+  loop:
     - "127.0.0.1"
     - "::1"
     - "{{ mariadb_hostname }}"

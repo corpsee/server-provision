@@ -2,7 +2,7 @@
 
 - name:       Generate locales
   locale_gen: name="{{ item }}" state=present
-  with_items: "{{ server_locales }}"
+  loop:       "{{ server_locales }}"
   when:       server_locales is defined
 
 - name:     Set default locale

@@ -8,6 +8,6 @@
 
 - name: Install PostgreSQL
   apt:  name="{{ item }}" state=latest
-  with_items:
+  loop:
     - "postgresql-{{ postgresql_version }}"
     - "python-psycopg2"

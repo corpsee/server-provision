@@ -4,8 +4,8 @@ Server deployment
 Requirements
 ------------
 
-* Ansible v2.5.
-* Ubuntu 16.04 (14.04, 18.04) xenial (image for server) and Mint 18.3 (for desktop).
+* Ansible v2.5+.
+* Ubuntu 16.04 (14.04, 18.04) (image for server) and Mint 18.3 (for desktop).
 
 Add files:
 

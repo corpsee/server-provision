@@ -47,7 +47,7 @@
 
 - name: Delete shared directories
   file: path="{{ item }}" state=absent
-  with_items:
+  loop:
     - "/var/www/{{ corpsee_site_hostname }}/current/www/files/pictures/x"
     - "/var/www/{{ corpsee_site_hostname }}/current/www/files/pictures/xgray"
     - "/var/www/{{ corpsee_site_hostname }}/current/www/files/pictures/xmin"
