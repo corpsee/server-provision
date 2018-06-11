@@ -1,5 +1,17 @@
 ---
 
+- name:     Check if PHP Censor directory is exists
+  stat:     path="/var/www/{{ php_censor_hostname }}/current"
+  register: site_directory
+
+- name:     Register release datetime
+  command:  date +%Y%m%d%H%M%S
+  register: release_datetime
+  when:     not site_directory.stat.exists
+
+- name: Install Beanstalkd queue
+  apt:  name="beanstalkd" state=latest
+
 - name: Copy PHP Censor DB dump to host
   copy: src="{{ role_path }}/files/{{ php_censor_db_dump_filename }}.sql" dest="/tmp"
 
@@ -18,26 +30,47 @@
   postgresql_db: name="{{ php_censor_db_name }}" state=restore target="/tmp/{{ php_censor_db_dump_filename }}.sql" login_user="{{ php_censor_db_user }}" login_password="{{ php_censor_db_password }}" login_host=localhost
   when:          php_censor_database.changed
 
-- name: Install Beanstalkd queue
-  apt:  name="beanstalkd" state=latest
-
 - name: Create PHP Censor directory
-  file: path="/var/www/{{ php_censor_hostname }}" state=directory
+  file: path="/var/www/{{ php_censor_hostname }}/releases" state=directory
 
 - name:    Download latest PHP Censor
-  command: composer create-project php-censor/php-censor current "{{ php_censor_version }}"
+  command: composer create-project php-censor/php-censor "{{ release_datetime.stdout }}" "{{ php_censor_version }}"
   args:
-    chdir:   "/var/www/{{ php_censor_hostname }}"
+    chdir:   "/var/www/{{ php_censor_hostname }}/releases"
     creates: "/var/www/{{ php_censor_hostname }}/current"
+  when: not site_directory.stat.exists
+
+- name: Set current release link
+  file: src="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ php_censor_hostname }}/current" state=link
+  when: not site_directory.stat.exists
+
+- name: Delete shared directories
+  file: path="/var/www/{{ php_censor_hostname }}/current/runtime" state=absent
+  when: not site_directory.stat.exists
+
+- name: Creates sharted directories
+  file: path="{{ item }}" state=directory
+  loop:
+    - "/var/www/{{ php_censor_hostname }}/shared/runtime/builds"
+    - "/var/www/{{ php_censor_hostname }}/shared/runtime/cache"
+    - "/var/www/{{ php_censor_hostname }}/shared/runtime/status_cache"
+  when: not site_directory.stat.exists
+
+- name: Set shared directory link
+  file: src="/var/www/{{ php_censor_hostname }}/shared/runtime" dest="/var/www/{{ php_censor_hostname }}/current/runtime" state=link
+  when: not site_directory.stat.exists
 
 - name:     Create PHP Censor application config
   template: src=config.yml dest="/var/www/{{ php_censor_hostname }}/current/app/config.yml"
+  when:     not site_directory.stat.exists
 
 - name: Set permitions for PHP Censor directory
-  file: path="/var/www/{{ php_censor_hostname }}/current" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwX,o=rX" recurse=yes
+  file: path="/var/www/{{ php_censor_hostname }}" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwX,o=rX" recurse=yes
+  when: not site_directory.stat.exists
 
 - name: Set PHP Censor console executable
   file: path="/var/www/{{ php_censor_hostname }}/current/bin" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ugo+x" recurse=yes
+  when: not site_directory.stat.exists
 
 #- name:        Install PHP Censor
 #  command:     ./bin/console php-censor:install --url="{{ php_censor_url }}" --db-type=pgsql --db-host=localhost --db-name={{ php_censor_db_name }} --db-user={{ php_censor_db_user }} --db-password={{ php_censor_db_password }} --db-port=null --admin-name={{ php_censor_admin_user }} --admin-password={{ php_censor_admin_password }} --admin-email="{{ php_censor_admin_email }}" --queue-use=1 --queue-host=localhost --queue-name="{{ php_censor_queue_name }}"
@@ -49,13 +82,17 @@
 
 - name:     Create PHP Censor host
   template: src=php_censor.conf dest="/etc/nginx/sites-available/{{ php_censor_hostname }}.conf"
+  when:     not site_directory.stat.exists
 
 - name:   Enable PHP Censor host
   file:   src="/etc/nginx/sites-available/{{ php_censor_hostname }}.conf" dest="/etc/nginx/sites-enabled/{{ php_censor_hostname }}.conf" state=link
   notify: Restart Nginx
+  when:   not site_directory.stat.exists
 
 - name:     Create PHP Censor worker systemd service
   template: src=php_censor.service dest="/etc/systemd/system/{{ php_censor_queue_name }}.service"
+  when:     not site_directory.stat.exists
 
 - name:    Enable and start PHP Censor worker systemd service
   systemd: name="{{ php_censor_queue_name }}.service" state=started enabled=yes
+  when:    not site_directory.stat.exists
