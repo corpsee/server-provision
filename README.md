@@ -5,7 +5,7 @@ Requirements
 ------------
 
 * Ansible v2.5+.
-* Ubuntu 16.04 (14.04, 18.04) (image for server) and Mint 18.3 (for desktop).
+* Ubuntu 16.04 (14.04, 18.04) (image for server) and Mint 18.3 (19) (for desktop).
 
 Add files:
 
@@ -26,13 +26,17 @@ Deploy
 Debug deploy (Vagrant):
 
 ```bash
-vagrant up
+vagrant up [--provision-with main]
+vagrant up --provision-with corpsee_site_release
+vagrant up --provision-with php_censor_release
 ```
 
 Production deploy:
 
 ```bash
 ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/web_server.yml
+ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/corpsee_site_release.yml
+ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/php_censor_release.yml
 ```
 
 Desktop:

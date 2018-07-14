@@ -34,7 +34,7 @@
   copy: content="{{lookup('file', '~/.ssh/github')}}" dest=/root/.ssh/github mode=0600
 
 - name: Clone latest Corpsee site repository
-  git:  repo="git@github.com:corpsee/corpsee-com.git" dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/github" accept_hostkey=yes
+  git:  repo="git@github.com:corpsee/corpsee-com.git" version="{{ corpsee_site_version }}" dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/github" accept_hostkey=yes
   when: not site_directory.stat.exists
 
 - name: Set current release link

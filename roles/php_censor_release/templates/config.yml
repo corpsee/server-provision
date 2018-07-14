@@ -1,0 +1,62 @@
+b8:
+    database:
+        servers:
+            read: [{ host: localhost }]
+            write: [{ host: localhost }]
+        type: pgsql
+        name:     {{ php_censor_db_name }}
+        username: {{ php_censor_db_user }}
+        password: {{ php_censor_db_password }}
+php-censor:
+    language: en
+    per_page: 10
+    url: '{{ php_censor_url }}'
+    queue:
+        use_queue: true
+        host: localhost
+        name: {{ php_censor_queue_name }}
+        lifetime: 600
+    log:
+        rotate: false
+        max_files: 0
+    notifications:
+        enabled: false
+    email_settings:
+        from_address: '{{ php_censor_from_email }}'
+        smtp_address: null
+        smtp_port: null
+        smtp_username: null
+        smtp_password: null
+        smtp_encryption: false
+    ssh:
+        strength: 2048
+        comment:  ''
+    bitbucket:
+        username: null
+        app_password: null
+        comments:
+            commit: false
+            pull_request: false
+        status:
+            commit: false
+    github:
+        token: '{{ php_censor_github_token }}'
+        comments:
+            commit: false
+            pull_request: true
+        status:
+            commit: true
+    build:
+        remove_builds: true
+        writer_buffer_size: 500
+        allow_public_artifacts: true
+    security:
+        disable_auth: false
+        default_user_id: 1
+        auth_providers:
+            internal: { type: internal }
+    dashboard_widgets:
+        all_projects:
+            side: left
+        last_builds:
+            side: right

@@ -1,0 +1,13 @@
+---
+
+php_censor_user:             www-data
+php_censor_group:            www-data
+php_censor_version:          0.22
+php_censor_db_name:          php_censor
+php_censor_db_user:          php_censor
+php_censor_db_password:      php_censor
+php_censor_queue_name:       php_censor
+php_censor_hostname:         php-censor.test
+php_censor_url:              'http://php-censor.test'
+php_censor_from_email:       'PHP Censor <no-reply@php-censor.test>'
+php_censor_github_token:     null

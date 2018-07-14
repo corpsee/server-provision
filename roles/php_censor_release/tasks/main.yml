@@ -1,0 +1,41 @@
+---
+
+- name:     Register release datetime
+  command:  date +%Y%m%d%H%M%S
+  register: release_datetime
+
+- name: Create PHP Censor directory
+  file: path="/var/www/{{ php_censor_hostname }}/releases" state=directory
+
+- name:    Download latest PHP Censor
+  command: composer create-project php-censor/php-censor "{{ release_datetime.stdout }}" "{{ php_censor_version }}"
+  args:
+    chdir:   "/var/www/{{ php_censor_hostname }}/releases"
+
+- name: Delete shared directories
+  file: path="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/runtime" state=absent
+
+- name: Set shared directory link
+  file: src="/var/www/{{ php_censor_hostname }}/shared/runtime" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/runtime" state=link
+
+- name:     Create PHP Censor application config
+  template: src=config.yml dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/app/config.yml"
+
+- name: Set permitions for PHP Censor directory
+  file: path="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwX,o=rX" recurse=yes
+
+- name: Set PHP Censor console executable
+  file: path="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/bin" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ugo+x" recurse=yes
+
+- name:        Make migrations
+  command:     ./bin/console php-censor-migrations:migrate
+  become:      yes
+  become_user: "{{ php_censor_user }}"
+  args:
+    chdir: "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}"
+
+- name:    Restart PHP Censor worker systemd service
+  systemd: name="{{ php_censor_queue_name }}.service" state=restarted
+
+- name: Set current release link
+  file: src="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ php_censor_hostname }}/current" state=link

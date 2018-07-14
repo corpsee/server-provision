@@ -30,6 +30,12 @@
   postgresql_db: name="{{ php_censor_db_name }}" state=restore target="/tmp/{{ php_censor_db_dump_filename }}.sql" login_user="{{ php_censor_db_user }}" login_password="{{ php_censor_db_password }}" login_host=localhost
   when:          php_censor_database.changed
 
+- name: Create the SSH public key file
+  copy: content="{{lookup('file', '~/.ssh/github.pub')}}" dest=/root/.ssh/github.pub mode=0600
+
+- name: Create the SSH private key file
+  copy: content="{{lookup('file', '~/.ssh/github')}}" dest=/root/.ssh/github mode=0600
+
 - name: Create PHP Censor directory
   file: path="/var/www/{{ php_censor_hostname }}/releases" state=directory
 

@@ -112,9 +112,11 @@ corpsee_site_db_user:          corpsee_site
 #corpsee_site_db_password: in secret.yml
 corpsee_site_db_dump_filename: corpsee_site
 corpsee_site_hostname:         corpsee.com
+corpsee_site_version:          master
 
 corpsee_site_db_name_test:          corpsee_site_test
 corpsee_site_db_user_test:          corpsee_site_test
 #corpsee_site_db_password_test: in secret.yml
 corpsee_site_hostname_test:         test.corpsee.com
 corpsee_site_db_dump_filename_test: corpsee_site_test
+corpsee_site_version_test:          master
