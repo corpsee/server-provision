@@ -31,19 +31,19 @@ vagrant up [--provision-with main]
 
 # corpsee.test
 vagrant up --provision-with corpsee_site_init
-vagrant up --provision-with corpsee_site_release
+RELEASE_VERSION="master" vagrant up --provision-with corpsee_site_release
 
 # corpsee-test.test
 vagrant up --provision-with corpsee_site_test_init
-vagrant up --provision-with corpsee_site_test_release
+RELEASE_VERSION="master" vagrant up --provision-with corpsee_site_test_release
 
 # php-censor.test
 vagrant up --provision-with php_censor_init
-vagrant up --provision-with php_censor_release
+RELEASE_VERSION="master" vagrant up --provision-with php_censor_release
 
 # php-censor-test.test
 vagrant up --provision-with php_censor_test_init
-vagrant up --provision-with php_censor_test_release
+RELEASE_VERSION="master" vagrant up --provision-with php_censor_test_release
 ```
 
 Production deploy:
@@ -54,19 +54,19 @@ ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/web_serv
 
 # corpsee.com
 ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/corpsee_site_init.yml
-ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/corpsee_site_release.yml
+ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/corpsee_site_release.yml --extra-vars="corpsee_site_version=master"
 
 # test.corpsee.com
 ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/corpsee_site_test_init.yml
-ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/corpsee_site_test_release.yml
+ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/corpsee_site_test_release.yml --extra-vars="corpsee_site_version=master"
 
 # ci.php-censor.info
 ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/php_censor_init.yml
-ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/php_censor_release.yml
+ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/php_censor_release.yml --extra-vars="php_censor_version=master"
 
 # ci-test.php-censor.info
 ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/php_censor_test_init.yml
-ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/php_censor_test_release.yml
+ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/php_censor_test_release.yml --extra-vars="php_censor_version=master"
 ```
 
 Desktop:

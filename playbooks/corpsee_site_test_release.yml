@@ -4,10 +4,8 @@
   become:      yes
   become_user: root
   roles:
-    - nginx
     - role:                     corpsee_site_release
       corpsee_site_db_name:     "{{ corpsee_site_db_name_test }}"
       corpsee_site_db_user:     "{{ corpsee_site_db_user_test }}"
       corpsee_site_db_password: "{{ corpsee_site_db_password_test }}"
       corpsee_site_hostname:    "{{ corpsee_site_hostname_test }}"
-      corpsee_site_version:     master

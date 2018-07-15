@@ -36,6 +36,9 @@ Vagrant.configure("2") do |config|
     config.vm.provision "corpsee_site_release", type: "ansible", run: "never" do |corpsee_site_release|
         corpsee_site_release.playbook           = "playbooks/corpsee_site_release.yml"
         corpsee_site_release.inventory_path     = "inventories/vagrant.yml"
+        corpsee_site_release.extra_vars         = {
+            corpsee_site_version: ENV['RELEASE_VERSION']
+        }
         corpsee_site_release.compatibility_mode = "2.0"
         corpsee_site_release.limit              = 'all'
         corpsee_site_release.verbose            = "v"
@@ -52,6 +55,9 @@ Vagrant.configure("2") do |config|
     config.vm.provision "php_censor_release", type: "ansible", run: "never" do |php_censor_release|
         php_censor_release.playbook           = "playbooks/php_censor_release.yml"
         php_censor_release.inventory_path     = "inventories/vagrant.yml"
+        php_censor_release.extra_vars         = {
+            php_censor_version: ENV['RELEASE_VERSION']
+        }
         php_censor_release.compatibility_mode = "2.0"
         php_censor_release.limit              = 'all'
         php_censor_release.verbose            = "v"
@@ -69,6 +75,9 @@ Vagrant.configure("2") do |config|
     config.vm.provision "corpsee_site_test_release", type: "ansible", run: "never" do |corpsee_site_test_release|
         corpsee_site_test_release.playbook           = "playbooks/corpsee_site_test_release.yml"
         corpsee_site_test_release.inventory_path     = "inventories/vagrant.yml"
+        corpsee_site_test_release.extra_vars         = {
+            corpsee_site_version: ENV['RELEASE_VERSION']
+        }
         corpsee_site_test_release.compatibility_mode = "2.0"
         corpsee_site_test_release.limit              = 'all'
         corpsee_site_test_release.verbose            = "v"
@@ -85,6 +94,9 @@ Vagrant.configure("2") do |config|
     config.vm.provision "php_censor_test_release", type: "ansible", run: "never" do |php_censor_test_release|
         php_censor_test_release.playbook           = "playbooks/php_censor_test_release.yml"
         php_censor_test_release.inventory_path     = "inventories/vagrant.yml"
+        php_censor_test_release.extra_vars         = {
+            php_censor_version: ENV['RELEASE_VERSION']
+        }
         php_censor_test_release.compatibility_mode = "2.0"
         php_censor_test_release.limit              = 'all'
         php_censor_test_release.verbose            = "v"

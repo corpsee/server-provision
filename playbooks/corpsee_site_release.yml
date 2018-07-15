@@ -4,5 +4,4 @@
   become:      yes
   become_user: root
   roles:
-    - role:                 corpsee_site_release
-      corpsee_site_version: master
+    - corpsee_site_release

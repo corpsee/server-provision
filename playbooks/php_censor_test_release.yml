@@ -4,7 +4,6 @@
   become:      yes
   become_user: root
   roles:
-    - nginx
     - role:                        php_censor_release
       php_censor_db_name:          "{{ php_censor_db_name_test }}"
       php_censor_db_user:          "{{ php_censor_db_user_test }}"
@@ -13,4 +12,3 @@
       php_censor_hostname:         "{{ php_censor_hostname_test }}"
       php_censor_url:              "{{ php_censor_url_test }}"
       php_censor_from_email:       "{{ php_censor_from_email_test }}"
-      php_censor_version:          master

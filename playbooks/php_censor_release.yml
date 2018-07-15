@@ -4,5 +4,4 @@
   become:      yes
   become_user: root
   roles:
-    - role:               php_censor_release
-      php_censor_version: master
+    - php_censor_release
