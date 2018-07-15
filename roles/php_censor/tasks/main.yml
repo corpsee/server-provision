@@ -64,6 +64,12 @@
   template: src=config.yml dest="/var/www/{{ php_censor_hostname }}/current/app/config.yml"
   when:     not site_directory.stat.exists
 
+- name: Delete non-production files
+  file: path="{{ item }}" state=absent
+  loop:
+    - "/var/www/{{ php_censor_hostname }}/current/.git"
+  when: not site_directory.stat.exists
+
 - name: Set permitions for PHP Censor directory
   file: path="/var/www/{{ php_censor_hostname }}" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwX,o=rX" recurse=yes
   when: not site_directory.stat.exists

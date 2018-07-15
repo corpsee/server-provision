@@ -16,6 +16,11 @@
 - name:     Create PHP Censor application config
   template: src=config.yml dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/app/config.yml"
 
+- name: Delete non-production files
+  file: path="{{ item }}" state=absent
+  loop:
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.git"
+
 - name: Set permitions for PHP Censor directory
   file: path="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwX,o=rX" recurse=yes
 
