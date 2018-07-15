@@ -4,13 +4,8 @@
   command:  date +%Y%m%d%H%M%S
   register: release_datetime
 
-- name: Create PHP Censor directory
-  file: path="/var/www/{{ php_censor_hostname }}/releases" state=directory
-
-- name:    Download latest PHP Censor
-  command: composer create-project php-censor/php-censor "{{ release_datetime.stdout }}" "{{ php_censor_version }}"
-  args:
-    chdir:   "/var/www/{{ php_censor_hostname }}/releases"
+- name: Clone latest PHP Censor repository
+  git:  repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/github" accept_hostkey=yes
 
 - name: Delete shared directories
   file: path="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/runtime" state=absent
@@ -26,6 +21,14 @@
 
 - name: Set PHP Censor console executable
   file: path="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/bin" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ugo+x" recurse=yes
+
+- name:        Install PHP Censor site dependencies
+  command:     composer install --no-dev --optimize-autoloader
+  become:      yes
+  become_user: "{{ php_censor_user }}"
+  args:
+    chdir:   "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}"
+    creates: "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/vendor"
 
 - name:        Make migrations
   command:     ./bin/console php-censor-migrations:migrate

@@ -1,0 +1,9 @@
+---
+
+- hosts:        web-server
+  become:       yes
+  become_user:  root
+  gather_facts: false
+  roles:
+    - nginx
+    - corpsee_site

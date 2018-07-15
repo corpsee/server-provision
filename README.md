@@ -26,17 +26,47 @@ Deploy
 Debug deploy (Vagrant):
 
 ```bash
+# server
 vagrant up [--provision-with main]
+
+# corpsee.test
+vagrant up --provision-with corpsee_site_init
 vagrant up --provision-with corpsee_site_release
+
+# corpsee-test.test
+vagrant up --provision-with corpsee_site_test_init
+vagrant up --provision-with corpsee_site_test_release
+
+# php-censor.test
+vagrant up --provision-with php_censor_init
 vagrant up --provision-with php_censor_release
+
+# php-censor-test.test
+vagrant up --provision-with php_censor_test_init
+vagrant up --provision-with php_censor_test_release
 ```
 
 Production deploy:
 
 ```bash
+# server
 ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/web_server.yml
+
+# corpsee.com
+ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/corpsee_site_init.yml
 ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/corpsee_site_release.yml
+
+# test.corpsee.com
+ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/corpsee_site_test_init.yml
+ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/corpsee_site_test_release.yml
+
+# ci.php-censor.info
+ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/php_censor_init.yml
 ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/php_censor_release.yml
+
+# ci-test.php-censor.info
+ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/php_censor_test_init.yml
+ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/php_censor_test_release.yml
 ```
 
 Desktop:

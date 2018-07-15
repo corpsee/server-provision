@@ -36,14 +36,8 @@
 - name: Create the SSH private key file
   copy: content="{{lookup('file', '~/.ssh/github')}}" dest=/root/.ssh/github mode=0600
 
-- name: Create PHP Censor directory
-  file: path="/var/www/{{ php_censor_hostname }}/releases" state=directory
-
-- name:    Download latest PHP Censor
-  command: composer create-project php-censor/php-censor "{{ release_datetime.stdout }}" "{{ php_censor_version }}"
-  args:
-    chdir:   "/var/www/{{ php_censor_hostname }}/releases"
-    creates: "/var/www/{{ php_censor_hostname }}/current"
+- name: Clone latest PHP Censor repository
+  git:  repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/github" accept_hostkey=yes
   when: not site_directory.stat.exists
 
 - name: Set current release link
@@ -78,13 +72,14 @@
   file: path="/var/www/{{ php_censor_hostname }}/current/bin" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ugo+x" recurse=yes
   when: not site_directory.stat.exists
 
-#- name:        Install PHP Censor
-#  command:     ./bin/console php-censor:install --url="{{ php_censor_url }}" --db-type=pgsql --db-host=localhost --db-name={{ php_censor_db_name }} --db-user={{ php_censor_db_user }} --db-password={{ php_censor_db_password }} --db-port=null --admin-name={{ php_censor_admin_user }} --admin-password={{ php_censor_admin_password }} --admin-email="{{ php_censor_admin_email }}" --queue-use=1 --queue-host=localhost --queue-name="{{ php_censor_queue_name }}"
-#  become:      yes
-#  become_user: "{{ php_censor_user }}"
-#  args:
-#    chdir:   "/var/www/{{ php_censor_hostname }}/current"
-#    creates: "/var/www/{{ php_censor_hostname }}/current/app/config.yml"
+- name:        Install PHP Censor dependencies
+  command:     composer install --no-dev --optimize-autoloader
+  become:      yes
+  become_user: "{{ php_censor_user }}"
+  args:
+    chdir:   "/var/www/{{ php_censor_hostname }}/current"
+    creates: "/var/www/{{ php_censor_hostname }}/current/vendor"
+  when: not site_directory.stat.exists
 
 - name:     Create PHP Censor host
   template: src=php_censor.conf dest="/etc/nginx/sites-available/{{ php_censor_hostname }}.conf"

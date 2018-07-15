@@ -121,15 +121,6 @@
     creates: "/var/www/{{ corpsee_site_hostname }}/current/www/files/compiled/frontend.min.css"
   when: not site_directory.stat.exists
 
-#- name:        Make migrations
-#  command:     ./console migrations:migrate -e corpsee_site
-#  become:      yes
-#  become_user: "{{ corpsee_site_user }}"
-#  when:        not site_directory.stat.exists
-#  args:
-#    chdir: "/var/www/{{ corpsee_site_hostname }}/current"
-#  when: not site_directory.stat.exists
-
 - name:     Create Corpsee site host
   template: src=corpsee_site.conf dest="/etc/nginx/sites-available/{{ corpsee_site_hostname }}.conf"
   when:     not site_directory.stat.exists

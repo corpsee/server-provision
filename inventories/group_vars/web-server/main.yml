@@ -81,7 +81,6 @@ postgresql_version:      10
 php_censor_php_version:      7.1
 php_censor_user:             *user-reference
 php_censor_group:            *group-reference
-php_censor_version:          0.22
 php_censor_db_name:          php_censor
 php_censor_db_user:          php_censor
 #php_censor_db_password: in secret.yml
@@ -91,6 +90,7 @@ php_censor_hostname:         ci.php-censor.info
 php_censor_url:              "http://ci.php-censor.info"
 php_censor_from_email:       'PHP Censor CI <ci@php-censor.info>'
 #php_censor_github_token: in secret.yml
+php_censor_version:          0.22.0
 
 php_censor_db_name_test:          php_censor_test
 php_censor_db_user_test:          php_censor_test
@@ -100,6 +100,7 @@ php_censor_queue_name_test:       php_censor_test
 php_censor_hostname_test:         ci-test.php-censor.info
 php_censor_url_test:              "http://ci-test.php-censor.info"
 php_censor_from_email_test:       'PHP Censor CI Test <ci-test@php-censor.info>'
+php_censor_version_test:          0.22.0
 
 
 ### corpsee_site role
