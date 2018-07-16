@@ -3,3 +3,4 @@ all:
     web-server:
       hosts:
         111.111.111.111:
+          corpsee_site_cron_disabled: no

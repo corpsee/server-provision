@@ -8,4 +8,5 @@ corpsee_site_db_user:          corpsee_site
 corpsee_site_db_password:      corpsee_site
 corpsee_site_db_dump_filename: corpsee_site
 corpsee_site_hostname:         corpsee.test
+corpsee_site_cron_disabled:    yes
 corpsee_site_version:          master

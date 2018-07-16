@@ -129,3 +129,6 @@
   file:   src="/etc/nginx/sites-available/{{ corpsee_site_hostname }}.conf" dest="/etc/nginx/sites-enabled/{{ corpsee_site_hostname }}.conf" state=link
   notify: Restart Nginx
   when:   not site_directory.stat.exists
+
+- name: Set Corpsee site cronjob
+  cron: minute=0 hour=0 name="{{ corpsee_site_hostname }} pullrequests:get (Daily)" user="{{ corpsee_site_user }}" disabled="{{ corpsee_site_cron_disabled }}" job="/var/www/{{ corpsee_site_hostname }}/current/console pullrequests:get &>> /var/www/{{ corpsee_site_hostname }}/current/logs/pullrequests_get.log"
