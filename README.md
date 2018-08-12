@@ -9,16 +9,16 @@ Requirements
 
 Add files:
 
-* inventories/group_vars/web-server/secret.yml
-* inventories/production.yml
-* .vault_password
-* ~/.ssh/github.pub
-* ~/.ssh/github
-* roles/corpsee_site/files/corpsee_site.sql
-* roles/corpsee_site/files/corpsee_site_test.sql
-* roles/corpsee_site/files/www
-* roles/php_censor/files/php_censor.sql
-* roles/php_censor/files/php_censor_test.sql
+* `inventories/group_vars/web-server/secret.yml`
+* `inventories/production.yml`
+* `.vault_password`
+* `~/.ssh/github.pub`
+* `~/.ssh/github`
+* `roles/corpsee_site/files/corpsee_site.sql`
+* `roles/corpsee_site/files/corpsee_site_test.sql`
+* `roles/corpsee_site/files/www`
+* `roles/php_censor/files/php_censor.sql`
+* `roles/php_censor/files/php_censor_test.sql`
 
 Deploy
 ------
@@ -49,24 +49,24 @@ RELEASE_VERSION="master" vagrant up --provision-with php_censor_test_release
 Production deploy:
 
 ```bash
-# server
+# server (by root user with password)
 ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/web_server.yml
 
-# corpsee.com
-ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/corpsee_site_init.yml
-ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/corpsee_site_release.yml --extra-vars="corpsee_site_version=master"
+# corpsee.com (by web user with ssh key)
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/corpsee_site_init.yml
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/corpsee_site_release.yml --extra-vars="corpsee_site_version=master"
 
-# test.corpsee.com
-ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/corpsee_site_test_init.yml
-ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/corpsee_site_test_release.yml --extra-vars="corpsee_site_version=master"
+# test.corpsee.com (by web user with ssh key)
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/corpsee_site_test_init.yml
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/corpsee_site_test_release.yml --extra-vars="corpsee_site_version=master"
 
-# ci.php-censor.info
-ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/php_censor_init.yml
-ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/php_censor_release.yml --extra-vars="php_censor_version=master"
+# ci.php-censor.info (by web user with ssh key)
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/php_censor_init.yml
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/php_censor_release.yml --extra-vars="php_censor_version=master"
 
-# ci-test.php-censor.info
-ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/php_censor_test_init.yml
-ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/php_censor_test_release.yml --extra-vars="php_censor_version=master"
+# ci-test.php-censor.info (by web user with ssh key)
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/php_censor_test_init.yml
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/php_censor_test_release.yml --extra-vars="php_censor_version=master"
 ```
 
 Desktop:
