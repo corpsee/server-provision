@@ -87,6 +87,23 @@
     creates: "/var/www/{{ php_censor_hostname }}/current/vendor"
   when: not site_directory.stat.exists
 
+- name:        Install PHP Censor Telegram plugin
+  command:     composer require --optimize-autoloader lexasoft/php-censor-telegram-plugin:~2.0
+  become:      yes
+  become_user: "{{ php_censor_user }}"
+  args:
+    chdir:   "/var/www/{{ php_censor_hostname }}/current"
+    creates: "/var/www/{{ php_censor_hostname }}/current/vendor/lexasoft/php-censor-telegram-plugin"
+  when: not site_directory.stat.exists
+
+- name:        Make migrations
+  command:     ./bin/console php-censor-migrations:migrate
+  become:      yes
+  become_user: "{{ php_censor_user }}"
+  args:
+    chdir: "/var/www/{{ php_censor_hostname }}/current"
+  when: not site_directory.stat.exists
+
 - name:     Create PHP Censor host
   template: src=php_censor.conf dest="/etc/nginx/sites-available/{{ php_censor_hostname }}.conf"
   when:     not site_directory.stat.exists
