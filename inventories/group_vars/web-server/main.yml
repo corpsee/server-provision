@@ -3,7 +3,7 @@
 ### server role
 
 server_mode:         production
-server_distributive: &distributive-reference "xenial" # xenial | bionic
+server_distributive: &distributive-reference "bionic" # xenial | bionic
 server_hostname:     corpsee
 server_domain:       corpsee.com
 
@@ -90,7 +90,7 @@ php_censor_hostname:         ci.php-censor.info
 php_censor_url:              "http://ci.php-censor.info"
 php_censor_from_email:       'PHP Censor CI <ci@php-censor.info>'
 #php_censor_github_token: in secret.yml
-php_censor_version:          0.22.0
+php_censor_version:          0.23.0
 
 php_censor_db_name_test:          php_censor_test
 php_censor_db_user_test:          php_censor_test
@@ -100,7 +100,7 @@ php_censor_queue_name_test:       php_censor_test
 php_censor_hostname_test:         ci-test.php-censor.info
 php_censor_url_test:              "http://ci-test.php-censor.info"
 php_censor_from_email_test:       'PHP Censor CI Test <ci-test@php-censor.info>'
-php_censor_version_test:          0.22.0
+php_censor_version_test:          0.23.0
 
 
 ### corpsee_site role
@@ -121,4 +121,5 @@ corpsee_site_db_user_test:          corpsee_site_test
 #corpsee_site_db_password_test: in secret.yml
 corpsee_site_db_dump_filename_test: corpsee_site_test
 corpsee_site_hostname_test:         test.corpsee.com
+corpsee_site_cron_disabled_test:    yes
 corpsee_site_version_test:          master
