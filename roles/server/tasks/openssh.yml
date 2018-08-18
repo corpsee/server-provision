@@ -1,0 +1,8 @@
+---
+
+- name:    Save origin OpenSSH config
+  command: mv -fv "/etc/ssh/sshd_config" "/etc/ssh/sshd_config-origin" creates="/etc/ssh/sshd_config-origin"
+
+- name:     Set OpenSSH config
+  template: src="sshd_config" dest="/etc/ssh/sshd_config" validate="sshd -t -f %s"
+  notify:   Restart OpenSSH

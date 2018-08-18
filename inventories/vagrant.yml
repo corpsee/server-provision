@@ -5,6 +5,7 @@ all:
         192.168.56.10:
           server_domain:              corpsee.test
           server_mode:                debug
+          server_openssh_port:        22
           php_censor_hostname:        php-censor.test
           php_censor_hostname_test:   php-censor-test.test
           php_censor_url:             'http://php-censor.test'

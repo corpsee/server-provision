@@ -7,3 +7,5 @@
 - include: locale.yml
 
 - include: hostname.yml
+
+- include: openssh.yml

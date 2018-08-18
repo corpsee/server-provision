@@ -14,6 +14,8 @@ Add files:
 * `.vault_password`
 * `~/.ssh/github.pub`
 * `~/.ssh/github`
+* `~/.ssh/ansible_web_server_web.pub`
+* `~/.ssh/ansible_web_server_web`
 * `roles/corpsee_site/files/corpsee_site.sql`
 * `roles/corpsee_site/files/corpsee_site_test.sql`
 * `roles/corpsee_site/files/www`

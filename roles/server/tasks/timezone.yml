@@ -7,7 +7,7 @@
 
 - name:    Configure the timezone
   command: echo "{{ server_timezone }}" > /etc/timezone
-  notify:  Update tzdata
+  notify:  Update TZData
   when:    current_timezone.stdout != server_timezone
 
 - name: More Configure the timezone
