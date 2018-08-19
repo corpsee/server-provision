@@ -121,6 +121,14 @@
     creates: "/var/www/{{ corpsee_site_hostname }}/current/www/files/compiled/frontend.min.css"
   when: not site_directory.stat.exists
 
+- name:        Make migrations
+  command:     ./console migrations:migrate -e corpsee_site
+  become:      yes
+  become_user: "{{ corpsee_site_user }}"
+  args:
+    chdir: "/var/www/{{ corpsee_site_hostname }}/current"
+  when: not site_directory.stat.exists
+
 - name:     Create Corpsee site host
   template: src=corpsee_site.conf dest="/etc/nginx/sites-available/{{ corpsee_site_hostname }}.conf"
   when:     not site_directory.stat.exists
@@ -132,7 +140,6 @@
 
 - name: Set Corpsee site pullrequest cronjob
   cron: minute=0 hour=0 name="{{ corpsee_site_hostname }} pullrequests:get (Daily)" user="{{ corpsee_site_user }}" disabled="{{ corpsee_site_cron_disabled }}" job="/var/www/{{ corpsee_site_hostname }}/current/console pullrequests:get &>> /var/www/{{ corpsee_site_hostname }}/current/logs/pullrequests_get.log"
-
 
 - name:       Added auth info to .pgpass config
   lineinfile: path="/home/{{ corpsee_site_user }}/.pgpass" owner="{{ corpsee_site_user }}" group="{{ corpsee_site_group }}" mode=0600 create=yes line="localhost:5432:{{ corpsee_site_db_name }}:{{ corpsee_site_db_user }}:{{ corpsee_site_db_password }}" insertbefore=BOF
