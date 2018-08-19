@@ -130,5 +130,21 @@
   notify: Restart Nginx
   when:   not site_directory.stat.exists
 
-- name: Set Corpsee site cronjob
+- name: Set Corpsee site pullrequest cronjob
   cron: minute=0 hour=0 name="{{ corpsee_site_hostname }} pullrequests:get (Daily)" user="{{ corpsee_site_user }}" disabled="{{ corpsee_site_cron_disabled }}" job="/var/www/{{ corpsee_site_hostname }}/current/console pullrequests:get &>> /var/www/{{ corpsee_site_hostname }}/current/logs/pullrequests_get.log"
+
+
+- name:       Added auth info to .pgpass config
+  lineinfile: path="/home/{{ corpsee_site_user }}/.pgpass" owner="{{ corpsee_site_user }}" group="{{ corpsee_site_group }}" mode=0600 create=yes line="localhost:5432:{{ corpsee_site_db_name }}:{{ corpsee_site_db_user }}:{{ corpsee_site_db_password }}" insertbefore=BOF
+  when:       not site_directory.stat.exists
+
+- name:     Create Corpsee site DB dump script
+  template: src=backup_db.sh dest="/home/{{ corpsee_site_user }}/backup_db_{{ corpsee_site_db_dump_filename }}.sh"
+  when:     not site_directory.stat.exists
+
+- name: Set permitions for Corpsee site DB dump script
+  file: path="/home/{{ corpsee_site_user }}/backup_db_{{ corpsee_site_db_dump_filename }}.sh" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ug=rwx,o=r"
+  when: not site_directory.stat.exists
+
+- name: Set Corpsee site DB dump cronjob
+  cron: minute=0 hour=0 name="{{ corpsee_site_hostname }} DB dump" user="{{ corpsee_site_user }}" job="~/backup_db_{{ corpsee_site_db_dump_filename }}.sh"

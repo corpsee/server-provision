@@ -14,3 +14,6 @@
     user:  "{{ webuser_user }}"
     state: present
     key:   "{{lookup('file', '~/.ssh/ansible_web_server_' + webuser_user + '.pub')}}"
+
+- name: Creates backup directory
+  file: path="/home/{{ webuser_user }}/backup" owner="{{ webuser_user }}" group="{{ webuser_group }}" mode=0755 state=directory
