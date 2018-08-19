@@ -5,22 +5,22 @@ Requirements
 ------------
 
 * Ansible v2.5+.
-* Ubuntu 16.04 (14.04, 18.04) (image for server) and Mint 18.3 (19) (for desktop).
 
-Add files:
+* Ubuntu 18.04 (14.04, 16.04) (Image for server) and Mint 18.3 (19) (For desktop).
 
-* `inventories/group_vars/web-server/secret.yml`
-* `inventories/production.yml`
-* `.vault_password`
-* `~/.ssh/github.pub`
-* `~/.ssh/github`
-* `~/.ssh/ansible_web_server_web.pub`
-* `~/.ssh/ansible_web_server_web`
-* `roles/corpsee_site/files/corpsee_site.sql`
-* `roles/corpsee_site/files/corpsee_site_test.sql`
-* `roles/corpsee_site/files/www`
-* `roles/php_censor/files/php_censor.sql`
-* `roles/php_censor/files/php_censor_test.sql`
+* Files:
+    * `inventories/group_vars/web-server/secret.yml`
+    * `inventories/production.yml`
+    * `.vault_password`
+    * `~/.ssh/github.pub`
+    * `~/.ssh/github`
+    * `~/.ssh/ansible_web_server_<webuser>.pub` (`ansible_web_server_web.pub`)
+    * `~/.ssh/ansible_web_server_<webuser>` (`ansible_web_server_web`)
+    * `roles/corpsee_site/files/corpsee_site.sql`
+    * `roles/corpsee_site/files/corpsee_site_test.sql`
+    * `roles/corpsee_site/files/www`
+    * `roles/php_censor/files/php_censor.sql`
+    * `roles/php_censor/files/php_censor_test.sql`
 
 Deploy
 ------

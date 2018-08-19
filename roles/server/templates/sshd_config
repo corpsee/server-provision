@@ -28,10 +28,10 @@ Port {{ server_openssh_port }}
 
 # Authentication:
 
-#LoginGraceTime 2m
+LoginGraceTime 2m
 PermitRootLogin no
-#StrictModes yes
-#MaxAuthTries 6
+StrictModes yes
+MaxAuthTries 15
 #MaxSessions 10
 
 PubkeyAuthentication yes
