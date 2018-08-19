@@ -139,7 +139,8 @@
   when:   not site_directory.stat.exists
 
 - name: Set Corpsee site pullrequest cronjob
-  cron: minute=0 hour=0 name="{{ corpsee_site_hostname }} pullrequests:get (Daily)" user="{{ corpsee_site_user }}" disabled="{{ corpsee_site_cron_disabled }}" job="/var/www/{{ corpsee_site_hostname }}/current/console pullrequests:get &>> /var/www/{{ corpsee_site_hostname }}/current/logs/pullrequests_get.log"
+  cron: minute=0 hour=20 name="{{ corpsee_site_hostname }} pullrequests:get (Daily)" user="{{ corpsee_site_user }}" disabled="{{ corpsee_site_cron_disabled }}" job="/var/www/{{ corpsee_site_hostname }}/current/console pullrequests:get &>> /var/www/{{ corpsee_site_hostname }}/current/logs/pullrequests_get.log"
+  when: not site_directory.stat.exists
 
 - name:       Added auth info to .pgpass config
   lineinfile: path="/home/{{ corpsee_site_user }}/.pgpass" owner="{{ corpsee_site_user }}" group="{{ corpsee_site_group }}" mode=0600 create=yes line="localhost:5432:{{ corpsee_site_db_name }}:{{ corpsee_site_db_user }}:{{ corpsee_site_db_password }}" insertbefore=BOF
@@ -154,4 +155,4 @@
   when: not site_directory.stat.exists
 
 - name: Set Corpsee site DB dump cronjob
-  cron: minute=0 hour=0 name="{{ corpsee_site_hostname }} DB dump" user="{{ corpsee_site_user }}" job="~/backup_db_{{ corpsee_site_db_dump_filename }}.sh"
+  cron: minute=0 hour=21 weekday=5 name="{{ corpsee_site_hostname }} DB dump" user="{{ corpsee_site_user }}" job="~/backup_db_{{ corpsee_site_db_dump_filename }}.sh"

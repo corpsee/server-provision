@@ -117,6 +117,10 @@
   template: src=php_censor.service dest="/etc/systemd/system/{{ php_censor_queue_name }}.service"
   when:     not site_directory.stat.exists
 
+- name: Set PHP Censor Schedule cronjob
+  cron: minute=10 hour=20 name="{{ php_censor_hostname }} schedule-build (Daily)" user="{{ php_censor_user }}" job="/var/www/{{ php_censor_hostname }}/current/bin/console php-censor:schedule-build 7"
+  when: not site_directory.stat.exists
+
 - name:    Enable and start PHP Censor worker systemd service
   systemd: name="{{ php_censor_queue_name }}.service" state=started enabled=yes
   when:    not site_directory.stat.exists
@@ -134,4 +138,4 @@
   when: not site_directory.stat.exists
 
 - name: Set PHP Censor DB dump cronjob
-  cron: minute=0 hour=0 name="{{ php_censor_hostname }} DB dump" user="{{ php_censor_user }}" job="~/backup_db_{{ php_censor_db_dump_filename }}.sh"
+  cron: minute=10 hour=21 weekday=5 name="{{ php_censor_hostname }} DB dump" user="{{ php_censor_user }}" job="~/backup_db_{{ php_censor_db_dump_filename }}.sh"
