@@ -15,6 +15,7 @@ server_packages:
   - wget
   - software-properties-common
   - sendmail
+  - logrotate
   - mc
   - htop
   - git

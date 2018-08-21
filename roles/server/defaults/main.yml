@@ -13,8 +13,8 @@ server_packages:
   - curl
   - wget
   - software-properties-common
-  - python-software-properties
   - sendmail
+  - logrotate
   - mc
   - htop
   - git

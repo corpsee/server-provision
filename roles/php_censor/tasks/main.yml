@@ -60,6 +60,10 @@
   file: src="/var/www/{{ php_censor_hostname }}/shared/runtime" dest="/var/www/{{ php_censor_hostname }}/current/runtime" state=link
   when: not site_directory.stat.exists
 
+- name:     Set logrotate config
+  template: src=logrotate dest="/etc/logrotate.d/{{ php_censor_db_dump_filename }}"
+  when:     not site_directory.stat.exists
+
 - name:     Create PHP Censor application config
   template: src=config.yml dest="/var/www/{{ php_censor_hostname }}/current/app/config.yml"
   when:     not site_directory.stat.exists

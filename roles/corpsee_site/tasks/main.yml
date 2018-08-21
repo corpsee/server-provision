@@ -77,6 +77,10 @@
   file: src="/var/www/{{ corpsee_site_hostname }}/shared/logs" dest="/var/www/{{ corpsee_site_hostname }}/current/logs" state=link
   when: not site_directory.stat.exists
 
+- name:     Set logrotate config
+  template: src=logrotate dest="/etc/logrotate.d/{{ corpsee_site_db_dump_filename }}"
+  when:     not site_directory.stat.exists
+
 - name:     Create Corpsee site config
   template: src=config.php dest="/var/www/{{ corpsee_site_hostname }}/current/src/configs/config.php"
   when:     not site_directory.stat.exists
