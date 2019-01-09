@@ -2,7 +2,7 @@
 
 # mode: production|debug
 server_mode:         debug
-server_distributive: xenial
+server_distributive: bionic
 server_hostname:     example-hostname
 server_domain:       example-hostname.test
 

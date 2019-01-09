@@ -1,4 +1,4 @@
 ---
 
-postgresql_distributive: xenial
-postgresql_version:      10     # version: 9.3 | 9.4 | 9.5 | 9.6 | 10
+postgresql_distributive: bionic
+postgresql_version:      11 # version: 9.3 | 9.4 | 9.5 | 9.6 | 10 | 11

@@ -16,7 +16,7 @@ nginx_group:        &group-reference "corpsee"
 
 ### php role
 
-php_version:   7.2     # version: 5.6 | 7.0 | 7.1 | 7.2 | 7.3
+php_version:   7.3     # version: 5.6 | 7.0 | 7.1 | 7.2 | 7.3
 php_memory:    -1      # memory limit in MB
 php_fpm_user:  *user-reference
 php_fpm_group: *group-reference
@@ -43,4 +43,4 @@ composer_path: /usr/local/bin/composer
 ### postgresql role
 
 postgresql_distributive: *distributive-reference
-postgresql_version:      10
+postgresql_version:      11

@@ -1,6 +1,6 @@
 ---
 
-php_censor_php_version:      7.2
+php_censor_php_version:      7.3
 php_censor_user:             www-data
 php_censor_group:            www-data
 php_censor_version:          0.22.0
