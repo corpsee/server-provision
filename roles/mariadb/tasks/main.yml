@@ -8,6 +8,10 @@
   apt_key: id=0xF1656F24C74CD1D8 keyserver={{ mariadb_repo_keyserver }} state=present
   when:    mariadb_distributive == 'xenial'
 
+- name:    Add keys for MariaDB repository (bionic)
+  apt_key: id=0xF1656F24C74CD1D8 keyserver={{ mariadb_repo_keyserver }} state=present
+  when:    mariadb_distributive == 'bionic'
+
 - name:           Add MariaDB repository
   apt_repository: repo="deb {{ mariadb_repo }}/repo/{{ mariadb_version }}/ubuntu {{ mariadb_distributive }} main" update_cache=yes
 
