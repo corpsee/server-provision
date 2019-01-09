@@ -13,6 +13,7 @@ server_packages:
   - ca-certificates
   - curl
   - wget
+  - jq
   - software-properties-common
   - sendmail
   - logrotate
