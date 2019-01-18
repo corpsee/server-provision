@@ -2,7 +2,7 @@
 
 php_censor_user:             www-data
 php_censor_group:            www-data
-php_censor_version:          0.22.0
+php_censor_version:          1.0.2
 php_censor_db_name:          php_censor
 php_censor_db_user:          php_censor
 php_censor_db_password:      php_censor
