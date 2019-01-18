@@ -22,7 +22,7 @@ Requirements
     * `roles/php_censor/files/php_censor.sql` (roles: php_censor)
     * `roles/php_censor/files/php_censor_test.sql` (roles: php_censor)
 
-Files by roles:
+* Files by roles:
     * webuser:
         * `.vault_password`
         * `inventories/group_vars/web-server/secret.yml`
