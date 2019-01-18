@@ -6,21 +6,44 @@ Requirements
 
 * Ansible v2.5+.
 
-* Ubuntu 18.04 (14.04, 16.04) (Image for server) and Mint 18.3 (19) (For desktop).
+* Ubuntu 18.04 (14.04, 16.04) (Image for server) and Mint 19.1 - bionic (19.0 - bionic, 18.3 - xenial) (For desktop).
 
 * Files:
-    * `inventories/group_vars/web-server/secret.yml`
-    * `inventories/production.yml`
-    * `.vault_password`
-    * `~/.ssh/github.pub`
-    * `~/.ssh/github`
-    * `~/.ssh/ansible_web_server_<webuser>.pub` (`ansible_web_server_web.pub`)
-    * `~/.ssh/ansible_web_server_<webuser>` (`ansible_web_server_web`)
-    * `roles/corpsee_site/files/corpsee_site.sql`
-    * `roles/corpsee_site/files/corpsee_site_test.sql`
-    * `roles/corpsee_site/files/www`
-    * `roles/php_censor/files/php_censor.sql`
-    * `roles/php_censor/files/php_censor_test.sql`
+    * `.vault_password` (roles: webuser, php_censor, corpsee_site)
+    * `inventories/group_vars/web-server/secret.yml` (roles: webuser, php_censor, corpsee_site)
+    * `inventories/production.yml` (roles: corpsee_site)
+    * `~/.ssh/github.pub` (roles: php_censor, corpsee_site)
+    * `~/.ssh/github` (roles: php_censor, corpsee_site)
+    * `~/.ssh/ansible_web_server_<webuser>.pub` (`ansible_web_server_web.pub`) (roles: webuser)
+    * `~/.ssh/ansible_web_server_<webuser>` (`ansible_web_server_web`) (roles: webuser)
+    * `roles/corpsee_site/files/corpsee_site.sql` (roles: corpsee_site)
+    * `roles/corpsee_site/files/corpsee_site_test.sql` (roles: corpsee_site)
+    * `roles/corpsee_site/files/www` (roles: corpsee_site)
+    * `roles/php_censor/files/php_censor.sql` (roles: php_censor)
+    * `roles/php_censor/files/php_censor_test.sql` (roles: php_censor)
+
+Files by roles:
+    * webuser:
+        * `.vault_password`
+        * `inventories/group_vars/web-server/secret.yml`
+        * `~/.ssh/ansible_web_server_<webuser>.pub` (`ansible_web_server_web.pub`)
+        * `~/.ssh/ansible_web_server_<webuser>` (`ansible_web_server_web`)
+    * corpsee_site:
+        * `.vault_password`
+        * `inventories/group_vars/web-server/secret.yml`
+        * `inventories/production.yml`
+        * `~/.ssh/github.pub`
+        * `~/.ssh/github`
+        * `roles/corpsee_site/files/corpsee_site.sql`
+        * `roles/corpsee_site/files/corpsee_site_test.sql`
+        * `roles/corpsee_site/files/www`
+    * php_censor:
+        * `.vault_password`
+        * `inventories/group_vars/web-server/secret.yml`
+        * `~/.ssh/github.pub`
+        * `~/.ssh/github`
+        * `roles/php_censor/files/php_censor.sql`
+        * `roles/php_censor/files/php_censor_test.sql`
 
 Deploy
 ------
