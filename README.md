@@ -21,6 +21,8 @@ Requirements
     * `roles/corpsee_site/files/www` (roles: corpsee_site)
     * `roles/php_censor/files/php_censor.sql` (roles: php_censor)
     * `roles/php_censor/files/php_censor_test.sql` (roles: php_censor)
+    * `roles/php_censor/files/periodical.yml` (roles: php_censor)
+    * `roles/php_censor_release/files/periodical.yml` (roles: php_censor_release)
 
 * Files by roles:
     * webuser:
@@ -44,6 +46,9 @@ Requirements
         * `~/.ssh/github`
         * `roles/php_censor/files/php_censor.sql`
         * `roles/php_censor/files/php_censor_test.sql`
+        * `roles/php_censor/files/periodical.yml`
+    * php_censor_release:
+        * `roles/php_censor_release/files/periodical.yml`
 
 Deploy
 ------

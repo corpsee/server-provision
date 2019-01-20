@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/var/www/{{ php_censor_hostname }}/current/bin/console php-censor:worker
+ExecStart=/var/www/{{ php_censor_hostname }}/current/bin/console php-censor:worker -v --periodical-work
 Restart=always
 
 User={{ php_censor_user }}

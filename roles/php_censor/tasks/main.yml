@@ -64,9 +64,13 @@
   template: src=logrotate dest="/etc/logrotate.d/{{ php_censor_db_dump_filename }}"
   when:     not site_directory.stat.exists
 
-- name:     Create PHP Censor application config
+- name:     Create PHP Censor application config (config.yml)
   template: src=config.yml dest="/var/www/{{ php_censor_hostname }}/current/app/config.yml"
   when:     not site_directory.stat.exists
+
+- name: Create PHP Censor periodical config (periodical.yml)
+  copy: src="{{ role_path }}/files/periodical.yml" dest="/var/www/{{ php_censor_hostname }}/current/app/periodical.yml"
+  when: not site_directory.stat.exists
 
 - name: Delete non-production files
   file: path="{{ item }}" state=absent
@@ -91,15 +95,6 @@
     creates: "/var/www/{{ php_censor_hostname }}/current/vendor"
   when: not site_directory.stat.exists
 
-- name:        Install PHP Censor Telegram plugin
-  command:     composer require --optimize-autoloader lexasoft/php-censor-telegram-plugin:~2.0
-  become:      yes
-  become_user: "{{ php_censor_user }}"
-  args:
-    chdir:   "/var/www/{{ php_censor_hostname }}/current"
-    creates: "/var/www/{{ php_censor_hostname }}/current/vendor/lexasoft/php-censor-telegram-plugin"
-  when: not site_directory.stat.exists
-
 - name:        Make migrations
   command:     ./bin/console php-censor-migrations:migrate
   become:      yes
@@ -120,10 +115,6 @@
 - name:     Create PHP Censor worker systemd service
   template: src=php_censor.service dest="/etc/systemd/system/{{ php_censor_queue_name }}.service"
   when:     not site_directory.stat.exists
-
-- name: Set PHP Censor Schedule cronjob
-  cron: minute=10 hour=20 name="{{ php_censor_hostname }} schedule-build (Daily)" user="{{ php_censor_user }}" job="/var/www/{{ php_censor_hostname }}/current/bin/console php-censor:schedule-build 7"
-  when: not site_directory.stat.exists
 
 - name:    Enable and start PHP Censor worker systemd service
   systemd: name="{{ php_censor_queue_name }}.service" state=started enabled=yes

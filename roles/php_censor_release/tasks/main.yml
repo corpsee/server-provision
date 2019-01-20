@@ -13,8 +13,11 @@
 - name: Set shared directory link
   file: src="/var/www/{{ php_censor_hostname }}/shared/runtime" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/runtime" state=link
 
-- name:     Create PHP Censor application config
+- name:     Create PHP Censor application config (config.yml)
   template: src=config.yml dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/app/config.yml"
+
+- name: Create PHP Censor periodical config (periodical.yml)
+  copy: src="{{ role_path }}/files/periodical.yml" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/app/periodical.yml"
 
 - name: Delete non-production files
   file: path="{{ item }}" state=absent

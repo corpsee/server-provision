@@ -11,3 +11,6 @@
 !/roles/corpsee_site/files/www/.gitkeep
 
 /roles/php_censor/files/*.sql
+/roles/php_censor/files/periodical.yml
+
+/roles/php_censor_release/files/periodical.yml
