@@ -50,7 +50,7 @@ nginx_group:        *group-reference
 
 ### php role
 
-php_version:   7.3              # version: 5.6 | 7.0 | 7.1 | 7.2 | 7.3
+php_version:   7.1              # version: 5.6 | 7.0 | 7.1 | 7.2 | 7.3
 php_memory:    256M             # memory limit in MB
 php_fpm_user:  *user-reference
 php_fpm_group: *group-reference
@@ -82,7 +82,7 @@ postgresql_version:      11
 
 ### php_censor role
 
-php_censor_php_version:      7.3
+php_censor_php_version:      7.1
 php_censor_user:             *user-reference
 php_censor_group:            *group-reference
 php_censor_db_name:          php_censor
@@ -109,7 +109,7 @@ php_censor_version_test:          1.0.2
 
 ### corpsee_site role
 
-corpsee_site_php_version:      7.3
+corpsee_site_php_version:      7.1
 corpsee_site_user:             *user-reference
 corpsee_site_group:            *group-reference
 corpsee_site_db_name:          corpsee_site

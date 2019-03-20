@@ -6,6 +6,8 @@ all:
           server_domain:              corpsee.test
           server_mode:                debug
           server_openssh_port:        22
+          php_censor_version:         master
+          php_censor_php_version:     7.1
           php_censor_hostname:        php-censor.test
           php_censor_hostname_test:   php-censor-test.test
           php_censor_url:             'http://php-censor.test'
