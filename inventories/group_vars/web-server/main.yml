@@ -11,16 +11,17 @@ server_packages:
   - aptitude
   - apt-transport-https
   - ca-certificates
-  - curl
-  - wget
-  - jq
   - software-properties-common
   - sendmail
   - logrotate
+  - curl
+  - wget
+  - jq
   - mc
   - htop
   - git
   - zsh
+  - pv
 
 server_timezone: Asia/Novosibirsk
 
