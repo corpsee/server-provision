@@ -2,12 +2,24 @@
 
 ### server role
 
-server_mode:         production
-server_distributive: &distributive-reference "bionic" # xenial | bionic
-server_hostname:     corpsee
-server_domain:       corpsee.com
+server_mode:     production
+server_hostname: corpsee
+server_domain:   corpsee.com
 
-server_packages:
+server_timezone: Asia/Novosibirsk
+
+server_locales:
+  - en_US.UTF-8
+  - ru_RU.UTF-8
+  
+server_default_local: en_US.UTF-8
+
+server_openssh_port: 2342
+
+
+### packages role
+
+packages_items:
   - aptitude
   - apt-transport-https
   - ca-certificates
@@ -23,16 +35,6 @@ server_packages:
   - zsh
   - pv
 
-server_timezone: Asia/Novosibirsk
-
-server_locales:
-  - en_US.UTF-8
-  - ru_RU.UTF-8
-  
-server_default_local: en_US.UTF-8
-
-server_openssh_port: 2342
-
 
 ### webuser role
 
@@ -44,9 +46,8 @@ webuser_groups: sudo
 
 ### nginx role
 
-nginx_distributive: *distributive-reference
-nginx_user:         *user-reference
-nginx_group:        *group-reference
+nginx_user:  *user-reference
+nginx_group: *group-reference
 
 
 ### php role
@@ -77,8 +78,7 @@ composer_path: /usr/local/bin/composer
 
 ### postgresql role
 
-postgresql_distributive: *distributive-reference
-postgresql_version:      11
+postgresql_version: 11
 
 
 ### php_censor role

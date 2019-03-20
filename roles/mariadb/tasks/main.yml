@@ -2,18 +2,18 @@
 
 - name:    Add keys for MariaDB repository (trusty)
   apt_key: id=0xcbcb082a1bb943db keyserver={{ mariadb_repo_keyserver }} state=present
-  when:    mariadb_distributive == 'trusty'
+  when:    ansible_distribution_release == 'trusty'
 
 - name:    Add keys for MariaDB repository (xenial)
   apt_key: id=0xF1656F24C74CD1D8 keyserver={{ mariadb_repo_keyserver }} state=present
-  when:    mariadb_distributive == 'xenial'
+  when:    ansible_distribution_release == 'xenial'
 
 - name:    Add keys for MariaDB repository (bionic)
   apt_key: id=0xF1656F24C74CD1D8 keyserver={{ mariadb_repo_keyserver }} state=present
-  when:    mariadb_distributive == 'bionic'
+  when:    ansible_distribution_release == 'bionic'
 
 - name:           Add MariaDB repository
-  apt_repository: repo="deb {{ mariadb_repo }}/repo/{{ mariadb_version }}/ubuntu {{ mariadb_distributive }} main" update_cache=yes
+  apt_repository: repo="deb {{ mariadb_repo }}/repo/{{ mariadb_version }}/ubuntu {{ ansible_distribution_release }} main" update_cache=yes
 
 - name: Install MariaDB
   apt:  name="{{ item }}" state=latest

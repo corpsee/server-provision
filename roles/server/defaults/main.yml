@@ -1,26 +1,9 @@
 ---
 
 # mode: production|debug
-server_mode:         debug
-server_distributive: bionic
-server_hostname:     example-hostname
-server_domain:       example-hostname.test
-
-server_packages:
-  - aptitude
-  - apt-transport-https
-  - ca-certificates
-  - software-properties-common
-  - sendmail
-  - logrotate
-  - curl
-  - wget
-  - jq
-  - mc
-  - htop
-  - git
-  - zsh
-  - pv
+server_mode:     debug
+server_hostname: example-hostname
+server_domain:   example-hostname.test
 
 server_timezone: UTC
 

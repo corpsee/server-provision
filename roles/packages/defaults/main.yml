@@ -1,0 +1,17 @@
+---
+
+packages_items:
+  - aptitude
+  - apt-transport-https
+  - ca-certificates
+  - software-properties-common
+  - sendmail
+  - logrotate
+  - curl
+  - wget
+  - jq
+  - mc
+  - htop
+  - git
+  - zsh
+  - pv

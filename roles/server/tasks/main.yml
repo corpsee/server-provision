@@ -1,7 +1,5 @@
 ---
 
-- include: packages.yml
-
 - include: timezone.yml
 
 - include: locale.yml

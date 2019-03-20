@@ -1,5 +1,4 @@
 ---
 
-nginx_distributive: bionic
-nginx_user:         www-data
-nginx_group:        www-data
+nginx_user:  www-data
+nginx_group: www-data

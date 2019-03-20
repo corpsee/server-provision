@@ -1,17 +1,28 @@
 ---
 
-### server role
+### packages role
 
-server_mode:         debug
-server_distributive: &distributive-reference "bionic" # xenial | bionic
-server_timezone:     Asia/Novosibirsk
+packages_items:
+  - aptitude
+  - apt-transport-https
+  - ca-certificates
+  - software-properties-common
+  - sendmail
+  - logrotate
+  - curl
+  - wget
+  - jq
+  - mc
+  - htop
+  - git
+  - zsh
+  - pv
 
 
 ### nginx role
 
-nginx_distributive: *distributive-reference
-nginx_user:         &user-reference "corpsee"
-nginx_group:        &group-reference "corpsee"
+nginx_user:  &user-reference "corpsee"
+nginx_group: &group-reference "corpsee"
 
 
 ### php role
@@ -42,5 +53,4 @@ composer_path: /usr/local/bin/composer
 
 ### postgresql role
 
-postgresql_distributive: *distributive-reference
-postgresql_version:      11
+postgresql_version: 11

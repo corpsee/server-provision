@@ -1,7 +1,7 @@
 ---
 
 - name:           Add PHP repository
-  apt_repository: repo="ppa:ondrej/php" codename="{{ server_distributive }}" update_cache=yes
+  apt_repository: repo="ppa:ondrej/php" codename="{{ ansible_distribution_release }}" update_cache=yes
 
 - name: Install PHP
   apt:  name="{{ item }}" state=latest

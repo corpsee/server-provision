@@ -16,6 +16,7 @@
     - name:  Setup and gather facts
       setup:
   roles:
+    - packages
     - server
     - webuser
     - nginx

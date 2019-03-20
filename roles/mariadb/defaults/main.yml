@@ -1,6 +1,5 @@
 ---
 
-mariadb_distributive:   bionic
 mariadb_hostname:       example-hostname
 mariadb_version:        10.3 # version: 10.0 | 10.1 | 10.2 | 10.3
 mariadb_root_password:  root
