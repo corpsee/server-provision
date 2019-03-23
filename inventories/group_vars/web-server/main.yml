@@ -44,6 +44,12 @@ webuser_group:  &group-reference "www-data"
 webuser_groups: sudo
 
 
+### oh-my-zsh role
+
+oh_my_zsh_user:  *user-reference
+oh_my_zsh_group: *group-reference
+
+
 ### nginx role
 
 nginx_user:  *user-reference

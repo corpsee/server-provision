@@ -1,0 +1,37 @@
+---
+
+- name: Install Zsh and Git
+  apt:  name="{{ item }}" state=latest
+  loop:
+    - zsh
+    - git
+
+- name: Clone '.oh-my-zsh' for root
+  git:  repo="https://github.com/robbyrussell/oh-my-zsh" dest="/root/.oh-my-zsh"
+
+- name:     Set '.zshrc' config for root
+  template: src=".zshrc" dest="/root/.zshrc"
+
+- name:     Set 'nameless' theme file for root
+  template: src="nameless.zsh-theme" dest="/root/.oh-my-zsh/custom/themes/nameless.zsh-theme"
+
+- name:    Change shell to zsh for root
+  command: chsh -s /bin/zsh
+
+- name: Clone '.oh-my-zsh' for user
+  git:  repo="https://github.com/robbyrussell/oh-my-zsh" dest="/home/{{ oh_my_zsh_user }}/.oh-my-zsh"
+
+- name:     Set '.zshrc' config for user
+  template: src=".zshrc" dest="/home/{{ oh_my_zsh_user }}/.zshrc"
+
+- name:     Set 'nameless' theme file for user
+  template: src="nameless.zsh-theme" dest="/home/{{ oh_my_zsh_user }}/.oh-my-zsh/custom/themes/nameless.zsh-theme"
+
+- name: Set permitions for '.zshrc' config
+  file: path="/home/{{ oh_my_zsh_user }}/.zshrc" owner={{ oh_my_zsh_user }} group={{ oh_my_zsh_group }} mode="u=rwX,go=rX"
+
+- name: Set permitions for '.oh-my-zsh'
+  file: path="/home/{{ oh_my_zsh_user }}/.oh-my-zsh" owner={{ oh_my_zsh_user }} group={{ oh_my_zsh_group }} mode="u=rwX,go=rX" recurse=yes
+
+- name:    Change shell to zsh for user
+  command: chsh -s /bin/zsh "{{ oh_my_zsh_user }}"

@@ -19,10 +19,16 @@ packages_items:
   - pv
 
 
+### oh-my-zsh role
+
+oh_my_zsh_user:  &user-reference "corpsee"
+oh_my_zsh_group: &group-reference "corpsee"
+
+
 ### nginx role
 
-nginx_user:  &user-reference "corpsee"
-nginx_group: &group-reference "corpsee"
+nginx_user:  *user-reference
+nginx_group: *group-reference
 
 
 ### php role
