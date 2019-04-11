@@ -1,7 +1,6 @@
 ---
 
-# mode: production|debug
-server_mode:     debug
+server_mode:     debug                 # mode: production|debug
 server_hostname: example-hostname
 server_domain:   example-hostname.test
 
@@ -13,5 +12,3 @@ server_locales:
 server_default_local: en_US.UTF-8
 
 server_openssh_port: 22
-
-

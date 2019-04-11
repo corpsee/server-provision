@@ -1,12 +1,20 @@
 ---
 
+### references
+
+user-reference:     &user-reference "web"
+group-reference:    &group-reference "www-data"
+mode-reference:     &mode-reference "production"
+timezone-reference: &timezone-reference "Asia/Novosibirsk"
+
+
 ### server role
 
-server_mode:     production
+server_mode:     *mode-reference
 server_hostname: corpsee
 server_domain:   corpsee.com
 
-server_timezone: Asia/Novosibirsk
+server_timezone: *timezone-reference
 
 server_locales:
   - en_US.UTF-8
@@ -38,10 +46,16 @@ packages_items:
 
 ### webuser role
 
-webuser_user:   &user-reference "web"
+webuser_user:   *user-reference
 #webuser_password: in secret.yml
-webuser_group:  &group-reference "www-data"
+webuser_group:  *group-reference
 webuser_groups: sudo
+
+
+### oh-my-zsh role
+
+oh_my_zsh_user:  *user-reference
+oh_my_zsh_group: *group-reference
 
 
 ### nginx role
@@ -52,8 +66,10 @@ nginx_group: *group-reference
 
 ### php role
 
-php_version:   7.1              # version: 5.6 | 7.0 | 7.1 | 7.2 | 7.3
-php_memory:    256M             # memory limit in MB
+php_mode:      *mode-reference
+php_timezone:  *timezone-reference
+php_version:   7.1
+php_memory:    256M
 php_fpm_user:  *user-reference
 php_fpm_group: *group-reference
 
@@ -95,7 +111,7 @@ php_censor_hostname:         ci.php-censor.info
 php_censor_url:              "http://ci.php-censor.info"
 php_censor_from_email:       'PHP Censor CI <ci@php-censor.info>'
 #php_censor_github_token: in secret.yml
-php_censor_version:          1.0.2
+php_censor_version:          1.0.7
 
 php_censor_db_name_test:          php_censor_test
 php_censor_db_user_test:          php_censor_test
@@ -105,7 +121,7 @@ php_censor_queue_name_test:       php_censor_test
 php_censor_hostname_test:         ci-test.php-censor.info
 php_censor_url_test:              "http://ci-test.php-censor.info"
 php_censor_from_email_test:       'PHP Censor CI Test <ci-test@php-censor.info>'
-php_censor_version_test:          1.0.2
+php_censor_version_test:          1.0.7
 
 
 ### corpsee_site role

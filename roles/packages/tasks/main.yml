@@ -4,7 +4,7 @@
   apt:          upgrade=yes update_cache=yes cache_valid_time=3600
   changed_when: false
 
-- name: Install packages | {{ ansible_distribution_release }}
+- name: Install packages
   apt:  name="{{ item }}" state=latest
   loop: "{{ packages_items }}"
   when: packages_items is defined

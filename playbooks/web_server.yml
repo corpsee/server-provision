@@ -19,6 +19,7 @@
     - packages
     - server
     - webuser
+    - oh_my_zsh
     - nginx
     - php
     - composer

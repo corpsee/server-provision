@@ -27,17 +27,17 @@
   command: mv -fv "/etc/php/{{ php_version }}/fpm/pool.d/www.conf" "/etc/php/{{ php_version }}/fpm/pool.d/www.conf-origin" creates="/etc/php/{{ php_version }}/fpm/pool.d/www.conf-origin"
 
 - name:     Set PHP configs
-  template: src="{{ php_version }}/php.{{ server_mode }}.ini" dest="/etc/php/{{ php_version }}/{{ item }}/php.ini"
+  template: src="{{ php_version }}/{{ item }}/php.{{ php_mode }}.ini" dest="/etc/php/{{ php_version }}/{{ item }}/php.ini"
   notify:   Restart PHP-FPM
   loop:
     - "cli"
     - "fpm"
 
 - name:     Set PHP-FPM config
-  template: src="{{ php_version }}/php-fpm.{{ server_mode }}.conf" dest="/etc/php/{{ php_version }}/fpm/php-fpm.conf"
+  template: src="{{ php_version }}/fpm/php-fpm.{{ php_mode }}.conf" dest="/etc/php/{{ php_version }}/fpm/php-fpm.conf"
 
 - name:     Set PHP-FPM www config
-  template: src="{{ php_version }}/www.{{ server_mode }}.conf" dest="/etc/php/{{ php_version }}/fpm/pool.d/www.conf"
+  template: src="{{ php_version }}/fpm/pool.d/www.{{ php_mode }}.conf" dest="/etc/php/{{ php_version }}/fpm/pool.d/www.conf"
 
 - name: Create log directory
   file: path="/var/log/php/{{ php_version }}" state=directory mode=0755 owner={{ php_fpm_user }} group={{ php_fpm_group }}
