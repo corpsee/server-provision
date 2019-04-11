@@ -1,5 +1,13 @@
 ---
 
+### references
+
+user-reference:     &user-reference "corpsee"
+group-reference:    &group-reference "corpsee"
+mode-reference:     &mode-reference "debug"
+timezone-reference: &timezone-reference "Asia/Novosibirsk"
+
+
 ### packages role
 
 packages_items:
@@ -21,8 +29,8 @@ packages_items:
 
 ### oh-my-zsh role
 
-oh_my_zsh_user:  &user-reference "corpsee"
-oh_my_zsh_group: &group-reference "corpsee"
+oh_my_zsh_user:  *user-reference
+oh_my_zsh_group: *group-reference
 
 
 ### nginx role
@@ -33,8 +41,10 @@ nginx_group: *group-reference
 
 ### php role
 
-php_version:   7.3     # version: 5.6 | 7.0 | 7.1 | 7.2 | 7.3
-php_memory:    -1      # memory limit in MB
+php_mode:      *mode-reference
+php_timezone:  *timezone-reference
+php_version:   7.1
+php_memory:    -1
 php_fpm_user:  *user-reference
 php_fpm_group: *group-reference
 php_packages:

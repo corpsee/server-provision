@@ -1,12 +1,20 @@
 ---
 
+### references
+
+user-reference:     &user-reference "web"
+group-reference:    &group-reference "www-data"
+mode-reference:     &mode-reference "production"
+timezone-reference: &timezone-reference "Asia/Novosibirsk"
+
+
 ### server role
 
-server_mode:     production
+server_mode:     *mode-reference
 server_hostname: corpsee
 server_domain:   corpsee.com
 
-server_timezone: Asia/Novosibirsk
+server_timezone: *timezone-reference
 
 server_locales:
   - en_US.UTF-8
@@ -38,9 +46,9 @@ packages_items:
 
 ### webuser role
 
-webuser_user:   &user-reference "web"
+webuser_user:   *user-reference
 #webuser_password: in secret.yml
-webuser_group:  &group-reference "www-data"
+webuser_group:  *group-reference
 webuser_groups: sudo
 
 
@@ -58,8 +66,10 @@ nginx_group: *group-reference
 
 ### php role
 
-php_version:   7.1              # version: 5.6 | 7.0 | 7.1 | 7.2 | 7.3
-php_memory:    256M             # memory limit in MB
+php_mode:      *mode-reference
+php_timezone:  *timezone-reference
+php_version:   7.1
+php_memory:    256M
 php_fpm_user:  *user-reference
 php_fpm_group: *group-reference
 
