@@ -49,7 +49,7 @@ packages_items:
 webuser_user:   *user-reference
 #webuser_password: in secret.yml
 webuser_group:  *group-reference
-webuser_groups: sudo
+webuser_groups: []
 
 
 ### oh-my-zsh role
