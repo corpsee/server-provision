@@ -1,9 +1,8 @@
 ---
 
-- hosts:        web-server
-  become:       yes
-  become_user:  root
-  gather_facts: false
+- hosts:       web-server
+  become:      yes
+  become_user: root
   roles:
     - nginx
     - corpsee_site
