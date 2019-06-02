@@ -13,7 +13,7 @@
   authorized_key:
     user:  "{{ webuser_user }}"
     state: present
-    key:   "{{lookup('file', '~/.ssh/ansible_web_server_' + webuser_user + '.pub')}}"
+    key:   "{{lookup('file', '~/.ssh/web_server_' + webuser_user + '.pub')}}"
 
 - name: Creates web user sudoers config
   template: src=sudoers.j2 dest="/etc/sudoers.d/{{ webuser_user }}" validate="visudo -cf %s" mode=0440

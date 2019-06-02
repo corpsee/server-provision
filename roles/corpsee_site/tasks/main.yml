@@ -28,13 +28,13 @@
   when:          corpsee_site_database.changed
 
 - name: Create the SSH public key file
-  copy: content="{{lookup('file', '~/.ssh/github.pub')}}" dest=/root/.ssh/github.pub mode=0600
+  copy: content="{{lookup('file', '~/.ssh/web_server_github.pub')}}" dest=/root/.ssh/web_server_github.pub mode=0600
 
 - name: Create the SSH private key file
-  copy: content="{{lookup('file', '~/.ssh/github')}}" dest=/root/.ssh/github mode=0600
+  copy: content="{{lookup('file', '~/.ssh/web_server_github')}}" dest=/root/.ssh/web_server_github mode=0600
 
 - name: Clone latest Corpsee site repository
-  git:  repo="git@github.com:corpsee/corpsee-com.git" version="{{ corpsee_site_version }}" dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/github" accept_hostkey=yes
+  git:  repo="git@github.com:corpsee/corpsee-com.git" version="{{ corpsee_site_version }}" dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/web_server_github" accept_hostkey=yes
   when: not site_directory.stat.exists
 
 - name: Set current release link

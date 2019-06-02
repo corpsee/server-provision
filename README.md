@@ -12,10 +12,10 @@ Requirements
     * `.vault_password` (roles: webuser, php_censor, corpsee_site)
     * `inventories/group_vars/web-server/secret.yml` (roles: webuser, php_censor, corpsee_site)
     * `inventories/production.yml` (roles: corpsee_site)
-    * `~/.ssh/github.pub` (roles: php_censor, corpsee_site)
-    * `~/.ssh/github` (roles: php_censor, corpsee_site)
-    * `~/.ssh/ansible_web_server_<webuser>.pub` (`ansible_web_server_web.pub`) (roles: webuser)
-    * `~/.ssh/ansible_web_server_<webuser>` (`ansible_web_server_web`) (roles: webuser)
+    * `~/.ssh/web_server_github.pub` (roles: php_censor, corpsee_site)
+    * `~/.ssh/web_server_github` (roles: php_censor, corpsee_site)
+    * `~/.ssh/web_server_<webuser>.pub` (`web_server_web.pub`) (roles: webuser)
+    * `~/.ssh/web_server_<webuser>` (`web_server_web`) (roles: webuser)
     * `roles/corpsee_site/files/corpsee_site.sql` (roles: corpsee_site)
     * `roles/corpsee_site/files/corpsee_site_test.sql` (roles: corpsee_site)
     * `roles/corpsee_site/files/www` (roles: corpsee_site)
@@ -28,22 +28,22 @@ Requirements
     * webuser:
         * `.vault_password`
         * `inventories/group_vars/web-server/secret.yml`
-        * `~/.ssh/ansible_web_server_<webuser>.pub` (`ansible_web_server_web.pub`)
-        * `~/.ssh/ansible_web_server_<webuser>` (`ansible_web_server_web`)
+        * `~/.ssh/web_server_<webuser>.pub` (`web_server_web.pub`)
+        * `~/.ssh/web_server_<webuser>` (`web_server_web`)
     * corpsee_site:
         * `.vault_password`
         * `inventories/group_vars/web-server/secret.yml`
         * `inventories/production.yml`
-        * `~/.ssh/github.pub`
-        * `~/.ssh/github`
+        * `~/.ssh/web_server_github.pub`
+        * `~/.ssh/web_server_github`
         * `roles/corpsee_site/files/corpsee_site.sql`
         * `roles/corpsee_site/files/corpsee_site_test.sql`
         * `roles/corpsee_site/files/www`
     * php_censor:
         * `.vault_password`
         * `inventories/group_vars/web-server/secret.yml`
-        * `~/.ssh/github.pub`
-        * `~/.ssh/github`
+        * `~/.ssh/web_server_github.pub`
+        * `~/.ssh/web_server_github`
         * `roles/php_censor/files/php_censor.sql`
         * `roles/php_censor/files/php_censor_test.sql`
         * `roles/php_censor/files/periodical.yml`

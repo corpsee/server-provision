@@ -5,7 +5,7 @@
   register: release_datetime
 
 - name: Clone latest PHP Censor repository
-  git:  repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/github" accept_hostkey=yes
+  git:  repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/web_server_github" accept_hostkey=yes
 
 - name: Delete shared directories
   file: path="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/runtime" state=absent

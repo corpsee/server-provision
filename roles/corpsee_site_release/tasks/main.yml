@@ -5,7 +5,7 @@
   register: release_datetime
 
 - name: Clone latest Corpsee site repository
-  git:  repo="git@github.com:corpsee/corpsee-com.git" version="{{ corpsee_site_version }}" dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/github" accept_hostkey=yes
+  git:  repo="git@github.com:corpsee/corpsee-com.git" version="{{ corpsee_site_version }}" dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/web_server_github" accept_hostkey=yes
 
 - name: Delete shared directories
   file: path="{{ item }}" state=absent
