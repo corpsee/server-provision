@@ -16,4 +16,4 @@
   set_fact:
     ansible_distribution_release: bionic
   when:
-    - ansible_distribution_release == "tessa" or ansible_distribution_release == "tara"
+    - ansible_distribution_release == "tessa" or ansible_distribution_release == "tara" or ansible_distribution_release == "tina"
