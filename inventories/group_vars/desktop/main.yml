@@ -10,7 +10,24 @@ timezone-reference: &timezone-reference "Asia/Novosibirsk"
 
 ### packages role
 
-packages_items:
+packages_ppa:
+  - ppa:git-core/ppa
+  - ppa:ansible/ansible
+
+packages_repositories:
+  - repository: "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    keyserver:  keyserver.ubuntu.com
+    key:        0EBFCD88
+  - repository: "deb http://vagrant-deb.linestarve.com/ any main"
+    keyserver:  keyserver.ubuntu.com
+    key:        AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4
+  - repository: "deb http://repo.yandex.ru/yandex-disk/deb/ stable main"
+    keyserver:  keyserver.ubuntu.com
+    key:        EFC4571D7C90E5AF
+  # curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+  #- repository: "deb https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main"
+
+packages_items_to_install:
   - aptitude
   - apt-transport-https
   - ca-certificates
@@ -25,6 +42,36 @@ packages_items:
   - git
   - zsh
   - pv
+
+  - ansible
+  - vagrant
+  - docker-ce
+  - restic
+  #- nodejs
+  - anacron
+  - beanstalkd
+
+  - gnupg
+  - sshfs
+  - cifs-utils
+  - lm-sensors
+  - hddtemp
+
+  - keepassx
+  - yandex-disk
+  - deluge
+  - virtualbox-qt
+  - smplayer
+  - smplayer-themes
+  - filezilla
+  - conky-all
+  - pgadmin3
+  - mysql-workbench
+
+packages_items_to_remove:
+  - hexchat
+  - transmission-gtk
+  - thunderbird
 
 
 ### oh-my-zsh role

@@ -1,0 +1,11 @@
+---
+
+- name:    Add keys for repositories
+  apt_key: id={{ item.key }} keyserver={{ item.keyserver }} state=present
+  loop:    "{{ packages_repositories }}"
+  when:    packages_repositories is defined
+
+- name:           Add repositories
+  apt_repository: repo={{ item.repository }} update_cache=yes
+  loop:           "{{ packages_repositories }}"
+  when:           packages_repositories is defined

@@ -27,7 +27,12 @@ server_default_local: en_US.UTF-8
 
 ### packages role
 
-packages_items:
+packages_ppa:
+  - ppa:git-core/ppa
+
+packages_repositories: []
+
+packages_items_to_install:
   - aptitude
   - apt-transport-https
   - ca-certificates
@@ -42,6 +47,8 @@ packages_items:
   - git
   - zsh
   - pv
+
+packages_items_to_remove: []
 
 
 ### webuser role

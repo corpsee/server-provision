@@ -1,10 +1,9 @@
 ---
 
-- name:         Upgrade server packages
-  apt:          upgrade=yes update_cache=yes cache_valid_time=3600
-  changed_when: false
+- include: ppa.yml
 
-- name: Install packages
-  apt:  name="{{ item }}" state=latest
-  loop: "{{ packages_items }}"
-  when: packages_items is defined
+- include: reposirories.yml
+
+- include: install.yml
+
+- include: remove.yml

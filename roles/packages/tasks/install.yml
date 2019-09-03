@@ -1,0 +1,10 @@
+---
+
+- name:         Upgrade server packages
+  apt:          upgrade=yes update_cache=yes cache_valid_time=3600
+  changed_when: false
+
+- name: Install packages
+  apt:  name="{{ item }}" state=latest
+  loop: "{{ packages_items_to_install }}"
+  when: packages_items_to_install is defined
