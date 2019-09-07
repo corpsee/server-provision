@@ -52,8 +52,13 @@ packages_items_to_install:
   - beanstalkd
 
   - gnupg
+
+  # For mounting
   - sshfs
   - cifs-utils
+
+  # For conky
+  - conky-all
   - lm-sensors
   - hddtemp
 
@@ -64,7 +69,6 @@ packages_items_to_install:
   - smplayer
   - smplayer-themes
   - filezilla
-  - conky-all
   - pgadmin3
   - mysql-workbench
 
