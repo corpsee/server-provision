@@ -18,3 +18,4 @@ all:
           php_censor_github_token:    null
           corpsee_site_hostname:      corpsee.test
           corpsee_site_hostname_test: corpsee-test.test
+          php_censor_site_hostname:   php-censor-site.test

@@ -1,0 +1,8 @@
+---
+
+- hosts:       web-server
+  become:      yes
+  become_user: root
+  roles:
+    - nginx
+    - php_censor_site
