@@ -15,3 +15,5 @@
     - { role: php, php_version: 7.3 }
     - composer
     - postgresql
+    - postgresql_desktop
+    - mariadb
