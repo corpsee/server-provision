@@ -42,7 +42,7 @@
   when: not site_directory.stat.exists
 
 - name: Copy Corpsee site files to host
-  copy: src="{{ role_path }}/files/www" dest="/var/www/{{ corpsee_site_hostname }}/shared"
+  copy: src="{{ role_path }}/files/{{ corpsee_site_www_dir_filename }}" dest="/var/www/{{ corpsee_site_hostname }}/shared/www"
   when: not site_directory.stat.exists
 
 - name: Delete shared directories
@@ -78,7 +78,7 @@
   when: not site_directory.stat.exists
 
 - name:     Set logrotate config
-  template: src=logrotate dest="/etc/logrotate.d/{{ corpsee_site_db_dump_filename }}"
+  template: src=logrotate dest="/etc/logrotate.d/{{ corpsee_site_hostname }}"
   when:     not site_directory.stat.exists
 
 - name:     Create Corpsee site config
