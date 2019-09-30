@@ -78,7 +78,7 @@
   when: not site_directory.stat.exists
 
 - name:     Set logrotate config
-  template: src=logrotate dest="/etc/logrotate.d/{{ corpsee_site_hostname }}"
+  template: src=logrotate dest="/etc/logrotate.d/{{ corpsee_site_db_dump_filename }}"
   when:     not site_directory.stat.exists
 
 - name:     Create Corpsee site config
