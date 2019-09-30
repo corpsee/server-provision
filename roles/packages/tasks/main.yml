@@ -2,7 +2,7 @@
 
 - include: ppa.yml
 
-- include: reposirories.yml
+- include: repositories.yml
 
 - include: install.yml
 
