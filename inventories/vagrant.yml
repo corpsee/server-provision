@@ -1,6 +1,6 @@
 all:
   children:
-    web-server:
+    web_server:
       hosts:
         192.168.56.10:
           server_domain:              corpsee.test
@@ -15,7 +15,7 @@ all:
           php_censor_url_test:        'http://php-censor-test.test'
           php_censor_from_email:      'PHP Censor CI <ci@php-censor.test>'
           php_censor_from_email_test: 'PHP Censor CI Test <ci@php-censor-test.test>'
-          php_censor_github_token:    null
+          php_censor_github_token:    ''
           corpsee_site_hostname:      corpsee.test
           corpsee_site_hostname_test: corpsee-test.test
           php_censor_site_hostname:   php-censor-site.test

@@ -10,4 +10,4 @@ php_censor_queue_name:       php_censor
 php_censor_hostname:         php-censor.test
 php_censor_url:              'http://php-censor.test'
 php_censor_from_email:       'PHP Censor <no-reply@php-censor.test>'
-php_censor_github_token:     null
+php_censor_github_token:     ''
