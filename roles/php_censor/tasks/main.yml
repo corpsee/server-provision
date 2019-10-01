@@ -31,10 +31,10 @@
   when:          php_censor_database.changed
 
 - name: Create the SSH public key file
-  copy: content="{{lookup('file', '~/.ssh/web_server_github.pub')}}" dest=/root/.ssh/web_server_github.pub mode=0600
+  copy: content="{{lookup('file', '~/.ssh/web_server_github.pub')}}\n" dest=/root/.ssh/web_server_github.pub mode=0600
 
 - name: Create the SSH private key file
-  copy: content="{{lookup('file', '~/.ssh/web_server_github')}}" dest=/root/.ssh/web_server_github mode=0600
+  copy: content="{{lookup('file', '~/.ssh/web_server_github')}}\n" dest=/root/.ssh/web_server_github mode=0600
 
 - name: Clone latest PHP Censor repository
   git:  repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/web_server_github" accept_hostkey=yes
