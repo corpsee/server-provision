@@ -45,11 +45,7 @@
   when: not site_directory.stat.exists
 
 - name: Copy  PHP Censor files to host
-  copy: src="{{ role_path }}/files/{{ php_censor_artifacts_dir_filename }}" dest="/var/www/{{ php_censor_hostname }}/shared/public/artifacts"
-  when: not site_directory.stat.exists
-
-- name: Delete shared directories
-  file: path="/var/www/{{ php_censor_hostname }}/current/runtime" state=absent
+  copy: src="{{ role_path }}/files/{{ php_censor_artifacts_dir_filename }}/" dest="/var/www/{{ php_censor_hostname }}/shared/public/artifacts"
   when: not site_directory.stat.exists
 
 - name: Delete shared directories
@@ -65,10 +61,6 @@
     - "/var/www/{{ php_censor_hostname }}/shared/runtime/builds"
     - "/var/www/{{ php_censor_hostname }}/shared/runtime/cache"
     - "/var/www/{{ php_censor_hostname }}/shared/runtime/status_cache"
-  when: not site_directory.stat.exists
-
-- name: Set shared directory link
-  file: src="/var/www/{{ php_censor_hostname }}/shared/runtime" dest="/var/www/{{ php_censor_hostname }}/current/runtime" state=link
   when: not site_directory.stat.exists
 
 - name: Set shared directories links
