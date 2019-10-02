@@ -1,7 +1,7 @@
 ---
 
 - name:     Register release datetime
-  command:  date +%Y%m%d%H%M%S
+  command:  date +%Y-%m-%d_%H-%M-%S
   register: release_datetime
 
 - name: Clone latest Corpsee site repository

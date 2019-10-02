@@ -5,7 +5,7 @@
   register: site_directory
 
 - name:     Register release datetime
-  command:  date +%Y%m%d%H%M%S
+  command:  date +%Y-%m-%d_%H-%M-%S
   register: release_datetime
   when:     not site_directory.stat.exists
 
@@ -80,6 +80,20 @@
   file: path="{{ item }}" state=absent
   loop:
     - "/var/www/{{ php_censor_hostname }}/current/.git"
+    - "/var/www/{{ php_censor_hostname }}/current/.github"
+    - "/var/www/{{ php_censor_hostname }}/current/docs"
+    - "/var/www/{{ php_censor_hostname }}/current/tests"
+    - "/var/www/{{ php_censor_hostname }}/current/.codecov.yml"
+    - "/var/www/{{ php_censor_hostname }}/current/.editorconfig"
+    - "/var/www/{{ php_censor_hostname }}/current/.gitattributes"
+    - "/var/www/{{ php_censor_hostname }}/current/.gitignore"
+    - "/var/www/{{ php_censor_hostname }}/current/.php-censor.yml"
+    - "/var/www/{{ php_censor_hostname }}/current/.php_cs.dist"
+    - "/var/www/{{ php_censor_hostname }}/current/.travis.yml"
+    - "/var/www/{{ php_censor_hostname }}/current/phpmd.xml.dist"
+    - "/var/www/{{ php_censor_hostname }}/current/phpunit.xml.dist"
+    - "/var/www/{{ php_censor_hostname }}/current/app/.gitkeep"
+    - "/var/www/{{ php_censor_hostname }}/current/public/artifacts/.gitkeep"
   when: not site_directory.stat.exists
 
 - name: Set permitions for PHP Censor directory

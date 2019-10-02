@@ -1,7 +1,7 @@
 ---
 
 - name:     Register release datetime
-  command:  date +%Y%m%d%H%M%S
+  command:  date +%Y-%m-%d_%H-%M-%S
   register: release_datetime
 
 - name: Clone latest PHP Censor repository
@@ -23,6 +23,21 @@
   file: path="{{ item }}" state=absent
   loop:
     - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.git"
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.github"
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/docs"
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/tests"
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.codecov.yml"
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.editorconfig"
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.gitattributes"
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.gitignore"
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.php-censor.yml"
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.php_cs.dist"
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.travis.yml"
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/phpmd.xml.dist"
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/phpunit.xml.dist"
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/app/.gitkeep"
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/public/artifacts/.gitkeep"
+  when: not site_directory.stat.exists
 
 - name: Set permitions for PHP Censor directory
   file: path="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwX,o=rX" recurse=yes
