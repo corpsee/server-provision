@@ -8,10 +8,16 @@
   git:  repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/web_server_github" accept_hostkey=yes
 
 - name: Delete shared directories
-  file: path="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/runtime" state=absent
+  file: path="{{ item }}" state=absent
+  loop:
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/runtime"
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/public/artifacts"
 
-- name: Set shared directory link
-  file: src="/var/www/{{ php_censor_hostname }}/shared/runtime" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/runtime" state=link
+- name: Set shared directories links
+  file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
+  loop:
+    - { src: "/var/www/{{ php_censor_hostname }}/shared/runtime", dest: "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/runtime" }
+    - { src: "/var/www/{{ php_censor_hostname }}/shared/public/artifacts", dest: "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/public/artifacts" }
 
 - name:     Create PHP Censor application config (config.yml)
   template: src=config.yml dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/app/config.yml"
@@ -36,8 +42,6 @@
     - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/phpmd.xml.dist"
     - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/phpunit.xml.dist"
     - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/app/.gitkeep"
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/public/artifacts/.gitkeep"
-  when: not site_directory.stat.exists
 
 - name: Set permitions for PHP Censor directory
   file: path="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwX,o=rX" recurse=yes
