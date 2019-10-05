@@ -4,6 +4,26 @@
   command:  date +%Y-%m-%d_%H-%M-%S
   register: release_datetime
 
+- name:        Copy current release for backup
+  shell:       "cp --dereference --recursive --no-target-directory /var/www/{{ php_censor_hostname }}/current /var/www/{{ php_censor_hostname }}/{{ php_censor_hostname }}_{{ release_datetime.stdout }}"
+  become:      yes
+  become_user: "{{ php_censor_user }}"
+
+- name:        Copy current release SQL dump for backup
+  shell:       "pg_dump -O --column-inserts -F p -U {{ php_censor_db_user }} -d {{ php_censor_db_name }} -h localhost | grep -v -E '^(CREATE\ EXTENSION|COMMENT\ ON)' > /var/www/{{ php_censor_hostname }}/{{ php_censor_hostname }}_{{ release_datetime.stdout }}/{{ php_censor_db_name }}.backup.sql"
+  become:      yes
+  become_user: "{{ php_censor_user }}"
+
+- name:        Create current release backup archive
+  archive:     path="/var/www/{{ php_censor_hostname }}/{{ php_censor_hostname }}_{{ release_datetime.stdout }}/*" dest="/home/web/backup/{{ php_censor_hostname }}_{{ release_datetime.stdout }}.tar.gz" format=gz
+  become:      yes
+  become_user: "{{ php_censor_user }}"
+
+- name:        Delete current release for backup
+  file:        path="/var/www/{{ php_censor_hostname }}/{{ php_censor_hostname }}_{{ release_datetime.stdout }}" state=absent
+  become:      yes
+  become_user: "{{ php_censor_user }}"
+
 - name: Clone latest PHP Censor repository
   git:  repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/web_server_github" accept_hostkey=yes
 

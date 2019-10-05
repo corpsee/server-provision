@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CURRENT_DATE=`date +%Y-%m-%d_%S`
+CURRENT_DATE=$(date +%Y-%m-%d_%H-%M-%S)
 
 mkdir -p -m 'u-x,go-x-w,u=rwX,go=rX' "${HOME}/backup"
 
