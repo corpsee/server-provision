@@ -86,11 +86,21 @@
 - name: Delete non-production files
   file: path="{{ item }}" state=absent
   loop:
-    - "/var/www/{{ corpsee_site_hostname }}/current/.git"
-    - "/var/www/{{ corpsee_site_hostname }}/current/src/configs/config.production.php"
-    - "/var/www/{{ corpsee_site_hostname }}/current/src/configs/config.debug.php"
-    - "/var/www/{{ corpsee_site_hostname }}/current/www/index.production.php"
-    - "/var/www/{{ corpsee_site_hostname }}/current/www/index.debug.php"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/.git"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/.gitignore"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/.php-censor.yml"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/.travis.yml"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/deploy.sh"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/phpunit.xml"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/src/configs/config.production.php"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/src/configs/config.debug.php"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/index.production.php"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/index.debug.php"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/.htaccess"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/deploy"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/tests"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/cache/.gitkeep"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/files/compiled/.gitkeep"
   when: not site_directory.stat.exists
 
 - name: Set permitions for Corpsee site directory

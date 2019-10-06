@@ -4,6 +4,26 @@
   command:  date +%Y-%m-%d_%H-%M-%S
   register: release_datetime
 
+- name:        Copy current release for backup
+  shell:       "cp --dereference --recursive --no-target-directory /var/www/{{ corpsee_site_hostname }}/current /var/www/{{ corpsee_site_hostname }}/{{ corpsee_site_hostname }}_{{ release_datetime.stdout }}"
+  become:      yes
+  become_user: "{{ corpsee_site_user }}"
+
+- name:        Copy current release SQL dump for backup
+  shell:       "pg_dump -O --column-inserts -F p -U {{ corpsee_site_db_user }} -d {{ corpsee_site_db_name }} -h localhost | grep -v -E '^(CREATE\ EXTENSION|COMMENT\ ON)' > /var/www/{{ corpsee_site_hostname }}/{{ corpsee_site_hostname }}_{{ release_datetime.stdout }}/{{ corpsee_site_db_name }}.backup.sql"
+  become:      yes
+  become_user: "{{ corpsee_site_user }}"
+
+- name:        Create current release backup archive
+  archive:     path="/var/www/{{ corpsee_site_hostname }}/{{ corpsee_site_hostname }}_{{ release_datetime.stdout }}/*" dest="/home/web/backup/{{ corpsee_site_hostname }}_{{ release_datetime.stdout }}.tar.gz" format=gz
+  become:      yes
+  become_user: "{{ corpsee_site_user }}"
+
+- name:        Delete current release for backup
+  file:        path="/var/www/{{ corpsee_site_hostname }}/{{ corpsee_site_hostname }}_{{ release_datetime.stdout }}" state=absent
+  become:      yes
+  become_user: "{{ corpsee_site_user }}"
+
 - name: Clone latest Corpsee site repository
   git:  repo="git@github.com:corpsee/corpsee-com.git" version="{{ corpsee_site_version }}" dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/web_server_github" accept_hostkey=yes
 
@@ -42,10 +62,20 @@
   file: path="{{ item }}" state=absent
   loop:
     - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/.git"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/.gitignore"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/.php-censor.yml"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/.travis.yml"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/deploy.sh"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/phpunit.xml"
     - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/src/configs/config.production.php"
     - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/src/configs/config.debug.php"
     - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/index.production.php"
     - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/index.debug.php"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/.htaccess"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/deploy"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/tests"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/cache/.gitkeep"
+    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/files/compiled/.gitkeep"
 
 - name: Set permitions for Corpsee site directory
   file: path="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ug=rwX,o=rX" recurse=yes
