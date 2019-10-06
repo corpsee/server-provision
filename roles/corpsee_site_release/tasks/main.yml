@@ -15,9 +15,11 @@
   become_user: "{{ corpsee_site_user }}"
 
 - name:        Create current release backup archive
-  archive:     path="/var/www/{{ corpsee_site_hostname }}/{{ corpsee_site_hostname }}_{{ release_datetime.stdout }}/*" dest="/home/web/backup/{{ corpsee_site_hostname }}_{{ release_datetime.stdout }}.tar.gz" format=gz
+  shell:       "tar -czf /home/web/backup/{{ corpsee_site_hostname }}_{{ release_datetime.stdout }}.tar.gz ."
   become:      yes
   become_user: "{{ corpsee_site_user }}"
+  args:
+    chdir: "/var/www/{{ corpsee_site_hostname }}/{{ corpsee_site_hostname }}_{{ release_datetime.stdout }}"
 
 - name:        Delete current release for backup
   file:        path="/var/www/{{ corpsee_site_hostname }}/{{ corpsee_site_hostname }}_{{ release_datetime.stdout }}" state=absent
