@@ -17,3 +17,5 @@ php_packages:
   - intl
   - sqlite3
   - xdebug
+  - soap
+  - imap
