@@ -24,8 +24,6 @@ packages_repositories:
   - repository: "deb http://repo.yandex.ru/yandex-disk/deb/ stable main"
     keyserver:  keyserver.ubuntu.com
     key:        EFC4571D7C90E5AF
-  # curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
-  #- repository: "deb https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main"
 
 packages_items_to_install:
   - aptitude
@@ -47,31 +45,13 @@ packages_items_to_install:
   - ansible
   - vagrant
   - docker-ce
-  - restic
-  #- nodejs
-  - anacron
   - beanstalkd
 
   - gnupg
 
-  # For mounting
-  - sshfs
-  - cifs-utils
-
-  # For conky
-  - conky-all
-  - lm-sensors
-  - hddtemp
-
   - keepassx
   - yandex-disk
-  - deluge
   - virtualbox-qt
-  - smplayer
-  - smplayer-themes
-  - filezilla
-  - pgadmin3
-  - mysql-workbench
 
 packages_items_to_remove:
   - hexchat

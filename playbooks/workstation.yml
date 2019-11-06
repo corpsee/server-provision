@@ -1,0 +1,17 @@
+---
+
+- hosts:       desktop
+  become:      true
+  become_user: root
+  roles:
+    - mint
+    - packages
+    - oh_my_zsh
+    - nginx
+    - { role: php, php_version: 5.6 }
+    - { role: php, php_version: 7.0 }
+    - { role: php, php_version: 7.1 }
+    - { role: php, php_version: 7.2 }
+    - { role: php, php_version: 7.3 }
+    - composer
+    - mariadb

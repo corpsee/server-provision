@@ -11,6 +11,7 @@ packages_items_to_install:
   - ca-certificates
   - software-properties-common
   - sendmail
+  - screen
   - logrotate
   - curl
   - wget
