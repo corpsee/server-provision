@@ -13,6 +13,7 @@
     - { role: php, php_version: 7.1 }
     - { role: php, php_version: 7.2 }
     - { role: php, php_version: 7.3 }
+    - { role: php, php_version: 7.4 }
     - composer
     - postgresql
     - postgresql_desktop
