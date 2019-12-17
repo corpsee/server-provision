@@ -13,6 +13,8 @@ timezone-reference: &timezone-reference "Asia/Novosibirsk"
 packages_ppa:
   - ppa:git-core/ppa
   - ppa:ansible/ansible
+  - ppa:agornostal/ulauncher
+  - ppa:bartbes/love-stable
 
 packages_repositories:
   - repository: "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
@@ -72,6 +74,8 @@ packages_items_to_install:
   - filezilla
   - pgadmin3
   - mysql-workbench
+  - ulauncher
+  - love
 
 packages_items_to_remove:
   - hexchat
