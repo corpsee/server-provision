@@ -127,7 +127,7 @@ php_packages:
 
 ### golang role
 
-golang_version: 1.13
+golang_version: "1.13"
 golang_default: false
 
 

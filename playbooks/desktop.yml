@@ -14,10 +14,10 @@
     - { role: php, php_version: 7.2 }
     - { role: php, php_version: 7.3 }
     - { role: php, php_version: 7.4 }
-    - { role: golang, golang_version: 1.10, golang_default: false }
-    - { role: golang, golang_version: 1.11, golang_default: false }
-    - { role: golang, golang_version: 1.12, golang_default: false }
-    - { role: golang, golang_version: 1.13, golang_default: true }
+    - { role: golang, golang_version: "1.10", golang_default: false }
+    - { role: golang, golang_version: "1.11", golang_default: false }
+    - { role: golang, golang_version: "1.12", golang_default: false }
+    - { role: golang, golang_version: "1.13", golang_default: true }
     - composer
     - postgresql
     - postgresql_desktop
