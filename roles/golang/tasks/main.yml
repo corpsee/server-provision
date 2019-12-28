@@ -1,0 +1,24 @@
+---
+
+- name:           Add Golang backports PPA repository
+  apt_repository: repo="ppa:longsleep/golang-backports" codename="{{ ansible_distribution_release }}" update_cache=yes
+
+- name:           Add Golang archive PPA repository
+  apt_repository: repo="ppa:gophers/archive" codename="{{ ansible_distribution_release }}" update_cache=yes
+
+- name: Install Golang
+  apt:  name="golang-{{ golang_version }}-go" state=latest
+
+- name: Create symlink to "/usr/bin" fo go
+  file: src="/usr/lib/go-{{ golang_version }}/bin/go" dest="/usr/bin/go{{ golang_version }}" state=link
+
+- name: Create symlink to "/usr/bin" fo gofmt
+  file: src="/usr/lib/go-{{ golang_version }}/bin/gofmt" dest="/usr/bin/gofmt{{ golang_version }}" state=link
+
+- name: Create symlink to "/usr/bin" fo go (default go)
+  file: src="/usr/lib/go-{{ golang_version }}/bin/go" dest="/usr/bin/go" state=link
+  when: golang_default
+
+- name: Create symlink to "/usr/bin" fo gofmt (default gofmt)
+  file: src="/usr/lib/go-{{ golang_version }}/bin/gofmt" dest="/usr/bin/gofmt" state=link
+  when: golang_default

@@ -125,6 +125,12 @@ php_packages:
   - redis
 
 
+### golang role
+
+golang_version: 1.13
+golang_default: false
+
+
 ### composer role
 
 composer_path: /usr/local/bin/composer
