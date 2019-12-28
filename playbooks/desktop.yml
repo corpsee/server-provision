@@ -18,3 +18,4 @@
     - postgresql
     - postgresql_desktop
     - mariadb
+    - nodejs

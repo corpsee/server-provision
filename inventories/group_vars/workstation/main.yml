@@ -25,6 +25,9 @@ packages_repositories:
   - repository: "deb http://repo.yandex.ru/yandex-disk/deb/ stable main"
     keyserver:  keyserver.ubuntu.com
     key:        EFC4571D7C90E5AF
+  - repository: "deb http://repo.yandex.ru/clickhouse/deb/stable/ main/"
+    keyserver:  keyserver.ubuntu.com
+    key:        E0C56BD4
 
 packages_items_to_install:
   - aptitude
@@ -47,6 +50,10 @@ packages_items_to_install:
   - vagrant
   - docker-ce
   - beanstalkd
+  - supervisor
+  - redis-server
+  - clickhouse-server
+  - clickhouse-client
 
   - gnupg
 
@@ -122,3 +129,8 @@ mariadb_version:        10.4
 mariadb_root_password:  root
 mariadb_repo_keyserver: hkp://keyserver.ubuntu.com
 mariadb_repo:           http://ams2.mirrors.digitalocean.com/mariadb
+
+
+### nodejs role
+
+nodejs_version: 12
