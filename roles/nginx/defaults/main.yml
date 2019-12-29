@@ -1,4 +1,5 @@
 ---
 
+nginx_mode:  debug # mode: production|debug
 nginx_user:  www-data
 nginx_group: www-data

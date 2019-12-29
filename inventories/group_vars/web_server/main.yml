@@ -68,6 +68,7 @@ oh_my_zsh_group: *group-reference
 
 ### nginx role
 
+nginx_mode:  *mode-reference
 nginx_user:  *user-reference
 nginx_group: *group-reference
 
