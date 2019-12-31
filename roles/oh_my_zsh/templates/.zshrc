@@ -85,6 +85,24 @@ source $ZSH/oh-my-zsh.sh
 
 export TERM='xterm-256color'
 
-alias zsh-reload=". ~/.zshrc && echo 'ZSH config reloaded from ~/.zshrc'"
-alias normal_mode='chmod -R u-x,go-x,u=rwX,go=rX'
-alias personal_mode='chmod -R u-x,go-x,u=rwX,go='
+alias zsh_config_reload=". ~/.zshrc && echo 'ZSH config reloaded from ~/.zshrc'"
+alias zsh_reload="exec zsh && echo 'ZSH reloaded'"
+
+alias normal_mode="chmod -R u-x,go-x-w,u=rwX,go=rX"
+alias personal_mode="chmod -R u-x,go-r-w-x,u=rwX,go="
+
+alias find_file="find . -type f -name"
+alias find_directory="find . -type d -name"
+
+alias ctrlc="xclip -selection clipboard -i"
+alias ctrlv="xclip -selection clipboard -o"
+
+alias clean_system="sudo aptitude autoclean && sudo aptitude clean && sudo apt-get autoremove"
+alias add_ppa='sudo add-apt-repository'
+
+alias system_size="df --human-readable --total --print-type"
+alias one_dir_size="du --human-readable --summarize --time"
+alias dir_size="du --human-readable --max-depth=1 --time --total"
+alias dir_size_all="du --human-readable --max-depth=1 --all --time --total"
+
+alias generate_password="openssl rand --base64"
