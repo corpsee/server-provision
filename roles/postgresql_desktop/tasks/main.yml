@@ -6,4 +6,4 @@
   become_user:     postgres
 
 - name:       Added auth info to .pgpass config
-  lineinfile: path="/home/{{ postgresql_desktop_user }}/.pgpass" owner="{{ postgresql_desktop_user }}" group="{{ postgresql_desktop_group }}" mode=0600 create=yes line="localhost:5432:*:postgres:postgres" insertbefore=BOF
+  lineinfile: path="/home/{{ postgresql_desktop_user }}/.pgpass" owner="{{ postgresql_desktop_user }}" group="{{ postgresql_desktop_group }}" mode=0600 create=yes line="127.0.0.1:5432:*:postgres:postgres" insertbefore=BOF

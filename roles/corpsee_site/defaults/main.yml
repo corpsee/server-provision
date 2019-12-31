@@ -1,5 +1,6 @@
 ---
 
+corpsee_site_mode:             debug # mode: production|debug
 corpsee_site_php_version:      7.1
 corpsee_site_user:             www-data
 corpsee_site_group:            www-data

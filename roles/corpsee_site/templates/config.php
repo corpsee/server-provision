@@ -5,7 +5,7 @@ $config_additional = [
     'environment' => 'production',
     'database'    => [
         'type'     => 'pgsql',
-        'dns'      => 'pgsql:host=localhost;port=5432;dbname={{ corpsee_site_db_name }}',
+        'dns'      => 'pgsql:host=127.0.0.1;port=5432;dbname={{ corpsee_site_db_name }}',
         'user'     => '{{ corpsee_site_db_user }}',
         'password' => '{{ corpsee_site_db_password }}'
     ],
@@ -19,7 +19,7 @@ $config_additional = [
             'corpsee_site'            => [
                 'adapter' => 'pgsql',
                 'name'    => '{{ corpsee_site_db_name }}',
-                'host'    => 'localhost',
+                'host'    => '127.0.0.1',
                 'user'    => '{{ corpsee_site_db_user }}',
                 'pass'    => '{{ corpsee_site_db_password }}',
             ],

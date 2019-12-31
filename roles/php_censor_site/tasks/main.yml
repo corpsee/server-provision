@@ -17,7 +17,7 @@
   when: not site_directory.stat.exists
 
 - name:     Create PHP Censor site host
-  template: src=php_censor_site.conf dest="/etc/nginx/sites-available/{{ php_censor_site_hostname }}.conf"
+  template: src="php_censor_site.{{ php_censor_site_mode }}.conf" dest="/etc/nginx/sites-available/{{ php_censor_site_hostname }}.conf"
   when:     not site_directory.stat.exists
 
 - name:   Enable PHP Censor host

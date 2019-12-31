@@ -10,7 +10,7 @@
   become_user: "{{ corpsee_site_user }}"
 
 - name:        Copy current release SQL dump for backup
-  shell:       "pg_dump -O --column-inserts -F p -U {{ corpsee_site_db_user }} -d {{ corpsee_site_db_name }} -h localhost | grep -v -E '^(CREATE\ EXTENSION|COMMENT\ ON)' > /var/www/{{ corpsee_site_hostname }}/{{ corpsee_site_hostname }}_{{ release_datetime.stdout }}/{{ corpsee_site_db_name }}.backup.sql"
+  shell:       "pg_dump -O --column-inserts -F p -U {{ corpsee_site_db_user }} -d {{ corpsee_site_db_name }} -h 127.0.0.1 | grep -v -E '^(CREATE\ EXTENSION|COMMENT\ ON)' > /var/www/{{ corpsee_site_hostname }}/{{ corpsee_site_hostname }}_{{ release_datetime.stdout }}/{{ corpsee_site_db_name }}.backup.sql"
   become:      yes
   become_user: "{{ corpsee_site_user }}"
 

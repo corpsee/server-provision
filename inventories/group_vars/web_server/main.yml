@@ -111,6 +111,7 @@ postgresql_version: 11
 
 ### php_censor role
 
+php_censor_mode:                   *mode-reference
 php_censor_php_version:            7.1
 php_censor_user:                   *user-reference
 php_censor_group:                  *group-reference
@@ -140,6 +141,7 @@ php_censor_version_test:                1.1.1
 
 ### corpsee_site role
 
+corpsee_site_mode:             *mode-reference
 corpsee_site_php_version:      7.1
 corpsee_site_user:             *user-reference
 corpsee_site_group:            *group-reference
@@ -164,6 +166,7 @@ corpsee_site_version_test:          master
 
 ### php_censor_site role
 
+php_censor_site_mode:        *mode-reference
 php_censor_site_php_version: 7.1
 php_censor_site_hostname:    php-censor.info
 php_censor_site_user:        *user-reference

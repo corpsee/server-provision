@@ -1,8 +1,8 @@
 b8:
     database:
         servers:
-            read: [{ host: localhost }]
-            write: [{ host: localhost }]
+            read: [{ host: 127.0.0.1 }]
+            write: [{ host: 127.0.0.1 }]
         type: pgsql
         name:     {{ php_censor_db_name }}
         username: {{ php_censor_db_user }}
@@ -13,7 +13,7 @@ php-censor:
     url: '{{ php_censor_url }}'
     queue:
         use_queue: true
-        host: localhost
+        host: 127.0.0.1
         name: {{ php_censor_queue_name }}
         lifetime: 600
     log:
