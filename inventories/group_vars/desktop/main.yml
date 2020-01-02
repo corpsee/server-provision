@@ -93,6 +93,11 @@ oh_my_zsh_user:  *user-reference
 oh_my_zsh_group: *group-reference
 
 
+### desktop role
+
+desktop_user: *user-reference
+
+
 ### nginx role
 
 nginx_mode:  *mode-reference
