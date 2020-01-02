@@ -1,14 +1,10 @@
-{%raw%}
-[legacy]
+{%raw%}[legacy]
 menu-accelerator-enabled=false
 schema-version=uint32 3
 
 [legacy/profiles:]
 list=['42b314fa-d332-4dee-84ba-3ae5abba6828']
 default='42b314fa-d332-4dee-84ba-3ae5abba6828'
-
-[legacy/profiles:/:7e4f459d-31bc-4f89-9a05-5c233a00081f]
-visible-name='default'
 
 [legacy/profiles:/:42b314fa-d332-4dee-84ba-3ae5abba6828]
 background-color='rgb(0,0,0)'
@@ -17,5 +13,4 @@ cursor-shape='block'
 use-theme-transparency=false
 use-theme-colors=false
 use-transparent-background=true
-visible-name='Nameless'
-{%endraw%}
+visible-name='Nameless'{%endraw%}

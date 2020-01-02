@@ -5,7 +5,9 @@
   become:      true
   become_user: "{{ desktop_user }}"
 
+# dconf dump /org/gnome/terminal/ > /home/{{ desktop_user }}/terminal.settings"
+# dconf reset -f /org/gnome/terminal/
 - name:        Restore Gnome Terminal settings
-  command:     dconf load /org/gnome/terminal/ < "/home/{{ desktop_user }}/terminal.settings"
+  command:     "dconf load /org/gnome/terminal/ < /home/{{ desktop_user }}/terminal.settings"
   become:      true
   become_user: "{{ desktop_user }}"
