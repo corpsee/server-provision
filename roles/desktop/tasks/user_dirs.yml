@@ -1,0 +1,66 @@
+---
+
+- name:        Create new user directories ('XDG_')
+  file:        path="{{ item }}" state=directory
+  become:      true
+  become_user: "{{ desktop_user }}"
+  loop:
+    - "/home/{{ desktop_user }}/Desktop"
+    - "/home/{{ desktop_user }}/Downloads"
+    - "/home/{{ desktop_user }}/Templates"
+    - "/home/{{ desktop_user }}/Public"
+    - "/home/{{ desktop_user }}/Documents"
+    - "/home/{{ desktop_user }}/Music"
+    - "/home/{{ desktop_user }}/Pictures"
+    - "/home/{{ desktop_user }}/Video"
+
+- name:        Set 'user-dirs.locale' config for user
+  template:    src="user-dirs.locale" dest="/home/{{ desktop_user }}/.config/user-dirs.locale"
+  become:      true
+  become_user: "{{ desktop_user }}"
+
+- name:        Set 'user-dirs.dirs' config for user
+  template:    src="user-dirs.dirs" dest="/home/{{ desktop_user }}/.config/user-dirs.dirs"
+  become:      true
+  become_user: "{{ desktop_user }}"
+
+- name:        Update user directorues ('XDG_')
+  command:     "xdg-user-dirs-update"
+  become:      true
+  become_user: "{{ desktop_user }}"
+
+- name:        Move user directories content to new user directories ('XDG_')
+  command:     mv "/home/{{ desktop_user }}/{{ item.from }}" "/home/{{ desktop_user }}/{{ item.to }}"
+  become:      true
+  become_user: "{{ desktop_user }}"
+  loop:
+    - from: "Рабочий Стол"
+      to:   "Desktop"
+    - from: "Загрузки"
+      to:   "Downloads"
+    - from: "Шаблоны"
+      to:   "Templates"
+    - from: "Общедоступные"
+      to:   "Public"
+    - from: "Документы"
+      to:   "Documents"
+    - from: "Музыка"
+      to:   "Music"
+    - from: "Изображения"
+      to:   "Pictures"
+    - from: "Видео"
+      to:   "Video"
+
+- name:        Delete old user directories ('XDG_')
+  file:        path="{{ item }}" state=absent
+  become:      true
+  become_user: "{{ desktop_user }}"
+  loop:
+    - "/home/{{ desktop_user }}/Рабочий Стол"
+    - "/home/{{ desktop_user }}/Загрузки"
+    - "/home/{{ desktop_user }}/Шаблоны"
+    - "/home/{{ desktop_user }}/Общедоступные"
+    - "/home/{{ desktop_user }}/Документы"
+    - "/home/{{ desktop_user }}/Музыка"
+    - "/home/{{ desktop_user }}/Изображения"
+    - "/home/{{ desktop_user }}/Видео"
