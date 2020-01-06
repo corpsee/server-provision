@@ -14,11 +14,6 @@
     - "/home/{{ desktop_user }}/Pictures"
     - "/home/{{ desktop_user }}/Video"
 
-- name:        Set 'user-dirs.locale' config for user
-  template:    src="user-dirs.locale" dest="/home/{{ desktop_user }}/.config/user-dirs.locale"
-  become:      true
-  become_user: "{{ desktop_user }}"
-
 - name:        Set 'user-dirs.dirs' config for user
   template:    src="user-dirs.dirs" dest="/home/{{ desktop_user }}/.config/user-dirs.dirs"
   become:      true
@@ -29,10 +24,11 @@
   become:      true
   become_user: "{{ desktop_user }}"
 
-- name:        Move user directories content to new user directories ('XDG_')
-  command:     mv "/home/{{ desktop_user }}/{{ item.from }}" "/home/{{ desktop_user }}/{{ item.to }}"
-  become:      true
-  become_user: "{{ desktop_user }}"
+- name:          Move user directories content to new user directories ('XDG_')
+  command:       mv --no-target-directory "/home/{{ desktop_user }}/{{ item.from }}" "/home/{{ desktop_user }}/{{ item.to }}"
+  ignore_errors: yes
+  become:        true
+  become_user:   "{{ desktop_user }}"
   loop:
     - from: "Рабочий Стол"
       to:   "Desktop"
