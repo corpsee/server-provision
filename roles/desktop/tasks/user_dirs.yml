@@ -13,6 +13,9 @@
     - "/home/{{ desktop_user }}/Music"
     - "/home/{{ desktop_user }}/Pictures"
     - "/home/{{ desktop_user }}/Video"
+    - "/home/{{ desktop_user }}/Build"
+    - "/home/{{ desktop_user }}/Projects"
+    - "/home/{{ desktop_user }}/Programs"
 
 - name:        Set 'user-dirs.dirs' config for user
   template:    src="user-dirs.dirs" dest="/home/{{ desktop_user }}/.config/user-dirs.dirs"
@@ -60,3 +63,8 @@
     - "/home/{{ desktop_user }}/Музыка"
     - "/home/{{ desktop_user }}/Изображения"
     - "/home/{{ desktop_user }}/Видео"
+
+- name:        Fix GTK bookmarks
+  template:    src="bookmarks" dest="/home/{{ desktop_user }}/.config/gtk-3.0/bookmarks"
+  become:      true
+  become_user: "{{ desktop_user }}"
