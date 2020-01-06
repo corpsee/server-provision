@@ -13,6 +13,8 @@
     - "/home/{{ desktop_user }}/Music"
     - "/home/{{ desktop_user }}/Pictures"
     - "/home/{{ desktop_user }}/Video"
+
+    - "/home/{{ desktop_user }}/Bin"
     - "/home/{{ desktop_user }}/Build"
     - "/home/{{ desktop_user }}/Projects"
     - "/home/{{ desktop_user }}/Programs"
