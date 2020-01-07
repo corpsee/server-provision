@@ -1,0 +1,16 @@
+---
+
+- name:        Set Midnight Commander config
+  template:    src=mc_ini dest="/home/{{ desktop_user }}/.config/mc/ini"
+  become:      true
+  become_user: "{{ desktop_user }}"
+
+- name:        Set Midnight Commander panels config
+  template:    src="mc_panels.ini" dest="/home/{{ desktop_user }}/.config/mc/panels.ini"
+  become:      true
+  become_user: "{{ desktop_user }}"
+
+- name:        Set Deluge config
+  template:    src="deluge_core.conf" dest="/home/{{ desktop_user }}/.config/deluge/core.conf"
+  become:      true
+  become_user: "{{ desktop_user }}"

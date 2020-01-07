@@ -3,3 +3,5 @@
 - include: terminal.yml
 
 - include: user_dirs.yml
+
+- include: configs.yml
