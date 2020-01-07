@@ -30,7 +30,7 @@
   become_user: "{{ desktop_user }}"
 
 - name:          Move user directories content to new user directories ('XDG_')
-  shell:         "[ -z \"$(ls /home/{{ desktop_user }}/{{ item.from }})\" ] || mv --no-target-directory \"/home/{{ desktop_user }}/{{ item.from }}\" \"/home/{{ desktop_user }}/{{ item.to }}\""
+  shell:         "[ -z \"$(ls \"/home/{{ desktop_user }}/{{ item.from }}\")\" ] || mv --no-target-directory \"/home/{{ desktop_user }}/{{ item.from }}\" \"/home/{{ desktop_user }}/{{ item.to }}\""
   become:        true
   become_user:   "{{ desktop_user }}"
   loop:
