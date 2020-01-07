@@ -1,4 +1,4 @@
-{%raw%}file:///home/{{ desktop_user }}/Downloads Downloads
+file:///home/{{ desktop_user }}/Downloads Downloads
 file:///home/{{ desktop_user }}/Projects Projects
 file:///home/{{ desktop_user }}/Build Build
-file:///home/{{ desktop_user }}/Programs Programs{%endraw%}
+file:///home/{{ desktop_user }}/Programs Programs
