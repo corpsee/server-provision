@@ -30,11 +30,11 @@
   become_user: "{{ desktop_user }}"
 
 - name:          Move user directories content to new user directories ('XDG_')
-  shell:         "[ -z \"$(ls /home/{{ desktop_user }}/{{ item.from }})\" ] || mv --no-target-directory /home/{{ desktop_user }}/{{ item.from }} /home/{{ desktop_user }}/{{ item.to }}"
+  shell:         "[ -z \"$(ls /home/{{ desktop_user }}/{{ item.from }})\" ] || mv --no-target-directory \"/home/{{ desktop_user }}/{{ item.from }}\" \"/home/{{ desktop_user }}/{{ item.to }}\""
   become:        true
   become_user:   "{{ desktop_user }}"
   loop:
-    - from: "Рабочий Стол"
+    - from: "Рабочий стол"
       to:   "Desktop"
     - from: "Загрузки"
       to:   "Downloads"
@@ -56,7 +56,7 @@
   become:      true
   become_user: "{{ desktop_user }}"
   loop:
-    - "/home/{{ desktop_user }}/Рабочий Стол"
+    - "/home/{{ desktop_user }}/Рабочий стол"
     - "/home/{{ desktop_user }}/Загрузки"
     - "/home/{{ desktop_user }}/Шаблоны"
     - "/home/{{ desktop_user }}/Общедоступные"

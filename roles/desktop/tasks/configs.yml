@@ -1,5 +1,13 @@
 ---
 
+- name:        Create programs directories
+  file:        path="{{ item }}" state=directory
+  become:      true
+  become_user: "{{ desktop_user }}"
+  loop:
+    - "/home/{{ desktop_user }}/.config/mc"
+    - "/home/{{ desktop_user }}/.config/deluge"
+
 - name:        Set Midnight Commander config
   template:    src=mc_ini dest="/home/{{ desktop_user }}/.config/mc/ini"
   become:      true
