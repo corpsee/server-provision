@@ -12,7 +12,7 @@
     - "/home/{{ desktop_user }}/Documents"
     - "/home/{{ desktop_user }}/Music"
     - "/home/{{ desktop_user }}/Pictures"
-    - "/home/{{ desktop_user }}/Video"
+    - "/home/{{ desktop_user }}/Videos"
 
     - "/home/{{ desktop_user }}/Bin"
     - "/home/{{ desktop_user }}/Build"
@@ -49,7 +49,7 @@
     - from: "Изображения"
       to:   "Pictures"
     - from: "Видео"
-      to:   "Video"
+      to:   "Videos"
 
 - name:        Delete old user directories ('XDG_')
   file:        path="{{ item }}" state=absent
