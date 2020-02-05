@@ -19,7 +19,7 @@ server_timezone: *timezone-reference
 server_locales:
   - en_US.UTF-8
   - ru_RU.UTF-8
-  
+
 server_default_local: en_US.UTF-8
 
 #server_openssh_port: in secret.yml
@@ -125,7 +125,7 @@ php_censor_hostname:               ci.php-censor.info
 php_censor_url:                    'http://ci.php-censor.info'
 php_censor_from_email:             'PHP Censor CI <ci@php-censor.info>'
 #php_censor_github_token: in secret.yml
-php_censor_version:                1.1.1
+php_censor_version:                1.1.4
 
 php_censor_db_name_test:                php_censor_test
 php_censor_db_user_test:                php_censor_test
@@ -136,7 +136,7 @@ php_censor_queue_name_test:             php_censor_test
 php_censor_hostname_test:               ci-test.php-censor.info
 php_censor_url_test:                    'http://ci-test.php-censor.info'
 php_censor_from_email_test:             'PHP Censor CI Test <ci-test@php-censor.info>'
-php_censor_version_test:                1.1.1
+php_censor_version_test:                1.1.4
 
 
 ### corpsee_site role

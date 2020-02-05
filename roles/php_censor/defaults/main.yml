@@ -4,7 +4,7 @@ php_censor_mode:                   debug # mode: production|debug
 php_censor_php_version:            7.1
 php_censor_user:                   www-data
 php_censor_group:                  www-data
-php_censor_version:                1.1.1
+php_censor_version:                1.1.4
 php_censor_db_name:                php_censor
 php_censor_db_user:                php_censor
 php_censor_db_password:            php_censor
