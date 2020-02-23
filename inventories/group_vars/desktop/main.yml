@@ -46,6 +46,7 @@ packages_items_to_install:
   - git
   - zsh
   - pv
+  - ncdu
 
   - ansible
   - vagrant
