@@ -38,23 +38,24 @@
   file: src="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ php_censor_hostname }}/current" state=link
   when: not site_directory.stat.exists
 
-- name: Copy  PHP Censor files to host
-  copy: src="{{ role_path }}/files/{{ php_censor_artifacts_dir_filename }}/" dest="/var/www/{{ php_censor_hostname }}/shared/public/artifacts"
-  when: not site_directory.stat.exists
-
-- name: Delete shared directories
-  file: path="{{ item }}" state=absent
-  loop:
-    - "/var/www/{{ php_censor_hostname }}/current/runtime"
-    - "/var/www/{{ php_censor_hostname }}/current/public/artifacts"
-  when: not site_directory.stat.exists
-
 - name: Creates sharted directories
   file: path="{{ item }}" state=directory
   loop:
     - "/var/www/{{ php_censor_hostname }}/shared/runtime/builds"
     - "/var/www/{{ php_censor_hostname }}/shared/runtime/cache"
     - "/var/www/{{ php_censor_hostname }}/shared/runtime/status_cache"
+    - "/var/www/{{ php_censor_hostname }}/shared/public"
+  when: not site_directory.stat.exists
+
+- name:      Copy PHP Censor files to host
+  unarchive: src="{{ role_path }}/files/{{ php_censor_artifacts_dir_filename }}" dest="/var/www/{{ php_censor_hostname }}/shared/public"
+  when:      not site_directory.stat.exists
+
+- name: Delete shared directories
+  file: path="{{ item }}" state=absent
+  loop:
+    - "/var/www/{{ php_censor_hostname }}/current/runtime"
+    - "/var/www/{{ php_censor_hostname }}/current/public/artifacts"
   when: not site_directory.stat.exists
 
 - name: Set shared directories links

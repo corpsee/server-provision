@@ -9,7 +9,7 @@ php_censor_db_name:                php_censor
 php_censor_db_user:                php_censor
 php_censor_db_password:            php_censor
 php_censor_db_dump_filename:       php_censor
-php_censor_artifacts_dir_filename: artifacts
+php_censor_artifacts_dir_filename: artifacts.tar.gz
 php_censor_queue_name:             php_censor
 php_censor_hostname:               php-censor.test
 php_censor_url:                    'http://php-censor.test'

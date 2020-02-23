@@ -120,7 +120,7 @@ php_censor_db_name:                php_censor
 php_censor_db_user:                php_censor
 #php_censor_db_password: in secret.yml
 php_censor_db_dump_filename:       php_censor
-php_censor_artifacts_dir_filename: artifacts
+php_censor_artifacts_dir_filename: artifacts.tar.gz
 php_censor_queue_name:             php_censor
 php_censor_hostname:               ci.php-censor.info
 php_censor_url:                    'http://ci.php-censor.info'
@@ -132,7 +132,7 @@ php_censor_db_name_test:                php_censor_test
 php_censor_db_user_test:                php_censor_test
 #php_censor_db_password_test: in secret.yml
 php_censor_db_dump_filename_test:       php_censor_test
-php_censor_artifacts_dir_filename_test: artifacts_test
+php_censor_artifacts_dir_filename_test: artifacts_test.tar.gz
 php_censor_queue_name_test:             php_censor_test
 php_censor_hostname_test:               ci-test.php-censor.info
 php_censor_url_test:                    'http://ci-test.php-censor.info'
