@@ -10,7 +10,7 @@
   when:     not site_directory.stat.exists
 
 - name: Copy Corpsee site DB dump to host
-  copy: src="{{ role_path }}/files/{{ corpsee_site_db_dump_filename }}.sql" dest="/tmp"
+  copy: src="{{ role_path }}/files/{{ corpsee_site_db_dump_filename }}.sql.gz" dest="/tmp"
 
 - name:          Create Corpsee site DB
   postgresql_db: name="{{ corpsee_site_db_name }}" state=present
@@ -24,7 +24,7 @@
   become_user:     postgres
 
 - name:          Restore Corpsee site DB dump
-  postgresql_db: name="{{ corpsee_site_db_name }}" state=restore target="/tmp/{{ corpsee_site_db_dump_filename }}.sql" login_user="{{ corpsee_site_db_user }}" login_password="{{ corpsee_site_db_password }}" login_host="127.0.0.1"
+  postgresql_db: name="{{ corpsee_site_db_name }}" state=restore target="/tmp/{{ corpsee_site_db_dump_filename }}.sql.gz" login_user="{{ corpsee_site_db_user }}" login_password="{{ corpsee_site_db_password }}" login_host="127.0.0.1"
   when:          corpsee_site_database.changed
 
 - name: Clone latest Corpsee site repository

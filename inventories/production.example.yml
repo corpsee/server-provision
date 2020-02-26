@@ -3,4 +3,5 @@ all:
     web_server:
       hosts:
         111.111.111.111:
+          ansible_port:               2222
           corpsee_site_cron_disabled: no

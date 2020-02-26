@@ -87,7 +87,7 @@ ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/corpsee_s
 ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/corpsee_site_release.yml --extra-vars="corpsee_site_version=master" -v
 
 # test.corpsee.com (by web user with ssh key)
-ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/corpsee_site_test_init.yml
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/corpsee_site_test_init.yml -v
 ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/corpsee_site_test_release.yml --extra-vars="corpsee_site_version=master" -v
 
 # ci.php-censor.info (by web user with ssh key)
