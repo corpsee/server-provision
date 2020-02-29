@@ -33,6 +33,7 @@ packages_ppa:
 packages_repositories: []
 
 packages_items_to_install:
+  - acl
   - aptitude
   - apt-transport-https
   - ca-certificates

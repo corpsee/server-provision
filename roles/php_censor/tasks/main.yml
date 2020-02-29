@@ -12,8 +12,12 @@
 - name: Install Beanstalkd queue
   apt:  name="beanstalkd" state=latest
 
+- name:       Added auth info to .pgpass config
+  lineinfile: path="/home/{{ php_censor_user }}/.pgpass" owner="{{ php_censor_user }}" group="{{ php_censor_group }}" mode=0600 create=yes line="127.0.0.1:5432:{{ php_censor_db_name }}:{{ php_censor_db_user }}:{{ php_censor_db_password }}" insertbefore=BOF
+  when:       not site_directory.stat.exists
+
 - name: Copy PHP Censor DB dump to host
-  copy: src="{{ role_path }}/files/{{ php_censor_db_dump_filename }}.sql.gz" dest="/tmp"
+  copy: src="{{ role_path }}/files/{{ php_censor_db_dump_filename }}.sql" dest="/tmp"
 
 - name:          Create PHP Censor DB
   postgresql_db: name="{{ php_censor_db_name }}" state=present
@@ -26,9 +30,13 @@
   become:          true
   become_user:     postgres
 
-- name:          Restore PHP Censor DB dump
-  postgresql_db: name="{{ php_censor_db_name }}" state=restore target="/tmp/{{ php_censor_db_dump_filename }}.sql.gz" login_user="{{ php_censor_db_user }}" login_password="{{ php_censor_db_password }}" login_host="127.0.0.1"
-  when:          php_censor_database.changed
+- name:        Restore PHP Censor DB dump
+  shell:       psql -U "{{ php_censor_db_user }}" -d "{{ php_censor_db_name }}" -h 127.0.0.1 < "/tmp/{{ php_censor_db_dump_filename }}.sql"
+  when:        php_censor_database.changed
+  become:      true
+  become_user: "{{ php_censor_user }}"
+  vars:
+    ansible_ssh_pipelining: true
 
 - name: Clone latest PHP Censor repository
   git:  repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/web_server_github" accept_hostkey=yes
@@ -138,10 +146,6 @@
 - name:    Enable and start PHP Censor worker systemd service
   systemd: name="{{ php_censor_queue_name }}.service" state=started enabled=yes
   when:    not site_directory.stat.exists
-
-- name:       Added auth info to .pgpass config
-  lineinfile: path="/home/{{ php_censor_user }}/.pgpass" owner="{{ php_censor_user }}" group="{{ php_censor_group }}" mode=0600 create=yes line="127.0.0.1:5432:{{ php_censor_db_name }}:{{ php_censor_db_user }}:{{ php_censor_db_password }}" insertbefore=BOF
-  when:       not site_directory.stat.exists
 
 - name:     Create PHP Censor DB dump script
   template: src=backup_db.sh dest="/home/{{ php_censor_user }}/backup_db_{{ php_censor_db_dump_filename }}.sh"

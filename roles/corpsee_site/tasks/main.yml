@@ -9,8 +9,12 @@
   register: release_datetime
   when:     not site_directory.stat.exists
 
+- name:       Added auth info to .pgpass config
+  lineinfile: path="/home/{{ corpsee_site_user }}/.pgpass" owner="{{ corpsee_site_user }}" group="{{ corpsee_site_group }}" mode=0600 create=yes line="127.0.0.1:5432:{{ corpsee_site_db_name }}:{{ corpsee_site_db_user }}:{{ corpsee_site_db_password }}" insertbefore=BOF
+  when:       not site_directory.stat.exists
+
 - name: Copy Corpsee site DB dump to host
-  copy: src="{{ role_path }}/files/{{ corpsee_site_db_dump_filename }}.sql.gz" dest="/tmp"
+  copy: src="{{ role_path }}/files/{{ corpsee_site_db_dump_filename }}.sql" dest="/tmp"
 
 - name:          Create Corpsee site DB
   postgresql_db: name="{{ corpsee_site_db_name }}" state=present
@@ -23,9 +27,13 @@
   become:          true
   become_user:     postgres
 
-- name:          Restore Corpsee site DB dump
-  postgresql_db: name="{{ corpsee_site_db_name }}" state=restore target="/tmp/{{ corpsee_site_db_dump_filename }}.sql.gz" login_user="{{ corpsee_site_db_user }}" login_password="{{ corpsee_site_db_password }}" login_host="127.0.0.1"
-  when:          corpsee_site_database.changed
+- name:        Restore Corpsee site DB dump
+  shell:       psql -U "{{ corpsee_site_db_user }}" -d "{{ corpsee_site_db_name }}" -h 127.0.0.1 < "/tmp/{{ corpsee_site_db_dump_filename }}.sql"
+  when:        corpsee_site_database.changed
+  become:      true
+  become_user: "{{ corpsee_site_user }}"
+  vars:
+    ansible_ssh_pipelining: true
 
 - name: Clone latest Corpsee site repository
   git:  repo="git@github.com:corpsee/corpsee-com.git" version="{{ corpsee_site_version }}" dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/web_server_github" accept_hostkey=yes
@@ -149,10 +157,6 @@
 - name: Set Corpsee site pullrequest cronjob
   cron: minute=0 hour=20 name="{{ corpsee_site_hostname }} pullrequests:get (Daily)" user="{{ corpsee_site_user }}" disabled="{{ corpsee_site_cron_disabled }}" job="/var/www/{{ corpsee_site_hostname }}/current/console pullrequests:get &>> /var/www/{{ corpsee_site_hostname }}/current/logs/pullrequests_get.log"
   when: not site_directory.stat.exists
-
-- name:       Added auth info to .pgpass config
-  lineinfile: path="/home/{{ corpsee_site_user }}/.pgpass" owner="{{ corpsee_site_user }}" group="{{ corpsee_site_group }}" mode=0600 create=yes line="127.0.0.1:5432:{{ corpsee_site_db_name }}:{{ corpsee_site_db_user }}:{{ corpsee_site_db_password }}" insertbefore=BOF
-  when:       not site_directory.stat.exists
 
 - name:     Create Corpsee site DB dump script
   template: src=backup_db.sh dest="/home/{{ corpsee_site_user }}/backup_db_{{ corpsee_site_db_dump_filename }}.sh"
