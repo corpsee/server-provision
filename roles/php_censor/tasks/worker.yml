@@ -1,0 +1,5 @@
+---
+
+- name:     Create PHP Censor worker systemd service
+  template: src=php_censor.service dest="/etc/systemd/system/{{ php_censor_queue_name }}.service"
+  notify:   PHP Censor Restart Worker
