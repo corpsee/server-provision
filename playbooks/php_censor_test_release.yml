@@ -12,4 +12,3 @@
       php_censor_hostname:                   "{{ php_censor_hostname_test }}"
       php_censor_url:                        "{{ php_censor_url_test }}"
       php_censor_from_email:                 "{{ php_censor_from_email_test }}"
-      php_censor_periodical_config_filename: "{{ php_censor_periodical_config_filename_test }}"

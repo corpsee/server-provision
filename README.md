@@ -23,7 +23,7 @@ Requirements
     * `roles/php_censor/files/php_censor.sql` (roles: php_censor)
     * `roles/php_censor/files/php_censor_test.sql` (roles: php_censor)
     * `roles/php_censor/files/periodical.yml` (roles: php_censor)
-    * `roles/php_censor_release/files/periodical.yml` (roles: php_censor_release)
+    * `roles/php_censor/files/periodical_test.yml` (roles: php_censor)
 
 * Files by roles:
     * webuser:
@@ -46,9 +46,8 @@ Requirements
         * `roles/php_censor/files/php_censor.sql`
         * `roles/php_censor/files/php_censor_test.sql`
         * `roles/php_censor/files/periodical.yml`
+        * `roles/php_censor/files/periodical_test.yml`
         * `roles/php_censor/files/artifacts` (`artifacts_test`)
-    * php_censor_release:
-        * `roles/php_censor_release/files/periodical.yml`
 
 Deploy
 ------

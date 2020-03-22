@@ -24,17 +24,27 @@
     - "/var/www/{{ php_censor_hostname }}/shared/runtime/cache"
     - "/var/www/{{ php_censor_hostname }}/shared/runtime/status_cache"
     - "/var/www/{{ php_censor_hostname }}/shared/public"
+    - "/var/www/{{ php_censor_hostname }}/shared/app"
   when: not site_directory.stat.exists
 
 - name:      Copy PHP Censor files to host
   unarchive: src="{{ role_path }}/files/{{ php_censor_artifacts_dir_filename }}" dest="/var/www/{{ php_censor_hostname }}/shared/public"
   when:      not site_directory.stat.exists
 
+- name:     Create PHP Censor application config (config.yml)
+  template: src=config.yml dest="/var/www/{{ php_censor_hostname }}/shared/app/config.yml"
+  when:     not site_directory.stat.exists
+
+- name: Create PHP Censor periodical config (periodical.yml)
+  copy: src="{{ role_path }}/files/{{ php_censor_periodical_config_filename }}" dest="/var/www/{{ php_censor_hostname }}/shared/app/periodical.yml"
+  when: not site_directory.stat.exists
+
 - name: Delete shared directories
   file: path="{{ item }}" state=absent
   loop:
     - "/var/www/{{ php_censor_hostname }}/current/runtime"
     - "/var/www/{{ php_censor_hostname }}/current/public/artifacts"
+    - "/var/www/{{ php_censor_hostname }}/current/app"
   when: not site_directory.stat.exists
 
 - name: Set shared directories links
@@ -42,14 +52,7 @@
   loop:
     - { src: "/var/www/{{ php_censor_hostname }}/shared/runtime", dest: "/var/www/{{ php_censor_hostname }}/current/runtime" }
     - { src: "/var/www/{{ php_censor_hostname }}/shared/public/artifacts", dest: "/var/www/{{ php_censor_hostname }}/current/public/artifacts" }
-  when: not site_directory.stat.exists
-
-- name:     Create PHP Censor application config (config.yml)
-  template: src=config.yml dest="/var/www/{{ php_censor_hostname }}/current/app/config.yml"
-  when:     not site_directory.stat.exists
-
-- name: Create PHP Censor periodical config (periodical.yml)
-  copy: src="{{ role_path }}/files/{{ php_censor_periodical_config_filename }}" dest="/var/www/{{ php_censor_hostname }}/current/app/periodical.yml"
+    - { src: "/var/www/{{ php_censor_hostname }}/shared/app", dest: "/var/www/{{ php_censor_hostname }}/current/app" }
   when: not site_directory.stat.exists
 
 - name: Delete non-production files

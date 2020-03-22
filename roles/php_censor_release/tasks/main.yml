@@ -34,18 +34,14 @@
   loop:
     - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/runtime"
     - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/public/artifacts"
+    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/app"
 
 - name: Set shared directories links
   file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
   loop:
     - { src: "/var/www/{{ php_censor_hostname }}/shared/runtime", dest: "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/runtime" }
     - { src: "/var/www/{{ php_censor_hostname }}/shared/public/artifacts", dest: "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/public/artifacts" }
-
-- name:     Create PHP Censor application config (config.yml)
-  template: src=config.yml dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/app/config.yml"
-
-- name: Create PHP Censor periodical config (periodical.yml)
-  copy: src="{{ role_path }}/files/{{ php_censor_periodical_config_filename }}" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/app/periodical.yml"
+    - { src: "/var/www/{{ php_censor_hostname }}/shared/app", dest: "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/app" }
 
 - name: Delete non-production files
   file: path="{{ item }}" state=absent
