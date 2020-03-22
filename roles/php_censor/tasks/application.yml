@@ -49,7 +49,7 @@
   when:     not site_directory.stat.exists
 
 - name: Create PHP Censor periodical config (periodical.yml)
-  copy: src="{{ role_path }}/files/periodical.yml" dest="/var/www/{{ php_censor_hostname }}/current/app/periodical.yml"
+  copy: src="{{ role_path }}/files/{{ php_censor_periodical_config_filename }}" dest="/var/www/{{ php_censor_hostname }}/current/app/periodical.yml"
   when: not site_directory.stat.exists
 
 - name: Delete non-production files
