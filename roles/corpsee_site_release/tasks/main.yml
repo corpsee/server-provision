@@ -50,15 +50,9 @@
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/files/projects", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/files/projects" }
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/slides", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/slides" }
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/yanka", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/yanka" }
-
-- name: Set logs directory link
-  file: src="/var/www/{{ corpsee_site_hostname }}/shared/logs" dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/logs" state=link
-
-- name:     Create Corpsee site config
-  template: src=config.php dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/src/configs/config.php"
-
-- name:     Create Corpsee site index.php file
-  template: src=index.php dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/index.php"
+    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/logs", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/logs" }
+    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/index.php", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/index.php" }
+    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/src/configs/config.php", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/src/configs/config.php" }
 
 - name: Delete non-production files
   file: path="{{ item }}" state=absent

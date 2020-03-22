@@ -33,6 +33,18 @@
     - "/var/www/{{ corpsee_site_hostname }}/current/www/yanka"
   when: not site_directory.stat.exists
 
+- name: Creates logs directory
+  file: path="/var/www/{{ corpsee_site_hostname }}/shared/logs" state=directory
+  when: not site_directory.stat.exists
+
+- name:     Create Corpsee site config
+  template: src=config.php dest="/var/www/{{ corpsee_site_hostname }}/shared/src/configs/config.php"
+  when:     not site_directory.stat.exists
+
+- name:     Create Corpsee site index.php file
+  template: src=index.php dest="/var/www/{{ corpsee_site_hostname }}/shared/www/index.php"
+  when:     not site_directory.stat.exists
+
 - name: Set shared directories links
   file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
   loop:
@@ -43,23 +55,10 @@
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/files/projects", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/files/projects" }
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/slides", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/slides" }
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/yanka", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/yanka" }
+    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/logs", dest: "/var/www/{{ corpsee_site_hostname }}/current/logs" }
+    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/index.php", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/index.php" }
+    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/src/configs/config.php", dest: "/var/www/{{ corpsee_site_hostname }}/current/src/configs/config.php" }
   when: not site_directory.stat.exists
-
-- name: Creates logs directory
-  file: path="/var/www/{{ corpsee_site_hostname }}/shared/logs" state=directory
-  when: not site_directory.stat.exists
-
-- name: Set logs directory link
-  file: src="/var/www/{{ corpsee_site_hostname }}/shared/logs" dest="/var/www/{{ corpsee_site_hostname }}/current/logs" state=link
-  when: not site_directory.stat.exists
-
-- name:     Create Corpsee site config
-  template: src=config.php dest="/var/www/{{ corpsee_site_hostname }}/current/src/configs/config.php"
-  when:     not site_directory.stat.exists
-
-- name:     Create Corpsee site index.php file
-  template: src=index.php dest="/var/www/{{ corpsee_site_hostname }}/current/www/index.php"
-  when:     not site_directory.stat.exists
 
 - name: Delete non-production files
   file: path="{{ item }}" state=absent
