@@ -33,8 +33,14 @@
 - name:     Create PHP Censor DB dump script
   template: src=backup_db.sh dest="/home/{{ php_censor_user }}/backup_db_{{ php_censor_db_name }}.sh"
 
+- name:     Create PHP Censor DB daily dump script
+  template: src=backup_db_daily.sh dest="/home/{{ php_censor_user }}/backup_db_{{ php_censor_db_name }}_daily.sh"
+
 - name: Set permitions for PHP Censor DB dump script
   file: path="/home/{{ php_censor_user }}/backup_db_{{ php_censor_db_name }}.sh" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwx,o=r"
+
+- name: Set permitions for PHP Censor DB daily dump script
+  file: path="/home/{{ php_censor_user }}/backup_db_{{ php_censor_db_name }}_daily.sh" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwx,o=r"
 
 - name: Set PHP Censor DB dump cronjob
   cron: minute=10 hour=21 weekday=5 name="{{ php_censor_hostname }} DB dump" user="{{ php_censor_user }}" job="~/backup_db_{{ php_censor_db_name }}.sh"

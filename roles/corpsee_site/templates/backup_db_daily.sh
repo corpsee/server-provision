@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CURRENT_DATE=$(date +%Y-%m-%d_%H-%M-%S)
+CURRENT_DATE=$(date +%Y-%m-%d)
 
 mkdir --mode='u-x,go-x-w,u=rwX,go=rX' "${HOME}/backup"
 
