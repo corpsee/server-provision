@@ -3,7 +3,7 @@
 define('START_TIME', microtime(true));
 define('START_MEMORY', memory_get_usage());
 
-define('ROOT_PATH', dirname(__DIR__) . '/');
+define('ROOT_PATH', __DIR__ . '/../../current/');
 define('APPLICATION_PATH', ROOT_PATH . 'src/');
 define('CONFIG_PATH', APPLICATION_PATH . 'configs/');
 
