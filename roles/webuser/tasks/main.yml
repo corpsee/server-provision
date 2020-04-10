@@ -26,3 +26,16 @@
 
 - name: Creates backup directory
   file: path="/home/{{ webuser_user }}/backup" owner="{{ webuser_user }}" group="{{ webuser_group }}" mode=0755 state=directory
+
+- name: Set env variables for crontab
+  cron:
+    env:   yes
+    name:  "{{ item.name }}"
+    value: "{{ item.value }}"
+    user:  "{{ corpsee_site_user }}"
+  loop:
+    - { name: "USER", value: "{{ webuser_user }}" }
+    - { name: "LOGNAME", value: "{{ webuser_user }}" }
+    - { name: "HOME", value: "/home/{{ webuser_user }}" }
+    - { name: "PATH", value: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/{{ webuser_user }}/bin:/home/{{ webuser_user }}/Bin" }
+    - { name: "SHELL", value: "/bin/bash" }
