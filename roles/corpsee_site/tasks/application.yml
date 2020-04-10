@@ -33,8 +33,11 @@
     - "/var/www/{{ corpsee_site_hostname }}/current/www/yanka"
   when: not site_directory.stat.exists
 
-- name: Creates logs directory
-  file: path="/var/www/{{ corpsee_site_hostname }}/shared/logs" state=directory
+- name: Creates empty shared directories directory
+  file: path="/var/www/{{ corpsee_site_hostname }}/shared/{{ item }}" state=directory
+  loop:
+    - "logs"
+    - "src/configs"
   when: not site_directory.stat.exists
 
 - name:     Create Corpsee site config
