@@ -1,6 +1,6 @@
 <?php
 
-$config            = include_once 'base.php';
+$config            = include (CONFIG_PATH . 'base.php');
 $config_additional = [
     'environment' => 'production',
     'database'    => [
