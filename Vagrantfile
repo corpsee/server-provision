@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
-    # "ubuntu/trusty64" | "ubuntu/xenial64" | "ubuntu/bionic64"
-    config.vm.box      = "ubuntu/bionic64"
+    # "ubuntu/trusty64" | "ubuntu/xenial64" | "ubuntu/bionic64" | "ubuntu/focal64"
+    config.vm.box      = "ubuntu/focal64"
     config.vm.hostname = "corpsee.test"
 
     config.vm.network :private_network, ip: "192.168.56.10"

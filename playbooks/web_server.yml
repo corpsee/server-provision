@@ -5,10 +5,6 @@
   become_user:  root
   gather_facts: false
   pre_tasks:
-    - name:         Install python 2.7 for Ansible
-      raw:          test -e /usr/bin/python || (apt -y update && apt -y install python-minimal)
-      changed_when: false
-
     - name:         Install aptitude for Ansible
       raw:          test -e aptitude || (apt -y update && apt -y install aptitude)
       changed_when: false
