@@ -7,3 +7,5 @@
 - include: hostname.yml
 
 - include: openssh.yml
+
+- include: sysctl.yml

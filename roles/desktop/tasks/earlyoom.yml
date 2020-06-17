@@ -1,0 +1,5 @@
+---
+
+- name:     Set Earlyoom config
+  template: src=earlyoom dest="/etc/default/earlyoom"
+  notify:   Earlyoom Restart

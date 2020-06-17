@@ -1,0 +1,4 @@
+---
+
+- name:    Earlyoom Restart
+  systemd: name="earlyoom.service" state=restarted

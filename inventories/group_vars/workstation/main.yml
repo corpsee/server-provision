@@ -64,6 +64,8 @@ packages_items_to_install:
   - virtualbox-qt
   - ulauncher
 
+  - earlyoom
+
 packages_items_to_remove:
   - hexchat
   - transmission-gtk
