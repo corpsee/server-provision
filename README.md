@@ -6,7 +6,7 @@ Requirements
 
 * Ansible v2.5+.
 
-* Ubuntu 18.04 (14.04, 16.04) (Image for server) and Mint 19.1 - bionic (19.0 - bionic, 18.3 - xenial) (For desktop).
+* Ubuntu 20.04 (18.04) (Image for server) and Mint 20 - focal (19.3 - bionic, 19.2 - bionic, 19.1 - bionic) (For desktop).
 
 * Files:
     * `.vault_password` (roles: webuser, php_censor, corpsee_site)

@@ -160,7 +160,7 @@ postgresql_desktop_group: *group-reference
 ### mariadb role
 
 mariadb_hostname:       corpsee-desktop
-mariadb_version:        10.4
+mariadb_version:        10.5
 mariadb_root_password:  root
 mariadb_repo_keyserver: hkp://keyserver.ubuntu.com
 mariadb_repo:           http://ams2.mirrors.digitalocean.com/mariadb

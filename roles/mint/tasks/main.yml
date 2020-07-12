@@ -17,3 +17,9 @@
     ansible_distribution_release: bionic
   when:
     - ansible_distribution_release == "tessa" or ansible_distribution_release == "tara" or ansible_distribution_release == "tina" or ansible_distribution_release == "tricia"
+
+- name: "Fix 'ansible_distribution_release' fact for Linux Mint 20"
+  set_fact:
+    ansible_distribution_release: focal
+  when:
+    - ansible_distribution_release == "ulyana"
