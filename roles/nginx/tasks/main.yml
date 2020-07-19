@@ -1,7 +1,10 @@
 ---
 
+- name:    Add keys for Nginx repository
+  apt_key: url=https://nginx.org/keys/nginx_signing.key state=present
+
 - name:           Add Nginx repository
-  apt_repository: repo="ppa:nginx/stable" codename="{{ ansible_distribution_release }}" update_cache=yes
+  apt_repository: repo="deb http://nginx.org/packages/ubuntu {{ ansible_distribution_release }} nginx" update_cache=yes
 
 - name: Install Nginx
   apt:  name=nginx state=latest
@@ -13,8 +16,17 @@
   template: src="nginx.{{ nginx_mode }}.conf" dest=/etc/nginx/nginx.conf
   notify:   Restart Nginx
 
+- name: Create /etc/nginx/sites-available
+  file: path="/etc/nginx/sites-available" state=directory
+
+- name: Create /etc/nginx/sites-enabled
+  file: path="/etc/nginx/sites-enabled" state=directory
+
 - name: Clean /etc/nginx/sites-enabled
   file: path="/etc/nginx/sites-enabled/default" state=absent
+
+- name: Clean /etc/nginx/conf.d
+  file: path="/etc/nginx/conf.d" state=absent
 
 - name: Clean /var/www
   file: path="/var/www/html" state=absent

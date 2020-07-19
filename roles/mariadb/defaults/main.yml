@@ -1,7 +1,5 @@
 ---
 
-mariadb_hostname:       example-hostname
-mariadb_version:        10.5 # version: 10.0 | 10.1 | 10.2 | 10.3 | 10.4 | 10.5
-mariadb_root_password:  root
-mariadb_repo_keyserver: hkp://keyserver.ubuntu.com
-mariadb_repo:           http://ams2.mirrors.digitalocean.com/mariadb
+mariadb_hostname:      example-hostname
+mariadb_version:       10.5 # version: 10.3 | 10.4 | 10.5
+mariadb_root_password: root

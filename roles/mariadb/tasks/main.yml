@@ -1,29 +1,21 @@
 ---
 
-- name:    Add keys for MariaDB repository (trusty)
-  apt_key: id=0xF1656F24C74CD1D8 keyserver={{ mariadb_repo_keyserver }} state=present
-  when:    ansible_distribution_release == 'trusty'
-
-- name:    Add keys for MariaDB repository (xenial)
-  apt_key: id=0xF1656F24C74CD1D8 keyserver={{ mariadb_repo_keyserver }} state=present
-  when:    ansible_distribution_release == 'xenial'
-
-- name:    Add keys for MariaDB repository (bionic)
-  apt_key: id=0xF1656F24C74CD1D8 keyserver={{ mariadb_repo_keyserver }} state=present
-  when:    ansible_distribution_release == 'bionic'
-
-- name:    Add keys for MariaDB repository (focal)
-  apt_key: id=0xF1656F24C74CD1D8 keyserver={{ mariadb_repo_keyserver }} state=present
-  when:    ansible_distribution_release == 'focal64'
+- name:    Add keys for MariaDB repository
+  apt_key: url=https://mariadb.org/mariadb_release_signing_key.asc state=present
 
 - name:           Add MariaDB repository
-  apt_repository: repo="deb {{ mariadb_repo }}/repo/{{ mariadb_version }}/ubuntu {{ ansible_distribution_release }} main" update_cache=yes
+  apt_repository: repo="deb http://mirror.mephi.ru/mariadb/repo/{{ mariadb_version }}/ubuntu {{ ansible_distribution_release }} main" update_cache=yes
 
 - name: Install MariaDB
-  apt:  name="{{ item }}" state=latest
-  loop:
-    - "mariadb-server"
-    - "python-mysqldb"
+  apt:  name=mariadb-server state=latest
+
+- name: Install Mysqldb (Python2)
+  apt:  name="python-mysqldb" state=latest
+  when: ansible_distribution_release != 'focal'
+
+- name: Install Mysqldb (Python3)
+  apt:  name="python3-mysqldb" state=latest
+  when: ansible_distribution_release == 'focal'
 
 - name:       Set MariaDB root user password
   mysql_user: name="root" host="{{ item }}" password="{{ mariadb_root_password }}" login_user="root" state=present
