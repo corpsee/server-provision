@@ -94,7 +94,7 @@ nginx_group: *group-reference
 
 php_mode:      *mode-reference
 php_timezone:  *timezone-reference
-php_version:   7.1
+php_version:   "7.1"
 php_memory:    -1
 php_fpm_user:  *user-reference
 php_fpm_group: *group-reference
@@ -135,7 +135,7 @@ postgresql_desktop_group: *group-reference
 ### mariadb role
 
 mariadb_hostname:      corpsee-desktop
-mariadb_version:       10.5
+mariadb_version:       "10.5"
 mariadb_root_password: root
 
 

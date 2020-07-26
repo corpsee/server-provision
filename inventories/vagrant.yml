@@ -3,12 +3,13 @@ all:
     web_server:
       hosts:
         192.168.56.10:
+          ansible_python_interpreter: "/usr/bin/python3.8"
           server_domain:              corpsee.test
           server_mode:                debug
           server_openssh_port:        22
           php_mode:                   debug
-          php_censor_version:         1.2.0
-          php_censor_php_version:     7.1
+          php_censor_version:         "1.2.0"
+          php_censor_php_version:     "7.1"
           php_censor_hostname:        php-censor.test
           php_censor_hostname_test:   php-censor-test.test
           php_censor_url:             'http://php-censor.test'

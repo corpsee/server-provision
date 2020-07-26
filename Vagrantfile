@@ -1,5 +1,4 @@
 Vagrant.configure("2") do |config|
-    # "ubuntu/trusty64" | "ubuntu/xenial64" | "ubuntu/bionic64" | "ubuntu/focal64"
     config.vm.box      = "ubuntu/focal64"
     config.vm.hostname = "corpsee.test"
 

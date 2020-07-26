@@ -9,10 +9,6 @@
 - name: Install PostgreSQL
   apt:  name="postgresql-{{ postgresql_version }}" state=latest
 
-- name: Install Psycopg2 (Python2)
-  apt:  name="python-psycopg2" state=latest
-  when: ansible_distribution_release != 'focal'
-
-- name: Install Psycopg2 (Python3)
+- name: Install Psycopg2
   apt:  name="python3-psycopg2" state=latest
   when: ansible_distribution_release == 'focal'

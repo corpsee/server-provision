@@ -1,23 +1,5 @@
 ---
 
-- name: "Fix 'ansible_distribution_release' fact for Linux Mint 17"
-  set_fact:
-    ansible_distribution_release: trusty
-  when:
-    - ansible_distribution_release == "rosa" or ansible_distribution_release == "rafaela" or ansible_distribution_release == "rebecca" or ansible_distribution_release == "qiana"
-
-- name: "Fix 'ansible_distribution_release' fact for Linux Mint 18"
-  set_fact:
-    ansible_distribution_release: xenial
-  when:
-    - ansible_distribution_release == "sylvia" or ansible_distribution_release == "sonya" or ansible_distribution_release == "serena" or ansible_distribution_release == "sarah"
-
-- name: "Fix 'ansible_distribution_release' fact for Linux Mint 19"
-  set_fact:
-    ansible_distribution_release: bionic
-  when:
-    - ansible_distribution_release == "tessa" or ansible_distribution_release == "tara" or ansible_distribution_release == "tina" or ansible_distribution_release == "tricia"
-
 - name: "Fix 'ansible_distribution_release' fact for Linux Mint 20"
   set_fact:
     ansible_distribution_release: focal

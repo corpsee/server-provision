@@ -9,13 +9,8 @@
 - name: Install MariaDB
   apt:  name=mariadb-server state=latest
 
-- name: Install Mysqldb (Python2)
-  apt:  name="python-mysqldb" state=latest
-  when: ansible_distribution_release != 'focal'
-
-- name: Install Mysqldb (Python3)
+- name: Install Mysqldb
   apt:  name="python3-mysqldb" state=latest
-  when: ansible_distribution_release == 'focal'
 
 - name:       Set MariaDB root user password
   mysql_user: name="root" host="{{ item }}" password="{{ mariadb_root_password }}" login_user="root" state=present

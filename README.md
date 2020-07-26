@@ -4,9 +4,9 @@ Server deployment
 Requirements
 ------------
 
-* Ansible v2.5+.
+* Ansible v2.9+.
 
-* Ubuntu 20.04 (18.04) (Image for server) and Mint 20 - focal (19.3 - bionic, 19.2 - bionic, 19.1 - bionic) (For desktop).
+* Ubuntu 20.04 or Mint 20 (For desktop).
 
 * Files:
     * `.vault_password` (roles: webuser, php_censor, corpsee_site)
