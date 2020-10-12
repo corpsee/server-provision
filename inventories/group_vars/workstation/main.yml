@@ -62,7 +62,10 @@ packages_items_to_install:
   - keepassx
   - yandex-disk
   - virtualbox-qt
+  - filezilla
+  - pgadmin3
   - ulauncher
+  - deepin-screenshot
 
   - earlyoom
 

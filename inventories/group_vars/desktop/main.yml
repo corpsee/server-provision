@@ -48,6 +48,7 @@ packages_items_to_install:
   - pv
   - ncdu
 
+  # For development
   - ansible
   - vagrant
   - docker-ce
@@ -58,6 +59,7 @@ packages_items_to_install:
   - redis-server
   - clickhouse-server
   - clickhouse-client
+  - love
 
   - gnupg
 
@@ -70,6 +72,7 @@ packages_items_to_install:
   - lm-sensors
   - hddtemp
 
+  # For desktop
   - keepassx
   - yandex-disk
   - deluge
@@ -79,7 +82,7 @@ packages_items_to_install:
   - filezilla
   - pgadmin3
   - ulauncher
-  - love
+  - deepin-screenshot
 
   - earlyoom
 
