@@ -104,3 +104,6 @@
 
 - name: Set current release link
   file: src="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ corpsee_site_hostname }}/current" state=link
+
+- name:    Restart PHP FPM systemd service
+  systemd: name="php{{ corpsee_site_php_version }}-fpm.service" state=restarted

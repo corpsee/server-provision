@@ -2,7 +2,7 @@
 
 php_mode:      debug    # mode: production|debug
 php_timezone:  UTC
-php_version:   "7.1"    # version: 5.6 | 7.0 | 7.1 | 7.2 | 7.3 | 7.4
+php_version:   "7.1"    # version: 5.6 | 7.0 | 7.1 | 7.2 | 7.3 | 7.4 | 8.0
 php_memory:    128M     # memory limit in MB
 php_fpm_user:  www-data
 php_fpm_group: www-data

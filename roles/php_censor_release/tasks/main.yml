@@ -87,3 +87,6 @@
 
 - name: Set current release link
   file: src="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ php_censor_hostname }}/current" state=link
+
+- name:    Restart PHP FPM systemd service
+  systemd: name="php{{ php_censor_php_version }}-fpm.service" state=restarted
