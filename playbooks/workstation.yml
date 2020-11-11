@@ -15,6 +15,7 @@
     - { role: php, php_version: "7.2" }
     - { role: php, php_version: "7.3" }
     - { role: php, php_version: "7.4" }
+    - { role: php, php_version: "8.0" }
     - composer
     - mariadb
     - nodejs

@@ -13,34 +13,3 @@
   apt:  name="php{{ php_version }}-{{ item }}" state=latest
   loop: "{{ php_packages }}"
   when: php_packages is defined
-
-- name:    Save origin PHP configs
-  command: mv -fv "/etc/php/{{ php_version }}/{{ item }}/php.ini" "/etc/php/{{ php_version }}/{{ item }}/php.ini-origin" creates="/etc/php/{{ php_version }}/{{ item }}/php.ini-origin"
-  loop:
-    - "cli"
-    - "fpm"
-
-- name:    Save origin PHP-FPM config
-  command: mv -fv "/etc/php/{{ php_version }}/fpm/php-fpm.conf" "/etc/php/{{ php_version }}/fpm/php-fpm.conf-origin" creates="/etc/php/{{ php_version }}/fpm/php-fpm.conf-origin"
-
-- name:    Save origin PHP-FPM www config
-  command: mv -fv "/etc/php/{{ php_version }}/fpm/pool.d/www.conf" "/etc/php/{{ php_version }}/fpm/pool.d/www.conf-origin" creates="/etc/php/{{ php_version }}/fpm/pool.d/www.conf-origin"
-
-- name:     Set PHP configs
-  template: src="{{ php_version }}/{{ item }}/php.{{ php_mode }}.ini" dest="/etc/php/{{ php_version }}/{{ item }}/php.ini"
-  notify:   Restart PHP-FPM
-  loop:
-    - "cli"
-    - "fpm"
-
-- name:     Set PHP-FPM config
-  template: src="{{ php_version }}/fpm/php-fpm.{{ php_mode }}.conf" dest="/etc/php/{{ php_version }}/fpm/php-fpm.conf"
-
-- name:     Set PHP-FPM www config
-  template: src="{{ php_version }}/fpm/pool.d/www.{{ php_mode }}.conf" dest="/etc/php/{{ php_version }}/fpm/pool.d/www.conf"
-
-- name: Create log directory
-  file: path="/var/log/php/{{ php_version }}" state=directory mode=0755 owner={{ php_fpm_user }} group={{ php_fpm_group }}
-
-- name: Clean /var/log/php-fpm.log
-  file: path="/var/log/php{{ php_version }}-fpm.log" state=absent
