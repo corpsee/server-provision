@@ -2,10 +2,11 @@
 
 ### references
 
-user-reference:     &user-reference "web"
-group-reference:    &group-reference "www-data"
-mode-reference:     &mode-reference "production"
-timezone-reference: &timezone-reference "Asia/Novosibirsk"
+user-reference:        &user-reference "web"
+group-reference:       &group-reference "www-data"
+mode-reference:        &mode-reference "production"
+timezone-reference:    &timezone-reference "Asia/Novosibirsk"
+php-version-reference: &php-version-reference "7.1"
 
 
 ### server role
@@ -79,7 +80,7 @@ nginx_group: *group-reference
 
 php_mode:      *mode-reference
 php_timezone:  *timezone-reference
-php_version:   "7.1"
+php_version:   *php-version-reference
 php_memory:    256M
 php_fpm_user:  *user-reference
 php_fpm_group: *group-reference
@@ -114,7 +115,7 @@ postgresql_version: 11
 ### php_censor role
 
 php_censor_mode:                       *mode-reference
-php_censor_php_version:                "7.1"
+php_censor_php_version:                *php-version-reference
 php_censor_user:                       *user-reference
 php_censor_group:                      *group-reference
 php_censor_db_name:                    php_censor
@@ -146,7 +147,7 @@ php_censor_periodical_config_filename_test: periodical_test.yml
 ### corpsee_site role
 
 corpsee_site_mode:             *mode-reference
-corpsee_site_php_version:      "7.1"
+corpsee_site_php_version:      *php-version-reference
 corpsee_site_user:             *user-reference
 corpsee_site_group:            *group-reference
 corpsee_site_db_name:          corpsee_site
@@ -171,7 +172,7 @@ corpsee_site_version_test:          master
 ### php_censor_site role
 
 php_censor_site_mode:        *mode-reference
-php_censor_site_php_version: "7.1"
+php_censor_site_php_version: *php-version-reference
 php_censor_site_hostname:    php-censor.info
 php_censor_site_user:        *user-reference
 php_censor_site_group:       *group-reference

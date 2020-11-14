@@ -2,10 +2,11 @@
 
 ### references
 
-user-reference:     &user-reference "corpsee"
-group-reference:    &group-reference "corpsee"
-mode-reference:     &mode-reference "debug"
-timezone-reference: &timezone-reference "Asia/Novosibirsk"
+user-reference:        &user-reference "corpsee"
+group-reference:       &group-reference "corpsee"
+mode-reference:        &mode-reference "debug"
+timezone-reference:    &timezone-reference "Asia/Novosibirsk"
+php-version-reference: &php-version-reference "7.1"
 
 
 ### packages role
@@ -114,7 +115,7 @@ nginx_group: *group-reference
 
 php_mode:      *mode-reference
 php_timezone:  *timezone-reference
-php_version:   "7.1"
+php_version:   *php-version-reference
 php_memory:    -1
 php_fpm_user:  *user-reference
 php_fpm_group: *group-reference
