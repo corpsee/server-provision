@@ -150,7 +150,7 @@ composer_path: /usr/local/bin/composer
 
 ### postgresql role
 
-postgresql_version: 11
+postgresql_version: 13
 
 
 ### postgresql_desktop role
