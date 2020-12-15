@@ -17,16 +17,16 @@ packages_ppa:
   - ppa:bartbes/love-stable
 
 packages_repositories:
-  - repository: "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+  - repository: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
     keyserver:  keyserver.ubuntu.com
     key:        0EBFCD88
-  - repository: "deb http://vagrant-deb.linestarve.com/ any main"
+  - repository: "deb [arch=amd64] http://vagrant-deb.linestarve.com/ any main"
     keyserver:  keyserver.ubuntu.com
     key:        AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4
-  - repository: "deb http://repo.yandex.ru/yandex-disk/deb/ stable main"
+  - repository: "deb [arch=amd64] http://repo.yandex.ru/yandex-disk/deb/ stable main"
     keyserver:  keyserver.ubuntu.com
     key:        EFC4571D7C90E5AF
-  - repository: "deb http://repo.yandex.ru/clickhouse/deb/stable/ main/"
+  - repository: "deb [arch=amd64] http://repo.yandex.ru/clickhouse/deb/stable/ main/"
     keyserver:  keyserver.ubuntu.com
     key:        E0C56BD4
 

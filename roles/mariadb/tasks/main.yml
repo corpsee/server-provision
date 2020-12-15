@@ -4,7 +4,7 @@
   apt_key: url=https://mariadb.org/mariadb_release_signing_key.asc state=present
 
 - name:           Add MariaDB repository
-  apt_repository: repo="deb http://mirror.mephi.ru/mariadb/repo/{{ mariadb_version }}/ubuntu {{ ansible_distribution_release }} main" update_cache=yes
+  apt_repository: repo="deb [arch=amd64] http://mirror.mephi.ru/mariadb/repo/{{ mariadb_version }}/ubuntu {{ ansible_distribution_release }} main" update_cache=yes
 
 - name: Install MariaDB
   apt:  name=mariadb-server state=latest
