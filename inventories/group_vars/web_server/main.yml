@@ -2,11 +2,11 @@
 
 ### references
 
-user-reference:        &user-reference "web"
-group-reference:       &group-reference "www-data"
-mode-reference:        &mode-reference "production"
-timezone-reference:    &timezone-reference "Asia/Novosibirsk"
-php-version-reference: &php-version-reference "7.1"
+user-reference:        &user-reference        "web"
+group-reference:       &group-reference       "www-data"
+mode-reference:        &mode-reference        "production"
+timezone-reference:    &timezone-reference    "Asia/Novosibirsk"
+php-version-reference: &php-version-reference "7.4"
 
 
 ### server role
@@ -127,7 +127,7 @@ php_censor_queue_name:                 php_censor
 php_censor_hostname:                   ci.php-censor.info
 php_censor_url:                        'http://ci.php-censor.info'
 php_censor_from_email:                 'PHP Censor CI <ci@php-censor.info>'
-php_censor_version:                    "1.2.0"
+php_censor_version:                    "1.3.0"
 php_censor_periodical_config_filename: periodical.yml
 # php_censor_db_password: in secret.yml
 # php_censor_github_token: in secret.yml
@@ -140,7 +140,7 @@ php_censor_queue_name_test:                 php_censor_test
 php_censor_hostname_test:                   ci-test.php-censor.info
 php_censor_url_test:                        'http://ci-test.php-censor.info'
 php_censor_from_email_test:                 'PHP Censor CI Test <ci-test@php-censor.info>'
-php_censor_version_test:                    "1.2.0"
+php_censor_version_test:                    "1.3.0"
 php_censor_periodical_config_filename_test: periodical_test.yml
 # php_censor_db_password_test: in secret.yml
 

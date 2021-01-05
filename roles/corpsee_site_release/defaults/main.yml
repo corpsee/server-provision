@@ -1,6 +1,6 @@
 ---
 
-corpsee_site_php_version: "7.1"
+corpsee_site_php_version: "7.4"
 corpsee_site_user:        www-data
 corpsee_site_group:       www-data
 corpsee_site_db_name:     corpsee_site
