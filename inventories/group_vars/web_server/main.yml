@@ -35,6 +35,7 @@ packages_repositories: []
 
 packages_items_to_install:
   - acl
+  - net-tools
   - aptitude
   - apt-transport-https
   - ca-certificates

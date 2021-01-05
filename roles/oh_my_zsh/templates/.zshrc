@@ -106,3 +106,5 @@ alias dir_size="du --human-readable --max-depth=1 --time --total"
 alias dir_size_all="du --human-readable --max-depth=1 --all --time --total"
 
 alias generate_password="openssl rand --base64"
+
+alias show_listen="sudo netstat -tulpan | grep LISTEN"
