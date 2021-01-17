@@ -116,6 +116,7 @@ postgresql_version: 13
 ### php_censor role
 
 php_censor_mode:                       *mode-reference
+php_censor_workers_count:              2
 php_censor_php_version:                *php-version-reference
 php_censor_user:                       *user-reference
 php_censor_group:                      *group-reference

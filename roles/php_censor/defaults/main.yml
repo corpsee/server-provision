@@ -2,6 +2,7 @@
 
 php_censor_mode:                       debug # mode: production|debug
 php_censor_php_version:                "7.4"
+php_censor_workers_count:              2
 php_censor_user:                       www-data
 php_censor_group:                      www-data
 php_censor_version:                    "1.3.0"
