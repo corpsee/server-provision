@@ -22,12 +22,12 @@ php-censor:
     notifications:
         enabled: false
     email_settings:
-        from_address: '{{ php_censor_from_email }}'
-        smtp_address: null
-        smtp_port: null
-        smtp_username: null
-        smtp_password: null
-        smtp_encryption: false
+        from_address:    '{{ php_censor_from_email }}'
+        smtp_address:    '{{ php_censor_smtp_address }}'
+        smtp_port:       {{ php_censor_smtp_port }}
+        smtp_username:   '{{ php_censor_smtp_username }}'
+        smtp_password:   '{{ php_censor_smtp_password }}'
+        smtp_encryption: '{{ php_censor_smtp_encryption }}'
     ssh:
         strength: 2048
         comment:  ''

@@ -14,6 +14,11 @@ php_censor_db_dump_filename:           php_censor
 php_censor_artifacts_dir_filename:     artifacts.tar.gz
 php_censor_queue_name:                 php_censor
 php_censor_hostname:                   php-censor.test
-php_censor_url:                       'http://php-censor.test'
-php_censor_from_email:                'PHP Censor <no-reply@php-censor.test>'
-php_censor_github_token:              ''
+php_censor_url:                        'http://php-censor.test'
+php_censor_from_email:                 'PHP Censor <mail@php-censor.test>'
+php_censor_smtp_address:               'smtp.php-censor.test'
+php_censor_smtp_port:                  465
+php_censor_smtp_username:              'mail@php-censor.test'
+php_censor_smtp_password:              'mail@php-censor.test'
+php_censor_smtp_encryption:            'ssl'
+php_censor_github_token:               ''

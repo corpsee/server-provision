@@ -83,8 +83,7 @@
     chdir: "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}"
 
 - name:    Restart PHP Censor worker systemd service
-  systemd: name="{{ php_censor_queue_name }}@{{item}}.service" state=restarted
-  loop:    "{{ range(1, php_censor_workers_count + 1) | list }}"
+  systemd: name="{{ php_censor_queue_name }}@*.service" state=restarted
 
 - name: Set current release link
   file: src="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ php_censor_hostname }}/current" state=link

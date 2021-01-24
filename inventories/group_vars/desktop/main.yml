@@ -64,6 +64,7 @@ packages_items_to_install:
   - love
 
   - gnupg
+  - libnss3-tools # For local HTTPS: https://github.com/FiloSottile/mkcert
 
   # For mounting
   - sshfs
