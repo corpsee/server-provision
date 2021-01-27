@@ -1,11 +1,11 @@
 ---
 
 php_censor_mode:                       debug # mode: production|debug
-php_censor_php_version:                "7.4"
+php_censor_php_version:                '7.4'
 php_censor_workers_count:              2
 php_censor_user:                       www-data
 php_censor_group:                      www-data
-php_censor_version:                    "1.3.0"
+php_censor_version:                    '1.3.0'
 php_censor_periodical_config_filename: periodical.yml
 php_censor_db_name:                    php_censor
 php_censor_db_user:                    php_censor
@@ -14,7 +14,7 @@ php_censor_db_dump_filename:           php_censor
 php_censor_artifacts_dir_filename:     artifacts.tar.gz
 php_censor_queue_name:                 php_censor
 php_censor_hostname:                   php-censor.test
-php_censor_url:                        'http://php-censor.test'
+php_censor_url:                        '//php-censor.test'
 php_censor_from_email:                 'PHP Censor <mail@php-censor.test>'
 php_censor_smtp_address:               'smtp.php-censor.test'
 php_censor_smtp_port:                  465
@@ -22,3 +22,5 @@ php_censor_smtp_username:              'mail@php-censor.test'
 php_censor_smtp_password:              'mail@php-censor.test'
 php_censor_smtp_encryption:            'ssl'
 php_censor_github_token:               ''
+php_censor_cert_pem_path:              '~/php-censor.test.pem'
+php_censor_cert_pem_key_path:          '~/php-censor.test-key.pem'

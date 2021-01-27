@@ -9,21 +9,29 @@ Requirements
 * Ubuntu 20.04 or Mint 20 (For desktop).
 
 * Files:
-    * `.vault_password` (roles: webuser, php_censor, corpsee_site)
-    * `inventories/group_vars/web_server/secret.yml` (roles: webuser, php_censor, corpsee_site)
-    * `inventories/production.yml` (roles: corpsee_site)
-    * `roles/webuser/files/web_server_github.pub` (roles: webuser)
-    * `roles/webuser/files/web_server_github` (roles: webuser)
-    * `roles/webuser/files/web_server_<webuser>.pub` (`web_server_web.pub`) (roles: webuser)
-    * `roles/webuser/files/web_server_<webuser>` (`web_server_web`) (roles: webuser)
-    * `roles/corpsee_site/files/corpsee_site.sql` (roles: corpsee_site)
-    * `roles/corpsee_site/files/corpsee_site_test.sql` (roles: corpsee_site)
-    * `roles/corpsee_site/files/www` (`www_test`) (roles: corpsee_site)
-    * `roles/php_censor/files/artifacts` (`artifacts_test`) (roles: php_censor)
-    * `roles/php_censor/files/php_censor.sql` (roles: php_censor)
-    * `roles/php_censor/files/php_censor_test.sql` (roles: php_censor)
-    * `roles/php_censor/files/periodical.yml` (roles: php_censor)
-    * `roles/php_censor/files/periodical_test.yml` (roles: php_censor)
+    * `.vault_password` (Roles: webuser, php_censor, corpsee_site)
+    * `inventories/group_vars/web_server/secret.yml` (Roles: webuser, php_censor, corpsee_site)
+    * `inventories/production.yml` (Roles: corpsee_site)
+    * `roles/webuser/files/web_server_github.pub` (Roles: webuser)
+    * `roles/webuser/files/web_server_github` (Roles: webuser)
+    * `roles/webuser/files/web_server_<webuser>.pub` (`web_server_web.pub`) (Roles: webuser)
+    * `roles/webuser/files/web_server_<webuser>` (`web_server_web`) (Roles: webuser)
+    * `roles/corpsee_site/files/corpsee_site.sql` (Roles: corpsee_site)
+    * `roles/corpsee_site/files/corpsee_site_test.sql` (Roles: corpsee_site)
+    * `roles/corpsee_site/files/www` (`www_test`) (Roles: corpsee_site)
+    * `corpsee.test.pem` (Roles: corpsee_site. For debug deploy/vagrant only)
+    * `corpsee.test-key.pem` (Roles: corpsee_site. For debug deploy/vagrant only)
+    * `corpsee-test.test.pem` (Roles: corpsee_site. For debug deploy/vagrant only)
+    * `corpsee-test.test-key.pem` (Roles: corpsee_site. For debug deploy/vagrant only)
+    * `roles/php_censor/files/artifacts` (`artifacts_test`) (Roles: php_censor)
+    * `roles/php_censor/files/php_censor.sql` (Roles: php_censor)
+    * `roles/php_censor/files/php_censor_test.sql` (Roles: php_censor)
+    * `roles/php_censor/files/periodical.yml` (Roles: php_censor)
+    * `roles/php_censor/files/periodical_test.yml` (Roles: php_censor)
+    * `php-censor.test.pem` (Roles: php_censor. For debug deploy/vagrant only)
+    * `php-censor.test-key.pem` (Roles: php_censor. For debug deploy/vagrant only)
+    * `php-censor-test.test.pem` (Roles: php_censor. For debug deploy/vagrant only)
+    * `php-censor-test.test-key.pem` (Roles: php_censor. For debug deploy/vagrant only)
 
 * Files by roles:
     * webuser:
@@ -39,7 +47,12 @@ Requirements
         * `inventories/production.yml`
         * `roles/corpsee_site/files/corpsee_site.sql`
         * `roles/corpsee_site/files/corpsee_site_test.sql`
-        * `roles/corpsee_site/files/www` (`www_test`)
+        * `roles/corpsee_site/files/www`
+        * `roles/corpsee_site/files/www_test`
+        * `corpsee.test.pem` (For debug deploy/vagrant only)
+        * `corpsee.test-key.pem` (For debug deploy/vagrant only)
+        * `corpsee-test.test.pem` (For debug deploy/vagrant only)
+        * `corpsee-test.test-key.pem` (For debug deploy/vagrant only)
     * php_censor:
         * `.vault_password`
         * `inventories/group_vars/web_server/secret.yml`
@@ -48,6 +61,10 @@ Requirements
         * `roles/php_censor/files/periodical.yml`
         * `roles/php_censor/files/periodical_test.yml`
         * `roles/php_censor/files/artifacts` (`artifacts_test`)
+        * `php-censor.test.pem` (For debug deploy/vagrant only)
+        * `php-censor.test-key.pem` (For debug deploy/vagrant only)
+        * `php-censor-test.test.pem` (For debug deploy/vagrant only)
+        * `php-censor-test.test-key.pem` (For debug deploy/vagrant only)
 
 Deploy
 ------

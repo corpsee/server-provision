@@ -6,6 +6,11 @@
   roles:
     - nginx
     - role:                                  php_censor
+      php_censor_mode:                       "{{ php_censor_mode_test }}"
+      php_censor_workers_count:              "{{ php_censor_workers_count_test }}"
+      php_censor_php_version:                "{{ php_censor_php_version_test }}"
+      php_censor_user:                       "{{ php_censor_user_test }}"
+      php_censor_group:                      "{{ php_censor_group_test }}"
       php_censor_db_name:                    "{{ php_censor_db_name_test }}"
       php_censor_db_user:                    "{{ php_censor_db_user_test }}"
       php_censor_db_password:                "{{ php_censor_db_password_test }}"
@@ -15,5 +20,11 @@
       php_censor_hostname:                   "{{ php_censor_hostname_test }}"
       php_censor_url:                        "{{ php_censor_url_test }}"
       php_censor_from_email:                 "{{ php_censor_from_email_test }}"
+      php_censor_smtp_address:               "{{ php_censor_smtp_address_test }}"
+      php_censor_smtp_port:                  "{{ php_censor_smtp_port_test }}"
+      php_censor_smtp_username:              "{{ php_censor_smtp_username_test }}"
+      php_censor_smtp_password:              "{{ php_censor_smtp_password_test }}"
+      php_censor_smtp_encryption:            "{{ php_censor_smtp_encryption_test }}"
       php_censor_version:                    "{{ php_censor_version_test }}"
       php_censor_periodical_config_filename: "{{ php_censor_periodical_config_filename_test }}"
+      php_censor_github_token:               "{{ php_censor_github_token_test }}"
