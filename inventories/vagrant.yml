@@ -3,35 +3,37 @@ all:
     web_server:
       hosts:
         192.168.56.10:
-          ansible_python_interpreter:          '/usr/bin/python3.8'
+          ansible_python_interpreter: '/usr/bin/python3.8'
 
-          server_domain:                       'corpsee.test'
-          server_mode:                         'debug'
-          server_openssh_port:                 22
+          server_domain:       'corpsee.test'
+          server_mode:         'debug'
+          server_openssh_port: 22
 
-          php_mode:                            'debug'
+          php_mode: 'debug'
 
-          php_censor_site_hostname:            'php-censor-site.test'
+          php_censor_site_hostname:               'php-censor-site.test'
+          php_censor_site_cert_pem_path_test:     '/vagrant/php-censor-site.test.pem'
+          php_censor_site_cert_pem_key_path_test: '/vagrant/php-censor-site.test-key.pem'
 
-          php_censor_hostname:                 'php-censor.test'
-          php_censor_url:                      '//php-censor.test'
-          php_censor_from_email:               'PHP Censor CI <mail@php-censor.test>'
-          php_censor_smtp_address:             ''
-          php_censor_github_token:             ''
-          php_censor_cert_pem_path:            '/vagrant/php-censor.test.pem'
-          php_censor_cert_pem_key_path:        '/vagrant/php-censor.test-key.pem'
+          php_censor_hostname:          'php-censor.test'
+          php_censor_url:               '//php-censor.test'
+          php_censor_from_email:        'PHP Censor CI <mail@php-censor.test>'
+          php_censor_smtp_address:      ''
+          php_censor_github_token:      ''
+          php_censor_cert_pem_path:     '/vagrant/php-censor.test.pem'
+          php_censor_cert_pem_key_path: '/vagrant/php-censor.test-key.pem'
 
-          php_censor_hostname_test:            'php-censor-test.test'
-          php_censor_url_test:                 '//php-censor-test.test'
-          php_censor_from_email_test:          'PHP Censor CI Test <mail@php-censor-test.test>'
-          php_censor_smtp_address_test:        ''
-          php_censor_github_token_test:        ''
-          php_censor_cert_pem_path_test:       '/vagrant/php-censor-test.test.pem'
-          php_censor_cert_pem_key_path_test:   '/vagrant/php-censor-test.test-key.pem'
+          php_censor_hostname_test:          'php-censor-test.test'
+          php_censor_url_test:               '//php-censor-test.test'
+          php_censor_from_email_test:        'PHP Censor CI Test <mail@php-censor-test.test>'
+          php_censor_smtp_address_test:      ''
+          php_censor_github_token_test:      ''
+          php_censor_cert_pem_path_test:     '/vagrant/php-censor-test.test.pem'
+          php_censor_cert_pem_key_path_test: '/vagrant/php-censor-test.test-key.pem'
 
-          corpsee_site_hostname:               'corpsee.test'
-          corpsee_site_cert_pem_path:          '/vagrant/corpsee.test.pem'
-          corpsee_site_cert_pem_key_path:      '/vagrant/corpsee.test-key.pem'
+          corpsee_site_hostname:          'corpsee.test'
+          corpsee_site_cert_pem_path:     '/vagrant/corpsee.test.pem'
+          corpsee_site_cert_pem_key_path: '/vagrant/corpsee.test-key.pem'
 
           corpsee_site_hostname_test:          'corpsee-test.test'
           corpsee_site_cert_pem_path_test:     '/vagrant/corpsee-test.test.pem'
