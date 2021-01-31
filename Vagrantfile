@@ -56,6 +56,14 @@ Vagrant.configure("2") do |config|
         php_censor_test_init.verbose            = "v"
     end
 
+    config.vm.provision "php_censor_site_init", type: "ansible", run: "never" do |php_censor_site_init|
+        php_censor_site_init.playbook           = "playbooks/php_censor_site_init.yml"
+        php_censor_site_init.inventory_path     = "inventories/vagrant.yml"
+        php_censor_site_init.compatibility_mode = "2.0"
+        php_censor_site_init.limit              = 'all'
+        php_censor_site_init.verbose            = "v"
+    end
+
 
     config.vm.provision "corpsee_site_release", type: "ansible", run: "never" do |corpsee_site_release|
         corpsee_site_release.playbook           = "playbooks/corpsee_site_release.yml"

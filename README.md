@@ -95,6 +95,9 @@ RELEASE_VERSION="master" vagrant up --provision-with php_censor_release
 # php-censor-test.test
 vagrant up --provision-with php_censor_test_init
 RELEASE_VERSION="master" vagrant up --provision-with php_censor_test_release
+
+# php-censor-site.test
+vagrant up --provision-with php_censor_site_init
 ```
 
 Production deploy:
