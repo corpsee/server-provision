@@ -11,9 +11,9 @@ all:
 
           php_mode: 'debug'
 
-          php_censor_site_hostname:               'php-censor-site.test'
-          php_censor_site_cert_pem_path_test:     '/vagrant/php-censor-site.test.pem'
-          php_censor_site_cert_pem_key_path_test: '/vagrant/php-censor-site.test-key.pem'
+          php_censor_site_hostname:          'php-censor-site.test'
+          php_censor_site_cert_pem_path:     '/vagrant/php-censor-site.test.pem'
+          php_censor_site_cert_pem_key_path: '/vagrant/php-censor-site.test-key.pem'
 
           php_censor_hostname:          'php-censor.test'
           php_censor_url:               '//php-censor.test'
