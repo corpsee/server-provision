@@ -26,15 +26,68 @@
   become:      yes
   become_user: "{{ php_censor_user }}"
 
-- name: Clone latest PHP Censor repository
-  git:  repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/web_server_github" accept_hostkey=yes
+- name:        Clone latest PHP Censor repository (LOCAL)
+  git:         repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="{{ role_path }}/files/{{ release_datetime.stdout }}" accept_hostkey=yes
+  become:      yes
+  become_user: "{{ php_censor_localhost_user }}"
+  when:        not site_directory.stat.exists
+  delegate_to: "127.0.0.1"
 
-- name: Delete shared directories
-  file: path="{{ item }}" state=absent
+- name: Delete shared directories (LOCAL)
+  file: path="{{ role_path }}/files/{{ release_datetime.stdout }}/{{ item }}" state=absent
   loop:
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/runtime"
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/public/artifacts"
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/app"
+    - "runtime"
+    - "public/artifacts"
+    - "app"
+  become:      yes
+  become_user: "{{ php_censor_localhost_user }}"
+  when:        not site_directory.stat.exists
+  delegate_to: "127.0.0.1"
+
+- name:    Install PHP Censor dependencies (LOCAL)
+  command: "composer install --no-dev --optimize-autoloader --prefer-dist"
+  args:
+    chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
+    creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/vendor"
+  become:      yes
+  become_user: "{{ php_censor_localhost_user }}"
+  when:        not site_directory.stat.exists
+  delegate_to: "127.0.0.1"
+
+- name: Delete non-production files (LOCAL)
+  file: path="{{ role_path }}/files/{{ release_datetime.stdout }}/{{ item }}" state=absent
+  loop:
+    - ".git"
+    - ".github"
+    - "docs"
+    - "tests"
+    - ".codecov.yml"
+    - ".editorconfig"
+    - ".gitattributes"
+    - ".gitignore"
+    - ".php-censor.yml"
+    - ".php_cs.dist"
+    - ".travis.yml"
+    - "phpmd.xml.dist"
+    - "phpunit.xml.dist"
+    - "app/.gitkeep"
+    - "public/artifacts/.gitkeep"
+  become:      yes
+  become_user: "{{ php_censor_localhost_user }}"
+  when:        not site_directory.stat.exists
+  delegate_to: "127.0.0.1"
+
+- name:        Archive PHP Censor release (LOCAL)
+  shell:       "tar -czf {{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz ."
+  become:      yes
+  become_user: "{{ php_censor_localhost_user }}"
+  args:
+    chdir: "{{ role_path }}/files/{{ release_datetime.stdout }}"
+  delegate_to: "127.0.0.1"
+
+- name:      Copy PHP Censor release to host
+  unarchive: src="{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}"
+  when:      not site_directory.stat.exists
 
 - name: Set shared directories links
   file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
@@ -43,37 +96,11 @@
     - { src: "/var/www/{{ php_censor_hostname }}/shared/public/artifacts", dest: "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/public/artifacts" }
     - { src: "/var/www/{{ php_censor_hostname }}/shared/app", dest: "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/app" }
 
-- name: Delete non-production files
-  file: path="{{ item }}" state=absent
-  loop:
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.git"
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.github"
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/docs"
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/tests"
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.codecov.yml"
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.editorconfig"
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.gitattributes"
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.gitignore"
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.php-censor.yml"
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.php_cs.dist"
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/.travis.yml"
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/phpmd.xml.dist"
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/phpunit.xml.dist"
-    - "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/app/.gitkeep"
-
 - name: Set permitions for PHP Censor directory
   file: path="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwX,o=rX" recurse=yes
 
 - name: Set PHP Censor console executable
   file: path="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/bin" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ugo+x" recurse=yes
-
-- name:        Install PHP Censor site dependencies
-  command:     composer install --no-dev --optimize-autoloader
-  become:      yes
-  become_user: "{{ php_censor_user }}"
-  args:
-    chdir:   "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}"
-    creates: "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/vendor"
 
 - name:        Make migrations
   command:     ./bin/console php-censor-migrations:migrate

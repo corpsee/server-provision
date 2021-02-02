@@ -18,14 +18,6 @@
   copy: src="{{ role_path }}/files/{{ php_censor_db_dump_filename }}.sql.gz" dest="/tmp"
   when: php_censor_database.changed
 
-#- name:        Restore PHP Censor DB dump
-#  shell:       psql -U "{{ php_censor_db_user }}" -d "{{ php_censor_db_name }}" -h 127.0.0.1 < "/tmp/{{ php_censor_db_dump_filename }}.sql"
-#  when:        php_censor_database.changed
-#  become:      true
-#  become_user: "{{ php_censor_user }}"
-#  vars:
-#    ansible_ssh_pipelining: true
-
 - name:          Restore PHP Censor DB dump
   postgresql_db: name="{{ php_censor_db_name }}" state=restore target="/tmp/{{ php_censor_db_dump_filename }}.sql.gz" login_user="{{ php_censor_db_user }}" login_password="{{ php_censor_db_password }}" login_host="127.0.0.1"
   when:          php_censor_database.changed

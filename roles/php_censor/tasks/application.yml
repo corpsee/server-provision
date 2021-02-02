@@ -9,9 +9,72 @@
   register: release_datetime
   when:     not site_directory.stat.exists
 
-- name: Clone latest PHP Censor repository
-  git:  repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/web_server_github" accept_hostkey=yes
+- name:        Clone latest PHP Censor repository (LOCAL)
+  git:         repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="{{ role_path }}/files/{{ release_datetime.stdout }}" accept_hostkey=yes
+  become:      yes
+  become_user: "{{ php_censor_localhost_user }}"
+  when:        not site_directory.stat.exists
+  delegate_to: "127.0.0.1"
+
+- name: Delete shared directories (LOCAL)
+  file: path="{{ role_path }}/files/{{ release_datetime.stdout }}/{{ item }}" state=absent
+  loop:
+    - "runtime"
+    - "public/artifacts"
+    - "app"
+  become:      yes
+  become_user: "{{ php_censor_localhost_user }}"
+  when:        not site_directory.stat.exists
+  delegate_to: "127.0.0.1"
+
+- name:    Install PHP Censor dependencies (LOCAL)
+  command: "composer install --no-dev --optimize-autoloader --prefer-dist"
+  args:
+    chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
+    creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/vendor"
+  become:      yes
+  become_user: "{{ php_censor_localhost_user }}"
+  when:        not site_directory.stat.exists
+  delegate_to: "127.0.0.1"
+
+- name: Delete non-production files (LOCAL)
+  file: path="{{ role_path }}/files/{{ release_datetime.stdout }}/{{ item }}" state=absent
+  loop:
+    - ".git"
+    - ".github"
+    - "docs"
+    - "tests"
+    - ".codecov.yml"
+    - ".editorconfig"
+    - ".gitattributes"
+    - ".gitignore"
+    - ".php-censor.yml"
+    - ".php_cs.dist"
+    - ".travis.yml"
+    - "phpmd.xml.dist"
+    - "phpunit.xml.dist"
+    - "app/.gitkeep"
+    - "public/artifacts/.gitkeep"
+  become:      yes
+  become_user: "{{ php_censor_localhost_user }}"
+  when:        not site_directory.stat.exists
+  delegate_to: "127.0.0.1"
+
+- name:        Archive PHP Censor release (LOCAL)
+  shell:       "tar -czf {{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz ."
+  become:      yes
+  become_user: "{{ php_censor_localhost_user }}"
+  args:
+    chdir: "{{ role_path }}/files/{{ release_datetime.stdout }}"
+  delegate_to: "127.0.0.1"
+
+- name: Creates PHP Censor release directory
+  file: path="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" state=directory
   when: not site_directory.stat.exists
+
+- name:      Copy PHP Censor release to host
+  unarchive: src="{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}"
+  when:      not site_directory.stat.exists
 
 - name: Set current release link
   file: src="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ php_censor_hostname }}/current" state=link
@@ -39,14 +102,6 @@
   copy: src="{{ role_path }}/files/{{ php_censor_periodical_config_filename }}" dest="/var/www/{{ php_censor_hostname }}/shared/app/periodical.yml"
   when: not site_directory.stat.exists
 
-- name: Delete shared directories
-  file: path="{{ item }}" state=absent
-  loop:
-    - "/var/www/{{ php_censor_hostname }}/current/runtime"
-    - "/var/www/{{ php_censor_hostname }}/current/public/artifacts"
-    - "/var/www/{{ php_censor_hostname }}/current/app"
-  when: not site_directory.stat.exists
-
 - name: Set shared directories links
   file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
   loop:
@@ -55,41 +110,12 @@
     - { src: "/var/www/{{ php_censor_hostname }}/shared/app", dest: "/var/www/{{ php_censor_hostname }}/current/app" }
   when: not site_directory.stat.exists
 
-- name: Delete non-production files
-  file: path="{{ item }}" state=absent
-  loop:
-    - "/var/www/{{ php_censor_hostname }}/current/.git"
-    - "/var/www/{{ php_censor_hostname }}/current/.github"
-    - "/var/www/{{ php_censor_hostname }}/current/docs"
-    - "/var/www/{{ php_censor_hostname }}/current/tests"
-    - "/var/www/{{ php_censor_hostname }}/current/.codecov.yml"
-    - "/var/www/{{ php_censor_hostname }}/current/.editorconfig"
-    - "/var/www/{{ php_censor_hostname }}/current/.gitattributes"
-    - "/var/www/{{ php_censor_hostname }}/current/.gitignore"
-    - "/var/www/{{ php_censor_hostname }}/current/.php-censor.yml"
-    - "/var/www/{{ php_censor_hostname }}/current/.php_cs.dist"
-    - "/var/www/{{ php_censor_hostname }}/current/.travis.yml"
-    - "/var/www/{{ php_censor_hostname }}/current/phpmd.xml.dist"
-    - "/var/www/{{ php_censor_hostname }}/current/phpunit.xml.dist"
-    - "/var/www/{{ php_censor_hostname }}/current/app/.gitkeep"
-    - "/var/www/{{ php_censor_hostname }}/current/public/artifacts/.gitkeep"
-  when: not site_directory.stat.exists
-
 - name: Set permitions for PHP Censor directory
   file: path="/var/www/{{ php_censor_hostname }}" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwX,o=rX" recurse=yes
   when: not site_directory.stat.exists
 
 - name: Set PHP Censor console executable
   file: path="/var/www/{{ php_censor_hostname }}/current/bin" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ugo+x" recurse=yes
-  when: not site_directory.stat.exists
-
-- name:        Install PHP Censor dependencies
-  command:     composer install --no-dev --optimize-autoloader
-  become:      yes
-  become_user: "{{ php_censor_user }}"
-  args:
-    chdir:   "/var/www/{{ php_censor_hostname }}/current"
-    creates: "/var/www/{{ php_censor_hostname }}/current/vendor"
   when: not site_directory.stat.exists
 
 - name:        Make migrations

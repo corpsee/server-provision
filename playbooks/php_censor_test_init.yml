@@ -11,6 +11,7 @@
       php_censor_php_version:                "{{ php_censor_php_version_test }}"
       php_censor_user:                       "{{ php_censor_user_test }}"
       php_censor_group:                      "{{ php_censor_group_test }}"
+      php_censor_localhost_user:             "{{ php_censor_localhost_user_test }}"
       php_censor_db_name:                    "{{ php_censor_db_name_test }}"
       php_censor_db_user:                    "{{ php_censor_db_user_test }}"
       php_censor_db_password:                "{{ php_censor_db_password_test }}"
