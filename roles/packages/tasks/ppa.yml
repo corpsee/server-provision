@@ -2,5 +2,4 @@
 
 - name:           Add PPAs
   apt_repository: repo="{{ item }}" codename="{{ ansible_distribution_release }}" update_cache=yes
-  loop:           "{{ packages_ppa }}"
-  when:           packages_ppa is defined
+  loop:           "{{ packages_ppa | default([]) }}"

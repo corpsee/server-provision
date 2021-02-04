@@ -6,4 +6,6 @@
 
 - include: install.yml
 
+- include: snap.yml
+
 - include: remove.yml

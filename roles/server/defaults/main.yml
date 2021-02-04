@@ -12,3 +12,6 @@ server_locales:
 server_default_local: en_US.UTF-8
 
 server_openssh_port: 22
+
+server_cert_email:   'mail@corpsee.test'
+server_cert_domains: []

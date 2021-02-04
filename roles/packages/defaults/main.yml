@@ -26,3 +26,5 @@ packages_items_to_install:
   - ncdu
 
 packages_items_to_remove: []
+
+packages_snap_items_to_install: []

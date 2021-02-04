@@ -11,8 +11,7 @@
 
 - name: Install PHP packages
   apt:  name="php{{ php_version }}-{{ item }}" state=latest
-  loop: "{{ php_packages }}"
-  when: php_packages is defined
+  loop: "{{ php_packages | default([]) }}"
 
 - name:    Save origin PHP configs
   command: mv -fv "/etc/php/{{ php_version }}/{{ item }}/php.ini" "/etc/php/{{ php_version }}/{{ item }}/php.ini-origin" creates="/etc/php/{{ php_version }}/{{ item }}/php.ini-origin"

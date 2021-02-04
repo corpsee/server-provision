@@ -6,5 +6,4 @@
 
 - name: Install packages
   apt:  name="{{ item }}" state=latest
-  loop: "{{ packages_items_to_install }}"
-  when: packages_items_to_install is defined
+  loop: "{{ packages_items_to_install | default([]) }}"

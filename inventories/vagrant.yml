@@ -5,9 +5,13 @@ all:
         192.168.56.10:
           ansible_python_interpreter: '/usr/bin/python3.8'
 
-          server_domain:       'corpsee.test'
-          server_mode:         'debug'
-          server_openssh_port: 22
+          server_cert_email:   'mail@corpsee.test'
+          server_cert_domains: []
+
+          server_domain:                  'corpsee.test'
+          server_mode:                    'debug'
+          server_openssh_port:            22
+          packages_snap_items_to_install: []
 
           php_mode: 'debug'
 

@@ -94,6 +94,8 @@ packages_items_to_remove:
   - transmission-gtk
   - thunderbird
 
+packages_snap_items_to_install: []
+
 
 ### oh-my-zsh role
 

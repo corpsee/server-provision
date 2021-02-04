@@ -1,0 +1,18 @@
+---
+
+- name:         Upgrade server packages
+  apt:          upgrade=yes update_cache=yes cache_valid_time=3600
+  changed_when: false
+  when:         packages_snap_items_to_install is defined and packages_snap_items_to_install | length > 0
+
+- name: Install Snap package
+  apt:  name="snap" state=latest
+  when: packages_snap_items_to_install is defined and packages_snap_items_to_install | length > 0
+
+- name:  Update Snap core
+  shell: "snap install core && snap refresh core"
+  when:  packages_snap_items_to_install is defined and packages_snap_items_to_install | length > 0
+
+- name:  Install Snap packages
+  shell: "snap install --classic {{ item }}"
+  loop:  "{{ packages_snap_items_to_install | default([]) }}"

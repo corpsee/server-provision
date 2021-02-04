@@ -9,3 +9,5 @@
 - include: openssh.yml
 
 - include: sysctl.yml
+
+- include: certs.yml

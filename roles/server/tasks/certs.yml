@@ -1,0 +1,5 @@
+---
+
+- name:    Generate SSL certificates
+  command: "certbot certonly --nginx -m {{ server_cert_email }} -d {{ item }} -d www.{{ item }}"
+  loop:    "{{ server_cert_domains | default([]) }}"
