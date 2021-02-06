@@ -4,6 +4,7 @@ corpsee_site_mode:              debug # mode: production|debug
 corpsee_site_php_version:       '7.4'
 corpsee_site_user:              www-data
 corpsee_site_group:             www-data
+corpsee_site_localhost_user:    corpsee
 corpsee_site_db_name:           corpsee_site
 corpsee_site_db_user:           corpsee_site
 corpsee_site_db_password:       corpsee_site
