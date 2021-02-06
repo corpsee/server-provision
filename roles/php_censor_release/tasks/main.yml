@@ -81,6 +81,9 @@
     chdir: "{{ role_path }}/files/{{ release_datetime.stdout }}"
   delegate_to: "127.0.0.1"
 
+- name: Creates PHP Censor release directory
+  file: path="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" state=directory
+
 - name:      Copy PHP Censor release to host
   unarchive: src="{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}"
 
@@ -105,7 +108,8 @@
     chdir: "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}"
 
 - name:    Restart PHP Censor worker systemd service
-  systemd: name="{{ php_censor_queue_name }}@*.service" state=restarted
+  systemd: name="{{ php_censor_queue_name }}@{{item}}.service" state=restarted
+  loop:    "{{ range(1, php_censor_workers_count + 1) | list }}"
 
 - name: Set current release link
   file: src="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ php_censor_hostname }}/current" state=link

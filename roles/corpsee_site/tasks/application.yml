@@ -41,16 +41,6 @@
   when:        not site_directory.stat.exists
   delegate_to: "127.0.0.1"
 
-- name:    Compile assets (LOCAL)
-  command: "php{{ corpsee_site_php_version }} console assets:compile --package frontend"
-  args:
-    chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
-    creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/www/files/compiled/frontend.min.css"
-  become:      yes
-  become_user: "{{ corpsee_site_localhost_user }}"
-  when:        not site_directory.stat.exists
-  delegate_to: "127.0.0.1"
-
 - name: Delete non-production files (LOCAL)
   file: path="{{ role_path }}/files/{{ release_datetime.stdout }}/{{ item }}" state=absent
   loop:
@@ -134,6 +124,15 @@
 
 - name: Set Corpsee site console executable
   file: path="/var/www/{{ corpsee_site_hostname }}/current/console" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ugo+x"
+  when: not site_directory.stat.exists
+
+- name:        Compile assets
+  command:     ./console assets:compile --package frontend
+  become:      yes
+  become_user: "{{ corpsee_site_user }}"
+  args:
+    chdir:   "/var/www/{{ corpsee_site_hostname }}/current"
+    creates: "/var/www/{{ corpsee_site_hostname }}/current/www/files/compiled/frontend.min.css"
   when: not site_directory.stat.exists
 
 - name:        Make migrations
