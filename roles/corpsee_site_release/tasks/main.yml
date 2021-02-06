@@ -26,19 +26,70 @@
   become:      yes
   become_user: "{{ corpsee_site_user }}"
 
-- name: Clone latest Corpsee site repository
-  git:  repo="git@github.com:corpsee/corpsee-com.git" version="{{ corpsee_site_version }}" dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" key_file="/root/.ssh/web_server_github" accept_hostkey=yes
+- name:        Clone latest PHP Censor repository (LOCAL)
+  git:         repo="git@github.com:corpsee/corpsee-com.git" version="{{ corpsee_site_version }}" dest="{{ role_path }}/files/{{ release_datetime.stdout }}" accept_hostkey=yes
+  become:      yes
+  become_user: "{{ corpsee_site_localhost_user }}"
+  delegate_to: "127.0.0.1"
 
-- name: Delete shared directories
-  file: path="{{ item }}" state=absent
+- name: Delete shared directories (LOCAL)
+  file: path="{{ role_path }}/files/{{ release_datetime.stdout }}/{{ item }}" state=absent
   loop:
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/files/pictures/x"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/files/pictures/xgray"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/files/pictures/xmin"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/files/posts"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/files/projects"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/slides"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/yanka"
+    - "www/files/pictures/x"
+    - "www/files/pictures/xgray"
+    - "www/files/pictures/xmin"
+    - "www/files/posts"
+    - "www/files/projects"
+    - "www/slides"
+    - "www/yanka"
+  become:      yes
+  become_user: "{{ corpsee_site_localhost_user }}"
+  delegate_to: "127.0.0.1"
+
+- name:    Install Corpsee site dependencies (LOCAL)
+  command: "php{{ corpsee_site_php_version }} /usr/local/bin/composer install --no-dev --optimize-autoloader --prefer-dist"
+  args:
+    chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
+    creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/vendor"
+  become:      yes
+  become_user: "{{ corpsee_site_localhost_user }}"
+  delegate_to: "127.0.0.1"
+
+- name: Delete non-production files (LOCAL)
+  file: path="{{ role_path }}/files/{{ release_datetime.stdout }}/{{ item }}" state=absent
+  loop:
+    - ".git"
+    - ".gitignore"
+    - ".php-censor.yml"
+    - ".travis.yml"
+    - "deploy.sh"
+    - "phpunit.xml"
+    - "src/configs/config.production.php"
+    - "src/configs/config.debug.php"
+    - "www/index.production.php"
+    - "www/index.debug.php"
+    - "www/.htaccess"
+    - "deploy"
+    - "tests"
+    - "cache/.gitkeep"
+    - "www/files/compiled/.gitkeep"
+  become:      yes
+  become_user: "{{ corpsee_site_localhost_user }}"
+  delegate_to: "127.0.0.1"
+
+- name:        Archive Corpsee site release (LOCAL)
+  shell:       "tar -czf {{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz ."
+  become:      yes
+  become_user: "{{ corpsee_site_localhost_user }}"
+  args:
+    chdir: "{{ role_path }}/files/{{ release_datetime.stdout }}"
+  delegate_to: "127.0.0.1"
+
+- name: Creates Corpsee site release directory
+  file: path="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" state=directory
+
+- name:      Copy Corpsee site release to host
+  unarchive: src="{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}"
 
 - name: Set shared directories links
   file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
@@ -54,46 +105,19 @@
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/index.php", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/index.php" }
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/src/configs/config.php", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/src/configs/config.php" }
 
-- name: Delete non-production files
-  file: path="{{ item }}" state=absent
-  loop:
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/.git"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/.gitignore"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/.php-censor.yml"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/.travis.yml"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/deploy.sh"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/phpunit.xml"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/src/configs/config.production.php"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/src/configs/config.debug.php"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/index.production.php"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/index.debug.php"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/.htaccess"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/deploy"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/tests"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/cache/.gitkeep"
-    - "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/files/compiled/.gitkeep"
-
 - name: Set permitions for Corpsee site directory
   file: path="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ug=rwX,o=rX" recurse=yes
 
 - name: Set Corpsee site console executable
   file: path="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/console" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ugo+x"
 
-- name:        Install Corpsee site dependencies
-  command:     composer install --no-dev --optimize-autoloader
-  become:      yes
-  become_user: "{{ corpsee_site_user }}"
-  args:
-    chdir:   "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}"
-    creates: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/vendor"
-
 - name:        Compile assets
   command:     ./console assets:compile --package frontend
   become:      yes
   become_user: "{{ corpsee_site_user }}"
   args:
-    chdir:   "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}"
-    creates: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/files/compiled/frontend.min.css"
+    chdir:   "/var/www/{{ corpsee_site_hostname }}/current"
+    creates: "/var/www/{{ corpsee_site_hostname }}/current/www/files/compiled/frontend.min.css"
 
 - name:        Make migrations
   command:     ./console migrations:migrate -e corpsee_site

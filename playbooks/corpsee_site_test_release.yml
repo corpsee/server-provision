@@ -9,6 +9,7 @@
       corpsee_site_php_version:       "{{ corpsee_site_php_version_test }}"
       corpsee_site_user:              "{{ corpsee_site_user_test }}"
       corpsee_site_group:             "{{ corpsee_site_group_test }}"
+      corpsee_site_localhost_user:    "{{ corpsee_site_localhost_user_test }}"
       corpsee_site_db_name:           "{{ corpsee_site_db_name_test }}"
       corpsee_site_db_user:           "{{ corpsee_site_db_user_test }}"
       corpsee_site_db_password:       "{{ corpsee_site_db_password_test }}"

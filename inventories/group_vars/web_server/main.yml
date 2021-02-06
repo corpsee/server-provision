@@ -131,6 +131,7 @@ php_censor_workers_count:              2
 php_censor_php_version:                *php-version-reference
 php_censor_user:                       *user-reference
 php_censor_group:                      *group-reference
+php_censor_localhost_user:             corpsee
 php_censor_db_name:                    php_censor
 php_censor_db_user:                    php_censor
 # php_censor_db_password:  in secret.yml
@@ -156,6 +157,7 @@ php_censor_workers_count_test:              2
 php_censor_php_version_test:                *php-version-reference
 php_censor_user_test:                       *user-reference
 php_censor_group_test:                      *group-reference
+php_censor_localhost_user_test:             corpsee
 php_censor_db_name_test:                    php_censor_test
 php_censor_db_user_test:                    php_censor_test
 # php_censor_db_password_test: in secret.yml
@@ -183,6 +185,7 @@ corpsee_site_mode:              *mode-reference
 corpsee_site_php_version:       *php-version-reference
 corpsee_site_user:              *user-reference
 corpsee_site_group:             *group-reference
+corpsee_site_localhost_user:    corpsee
 corpsee_site_db_name:           corpsee_site
 corpsee_site_db_user:           corpsee_site
 # corpsee_site_db_password: in secret.yml
@@ -198,6 +201,7 @@ corpsee_site_mode_test:              *mode-reference
 corpsee_site_php_version_test:       *php-version-reference
 corpsee_site_user_test:              *user-reference
 corpsee_site_group_test:             *group-reference
+corpsee_site_localhost_user_test:    corpsee
 corpsee_site_db_name_test:           corpsee_site_test
 corpsee_site_db_user_test:           corpsee_site_test
 # corpsee_site_db_password_test: in secret.yml
