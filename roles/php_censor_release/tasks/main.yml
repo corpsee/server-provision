@@ -43,7 +43,7 @@
   delegate_to: "127.0.0.1"
 
 - name:    Install PHP Censor dependencies (LOCAL)
-  command: "composer install --no-dev --optimize-autoloader --prefer-dist"
+  command: "php{{ php_censor_php_version }} /usr/local/bin/composer install --no-dev --optimize-autoloader --prefer-dist"
   args:
     chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
     creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/vendor"

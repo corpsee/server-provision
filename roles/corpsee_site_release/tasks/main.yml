@@ -47,7 +47,7 @@
   delegate_to: "127.0.0.1"
 
 - name:    Install Corpsee site dependencies (LOCAL)
-  command: "composer install --no-dev --optimize-autoloader --prefer-dist"
+  command: "php{{ corpsee_site_php_version }} /usr/local/bin/composer install --no-dev --optimize-autoloader --prefer-dist"
   args:
     chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
     creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/vendor"
@@ -57,7 +57,7 @@
   delegate_to: "127.0.0.1"
 
 - name:    Compile assets (LOCAL)
-  command: "./console assets:compile --package frontend"
+  command: "php{{ corpsee_site_php_version }} console assets:compile --package frontend"
   args:
     chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
     creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/www/files/compiled/frontend.min.css"
