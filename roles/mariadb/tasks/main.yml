@@ -21,5 +21,23 @@
     - "localhost"
   notify: Restart MariaDB
 
+- name:    Save origin server.cnf config
+  command: mv -fv "/etc/mysql/mariadb.conf.d/50-server.cnf" "/etc/mysql/mariadb.conf.d/50-server.cnf-origin" creates="/etc/mysql/mariadb.conf.d/50-server.cnf-origin"
+
+- name:     Set server.cnf config
+  template: src="50-server.cnf" dest="/etc/mysql/mariadb.conf.d/50-server.cnf"
+  notify:   Restart MariaDB
+
 - name:     Add .my.cnf for root
   template: src=.my.cnf dest=/root/.my.cnf owner=root group=root mode=0600
+
+- name:         Get timezone data
+  command:      mysql -NBe "SELECT COUNT(*) FROM mysql.time_zone"
+  register:     mysql_timezones_count
+  changed_when: false
+  check_mode:   no
+
+- name:   Ensure timezone data is imported
+  shell:  "mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql mysql"
+  when:   mysql_timezones_count.stdout | int < 1
+  notify: Restart MariaDB

@@ -130,7 +130,8 @@ composer_path: /usr/local/bin/composer
 
 ### postgresql role
 
-postgresql_version: 13
+postgresql_version:  13
+postgresql_timezone: *timezone-reference
 
 
 ### postgresql_desktop role
@@ -144,6 +145,7 @@ postgresql_desktop_group: *group-reference
 mariadb_hostname:      corpsee-desktop
 mariadb_version:       "10.5"
 mariadb_root_password: root
+mariadb_timezone:      *timezone-reference
 
 
 ### nodejs role

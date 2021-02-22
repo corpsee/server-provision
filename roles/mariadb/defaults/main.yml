@@ -3,3 +3,4 @@
 mariadb_hostname:      example-hostname
 mariadb_version:       "10.5" # version: 10.3 | 10.4 | 10.5
 mariadb_root_password: root
+mariadb_timezone:      UTC

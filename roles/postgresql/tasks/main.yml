@@ -12,3 +12,10 @@
 - name: Install Psycopg2
   apt:  name="python3-psycopg2" state=latest
   when: ansible_distribution_release == 'focal'
+
+- name:    Save origin postgresql.conf config
+  command: mv -fv "/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf" "/etc/postgresql/{{ postgresql_version }}/postgresql.conf-origin" creates="/etc/postgresql/{{ postgresql_version }}/postgresql.conf-origin"
+
+- name:     Set server.cnf config
+  template: src="postgresql.conf" dest="/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf"
+  notify:   Restart PostgreSQL

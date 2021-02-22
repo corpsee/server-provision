@@ -20,3 +20,4 @@
     - php
     - composer
     - postgresql
+    - mariadb

@@ -1,4 +1,4 @@
-{%raw%}[Midnight-Commander]
+{% raw %}[Midnight-Commander]
 verbose=true
 shell_patterns=true
 auto_save_setup=true
@@ -142,4 +142,5 @@ simple_swap=false
 Изменённые файлы под контролем git=git ls-files --modified
 Найти корректуры, отвергнутые командой patch=find . -name \\*.rej -print
 Найти оригиналы (*.orig) после команды patch=find . -name \\*.orig -print
-Найти программы с установленными SUID/SGID битами=find . \\( \\( -perm -04000 -a -perm /011 \\) -o \\( -perm -02000 -a -perm /01 \\) \\) -print{%endraw%}
+Найти программы с установленными SUID/SGID битами=find . \\( \\( -perm -04000 -a -perm /011 \\) -o \\( -perm -02000 -a -perm /01 \\) \\) -print
+{% endraw %}

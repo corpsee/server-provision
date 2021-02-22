@@ -1,4 +1,4 @@
-{%raw%}[legacy]
+{% raw %}[legacy]
 menu-accelerator-enabled=false
 schema-version=uint32 3
 
@@ -13,4 +13,5 @@ cursor-shape='block'
 use-theme-transparency=false
 use-theme-colors=false
 use-transparent-background=true
-visible-name='Nameless'{%endraw%}
+visible-name='Nameless'
+{% endraw %}

@@ -1,5 +1,4 @@
-{%raw%}
-local base_color="%{$FG[046]%}";
+{% raw %}local base_color="%{$FG[046]%}";
 
 if [[ $UID -eq 0 ]];
 then
@@ -31,4 +30,4 @@ ZSH_THEME_GIT_PROMPT_PREFIX="%{$FG[201]%}{± ";
 ZSH_THEME_GIT_PROMPT_SUFFIX="}%{$FG[$code]%}";
 ZSH_THEME_GIT_PROMPT_DIRTY="*";
 ZSH_THEME_GIT_PROMPT_CLEAN="";
-{%endraw%}
+{% endraw %}
