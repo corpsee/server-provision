@@ -143,8 +143,8 @@ php_packages:
 
 ### golang role
 
-golang_version: "1.14"
-golang_default: false
+golang_version: "1.16"
+golang_default: true
 
 
 ### composer role

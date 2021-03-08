@@ -16,8 +16,7 @@
     - { role: php, php_version: "7.3" }
     - { role: php, php_version: "7.4" }
     - { role: php, php_version: "8.0" }
-    - { role: golang, golang_version: "1.13", golang_default: false }
-    - { role: golang, golang_version: "1.14", golang_default: true }
+    - golang
     - composer
     - postgresql
     - postgresql_desktop

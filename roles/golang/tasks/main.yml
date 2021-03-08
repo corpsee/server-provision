@@ -1,5 +1,8 @@
 ---
 
+- name:           Add Golang backports PPA repository
+  apt_repository: repo="ppa:longsleep/golang-backports" codename="{{ ansible_distribution_release }}" update_cache=yes
+
 - name: Install Golang
   apt:  name="golang-{{ golang_version }}" state=latest
 
