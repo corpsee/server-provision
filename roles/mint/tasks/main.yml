@@ -5,3 +5,9 @@
     ansible_distribution_release: focal
   when:
     - ansible_distribution_release == "ulyana"
+
+- name: "Fix 'ansible_distribution_release' fact for Linux Mint 20.1"
+  set_fact:
+    ansible_distribution_release: focal
+  when:
+    - ansible_distribution_release == "ulyssa"
