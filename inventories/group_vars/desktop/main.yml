@@ -49,6 +49,8 @@ packages_items_to_install:
   - zsh
   - pv
   - ncdu
+  - xz-utils
+  - p7zip-full
 
   # For development
   - ansible
@@ -64,6 +66,7 @@ packages_items_to_install:
   - love
 
   - gnupg
+  - sshpass
   - libnss3-tools # For local HTTPS: https://github.com/FiloSottile/mkcert
 
   # For mounting

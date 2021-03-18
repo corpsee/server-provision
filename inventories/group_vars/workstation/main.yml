@@ -49,6 +49,8 @@ packages_items_to_install:
   - zsh
   - pv
   - ncdu
+  - xz-utils
+  - p7zip-full
 
   - ansible
   - vagrant
@@ -60,6 +62,7 @@ packages_items_to_install:
   - clickhouse-client
 
   - gnupg
+  - sshpass
 
   - keepassx
   - yandex-disk

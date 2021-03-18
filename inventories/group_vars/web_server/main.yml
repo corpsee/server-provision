@@ -60,6 +60,8 @@ packages_items_to_install:
   - zsh
   - pv
   - ncdu
+  - xz-utils
+  - p7zip-full
 
 packages_items_to_remove: []
 
