@@ -61,7 +61,7 @@
   delegate_to: "127.0.0.1"
 
 - name:        Archive PHP Censor release (LOCAL)
-  shell:       "tar -czf {{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz ."
+  shell:       "tar --create --gzip --file=\"{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz\" ."
   become:      yes
   become_user: "{{ php_censor_localhost_user }}"
   args:
