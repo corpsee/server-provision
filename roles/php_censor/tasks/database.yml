@@ -15,11 +15,11 @@
   become_user:     postgres
 
 - name: Copy PHP Censor DB dump to host
-  copy: src="{{ role_path }}/files/{{ php_censor_db_dump_filename }}.sql.gz" dest="/tmp"
+  copy: src="{{ role_path }}/files/{{ php_censor_db_dump_filename }}.sql.xz" dest="/tmp"
   when: php_censor_database.changed
 
 - name:          Restore PHP Censor DB dump
-  postgresql_db: name="{{ php_censor_db_name }}" state=restore target="/tmp/{{ php_censor_db_dump_filename }}.sql.gz" login_user="{{ php_censor_db_user }}" login_password="{{ php_censor_db_password }}" login_host="127.0.0.1"
+  postgresql_db: name="{{ php_censor_db_name }}" state=restore target="/tmp/{{ php_censor_db_dump_filename }}.sql.xz" login_user="{{ php_censor_db_user }}" login_password="{{ php_censor_db_password }}" login_host="127.0.0.1"
   when:          php_censor_database.changed
 
 - name:     Create PHP Censor DB dump script

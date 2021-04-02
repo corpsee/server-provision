@@ -15,7 +15,7 @@
   become_user:     postgres
 
 - name: Copy Corpsee site DB dump to host
-  copy: src="{{ role_path }}/files/{{ corpsee_site_db_dump_filename }}.sql.gz" dest="/tmp"
+  copy: src="{{ role_path }}/files/{{ corpsee_site_db_dump_filename }}.sql.xz" dest="/tmp"
 
 #- name:        Restore Corpsee site DB dump
 #  shell:       psql -U "{{ corpsee_site_db_user }}" -d "{{ corpsee_site_db_name }}" -h 127.0.0.1 < "/tmp/{{ corpsee_site_db_dump_filename }}.sql"
@@ -26,7 +26,7 @@
 #    ansible_ssh_pipelining: true
 
 - name:          Restore Corpsee site DB dump
-  postgresql_db: name="{{ corpsee_site_db_name }}" state=restore target="/tmp/{{ corpsee_site_db_dump_filename }}.sql.gz" login_user="{{ corpsee_site_db_user }}" login_password="{{ corpsee_site_db_password }}" login_host="127.0.0.1"
+  postgresql_db: name="{{ corpsee_site_db_name }}" state=restore target="/tmp/{{ corpsee_site_db_dump_filename }}.sql.xz" login_user="{{ corpsee_site_db_user }}" login_password="{{ corpsee_site_db_password }}" login_host="127.0.0.1"
   when:          corpsee_site_database.changed
 
 - name:     Create Corpsee site DB dump script
