@@ -15,7 +15,7 @@
   become_user: "{{ php_censor_user }}"
 
 - name:        Create current release backup archive
-  shell:       "tar -czf /home/web/backup/{{ php_censor_hostname }}_{{ release_datetime.stdout }}.tar.gz ."
+  shell:       "tar --create --gzip --file=\"/home/web/backup/{{ php_censor_hostname }}_{{ release_datetime.stdout }}.tar.gz\" ."
   become:      yes
   become_user: "{{ php_censor_user }}"
   args:
@@ -74,7 +74,7 @@
   delegate_to: "127.0.0.1"
 
 - name:        Archive PHP Censor release (LOCAL)
-  shell:       "tar -czf {{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz ."
+  shell:       "tar --create --gzip --file=\"{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz\" ."
   become:      yes
   become_user: "{{ php_censor_localhost_user }}"
   args:
@@ -107,9 +107,8 @@
   args:
     chdir: "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}"
 
-- name:    Restart PHP Censor worker systemd service
-  systemd: name="{{ php_censor_queue_name }}@{{item}}.service" state=restarted
-  loop:    "{{ range(1, php_censor_workers_count + 1) | list }}"
+- name:  Restart PHP Censor worker systemd service
+  shell: "systemctl restart \"{{ php_censor_queue_name }}@*.service\""
 
 - name: Set current release link
   file: src="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ php_censor_hostname }}/current" state=link
