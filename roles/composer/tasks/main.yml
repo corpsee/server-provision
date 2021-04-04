@@ -16,11 +16,3 @@
 
 - name:    Move Composer to global path
   command: mv /tmp/composer.phar "{{ composer_path }}" creates="{{ composer_path }}"
-
-- name:         Update Composer
-  command:      php -d memory_limit=-1 "{{ composer_path }}" self-update
-  register:     composer_update
-  changed_when: "'Updating to version' in composer_update.stdout"
-
-- name: Clean Composer installer
-  file: path="/tmp/composer-installer.php" state=absent

@@ -121,6 +121,11 @@ php_packages:
 composer_path: /usr/local/bin/composer
 
 
+### symfony_cli role
+
+symfony_cli_path: /usr/local/bin/symfony
+
+
 ### postgresql role
 
 postgresql_version:  13

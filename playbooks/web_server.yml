@@ -19,5 +19,6 @@
     - nginx
     - php
     - composer
+    - symfony_cli
     - postgresql
     - mariadb
