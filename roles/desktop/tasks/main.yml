@@ -7,3 +7,5 @@
 - include: configs.yml
 
 - include: sysctl.yml
+
+- include: earlyoom.yml
