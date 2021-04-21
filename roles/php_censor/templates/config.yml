@@ -1,4 +1,4 @@
-b8:
+php-censor:
     database:
         servers:
             read: [{ host: 127.0.0.1 }]
@@ -7,7 +7,6 @@ b8:
         name:     '{{ php_censor_db_name }}'
         username: '{{ php_censor_db_user }}'
         password: '{{ php_censor_db_password }}'
-php-censor:
     language: en
     per_page: 10
     url: '{{ php_censor_url }}'
