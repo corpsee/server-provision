@@ -107,11 +107,11 @@
   args:
     chdir: "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}"
 
-- name:  Restart PHP Censor worker systemd service
-  shell: "systemctl restart \"{{ php_censor_queue_name }}@*.service\""
-
 - name: Set current release link
   file: src="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ php_censor_hostname }}/current" state=link
+
+- name:  Restart PHP Censor worker systemd service
+  shell: "systemctl restart '{{ php_censor_queue_name }}@*.service'"
 
 - name:    Restart PHP FPM systemd service
   systemd: name="php{{ php_censor_php_version }}-fpm.service" state=restarted
