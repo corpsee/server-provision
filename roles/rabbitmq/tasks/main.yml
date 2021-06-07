@@ -1,0 +1,7 @@
+---
+
+- name: Install RabbitMq
+  apt:  name="rabbitmq-server" state=latest
+
+- name:    Install RabbitMq Managment Plugin
+  command: "rabbitmq-plugins enable rabbitmq_management"
