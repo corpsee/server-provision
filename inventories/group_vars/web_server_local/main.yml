@@ -1,0 +1,127 @@
+---
+
+### references
+
+user-reference:        &user-reference        "web"
+group-reference:       &group-reference       "www-data"
+mode-reference:        &mode-reference        "production"
+timezone-reference:    &timezone-reference    "Asia/Novosibirsk"
+php-version-reference: &php-version-reference "7.4"
+
+
+### server role
+
+server_mode:     *mode-reference
+server_hostname: corpsee
+server_domain:   corpsee.com
+
+server_timezone: *timezone-reference
+
+server_locales:
+  - en_US.UTF-8
+  - ru_RU.UTF-8
+
+server_default_local: en_US.UTF-8
+
+#server_openssh_port: in secret.yml
+
+server_cert_email: 'poisoncorpsee@gmail.com'
+server_cert_domains: []
+
+
+### packages role
+
+packages_ppa:
+  - ppa:git-core/ppa
+
+packages_repositories: []
+
+packages_items_to_install:
+  - acl
+  - net-tools
+  - aptitude
+  - apt-transport-https
+  - ca-certificates
+  - software-properties-common
+  - sendmail
+  - screen
+  - logrotate
+  - curl
+  - wget
+  - jq
+  - mc
+  - htop
+  - git
+  - zsh
+  - pv
+  - ncdu
+  - xz-utils
+  - p7zip-full
+
+packages_items_to_remove: []
+
+packages_snap_items_to_install:
+  - certbot
+
+
+### webuser role
+
+webuser_user:   *user-reference
+#webuser_password: in secret.yml
+webuser_group:  *group-reference
+webuser_groups: []
+
+
+### oh-my-zsh role
+
+oh_my_zsh_user:  *user-reference
+oh_my_zsh_group: *group-reference
+
+
+### nginx role
+
+nginx_mode:  *mode-reference
+nginx_user:  *user-reference
+nginx_group: *group-reference
+
+
+### php role
+
+php_mode:      *mode-reference
+php_timezone:  *timezone-reference
+php_version:   *php-version-reference
+php_memory:    256M
+php_fpm_user:  *user-reference
+php_fpm_group: *group-reference
+
+php_packages:
+  - bcmath
+  - mbstring
+  - curl
+  - gd
+  - imagick
+  - xml
+  - zip
+  - intl
+  - sqlite3
+  - xdebug
+  - soap
+  - imap
+  - pgsql
+  - redis
+
+
+### composer role
+
+composer_path: /usr/local/bin/composer
+
+
+### symfony_cli role
+
+symfony_cli_path: /usr/local/bin/symfony
+
+
+### postgresql role
+
+postgresql_version:  13
+postgresql_timezone: *timezone-reference

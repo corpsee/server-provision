@@ -126,13 +126,13 @@ ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/php_censo
 Desktop:
 
 ```bash
-ansible-playbook -i ./inventories/desktop.yml -c local -K ./playbooks/desktop.yml -v
+ansible-playbook -i ./inventories/production.yml -c local -K ./playbooks/desktop.yml -v
 ```
 
 Workstation:
 
 ```bash
-ansible-playbook -i ./inventories/workstation.yml -c local -K ./playbooks/workstation.yml -v
+ansible-playbook -i ./inventories/production.yml -c local -K ./playbooks/workstation.yml -v
 ```
 
 Secret data

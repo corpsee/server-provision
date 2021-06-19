@@ -1,8 +1,21 @@
 all:
   children:
+    desktop:
+      hosts:
+        127.0.0.1:
+          ansible_python_interpreter: "/usr/bin/python3.8"
+    workstation:
+      hosts:
+        127.0.0.1:
+          ansible_python_interpreter: "/usr/bin/python3.8"
     web_server:
       hosts:
         111.111.111.111:
           ansible_python_interpreter: "/usr/bin/python3.8"
-          ansible_port:               2222
+          ansible_port:               22
           corpsee_site_cron_disabled: no
+    web_server_local:
+      hosts:
+        222.222.222.222:
+          ansible_python_interpreter: "/usr/bin/python3.8"
+          ansible_port:               22

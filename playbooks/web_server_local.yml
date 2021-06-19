@@ -1,0 +1,23 @@
+---
+
+- hosts:        web_server_local
+  become:       yes
+  become_user:  root
+  gather_facts: false
+  pre_tasks:
+    - name:         Install aptitude for Ansible
+      raw:          test -e aptitude || (apt -y update && apt -y install aptitude)
+      changed_when: false
+
+    - name:  Setup and gather facts
+      setup:
+  roles:
+    - packages
+    - server
+    - webuser
+    - oh_my_zsh
+    - nginx
+    - php
+    - composer
+    - symfony_cli
+    - postgresql
