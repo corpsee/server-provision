@@ -6,16 +6,16 @@ Requirements
 
 * Ansible v2.9+.
 
-* Ubuntu 20.04 or Mint 20 (For desktop).
+* Ubuntu 20.04+ or Mint 20+ (For desktop).
 
 * Files:
     * `.vault_password` (Roles: webuser, php_censor, corpsee_site)
     * `inventories/group_vars/web_server/secret.yml` (Roles: webuser, php_censor, corpsee_site)
     * `inventories/production.yml` (Roles: corpsee_site)
-    * `roles/webuser/files/web_server_github.pub` (Roles: webuser)
-    * `roles/webuser/files/web_server_github` (Roles: webuser)
-    * `roles/webuser/files/web_server_<webuser>.pub` (`web_server_web.pub`) (Roles: webuser)
-    * `roles/webuser/files/web_server_<webuser>` (`web_server_web`) (Roles: webuser)
+    * `roles/webuser/files/<webuser_host>_github.pub` (`web_server_github.pub`, `web_server_local_github.pub`) (Roles: webuser)
+    * `roles/webuser/files/<webuser_host>_github` (`web_server_github`, `web_server_local_github`) (Roles: webuser)
+    * `roles/webuser/files/<webuser_host>_<webuser>.pub` (`web_server_web.pub`, `web_server_local_web.pub`) (Roles: webuser)
+    * `roles/webuser/files/<webuser_host>_<webuser>` (`web_server_web`, `web_server_local_web`) (Roles: webuser)
     * `roles/corpsee_site/files/corpsee_site.sql` (Roles: corpsee_site)
     * `roles/corpsee_site/files/corpsee_site_test.sql` (Roles: corpsee_site)
     * `roles/corpsee_site/files/www` (`www_test`) (Roles: corpsee_site)
@@ -39,10 +39,10 @@ Requirements
     * webuser:
         * `.vault_password`
         * `inventories/group_vars/web_server/secret.yml`
-        * `roles/webuser/files/web_server_github.pub`
-        * `roles/webuser/files/web_server_github`
-        * `roles/webuser/files/web_server_<webuser>.pub` (`web_server_web.pub`)
-        * `roles/webuser/files/web_server_<webuser>` (`web_server_web`)
+        * `roles/webuser/files/<webuser_host>_github.pub` (`web_server_github.pub`, `web_server_local_github.pub`)
+        * `roles/webuser/files/<webuser_host>_github` (`web_server_github`, `web_server_local_github`)
+        * `roles/webuser/files/<webuser_host>_<webuser>.pub` (`web_server_web.pub`, `web_server_local_web.pub`)
+        * `roles/webuser/files/<webuser_host>_<webuser>` (`web_server_web`, `web_server_local_web`)
     * corpsee_site:
         * `.vault_password`
         * `inventories/group_vars/web_server/secret.yml`
@@ -121,6 +121,10 @@ ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/php_censo
 # ci-test.php-censor.info (by web user with ssh key)
 ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/php_censor_test_init.yml -v
 ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/php_censor_test_release.yml --extra-vars="php_censor_version=master" -v
+
+
+# server (by root user with password)
+ansible-playbook -i ./inventories/production.yml -kK -u corpsee ./playbooks/web_server_local.yml -v
 ```
 
 Desktop:

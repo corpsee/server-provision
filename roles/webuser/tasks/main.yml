@@ -13,13 +13,13 @@
   authorized_key:
     user:  "{{ webuser_user }}"
     state: present
-    key:   "{{lookup('file', 'web_server_' + webuser_user + '.pub')}}"
+    key:   "{{lookup('file', webuser_ssh_key_name + '_' + webuser_user + '.pub')}}"
 
 - name: Create the SSH public key file for root
-  copy: src="{{ role_path }}/files/web_server_github.pub" dest=/root/.ssh/web_server_github.pub mode=0600
+  copy: src="{{ role_path }}/files/{{ webuser_ssh_key_name }}_github.pub" dest="/root/.ssh/{{ webuser_ssh_key_name }}_github.pub" mode=0600
 
 - name: Create the SSH private key file for root
-  copy: src="{{ role_path }}/files/web_server_github" dest=/root/.ssh/web_server_github mode=0600
+  copy: src="{{ role_path }}/files/{{ webuser_ssh_key_name }}_github" dest="/root/.ssh/{{ webuser_ssh_key_name }}_github" mode=0600
 
 - name: Creates web user sudoers config
   template: src=sudoers.j2 dest="/etc/sudoers.d/{{ webuser_user }}" validate="visudo -cf %s" mode=0440
@@ -32,7 +32,7 @@
     env:   yes
     name:  "{{ item.name }}"
     value: "{{ item.value }}"
-    user:  "{{ corpsee_site_user }}"
+    user:  "{{ webuser_user }}"
   loop:
     - { name: "USER", value: "{{ webuser_user }}" }
     - { name: "LOGNAME", value: "{{ webuser_user }}" }

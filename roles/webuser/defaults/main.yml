@@ -1,6 +1,7 @@
 ---
 
-webuser_user:     webuser
-webuser_password: webuser
-webuser_group:    www-data
-webuser_groups:   []
+webuser_user:         webuser
+webuser_password:     webuser
+webuser_group:        www-data
+webuser_groups:       []
+webuser_ssh_key_name: web_server
