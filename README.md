@@ -156,3 +156,7 @@ Facts
 ```bash
 ansible -m setup localhost
 ```
+
+## License
+
+Project is open source software licensed under the [GNU GPLv3](LICENSE).
