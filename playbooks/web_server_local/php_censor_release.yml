@@ -1,0 +1,7 @@
+---
+
+- hosts:       web_server_local
+  become:      yes
+  become_user: root
+  roles:
+    - php_censor_release

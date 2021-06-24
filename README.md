@@ -125,6 +125,10 @@ ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_serve
 
 # local server (by root user with password)
 ansible-playbook -i ./inventories/production.yml -kK -u corpsee ./playbooks/web_server_local/main.yml -v
+
+# ci.php-censor.info (by web user with ssh key)
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server_local/php_censor_init.yml -v
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server_local/php_censor_release.yml --extra-vars="php_censor_version=master" -v
 ```
 
 Desktop:
