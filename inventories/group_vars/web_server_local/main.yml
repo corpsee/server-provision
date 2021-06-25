@@ -141,9 +141,9 @@ php_censor_db_user:                    php_censor
 php_censor_db_dump_filename:           php_censor
 php_censor_artifacts_dir_filename:     artifacts.tar.gz
 php_censor_queue_name:                 php_censor
-php_censor_hostname:                   ci.php-censor.info
-php_censor_url:                        '//ci.php-censor.info'
-php_censor_from_email:                 'PHP Censor CI <mail@php-censor.info>'
+php_censor_hostname:                   php-censor.server
+php_censor_url:                        '//php-censor.server'
+php_censor_from_email:                 'PHP Censor CI <mail@php-censor.server>'
 # php_censor_smtp_address:    in secret.yml
 # php_censor_smtp_port:       in secret.yml
 # php_censor_smtp_username:   in secret.yml
@@ -152,31 +152,5 @@ php_censor_from_email:                 'PHP Censor CI <mail@php-censor.info>'
 php_censor_version:                    "2.0.4"
 php_censor_periodical_config_filename: periodical.yml
 # php_censor_github_token: in secret.yml
-php_censor_cert_pem_path:              '/etc/letsencrypt/live/ci.php-censor.info/fullchain.pem'
-php_censor_cert_pem_key_path:          '/etc/letsencrypt/live/ci.php-censor.info/privkey.pem'
-
-php_censor_mode_test:                       *mode-reference
-php_censor_workers_count_test:              2
-php_censor_php_version_test:                *php-version-reference
-php_censor_user_test:                       *user-reference
-php_censor_group_test:                      *group-reference
-php_censor_localhost_user_test:             corpsee
-php_censor_db_name_test:                    php_censor_test
-php_censor_db_user_test:                    php_censor_test
-# php_censor_db_password_test: in secret.yml
-php_censor_db_dump_filename_test:           php_censor_test
-php_censor_artifacts_dir_filename_test:     artifacts_test.tar.gz
-php_censor_queue_name_test:                 php_censor_test
-php_censor_hostname_test:                   ci-test.php-censor.info
-php_censor_url_test:                        '//ci-test.php-censor.info'
-php_censor_from_email_test:                 'PHP Censor CI (Test) <mail@php-censor.info>'
-# php_censor_smtp_address_test:    in secret.yml
-# php_censor_smtp_port_test:       in secret.yml
-# php_censor_smtp_username_test:   in secret.yml
-# php_censor_smtp_password_test:   in secret.yml
-# php_censor_smtp_encryption_test: in secret.yml
-php_censor_version_test:                    "2.0.4"
-php_censor_periodical_config_filename_test: periodical_test.yml
-# php_censor_github_token_test: in secret.yml
-php_censor_cert_pem_path_test:              '/etc/letsencrypt/live/ci-test.php-censor.info/fullchain.pem'
-php_censor_cert_pem_key_path_test:          '/etc/letsencrypt/live/ci-test.php-censor.info/privkey.pem'
+php_censor_cert_pem_path:              '/vagrant/php-censor.server.pem'
+php_censor_cert_pem_key_path:          '/vagrant/php-censor.server-key.pem'

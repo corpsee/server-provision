@@ -34,6 +34,8 @@ Requirements
     * `php-censor-test.test-key.pem` (Roles: php_censor. For debug deploy/vagrant only)
     * `php-censor-site.test.pem` (Roles: php_censor_site. For debug deploy/vagrant only)
     * `php-censor-site.test-key.pem` (Roles: php_censor_site. For debug deploy/vagrant only)
+    * `php-censor.server.pem` (Roles: php_censor. For local web server only)
+    * `php-censor.server-key.pem` (Roles: php_censor. For local web server only)
 
 * Files by roles:
     * webuser:
@@ -67,6 +69,8 @@ Requirements
         * `php-censor.test-key.pem` (For debug deploy/vagrant only)
         * `php-censor-test.test.pem` (For debug deploy/vagrant only)
         * `php-censor-test.test-key.pem` (For debug deploy/vagrant only)
+        * `php-censor.server.pem` (For local web server only)
+        * `php-censor.server-key.pem` (For local web server only)
     * php_censor_site:
         * `php-censor-site.test.pem` (For debug deploy/vagrant only)
         * `php-censor-site.test-key.pem` (For debug deploy/vagrant only)
