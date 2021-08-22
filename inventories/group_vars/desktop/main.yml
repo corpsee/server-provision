@@ -17,9 +17,6 @@ packages_ppa:
   - ppa:bartbes/love-stable
 
 packages_repositories:
-  - repository: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
-    keyserver:  keyserver.ubuntu.com
-    key:        0EBFCD88
   - repository: "deb [arch=amd64] http://vagrant-deb.linestarve.com/ any main"
     keyserver:  keyserver.ubuntu.com
     key:        AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4
@@ -55,7 +52,6 @@ packages_items_to_install:
   # For development
   - ansible
   - vagrant
-  - docker-ce
   - restic
   - anacron
   - beanstalkd
@@ -178,3 +174,8 @@ mariadb_timezone:      *timezone-reference
 ### nodejs role
 
 nodejs_version: 14
+
+
+### docker role
+
+docker_user: *user-reference
