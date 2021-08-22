@@ -149,7 +149,7 @@ php_censor_from_email:                 'PHP Censor CI <mail@php-censor.server>'
 # php_censor_smtp_username:   in secret.yml
 # php_censor_smtp_password:   in secret.yml
 # php_censor_smtp_encryption: in secret.yml
-php_censor_version:                    "2.0.4"
+php_censor_version:                    "2.0.5"
 php_censor_periodical_config_filename: periodical.yml
 # php_censor_github_token: in secret.yml
 php_censor_cert_pem_path:              '/vagrant/php-censor.server.pem'
