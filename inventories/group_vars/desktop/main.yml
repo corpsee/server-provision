@@ -17,9 +17,8 @@ packages_ppa:
   - ppa:bartbes/love-stable
 
 packages_repositories:
-  - repository: "deb [arch=amd64] http://vagrant-deb.linestarve.com/ any main"
-    keyserver:  keyserver.ubuntu.com
-    key:        AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4
+  - repository: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+    url:        "https://apt.releases.hashicorp.com/gpg"
   - repository: "deb [arch=amd64] http://repo.yandex.ru/yandex-disk/deb/ stable main"
     keyserver:  keyserver.ubuntu.com
     key:        EFC4571D7C90E5AF

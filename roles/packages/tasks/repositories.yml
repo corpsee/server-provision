@@ -1,7 +1,13 @@
 ---
 
-- name:    Add keys for repositories
-  apt_key: id={{ item.key }} keyserver={{ item.keyserver }} state=present
+- name:    Add keys for repositories (by key id)
+  apt_key: id="{{ item.key }}" keyserver="{{ item.keyserver }}" state=present
+  when:    item.keyserver | default('', true) | trim != ''
+  loop:    "{{ packages_repositories | default([]) }}"
+
+- name:    Add keys for repositories (by url)
+  apt_key: url="{{ item.url }}" state=present
+  when:    item.url | default('', true) | trim != ''
   loop:    "{{ packages_repositories | default([]) }}"
 
 - name:           Add repositories
