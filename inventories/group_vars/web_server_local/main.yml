@@ -31,8 +31,7 @@ server_cert_domains: []
 
 ### packages role
 
-packages_ppa:
-  - ppa:git-core/ppa
+packages_ppa: []
 
 packages_repositories: []
 
@@ -110,6 +109,7 @@ php_packages:
   - imap
   - pgsql
   - redis
+  - amqp
 
 
 ### composer role

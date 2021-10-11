@@ -1,7 +1,6 @@
 ---
 
-packages_ppa:
-  - ppa:git-core/ppa
+packages_ppa: []
 
 packages_repositories: []
 

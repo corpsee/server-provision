@@ -12,7 +12,6 @@ php-version-reference: &php-version-reference "7.4"
 ### packages role
 
 packages_ppa:
-  - ppa:git-core/ppa
   - ppa:agornostal/ulauncher
   - ppa:bartbes/love-stable
 
@@ -51,7 +50,6 @@ packages_items_to_install:
   # For development
   - ansible
   - vagrant
-  - restic
   - anacron
   - beanstalkd
   - supervisor
@@ -137,6 +135,7 @@ php_packages:
   - pgsql
   - mysql
   - redis
+  - amqp
 
 
 ### golang role

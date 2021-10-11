@@ -12,8 +12,6 @@ php-version-reference: &php-version-reference "7.4"
 ### packages role
 
 packages_ppa:
-  - ppa:git-core/ppa
-  - ppa:ansible/ansible
   - ppa:agornostal/ulauncher
 
 packages_repositories:
@@ -119,6 +117,7 @@ php_packages:
   - pgsql
   - mysql
   - redis
+  - amqp
 
 
 ### composer role
