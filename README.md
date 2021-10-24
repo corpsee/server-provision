@@ -141,12 +141,6 @@ Desktop:
 ansible-playbook -i ./inventories/production.yml -c local -K ./playbooks/desktop/main.yml -v
 ```
 
-Workstation:
-
-```bash
-ansible-playbook -i ./inventories/production.yml -c local -K ./playbooks/workstation/main.yml -v
-```
-
 Secret data
 -----------
 
