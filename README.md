@@ -108,37 +108,40 @@ Production deploy:
 
 ```bash
 # server (by root user with password)
-ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/web_server/main.yml -v
+ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/web_server/main.yml -vv
 
 # corpsee.com (by web user with ssh key)
-ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_init.yml -v
-ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_release.yml --extra-vars="corpsee_site_version=master" -v
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_init.yml -vv
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_release.yml --extra-vars="corpsee_site_version=master" -vv
 
 # test.corpsee.com (by web user with ssh key)
-ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_test_init.yml -v
-ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_test_release.yml --extra-vars="corpsee_site_version=master" -v
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_test_init.yml -vv
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_test_release.yml --extra-vars="corpsee_site_version=master" -vv
 
 # ci.php-censor.info (by web user with ssh key)
-ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/php_censor_init.yml -v
-ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/php_censor_release.yml --extra-vars="php_censor_version=master" -v
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/php_censor_init.yml -vv
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/php_censor_release.yml --extra-vars="php_censor_version=master" -vv
 
 # ci-test.php-censor.info (by web user with ssh key)
-ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/php_censor_test_init.yml -v
-ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/php_censor_test_release.yml --extra-vars="php_censor_version=master" -v
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/php_censor_test_init.yml -vv
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/php_censor_test_release.yml --extra-vars="php_censor_version=master" -vv
+
+# php-censor.info (by web user with ssh key)
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/php_censor_site_init.yml -vv
 
 
 # local server (by root user with password)
-ansible-playbook -i ./inventories/production.yml -kK -u corpsee ./playbooks/web_server_local/main.yml -v
+ansible-playbook -i ./inventories/production.yml -kK -u corpsee ./playbooks/web_server_local/main.yml -vv
 
-# ci.php-censor.info (by web user with ssh key)
-ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server_local/php_censor_init.yml -v
-ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server_local/php_censor_release.yml --extra-vars="php_censor_version=master" -v
+# local ci.php-censor.info (by web user with ssh key)
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server_local/php_censor_init.yml -vv
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server_local/php_censor_release.yml --extra-vars="php_censor_version=master" -vv
 ```
 
 Desktop:
 
 ```bash
-ansible-playbook -i ./inventories/production.yml -c local -K ./playbooks/desktop/main.yml -v
+ansible-playbook -i ./inventories/production.yml -c local -K ./playbooks/desktop/main.yml -vv
 ```
 
 Secret data
