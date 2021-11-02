@@ -1,8 +1,12 @@
 ---
 
 - name:     Check if PHP Censor site directory is exists
-  stat:     path="/var/www/{{ php_censor_site_hostname }}"
+  stat:     path="/var/www/{{ php_censor_site_hostname }}/public"
   register: site_directory
+
+- name: EXIT BECAUCE ALREADY INIT
+  meta: end_play
+  when: site_directory.stat.exists
 
 - name: Set permitions for PHP Censor site public directory
   file: path="/var/www/{{ php_censor_site_hostname }}/public" owner={{ php_censor_site_user }} group={{ php_censor_site_group }} mode="ug=rwX,o=rX" recurse=yes state=directory

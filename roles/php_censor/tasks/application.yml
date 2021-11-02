@@ -16,7 +16,6 @@
   git:         repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="{{ role_path }}/files/{{ release_datetime.stdout }}" accept_hostkey=yes
   become:      yes
   become_user: "{{ php_censor_localhost_user }}"
-  when:        not site_directory.stat.exists
   delegate_to: "127.0.0.1"
 
 - name: Delete shared directories (LOCAL)
@@ -27,7 +26,6 @@
     - "app"
   become:      yes
   become_user: "{{ php_censor_localhost_user }}"
-  when:        not site_directory.stat.exists
   delegate_to: "127.0.0.1"
 
 - name:    Install PHP Censor dependencies (LOCAL)
@@ -37,7 +35,6 @@
     creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/vendor"
   become:      yes
   become_user: "{{ php_censor_localhost_user }}"
-  when:        not site_directory.stat.exists
   delegate_to: "127.0.0.1"
 
 - name: Delete non-production files (LOCAL)
@@ -60,7 +57,6 @@
     - "public/artifacts/.gitkeep"
   become:      yes
   become_user: "{{ php_censor_localhost_user }}"
-  when:        not site_directory.stat.exists
   delegate_to: "127.0.0.1"
 
 - name:        Archive PHP Censor release (LOCAL)
@@ -73,15 +69,12 @@
 
 - name: Creates PHP Censor release directory
   file: path="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" state=directory
-  when: not site_directory.stat.exists
 
 - name:      Copy PHP Censor release to host
   unarchive: src="{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}"
-  when:      not site_directory.stat.exists
 
 - name: Set current release link
   file: src="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ php_censor_hostname }}/current" state=link
-  when: not site_directory.stat.exists
 
 - name: Creates sharted directories
   file: path="{{ item }}" state=directory
@@ -91,19 +84,15 @@
     - "/var/www/{{ php_censor_hostname }}/shared/runtime/status_cache"
     - "/var/www/{{ php_censor_hostname }}/shared/public"
     - "/var/www/{{ php_censor_hostname }}/shared/app"
-  when: not site_directory.stat.exists
 
 - name:      Copy PHP Censor files to host
   unarchive: src="{{ role_path }}/files/{{ php_censor_artifacts_dir_filename }}" dest="/var/www/{{ php_censor_hostname }}/shared/public"
-  when:      not site_directory.stat.exists
 
 - name:     Create PHP Censor application config (config.yml)
   template: src=config.yml dest="/var/www/{{ php_censor_hostname }}/shared/app/config.yml"
-  when:     not site_directory.stat.exists
 
 - name: Create PHP Censor periodical config (periodical.yml)
   copy: src="{{ role_path }}/files/{{ php_censor_periodical_config_filename }}" dest="/var/www/{{ php_censor_hostname }}/shared/app/periodical.yml"
-  when: not site_directory.stat.exists
 
 - name: Set shared directories links
   file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
@@ -111,15 +100,12 @@
     - { src: "/var/www/{{ php_censor_hostname }}/shared/runtime", dest: "/var/www/{{ php_censor_hostname }}/current/runtime" }
     - { src: "/var/www/{{ php_censor_hostname }}/shared/public/artifacts", dest: "/var/www/{{ php_censor_hostname }}/current/public/artifacts" }
     - { src: "/var/www/{{ php_censor_hostname }}/shared/app", dest: "/var/www/{{ php_censor_hostname }}/current/app" }
-  when: not site_directory.stat.exists
 
 - name: Set permitions for PHP Censor directory
   file: path="/var/www/{{ php_censor_hostname }}" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwX,o=rX" recurse=yes
-  when: not site_directory.stat.exists
 
 - name: Set PHP Censor console executable
   file: path="/var/www/{{ php_censor_hostname }}/current/bin" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ugo+x" recurse=yes
-  when: not site_directory.stat.exists
 
 - name:        Make migrations
   command:     ./bin/console php-censor-migrations:migrate
@@ -127,4 +113,3 @@
   become_user: "{{ php_censor_user }}"
   args:
     chdir: "/var/www/{{ php_censor_hostname }}/current"
-  when: not site_directory.stat.exists
