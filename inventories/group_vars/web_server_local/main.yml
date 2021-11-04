@@ -59,8 +59,7 @@ packages_items_to_install:
 
 packages_items_to_remove: []
 
-packages_snap_items_to_install:
-  - certbot
+packages_snap_items_to_install: []
 
 
 ### webuser role

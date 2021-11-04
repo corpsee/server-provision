@@ -11,7 +11,8 @@ all:
           server_domain:                  'corpsee.test'
           server_mode:                    'debug'
           server_openssh_port:            22
-          packages_snap_items_to_install: []
+          packages_snap_items_to_install:
+            - certbot
 
           php_mode: 'debug'
 
