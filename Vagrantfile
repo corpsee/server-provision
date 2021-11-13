@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
         main.inventory_path     = "inventories/vagrant.yml"
         main.compatibility_mode = "2.0"
         main.limit              = 'all'
-        main.verbose            = "v"
+        main.verbose            = "vvv"
     end
 
     config.vm.provision "corpsee_site_init", type: "ansible", run: "never" do |corpsee_site_init|
@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
         corpsee_site_init.inventory_path     = "inventories/vagrant.yml"
         corpsee_site_init.compatibility_mode = "2.0"
         corpsee_site_init.limit              = 'all'
-        corpsee_site_init.verbose            = "v"
+        corpsee_site_init.verbose            = "vvv"
     end
 
     config.vm.provision "corpsee_site_test_init", type: "ansible", run: "never" do |corpsee_site_test_init|
@@ -37,7 +37,7 @@ Vagrant.configure("2") do |config|
         corpsee_site_test_init.inventory_path     = "inventories/vagrant.yml"
         corpsee_site_test_init.compatibility_mode = "2.0"
         corpsee_site_test_init.limit              = 'all'
-        corpsee_site_test_init.verbose            = "v"
+        corpsee_site_test_init.verbose            = "vvv"
     end
 
     config.vm.provision "php_censor_init", type: "ansible", run: "never" do |php_censor_init|
@@ -45,7 +45,7 @@ Vagrant.configure("2") do |config|
         php_censor_init.inventory_path     = "inventories/vagrant.yml"
         php_censor_init.compatibility_mode = "2.0"
         php_censor_init.limit              = 'all'
-        php_censor_init.verbose            = "v"
+        php_censor_init.verbose            = "vvv"
     end
 
     config.vm.provision "php_censor_test_init", type: "ansible", run: "never" do |php_censor_test_init|
@@ -53,7 +53,7 @@ Vagrant.configure("2") do |config|
         php_censor_test_init.inventory_path     = "inventories/vagrant.yml"
         php_censor_test_init.compatibility_mode = "2.0"
         php_censor_test_init.limit              = 'all'
-        php_censor_test_init.verbose            = "v"
+        php_censor_test_init.verbose            = "vvv"
     end
 
     config.vm.provision "php_censor_site_init", type: "ansible", run: "never" do |php_censor_site_init|
@@ -61,7 +61,7 @@ Vagrant.configure("2") do |config|
         php_censor_site_init.inventory_path     = "inventories/vagrant.yml"
         php_censor_site_init.compatibility_mode = "2.0"
         php_censor_site_init.limit              = 'all'
-        php_censor_site_init.verbose            = "v"
+        php_censor_site_init.verbose            = "vvv"
     end
 
 
@@ -75,7 +75,7 @@ Vagrant.configure("2") do |config|
         end
         corpsee_site_release.compatibility_mode = "2.0"
         corpsee_site_release.limit              = 'all'
-        corpsee_site_release.verbose            = "v"
+        corpsee_site_release.verbose            = "vvv"
     end
 
     config.vm.provision "corpsee_site_test_release", type: "ansible", run: "never" do |corpsee_site_test_release|
@@ -88,7 +88,7 @@ Vagrant.configure("2") do |config|
         end
         corpsee_site_test_release.compatibility_mode = "2.0"
         corpsee_site_test_release.limit              = 'all'
-        corpsee_site_test_release.verbose            = "v"
+        corpsee_site_test_release.verbose            = "vvv"
     end
 
     config.vm.provision "php_censor_release", type: "ansible", run: "never" do |php_censor_release|
@@ -101,7 +101,7 @@ Vagrant.configure("2") do |config|
         end
         php_censor_release.compatibility_mode = "2.0"
         php_censor_release.limit              = 'all'
-        php_censor_release.verbose            = "v"
+        php_censor_release.verbose            = "vvv"
     end
 
     config.vm.provision "php_censor_test_release", type: "ansible", run: "never" do |php_censor_test_release|
@@ -114,7 +114,7 @@ Vagrant.configure("2") do |config|
         end
         php_censor_test_release.compatibility_mode = "2.0"
         php_censor_test_release.limit              = 'all'
-        php_censor_test_release.verbose            = "v"
+        php_censor_test_release.verbose            = "vvv"
     end
 
     config.vm.synced_folder "./", "/vagrant"
