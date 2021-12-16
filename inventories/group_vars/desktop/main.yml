@@ -21,9 +21,9 @@ packages_repositories:
   - repository: "deb [arch=amd64] http://repo.yandex.ru/yandex-disk/deb/ stable main"
     keyserver:  keyserver.ubuntu.com
     key:        EFC4571D7C90E5AF
-  - repository: "deb [arch=amd64] http://repo.yandex.ru/clickhouse/deb/stable/ main/"
-    keyserver:  keyserver.ubuntu.com
-    key:        E0C56BD4
+#  - repository: "deb [arch=amd64] http://repo.yandex.ru/clickhouse/deb/stable/ main/"
+#    keyserver:  keyserver.ubuntu.com
+#    key:        E0C56BD4
 
 packages_items_to_install:
   - acl
@@ -48,14 +48,16 @@ packages_items_to_install:
   - p7zip-full
 
   # For development
+  - python3-pip
+  - python3-virtualenv
   - ansible
   - vagrant
   - anacron
   - beanstalkd
   - supervisor
   - redis-server
-  - clickhouse-server
-  - clickhouse-client
+#  - clickhouse-server
+#  - clickhouse-client
   - love
 
   - gnupg
