@@ -61,6 +61,8 @@ packages_items_to_remove: []
 
 packages_snap_items_to_install: []
 
+packages_flatpak_items_to_install: []
+
 
 ### webuser role
 

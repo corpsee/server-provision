@@ -8,10 +8,11 @@ all:
           server_cert_email:   'mail@corpsee.test'
           server_cert_domains: []
 
-          server_domain:                  'corpsee.test'
-          server_mode:                    'debug'
-          server_openssh_port:            22
-          packages_snap_items_to_install: []
+          server_domain:                     'corpsee.test'
+          server_mode:                       'debug'
+          server_openssh_port:               22
+          packages_snap_items_to_install:    []
+          packages_flatpak_items_to_install: []
 
           php_mode: 'debug'
 

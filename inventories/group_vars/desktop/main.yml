@@ -95,6 +95,13 @@ packages_items_to_remove:
 
 packages_snap_items_to_install: []
 
+packages_flatpak_items_to_install:
+  - com.skype.Client
+  - com.getmailspring.Mailspring
+  - org.telegram.desktop
+  - us.zoom.Zoom
+  - com.slack.Slack
+
 
 ### oh-my-zsh role
 
