@@ -14,6 +14,7 @@ php-version-reference: &php-version-reference "7.4"
 packages_ppa:
   - ppa:agornostal/ulauncher
   - ppa:bartbes/love-stable
+  - ppa:deluge-team/stable
 
 packages_repositories:
   - repository: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"

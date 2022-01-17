@@ -108,3 +108,22 @@ alias dir_size_all="du --human-readable --max-depth=1 --all --time --total"
 alias generate_password="openssl rand --base64"
 
 alias show_listen="sudo netstat -tulpan | grep LISTEN"
+
+alias composer_5.6="php5.6 /usr/local/bin/composer"
+alias composer_7.0="php7.0 /usr/local/bin/composer"
+alias composer_7.1="php7.1 /usr/local/bin/composer"
+alias composer_7.2="php7.2 /usr/local/bin/composer"
+alias composer_7.3="php7.3 /usr/local/bin/composer"
+alias composer_7.4="php7.4 /usr/local/bin/composer"
+alias composer_8.0="php8.0 /usr/local/bin/composer"
+alias composer_8.1="php8.1 /usr/local/bin/composer"
+
+alias restart_pulseaudio="killall -9 pulseaudio"
+
+function generate_ssh() {
+    if [[ $# -eq 0 ]]; then
+        ssh-keygen -o -t rsa -b 4096 -C "poisoncorpsee@gmail.com" -P "";
+    else
+        ssh-keygen -o -t rsa -b 4096 -C "poisoncorpsee@gmail.com" -P "" -f "$1";
+    fi;
+}
