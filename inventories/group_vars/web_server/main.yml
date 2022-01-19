@@ -157,7 +157,7 @@ php_censor_from_email:                 'PHP Censor CI <mail@php-censor.info>'
 # php_censor_smtp_username:   in secret.yml
 # php_censor_smtp_password:   in secret.yml
 # php_censor_smtp_encryption: in secret.yml
-php_censor_version:                    "2.0.7"
+php_censor_version:                    "release-2.0"
 php_censor_periodical_config_filename: periodical.yml
 # php_censor_github_token: in secret.yml
 php_censor_cert_pem_path:              '/etc/letsencrypt/live/ci.php-censor.info/fullchain.pem'
@@ -183,7 +183,7 @@ php_censor_from_email_test:                 'PHP Censor CI (Test) <mail@php-cens
 # php_censor_smtp_username_test:   in secret.yml
 # php_censor_smtp_password_test:   in secret.yml
 # php_censor_smtp_encryption_test: in secret.yml
-php_censor_version_test:                    "2.0.7"
+php_censor_version_test:                    "release-2.0"
 php_censor_periodical_config_filename_test: periodical_test.yml
 # php_censor_github_token_test: in secret.yml
 php_censor_cert_pem_path_test:              '/etc/letsencrypt/live/ci-test.php-censor.info/fullchain.pem'
