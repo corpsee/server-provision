@@ -1,14 +1,11 @@
 /var/www/{{ php_censor_hostname }}/current/runtime/*.log {
     rotate 12
     weekly
-    size 10M
     missingok
     nocreate
     copytruncate
     nocopy
     compress
     notifempty
-    noolddir
-    dateext
     su {{ php_censor_user }} {{ php_censor_group }}
 }
