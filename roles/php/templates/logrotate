@@ -1,0 +1,13 @@
+/var/log/php/{{ php_version }}/*.log {
+    rotate 12
+    weekly
+    missingok
+    notifempty
+    compress
+    delaycompress
+    postrotate
+        if [ -x /usr/lib/php/php{{ php_version }}-fpm-reopenlogs ]; then
+            /usr/lib/php/php{{ php_version }}-fpm-reopenlogs;
+        fi
+    endscript
+}

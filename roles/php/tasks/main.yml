@@ -43,3 +43,6 @@
 
 - name: Clean /var/log/php-fpm.log
   file: path="/var/log/php{{ php_version }}-fpm.log" state=absent
+
+- name:     Set PHP logrotate config
+  template: src="logrotate" dest="/etc/logrotate.d/php{{ php_version }}"
