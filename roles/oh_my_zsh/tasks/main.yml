@@ -20,18 +20,18 @@
 
 - name: Clone '.oh-my-zsh' for user
   git:  repo="https://github.com/robbyrussell/oh-my-zsh" dest="/home/{{ oh_my_zsh_user }}/.oh-my-zsh"
+  become: yes
+  become_user: "{{ oh_my_zsh_user }}"
 
 - name:     Set '.zshrc' config for user
   template: src=".zshrc" dest="/home/{{ oh_my_zsh_user }}/.zshrc"
+  become: yes
+  become_user: "{{ oh_my_zsh_user }}"
 
 - name:     Set 'nameless' theme file for user
   template: src="nameless.zsh-theme" dest="/home/{{ oh_my_zsh_user }}/.oh-my-zsh/custom/themes/nameless.zsh-theme"
-
-- name: Set permitions for '.zshrc' config
-  file: path="/home/{{ oh_my_zsh_user }}/.zshrc" owner={{ oh_my_zsh_user }} group={{ oh_my_zsh_group }} mode="u=rwX,go=rX"
-
-- name: Set permitions for '.oh-my-zsh'
-  file: path="/home/{{ oh_my_zsh_user }}/.oh-my-zsh" owner={{ oh_my_zsh_user }} group={{ oh_my_zsh_group }} mode="u=rwX,go=rX" recurse=yes
+  become: yes
+  become_user: "{{ oh_my_zsh_user }}"
 
 - name:    Change shell to zsh for user
   command: chsh -s /bin/zsh "{{ oh_my_zsh_user }}"
