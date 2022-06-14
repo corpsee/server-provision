@@ -10,6 +10,9 @@ php-censor:
     language: en
     per_page: 10
     url: '{{ php_censor_url }}'
+    realtime_ui: true
+    webhook:
+        log_requests: true
     queue:
         use_queue: true
         host: 127.0.0.1
