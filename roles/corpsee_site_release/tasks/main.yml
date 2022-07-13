@@ -105,7 +105,7 @@
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/index.php", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/index.php" }
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/src/configs/config.php", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/src/configs/config.php" }
 
-- name: Set permitions for Corpsee site directory
+- name: Set permissions for Corpsee site directory
   file: path="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ug=rwX,o=rX" recurse=yes
 
 - name: Set Corpsee site console executable

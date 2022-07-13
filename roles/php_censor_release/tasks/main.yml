@@ -94,7 +94,7 @@
     - { src: "/var/www/{{ php_censor_hostname }}/shared/public/artifacts", dest: "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/public/artifacts" }
     - { src: "/var/www/{{ php_censor_hostname }}/shared/app", dest: "/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}/app" }
 
-- name: Set permitions for PHP Censor directory
+- name: Set permissions for PHP Censor directory
   file: path="/var/www/{{ php_censor_hostname }}/releases/{{ release_datetime.stdout }}" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwX,o=rX" recurse=yes
 
 - name: Set PHP Censor console executable

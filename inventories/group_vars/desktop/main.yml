@@ -151,7 +151,7 @@ php_packages:
 
 ### golang role
 
-golang_version: "1.16"
+golang_version: "1.18"
 golang_default: true
 
 
@@ -162,7 +162,7 @@ composer_path: /usr/local/bin/composer
 
 ### postgresql role
 
-postgresql_version:  13
+postgresql_version:  14
 postgresql_timezone: *timezone-reference
 
 
@@ -174,8 +174,7 @@ postgresql_desktop_group: *group-reference
 
 ### mariadb role
 
-mariadb_hostname:      corpsee-desktop
-mariadb_version:       "10.5"
+mariadb_version:       "10.8"
 mariadb_root_password: root
 mariadb_timezone:      *timezone-reference
 

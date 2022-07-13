@@ -1,0 +1,10 @@
+---
+
+php_censor_testdb_user:                 www-data
+php_censor_testdb_group:                www-data
+php_censor_testdb_postgres_db_name:     php_censor_testdb
+php_censor_testdb_postgres_db_user:     php_censor_testdb
+php_censor_testdb_postgres_db_password: php_censor_testdb
+php_censor_testdb_mysql_db_name:        php_censor_testdb
+php_censor_testdb_mysql_db_user:        php_censor_testdb
+php_censor_testdb_mysql_db_password:    php_censor_testdb

@@ -10,7 +10,7 @@
   register:      php_censor_database
 
 - name:            Create PHP Censor DB user
-  postgresql_user: db="{{ php_censor_db_name }}" name="{{ php_censor_db_user }}" password="{{ php_censor_db_password }}" role_attr_flags="NOSUPERUSER,NOCREATEDB" encrypted=yes priv=ALL
+  postgresql_user: db="{{ php_censor_db_name }}" name="{{ php_censor_db_user }}" password="{{ php_censor_db_password }}" role_attr_flags="NOSUPERUSER,NOCREATEDB,NOCREATEROLE,NOREPLICATION" encrypted=yes priv=ALL
   become:          true
   become_user:     postgres
 
@@ -28,10 +28,10 @@
 - name:     Create PHP Censor DB daily dump script
   template: src=backup_db_daily.sh dest="/home/{{ php_censor_user }}/backup_db_{{ php_censor_db_name }}_daily.sh"
 
-- name: Set permitions for PHP Censor DB dump script
+- name: Set permissions for PHP Censor DB dump script
   file: path="/home/{{ php_censor_user }}/backup_db_{{ php_censor_db_name }}.sh" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwx,o=r"
 
-- name: Set permitions for PHP Censor DB daily dump script
+- name: Set permissions for PHP Censor DB daily dump script
   file: path="/home/{{ php_censor_user }}/backup_db_{{ php_censor_db_name }}_daily.sh" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwx,o=r"
 
 - name: Set PHP Censor DB dump cronjob

@@ -125,8 +125,9 @@ symfony_cli_path: /usr/local/bin/symfony
 
 ### postgresql role
 
-postgresql_version:  13
+postgresql_version:  14
 postgresql_timezone: *timezone-reference
+
 
 ### php_censor role
 

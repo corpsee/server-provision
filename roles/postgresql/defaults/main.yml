@@ -1,4 +1,4 @@
 ---
 
-postgresql_version:  13 # version: 10 | 11 | 12 | 13
+postgresql_version:  14 # version: 10 ... 14
 postgresql_timezone: UTC

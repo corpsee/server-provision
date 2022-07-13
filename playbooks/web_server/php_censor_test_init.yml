@@ -31,3 +31,13 @@
       php_censor_github_token:               "{{ php_censor_github_token_test }}"
       php_censor_cert_pem_path:              "{{ php_censor_cert_pem_path_test }}"
       php_censor_cert_pem_key_path:          "{{ php_censor_cert_pem_key_path_test }}"
+
+    - role:                                   php_censor_testdb
+      php_censor_testdb_user:                 "{{ php_censor_testdb_user_test }}"
+      php_censor_testdb_group:                "{{ php_censor_testdb_group_test }}"
+      php_censor_testdb_postgres_db_name:     "{{ php_censor_testdb_postgres_db_name_test }}"
+      php_censor_testdb_postgres_db_user:     "{{ php_censor_testdb_postgres_db_user_test }}"
+      php_censor_testdb_postgres_db_password: "{{ php_censor_testdb_postgres_db_password_test }}"
+      php_censor_testdb_mysql_db_name:        "{{ php_censor_testdb_mysql_db_name_test }}"
+      php_censor_testdb_mysql_db_user:        "{{ php_censor_testdb_mysql_db_user_test }}"
+      php_censor_testdb_mysql_db_password:    "{{ php_censor_testdb_mysql_db_password_test }}"

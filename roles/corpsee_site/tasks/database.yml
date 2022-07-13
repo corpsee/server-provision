@@ -10,7 +10,7 @@
   register:      corpsee_site_database
 
 - name:            Create Corpsee site DB user
-  postgresql_user: db="{{ corpsee_site_db_name }}" name="{{ corpsee_site_db_user }}" password="{{ corpsee_site_db_password }}" role_attr_flags="NOSUPERUSER,NOCREATEDB" encrypted=yes priv=ALL
+  postgresql_user: db="{{ corpsee_site_db_name }}" name="{{ corpsee_site_db_user }}" password="{{ corpsee_site_db_password }}" role_attr_flags="NOSUPERUSER,NOCREATEDB,NOCREATEROLE,NOREPLICATION" encrypted=yes priv=ALL
   become:          true
   become_user:     postgres
 
@@ -35,10 +35,10 @@
 - name:     Create Corpsee site DB daily dump script
   template: src=backup_db_daily.sh dest="/home/{{ corpsee_site_user }}/backup_db_{{ corpsee_site_db_name }}_daily.sh"
 
-- name: Set permitions for Corpsee site DB dump script
+- name: Set permissions for Corpsee site DB dump script
   file: path="/home/{{ corpsee_site_user }}/backup_db_{{ corpsee_site_db_name }}.sh" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ug=rwx,o=r"
 
-- name: Set permitions for Corpsee site DB daily dump script
+- name: Set permissions for Corpsee site DB daily dump script
   file: path="/home/{{ corpsee_site_user }}/backup_db_{{ corpsee_site_db_name }}_daily.sh" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ug=rwx,o=r"
 
 - name: Set Corpsee site DB dump cronjob

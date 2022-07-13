@@ -20,3 +20,6 @@
 
 /roles/php_censor_release/files/*
 !/roles/php_censor_release/files/.gitkeep
+
+/roles/server/files/*
+!/roles/server/files/.gitkeep

@@ -21,3 +21,4 @@
     - composer
     - symfony_cli
     - postgresql
+    - mariadb
