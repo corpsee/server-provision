@@ -4,7 +4,7 @@
   stat:     path="/var/www/{{ corpsee_site_hostname }}/current"
   register: site_directory
 
-- name: EXIT BECAUCE ALREADY INIT
+- name: EXIT BECAUSE ALREADY INIT
   meta: end_play
   when: site_directory.stat.exists
 
