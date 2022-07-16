@@ -115,6 +115,7 @@ php_packages:
   - soap
   - imap
   - pgsql
+  - mysql
   - redis
   - amqp
 
