@@ -6,3 +6,4 @@
   roles:
     - nginx
     - php_censor
+    - php_censor_testdb

@@ -164,7 +164,6 @@ postgresql_desktop_group: *group-reference
 
 ### mariadb role
 
-mariadb_hostname:      corpsee-desktop
 mariadb_version:       "10.5"
 mariadb_root_password: root
 mariadb_timezone:      *timezone-reference

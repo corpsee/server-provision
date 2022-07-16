@@ -113,6 +113,7 @@ php_packages:
   - soap
   - imap
   - pgsql
+  - mysql
   - redis
   - amqp
 
@@ -131,6 +132,13 @@ symfony_cli_path: /usr/local/bin/symfony
 
 postgresql_version:  13
 postgresql_timezone: *timezone-reference
+
+
+### mariadb role
+
+mariadb_version:  "10.5"
+# mariadb_root_password: in secret.yml
+mariadb_timezone: *timezone-reference
 
 
 ### php_censor role
@@ -186,6 +194,27 @@ php_censor_periodical_config_filename_test: periodical_test.yml
 # php_censor_github_token_test: in secret.yml
 php_censor_cert_pem_path_test:              '/etc/letsencrypt/live/ci-test.php-censor.info/fullchain.pem'
 php_censor_cert_pem_key_path_test:          '/etc/letsencrypt/live/ci-test.php-censor.info/privkey.pem'
+
+
+### php_censor_testdb
+
+php_censor_testdb_user:             *user-reference
+php_censor_testdb_group:            *group-reference
+php_censor_testdb_postgres_db_name: php_censor_testdb
+php_censor_testdb_postgres_db_user: php_censor_testdb
+# php_censor_testdb_postgres_db_password: in secret.yml
+php_censor_testdb_mysql_db_name:    php_censor_testdb
+php_censor_testdb_mysql_db_user:    php_censor_testdb
+# php_censor_testdb_mysql_db_password: in secret.yml
+
+php_censor_testdb_user_test:             *user-reference
+php_censor_testdb_group_test:            *group-reference
+php_censor_testdb_postgres_db_name_test: php_censor_test_testdb
+php_censor_testdb_postgres_db_user_test: php_censor_test_testdb
+# php_censor_testdb_postgres_db_password_test: in secret.yml
+php_censor_testdb_mysql_db_name_test:    php_censor_test_testdb
+php_censor_testdb_mysql_db_user_test:    php_censor_test_testdb
+# php_censor_testdb_mysql_db_password_test: in secret.yml
 
 
 ### corpsee_site role

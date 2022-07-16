@@ -1,0 +1,28 @@
+---
+
+- name:       Added auth info to .pgpass config
+  lineinfile: path="/home/{{ php_censor_testdb_user }}/.pgpass" owner="{{ php_censor_testdb_user }}" group="{{ php_censor_testdb_group }}" mode=0600 create=yes line="127.0.0.1:5432:{{ php_censor_testdb_postgres_db_name }}:{{ php_censor_testdb_postgres_db_user }}:{{ php_censor_testdb_postgres_db_password }}" insertbefore=BOF
+
+- name:          Create PHP Censor Test DB (Postgres)
+  postgresql_db: name="{{ php_censor_testdb_postgres_db_name }}" state=present
+  become:        true
+  become_user:   postgres
+
+- name:            Create PHP Censor Test DB user (Postgres)
+  postgresql_user: db="{{ php_censor_testdb_postgres_db_name }}" name="{{ php_censor_testdb_postgres_db_user }}" password="{{ php_censor_testdb_postgres_db_password }}" role_attr_flags="NOSUPERUSER,NOCREATEDB,NOCREATEROLE,NOREPLICATION" encrypted=yes priv=ALL
+  become:          true
+  become_user:     postgres
+
+- name:        Create PHP Censor Test DB (Mysql)
+  mysql_db:    name="{{ php_censor_testdb_mysql_db_name }}" state=present
+  become:      true
+  become_user: root
+
+- name:        Create PHP Censor Test DB user (Mysql)
+  mysql_user:  name="{{ php_censor_testdb_mysql_db_user }}" password="{{ php_censor_testdb_mysql_db_password }}" host="{{ item }}" encrypted=no priv="{{ php_censor_testdb_mysql_db_name }}.*:ALL"
+  become:      true
+  become_user: root
+  loop:
+    - "127.0.0.1"
+    - "::1"
+    - "localhost"
