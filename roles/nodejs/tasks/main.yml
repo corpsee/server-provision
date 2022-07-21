@@ -6,11 +6,11 @@
 - name: Install Node.js
   apt:  name="nodejs" state=latest
 
-- name:    Add keys for Yarn repository
-  apt_key: url=https://dl.yarnpkg.com/debian/pubkey.gpg state=present
+- name: Add Yarn repository GPG key
+  shell: "curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarn.gpg >/dev/null"
 
 - name:           Add Yarn repository
-  apt_repository: repo="deb [arch=amd64] https://dl.yarnpkg.com/debian/ stable main" update_cache=yes
+  apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/yarn.gpg] https://dl.yarnpkg.com/debian/ stable main" filename="yarn" update_cache=yes
 
 - name: Install Yarn
   apt:  name="yarn" state=latest

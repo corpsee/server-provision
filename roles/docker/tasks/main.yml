@@ -1,10 +1,10 @@
 ---
 
-- name:    Add keys for Docker repository
-  apt_key: id="0EBFCD88" keyserver="keyserver.ubuntu.com" state=present
+- name: Add Docker repository GPG key
+  shell: "curl -sL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/docker.gpg >/dev/null"
 
 - name:           Add Docker repository
-  apt_repository: repo="deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable" update_cache=yes
+  apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable" filename="docker" update_cache=yes
 
 - name: Install Docker CE
   apt:  name="docker-ce" state=latest

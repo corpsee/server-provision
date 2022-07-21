@@ -1,15 +1,15 @@
 ---
 
-- name:    Add keys for repositories (by key id)
-  apt_key: id="{{ item.key }}" keyserver="{{ item.keyserver }}" state=present
+- name:    Add repositories GPG keys (by key id)
+  apt_key: id="{{ item.key }}" keyserver="{{ item.keyserver }}" keyring="/usr/share/keyrings/{{ item.filename }}.gpg" state=present
   when:    item.keyserver | default('', true) | trim != ''
   loop:    "{{ packages_repositories | default([]) }}"
 
-- name:    Add keys for repositories (by url)
-  apt_key: url="{{ item.url }}" state=present
-  when:    item.url | default('', true) | trim != ''
-  loop:    "{{ packages_repositories | default([]) }}"
+- name:  Add repositories GPG keys (by url)
+  shell: "curl -sL {{ item.url }} | gpg --dearmor | sudo tee /usr/share/keyrings/{{ item.filename }}.gpg >/dev/null"
+  loop:  "{{ packages_repositories | default([]) }}"
+  when:  item.url | default('', true) | trim != ''
 
 - name:           Add repositories
-  apt_repository: repo={{ item.repository }} update_cache=yes
+  apt_repository: repo="{{ item.repository }}" filename="{{ item.filename }}" update_cache=yes
   loop:           "{{ packages_repositories | default([]) }}"

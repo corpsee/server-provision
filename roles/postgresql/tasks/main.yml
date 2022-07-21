@@ -1,10 +1,10 @@
 ---
 
-- name:    Add keys for PostgreSQL repository
-  apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc state=present
+- name: Add PostgreSQL repository GPG key
+  shell: "curl -sL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | sudo tee /usr/share/keyrings/postgres.gpg >/dev/null"
 
 - name:           Add PostgreSQL repository
-  apt_repository: repo="deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main" update_cache=yes
+  apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/postgres.gpg] http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main" filename="postgres" update_cache=yes
 
 - name: Install PostgreSQL
   apt:  name="postgresql-{{ postgresql_version }}" state=latest
