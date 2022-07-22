@@ -23,3 +23,9 @@
     ansible_distribution_release: focal
   when:
     - ansible_distribution_release == "una"
+
+- name: "Fix 'ansible_distribution_release' fact for Linux Mint 21"
+  set_fact:
+    ansible_distribution_release: jammy
+  when:
+    - ansible_distribution_release == "vanessa"

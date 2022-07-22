@@ -1,7 +1,10 @@
 ---
 
-- name:           Add PHP repository
-  apt_repository: repo="ppa:ondrej/php" codename="{{ ansible_distribution_release }}" update_cache=yes
+- name:    Add PHP PPA repositories GPG key
+  apt_key: id="14AA40EC0831756756D7F66C4F4EA0AAE5267A6C" keyserver="keyserver.ubuntu.com" keyring="/usr/share/keyrings/php.gpg" state=present
+
+- name:           Add PHP PPA repository
+  apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/php.gpg] https://ppa.launchpadcontent.net/ondrej/php/ubuntu {{ ansible_distribution_release }} main" filename="php" update_cache=yes
 
 - name: Install PHP
   apt:  name="{{ item }}" state=latest

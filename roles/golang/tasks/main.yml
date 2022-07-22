@@ -1,7 +1,10 @@
 ---
 
-- name:           Add Golang backports PPA repository
-  apt_repository: repo="ppa:longsleep/golang-backports" codename="{{ ansible_distribution_release }}" update_cache=yes
+- name:    Add Golang PPA repositories GPG key
+  apt_key: id="52B59B1571A79DBC054901C0F6BC817356A3D45E" keyserver="keyserver.ubuntu.com" keyring="/usr/share/keyrings/golang.gpg" state=present
+
+- name:           Add Golang PPA repository
+  apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/golang.gpg] https://ppa.launchpadcontent.net/longsleep/golang-backports/ubuntu {{ ansible_distribution_release }} main" filename="golang" update_cache=yes
 
 - name: Install Golang
   apt:  name="golang-{{ golang_version }}" state=latest
