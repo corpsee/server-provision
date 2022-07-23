@@ -1,7 +1,13 @@
 ---
 
+- name:     Create Node.js setup script
+  template: src=setup_nodejs_18.sh dest="/home/{{ desktop_user }}/setup_nodejs_18.sh"
+
+- name: Set permissions for Node.js setup script
+  file: path="/home/{{ corpsee_site_user }}/setup_nodejs_18.sh" owner={{ desktop_user }} group={{ desktop_user }} mode="ug=rwx,o=r"
+
 - name:  Add Node.js repository
-  shell: "curl -sL https://deb.nodesource.com/setup_{{ nodejs_version }}.x | sudo -E bash -"
+  shell: "sudo -E bash /home/{{ corpsee_site_user }}/setup_nodejs_18.sh"
 
 - name: Install Node.js
   apt:  name="nodejs" state=latest
