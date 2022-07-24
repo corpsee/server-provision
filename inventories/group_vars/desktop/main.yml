@@ -23,9 +23,9 @@ packages_ppa:
     key:      8EED8FB4A8E6DA6DFDF0192BC5E6A5ED249AD24C
 
 packages_repositories:
-  - repository: "deb [arch=amd64 signed-by=/usr/share/keyrings/vagrant.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
-    filename:   "vagrant"
-    url:        "https://apt.releases.hashicorp.com/gpg"
+#  - repository: "deb [arch=amd64 signed-by=/usr/share/keyrings/vagrant.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+#    filename:   "vagrant"
+#    url:        "https://apt.releases.hashicorp.com/gpg"
   - repository: "deb [arch=amd64 signed-by=/usr/share/keyrings/yandex-disk.gpg] http://repo.yandex.ru/yandex-disk/deb/ stable main"
     filename:   "yandex-disk"
     keyserver:  keyserver.ubuntu.com
@@ -92,7 +92,7 @@ packages_items_to_install:
   - smplayer-themes
   - filezilla
   - ulauncher
-  - deepin-screenshot
+  - flameshot
 
   - earlyoom
 
