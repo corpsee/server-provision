@@ -9,6 +9,6 @@
   apt:  name="flatpak" state=latest
   when: packages_flatpak_items_to_install is defined and packages_flatpak_items_to_install | length > 0
 
-- name:  Install Flatpak packages
-  shell: "flatpak install -y flathub {{ item }}"
+- name: Install Flatpak packages
+  flatpak: name="{{ item }}" state=present
   loop:  "{{ packages_flatpak_items_to_install | default([]) }}"
