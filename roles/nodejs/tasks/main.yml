@@ -1,19 +1,16 @@
 ---
 
-- name:     Create Node.js setup script
-  template: src=setup_nodejs_18.sh dest="/home/{{ desktop_user }}/setup_nodejs_18.sh"
+- name: Add Nodejs repository GPG key
+  shell: cmd="curl -sL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | sudo tee /usr/share/keyrings/nodejs.gpg >/dev/null" creates="/usr/share/keyrings/nodejs.gpg"
 
-- name: Set permissions for Node.js setup script
-  file: path="/home/{{ corpsee_site_user }}/setup_nodejs_18.sh" owner={{ desktop_user }} group={{ desktop_user }} mode="ug=rwx,o=r"
+- name:           Add Nodejs repository
+  apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/nodejs.gpg] https://deb.nodesource.com/node_{{ nodejs_version }}.x jammy main" filename="nodejs" update_cache=yes
 
-- name:  Add Node.js repository
-  shell: "sudo -E bash /home/{{ corpsee_site_user }}/setup_nodejs_18.sh"
-
-- name: Install Node.js
+- name: Install Nodejs
   apt:  name="nodejs" state=latest
 
 - name: Add Yarn repository GPG key
-  shell: "curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarn.gpg >/dev/null"
+  shell: cmd="curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarn.gpg >/dev/null" creates="/usr/share/keyrings/yarn.gpg"
 
 - name:           Add Yarn repository
   apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/yarn.gpg] https://dl.yarnpkg.com/debian/ stable main" filename="yarn" update_cache=yes

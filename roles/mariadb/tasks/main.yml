@@ -1,7 +1,7 @@
 ---
 
 - name: Add MariaDB repository GPG key
-  shell: "curl -sL https://mariadb.org/mariadb_release_signing_key.asc | gpg --dearmor | sudo tee /usr/share/keyrings/mariadb.gpg >/dev/null"
+  shell: cmd="curl -sL https://mariadb.org/mariadb_release_signing_key.asc | gpg --dearmor | sudo tee /usr/share/keyrings/mariadb.gpg >/dev/null" creates="/usr/share/keyrings/mariadb.gpg"
 
 - name:           Add MariaDB repository
   apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/mariadb.gpg] http://mirror.mephi.ru/mariadb/repo/{{ mariadb_version }}/ubuntu {{ ansible_distribution_release }} main" filename="mariadb" update_cache=yes
