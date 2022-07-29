@@ -6,7 +6,9 @@
   loop:    "{{ packages_repositories | default([]) }}"
 
 - name:  Add repositories GPG keys (by url)
-  shell: cmd="curl -sL {{ item.url }} | gpg --dearmor | sudo tee /usr/share/keyrings/{{ item.filename }}.gpg >/dev/null" creates="/usr/share/keyrings/{{ item.filename }}.gpg"
+  shell: "curl -sL {{ item.url }} | gpg --dearmor | tee /usr/share/keyrings/{{ item.filename }}.gpg >/dev/null"
+  args:
+    creates: "/usr/share/keyrings/{{ item.filename }}.gpg"
   loop:  "{{ packages_repositories | default([]) }}"
   when:  item.url | default('', true) | trim != ''
 

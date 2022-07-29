@@ -1,7 +1,9 @@
 ---
 
 - name: Add Nodejs repository GPG key
-  shell: cmd="curl -sL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | sudo tee /usr/share/keyrings/nodejs.gpg >/dev/null" creates="/usr/share/keyrings/nodejs.gpg"
+  shell: "curl -sL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | tee /usr/share/keyrings/nodejs.gpg >/dev/null"
+  args:
+    creates: "/usr/share/keyrings/nodejs.gpg"
 
 - name:           Add Nodejs repository
   apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/nodejs.gpg] https://deb.nodesource.com/node_{{ nodejs_version }}.x jammy main" filename="nodejs" update_cache=yes
@@ -10,7 +12,9 @@
   apt:  name="nodejs" state=latest
 
 - name: Add Yarn repository GPG key
-  shell: cmd="curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarn.gpg >/dev/null" creates="/usr/share/keyrings/yarn.gpg"
+  shell: "curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarn.gpg >/dev/null"
+  args:
+    creates: "/usr/share/keyrings/yarn.gpg"
 
 - name:           Add Yarn repository
   apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/yarn.gpg] https://dl.yarnpkg.com/debian/ stable main" filename="yarn" update_cache=yes
