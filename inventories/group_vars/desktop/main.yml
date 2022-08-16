@@ -154,6 +154,8 @@ php_packages:
   - mysql
   - redis
   - amqp
+  - memcache
+  - memcached
 
 
 ### golang role

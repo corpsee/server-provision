@@ -112,6 +112,8 @@ php_packages:
   - mysql
   - redis
   - amqp
+  - memcache
+  - memcached
 
 
 ### composer role
