@@ -18,9 +18,6 @@ packages_ppa:
   - ppa:      "bartbes/love-stable"
     filename: "love"
     key:      61F881CBF3A87BDF74E398A4F192197F81992645
-  - ppa:      "deluge-team/stable"
-    filename: "deluge"
-    key:      8EED8FB4A8E6DA6DFDF0192BC5E6A5ED249AD24C
 
 packages_repositories:
 #  - repository: "deb [arch=amd64 signed-by=/usr/share/keyrings/vagrant.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
@@ -86,7 +83,7 @@ packages_items_to_install:
   - gparted
   - keepassx
   - yandex-disk
-  - deluge
+  - transmission
   - virtualbox-qt
   - smplayer
   - smplayer-themes
