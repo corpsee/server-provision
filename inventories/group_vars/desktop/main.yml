@@ -42,6 +42,7 @@ packages_items_to_install:
   - sendmail
   - screen
   - logrotate
+  - traceroute
   - curl
   - wget
   - jq
