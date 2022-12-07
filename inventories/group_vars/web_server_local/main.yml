@@ -45,6 +45,7 @@ packages_items_to_install:
   - sendmail
   - screen
   - traceroute
+  - resolvconf
   - logrotate
   - curl
   - wget

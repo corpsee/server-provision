@@ -43,6 +43,7 @@ packages_items_to_install:
   - screen
   - logrotate
   - traceroute
+  - resolvconf
   - curl
   - wget
   - jq
