@@ -13,6 +13,18 @@
   become:          true
   become_user:     postgres
 
+- name:     Create PHP Censor Test DB create script (Postgres)
+  template: src=create_test_ci_postgres_db.sh dest="/home/{{ php_censor_user }}/create_test_ci_postgres_db.sh"
+
+- name: Set permissions PHP Censor Test DB create script (Postgres)
+  file: path="/home/{{ php_censor_user }}/create_test_ci_postgres_db.sh" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwx,o=r"
+
+- name:     Create PHP Censor Test DB drop script (Postgres)
+  template: src=drop_test_ci_postgres_db.sh dest="/home/{{ php_censor_user }}/drop_test_ci_postgres_db.sh"
+
+- name: Set permissions PHP Censor Test DB drop script (Postgres)
+  file: path="/home/{{ php_censor_user }}/drop_test_ci_postgres_db.sh" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwx,o=r"
+
 - name:        Create PHP Censor Test DB (Mysql)
   mysql_db:    name="{{ php_censor_testdb_mysql_db_name }}" state=present
   become:      true
@@ -26,3 +38,15 @@
     - "127.0.0.1"
     - "::1"
     - "localhost"
+
+- name:     Create PHP Censor Test DB create script (Mysql)
+  template: src=create_test_ci_mysql_db.sh dest="/home/{{ php_censor_user }}/create_test_ci_mysql_db.sh"
+
+- name: Set permissions PHP Censor Test DB create script (Mysql)
+  file: path="/home/{{ php_censor_user }}/create_test_ci_mysql_db.sh" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwx,o=r"
+
+- name:     Create PHP Censor Test DB drop script (Mysql)
+  template: src=drop_test_ci_mysql_db.sh dest="/home/{{ php_censor_user }}/drop_test_ci_mysql_db.sh"
+
+- name: Set permissions PHP Censor Test DB drop script (Mysql)
+  file: path="/home/{{ php_censor_user }}/drop_test_ci_mysql_db.sh" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwx,o=r"
