@@ -1,7 +1,7 @@
 ---
 
 corpsee_site_mode:              debug # mode: production|debug
-corpsee_site_php_version:       '7.4'
+corpsee_site_php_version:       '8.1'
 corpsee_site_user:              www-data
 corpsee_site_group:             www-data
 corpsee_site_localhost_user:    corpsee

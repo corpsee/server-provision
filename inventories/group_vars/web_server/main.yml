@@ -6,7 +6,7 @@ user-reference:        &user-reference        "web"
 group-reference:       &group-reference       "www-data"
 mode-reference:        &mode-reference        "production"
 timezone-reference:    &timezone-reference    "Asia/Novosibirsk"
-php-version-reference: &php-version-reference "7.4"
+php-version-reference: &php-version-reference "8.1"
 
 
 ### server role
@@ -136,13 +136,13 @@ symfony_cli_path: /usr/local/bin/symfony
 
 ### postgresql role
 
-postgresql_version:  14
+postgresql_version:  15
 postgresql_timezone: *timezone-reference
 
 
 ### mariadb role
 
-mariadb_version:  "10.8"
+mariadb_version:  "10.10"
 # mariadb_root_password: in secret.yml
 mariadb_timezone: *timezone-reference
 
@@ -169,7 +169,7 @@ php_censor_from_email:                 'PHP Censor CI <mail@php-censor.info>'
 # php_censor_smtp_username:   in secret.yml
 # php_censor_smtp_password:   in secret.yml
 # php_censor_smtp_encryption: in secret.yml
-php_censor_version:                    "release-2.0"
+php_censor_version:                    "release-2.1"
 php_censor_periodical_config_filename: periodical.yml
 # php_censor_github_token: in secret.yml
 php_censor_cert_pem_path:              '/etc/letsencrypt/live/ci.php-censor.info/fullchain.pem'

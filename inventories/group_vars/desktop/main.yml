@@ -6,7 +6,7 @@ user-reference:        &user-reference        "corpsee"
 group-reference:       &group-reference       "corpsee"
 mode-reference:        &mode-reference        "debug"
 timezone-reference:    &timezone-reference    "Asia/Novosibirsk"
-php-version-reference: &php-version-reference "7.4"
+php-version-reference: &php-version-reference "8.1"
 
 
 ### packages role
@@ -159,7 +159,7 @@ php_packages:
 
 ### golang role
 
-golang_version: "1.18"
+golang_version: "1.19"
 golang_default: true
 
 
@@ -170,7 +170,7 @@ composer_path: /usr/local/bin/composer
 
 ### postgresql role
 
-postgresql_version:  14
+postgresql_version:  15
 postgresql_timezone: *timezone-reference
 
 
@@ -182,7 +182,7 @@ postgresql_desktop_group: *group-reference
 
 ### mariadb role
 
-mariadb_version:       "10.8"
+mariadb_version:       "10.10"
 mariadb_root_password: root
 mariadb_timezone:      *timezone-reference
 

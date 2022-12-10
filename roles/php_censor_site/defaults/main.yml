@@ -1,7 +1,7 @@
 ---
 
 php_censor_site_mode:              debug # mode: production|debug
-php_censor_site_php_version:       '7.4'
+php_censor_site_php_version:       '8.1'
 php_censor_site_hostname:          php-censor-site.test
 php_censor_site_user:              www-data
 php_censor_site_group:             www-data

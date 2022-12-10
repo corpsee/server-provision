@@ -1,5 +1,5 @@
 ---
 
-mariadb_version:       "10.8" # version: 10.3 ... 10.8
+mariadb_version:       "10.10" # version: 10.3 ... 10.10
 mariadb_root_password: root
 mariadb_timezone:      UTC
