@@ -15,7 +15,7 @@
   command: bash symfony-cli-installer.php chdir=/tmp creates="{{ symfony_cli_path }}"
 
 - name:    Move Symfony CLI to global path
-  command: mv /root/.symfony/bin/symfony "{{ symfony_cli_path }}" creates="{{ symfony_cli_path }}"
+  command: mv /root/.symfony5/bin/symfony "{{ symfony_cli_path }}" creates="{{ symfony_cli_path }}"
 
 - name: Clean Symfony CLI installer
   file: path="/root/.symfony" state=absent
