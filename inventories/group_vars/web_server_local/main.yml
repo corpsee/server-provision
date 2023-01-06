@@ -130,7 +130,7 @@ symfony_cli_path: /usr/local/bin/symfony
 
 ### postgresql role
 
-postgresql_version:  15
+postgresql_version:  14
 postgresql_timezone: *timezone-reference
 
 
