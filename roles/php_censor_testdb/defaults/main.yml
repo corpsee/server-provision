@@ -1,10 +1,14 @@
 ---
 
-php_censor_testdb_user:                 www-data
-php_censor_testdb_group:                www-data
-php_censor_testdb_postgres_db_name:     php_censor_testdb
-php_censor_testdb_postgres_db_user:     php_censor_testdb
-php_censor_testdb_postgres_db_password: php_censor_testdb
-php_censor_testdb_mysql_db_name:        php_censor_testdb
-php_censor_testdb_mysql_db_user:        php_censor_testdb
-php_censor_testdb_mysql_db_password:    php_censor_testdb
+php_censor_testdb_user:                        www-data
+php_censor_testdb_group:                       www-data
+php_censor_testdb_postgres_db_name:            php_censor_testdb
+php_censor_testdb_postgres_db_user:            php_censor_testdb
+php_censor_testdb_postgres_db_password:        php_censor_testdb
+php_censor_testdb_postgres_create_script_name: create_test_ci_postgres_db
+php_censor_testdb_postgres_drop_script_name:   drop_test_ci_postgres_db
+php_censor_testdb_mysql_db_name:               php_censor_testdb
+php_censor_testdb_mysql_db_user:               php_censor_testdb
+php_censor_testdb_mysql_db_password:           php_censor_testdb
+php_censor_testdb_mysql_create_script_name:    create_test_ci_mysql_db
+php_censor_testdb_mysql_drop_script_name:      drop_test_ci_mysql_db
