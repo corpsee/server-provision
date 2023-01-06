@@ -195,7 +195,7 @@ php_censor_from_email_test:                 'PHP Censor CI (Test) <mail@php-cens
 # php_censor_smtp_username_test:   in secret.yml
 # php_censor_smtp_password_test:   in secret.yml
 # php_censor_smtp_encryption_test: in secret.yml
-php_censor_version_test:                    "release-2.0"
+php_censor_version_test:                    "release-2.1"
 php_censor_periodical_config_filename_test: periodical_test.yml
 # php_censor_github_token_test: in secret.yml
 php_censor_cert_pem_path_test:              '/etc/letsencrypt/live/ci-test.php-censor.info/fullchain.pem'
