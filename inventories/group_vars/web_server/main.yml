@@ -204,23 +204,31 @@ php_censor_cert_pem_key_path_test:          '/etc/letsencrypt/live/ci-test.php-c
 
 ### php_censor_testdb
 
-php_censor_testdb_user:             *user-reference
-php_censor_testdb_group:            *group-reference
-php_censor_testdb_postgres_db_name: php_censor_testdb
-php_censor_testdb_postgres_db_user: php_censor_testdb
+php_censor_testdb_user:                        *user-reference
+php_censor_testdb_group:                       *group-reference
+php_censor_testdb_postgres_db_name:            php_censor_testdb
+php_censor_testdb_postgres_db_user:            php_censor_testdb
 # php_censor_testdb_postgres_db_password: in secret.yml
-php_censor_testdb_mysql_db_name:    php_censor_testdb
-php_censor_testdb_mysql_db_user:    php_censor_testdb
+php_censor_testdb_postgres_create_script_name: create_test_ci_postgres_db
+php_censor_testdb_postgres_drop_script_name:   drop_test_ci_postgres_db
+php_censor_testdb_mysql_db_name:               php_censor_testdb
+php_censor_testdb_mysql_db_user:               php_censor_testdb
 # php_censor_testdb_mysql_db_password: in secret.yml
+php_censor_testdb_mysql_create_script_name:    create_test_ci_mysql_db
+php_censor_testdb_mysql_drop_script_name:      drop_test_ci_mysql_db
 
-php_censor_testdb_user_test:             *user-reference
-php_censor_testdb_group_test:            *group-reference
-php_censor_testdb_postgres_db_name_test: php_censor_test_testdb
-php_censor_testdb_postgres_db_user_test: php_censor_test_testdb
+php_censor_testdb_user_test:                        *user-reference
+php_censor_testdb_group_test:                       *group-reference
+php_censor_testdb_postgres_db_name_test:            php_censor_test_testdb
+php_censor_testdb_postgres_db_user_test:            php_censor_test_testdb
 # php_censor_testdb_postgres_db_password_test: in secret.yml
-php_censor_testdb_mysql_db_name_test:    php_censor_test_testdb
-php_censor_testdb_mysql_db_user_test:    php_censor_test_testdb
+php_censor_testdb_postgres_create_script_name_test: create_test_ci_postgres_db_test
+php_censor_testdb_postgres_drop_script_name_test:   drop_test_ci_postgres_db_test
+php_censor_testdb_mysql_db_name_test:               php_censor_test_testdb
+php_censor_testdb_mysql_db_user_test:               php_censor_test_testdb
 # php_censor_testdb_mysql_db_password_test: in secret.yml
+php_censor_testdb_mysql_create_script_name_test:    create_test_ci_mysql_db_test
+php_censor_testdb_mysql_drop_script_name_test:      drop_test_ci_mysql_db_test
 
 
 ### corpsee_site role
