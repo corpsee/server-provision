@@ -1,0 +1,16 @@
+---
+
+- name: Add Unity3d Hub repository GPG key
+  shell: "curl -sL https://hub.unity3d.com/linux/keys/public | gpg --dearmor | tee /usr/share/keyrings/unity3d.gpg >/dev/null"
+  args:
+    creates: "/usr/share/keyrings/unity3d.gpg"
+
+- name:           Add Unity3d Hub repository
+  apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/unity3d.gpg] https://hub.unity3d.com/linux/repos/deb stable main" filename="unity3d" update_cache=yes
+
+- name: Install Unity3d Hub and .NET Runtime
+  apt:  name="{{ item }}" state=latest
+  loop:
+    - unityhub
+    - dotnet-sdk-6.0
+    - dotnet-runtime-6.0
