@@ -97,7 +97,7 @@
   template: src=index.php dest="/var/www/{{ corpsee_site_hostname }}/shared/www/index.php"
 
 - name:     Create Corpsee site console file
-  template: src=console dest="/var/www/{{ corpsee_site_hostname }}/shared/console"
+  template: src=console dest="/var/www/{{ corpsee_site_hostname }}/current/console"
 
 - name: Set shared directories links
   file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
@@ -111,7 +111,6 @@
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/yanka", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/yanka" }
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/logs", dest: "/var/www/{{ corpsee_site_hostname }}/current/logs" }
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/index.php", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/index.php" }
-    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/console", dest: "/var/www/{{ corpsee_site_hostname }}/current/console" }
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/src/configs/config.php", dest: "/var/www/{{ corpsee_site_hostname }}/current/src/configs/config.php" }
 
 - name: Set permissions for Corpsee site directory
