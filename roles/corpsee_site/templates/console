@@ -1,0 +1,3 @@
+#!/usr/bin/env php{{ corpsee_site_php_version }}
+
+<?php require_once(__DIR__ . '/console.php');

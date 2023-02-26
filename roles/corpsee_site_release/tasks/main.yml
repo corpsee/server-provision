@@ -68,6 +68,7 @@
     - "src/configs/config.debug.php"
     - "www/index.production.php"
     - "www/index.debug.php"
+    - "console.example"
     - "www/.htaccess"
     - "deploy"
     - "tests"
@@ -103,6 +104,7 @@
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/yanka", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/yanka" }
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/logs", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/logs" }
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/index.php", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/index.php" }
+    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/console", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/console" }
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/src/configs/config.php", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/src/configs/config.php" }
 
 - name: Set permissions for Corpsee site directory
