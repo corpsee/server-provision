@@ -2,11 +2,12 @@
 
 ### references
 
-user-reference:        &user-reference        "web"
-group-reference:       &group-reference       "www-data"
-mode-reference:        &mode-reference        "production"
-timezone-reference:    &timezone-reference    "Asia/Novosibirsk"
-php-version-reference: &php-version-reference "8.1"
+user-reference:                &user-reference        "web"
+group-reference:               &group-reference       "www-data"
+mode-reference:                &mode-reference        "production"
+timezone-reference:            &timezone-reference    "Asia/Novosibirsk"
+php-version-reference:         &php-version-reference "8.1"
+php-default-version-reference: &php-default-version-reference "8.1"
 
 
 ### server role
@@ -90,12 +91,13 @@ nginx_group: *group-reference
 
 ### php role
 
-php_mode:      *mode-reference
-php_timezone:  *timezone-reference
-php_version:   *php-version-reference
-php_memory:    256M
-php_fpm_user:  *user-reference
-php_fpm_group: *group-reference
+php_mode:            *mode-reference
+php_timezone:        *timezone-reference
+php_version:         *php-version-reference
+php_default_version: *php-default-version-reference
+php_memory:          256M
+php_fpm_user:        *user-reference
+php_fpm_group:       *group-reference
 
 php_packages:
   - bcmath
