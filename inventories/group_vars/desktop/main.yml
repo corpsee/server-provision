@@ -109,6 +109,7 @@ packages_flatpak_items_to_install:
   - org.telegram.desktop
   - us.zoom.Zoom
   - com.slack.Slack
+  - com.mattermost.Desktop
 
 
 ### oh-my-zsh role
