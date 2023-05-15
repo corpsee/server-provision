@@ -110,6 +110,7 @@ packages_flatpak_items_to_install:
   - us.zoom.Zoom
   - com.slack.Slack
   - com.mattermost.Desktop
+  - net.lutris.Lutris
 
 
 ### oh-my-zsh role
