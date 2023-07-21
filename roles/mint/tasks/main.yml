@@ -35,3 +35,9 @@
     ansible_distribution_release: jammy
   when:
     - ansible_distribution_release == "vera"
+
+- name: "Fix 'ansible_distribution_release' fact for Linux Mint 21.2"
+  set_fact:
+    ansible_distribution_release: jammy
+  when:
+    - ansible_distribution_release == "victoria"
