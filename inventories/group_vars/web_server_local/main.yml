@@ -55,6 +55,7 @@ packages_items_to_install:
   - htop
   - git
   - zsh
+  - tmux
   - pv
   - ncdu
   - xz-utils

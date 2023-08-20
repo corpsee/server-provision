@@ -127,3 +127,23 @@ function generate_ssh() {
         ssh-keygen -o -t rsa -b 4096 -C "poisoncorpsee@gmail.com" -P "" -f "$1";
     fi;
 }
+
+# Default tmux session
+TMUX_SESSION="default"
+# 1. First you check if a tmux session exists with a given name.
+tmux has-session -t="${TMUX_SESSION}" 2> /dev/null
+
+# Don't start/attach default session for terminals in IDE
+if [[ "${PWD}" ==  "${HOME}" ]]; then
+    # 2. Create the session if it doesn't exists.
+    if [[ $? -ne 0 ]]; then
+        TMUX='' tmux new-session -d -s "${TMUX_SESSION}"
+    fi
+
+    # 3. Attach if outside of tmux, switch if you're in tmux.
+    if [[ -z "$TMUX" ]]; then
+        tmux attach -t "${TMUX_SESSION}"
+    else
+        tmux switch-client -t "${TMUX_SESSION}"
+    fi
+fi

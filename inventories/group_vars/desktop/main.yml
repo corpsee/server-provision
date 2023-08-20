@@ -52,6 +52,7 @@ packages_items_to_install:
   - htop
   - git
   - zsh
+  - tmux
   - pv
   - ncdu
   - xz-utils
@@ -104,13 +105,20 @@ packages_items_to_remove:
 packages_snap_items_to_install: []
 
 packages_flatpak_items_to_install:
-  - com.skype.Client
+#  - com.skype.Client
   - com.getmailspring.Mailspring
   - org.telegram.desktop
   - us.zoom.Zoom
-  - com.slack.Slack
+#  - com.slack.Slack
   - com.mattermost.Desktop
   - net.lutris.Lutris
+  - org.nickvision.tubeconverter
+  - org.nickvision.tagger
+  - org.nickvision.money
+  - md.obsidian.Obsidian
+  - com.getpostman.Postman
+  - org.blender.Blender
+  - rest.insomnia.Insomnia
 
 
 ### oh-my-zsh role
