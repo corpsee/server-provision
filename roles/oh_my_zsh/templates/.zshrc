@@ -130,11 +130,11 @@ function generate_ssh() {
 
 # Default tmux session
 TMUX_SESSION="default"
-# 1. First you check if a tmux session exists with a given name.
-tmux has-session -t="${TMUX_SESSION}" 2> /dev/null
-
 # Don't start/attach default session for terminals in IDE
-if [[ "${PWD}" ==  "${HOME}" ]]; then
+if [[ "${PWD}" == "${HOME}" ]]; then
+    # 1. First you check if a tmux session exists with a given name.
+    tmux has-session -t="${TMUX_SESSION}" 2> /dev/null
+
     # 2. Create the session if it doesn't exists.
     if [[ $? -ne 0 ]]; then
         TMUX='' tmux new-session -d -s "${TMUX_SESSION}"
