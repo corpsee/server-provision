@@ -45,9 +45,9 @@ packages_items_to_install:
   - software-properties-common
   - sendmail
   - screen
+  - logrotate
   - traceroute
   - resolvconf
-  - logrotate
   - curl
   - wget
   - jq
@@ -135,32 +135,3 @@ symfony_cli_path: /usr/local/bin/symfony
 
 postgresql_version:  14
 postgresql_timezone: *timezone-reference
-
-
-### php_censor role
-
-php_censor_mode:                       *mode-reference
-php_censor_workers_count:              2
-php_censor_php_version:                *php-version-reference
-php_censor_user:                       *user-reference
-php_censor_group:                      *group-reference
-php_censor_localhost_user:             corpsee
-php_censor_db_name:                    php_censor
-php_censor_db_user:                    php_censor
-# php_censor_db_password:  in secret.yml
-php_censor_db_dump_filename:           php_censor
-php_censor_artifacts_dir_filename:     artifacts.tar.gz
-php_censor_queue_name:                 php_censor
-php_censor_hostname:                   php-censor.server
-php_censor_url:                        '//php-censor.server'
-php_censor_from_email:                 'PHP Censor CI <mail@php-censor.server>'
-# php_censor_smtp_address:    in secret.yml
-# php_censor_smtp_port:       in secret.yml
-# php_censor_smtp_username:   in secret.yml
-# php_censor_smtp_password:   in secret.yml
-# php_censor_smtp_encryption: in secret.yml
-php_censor_version:                    "release-2.1"
-php_censor_periodical_config_filename: periodical.yml
-# php_censor_github_token: in secret.yml
-php_censor_cert_pem_path:              '/vagrant/php-censor.server.pem'
-php_censor_cert_pem_key_path:          '/vagrant/php-censor.server-key.pem'
