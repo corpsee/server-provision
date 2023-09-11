@@ -144,7 +144,6 @@ nginx_group: *group-reference
 php_mode:            *mode-reference
 php_timezone:        *timezone-reference
 php_version:         *php-version-reference
-php_default_version: *php-default-version-reference
 php_memory:          -1
 php_fpm_user:        *user-reference
 php_fpm_group:       *group-reference
@@ -167,6 +166,11 @@ php_packages:
   - amqp
   - memcache
   - memcached
+
+
+### php_default role
+
+php_default_version: *php-default-version-reference
 
 
 ### golang role

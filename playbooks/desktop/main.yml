@@ -13,6 +13,7 @@
     - { role: php, php_version: "8.0" }
     - { role: php, php_version: "8.1" }
     - { role: php, php_version: "8.2" }
+    - { role: php_default, php_version: "8.1" }
     - golang
     - composer
     - postgresql
