@@ -4,6 +4,7 @@
 /*.log
 
 /inventories/group_vars/web_server/secret.yml
+/inventories/group_vars/web_server_local/secret.yml
 /inventories/production.yml
 
 /roles/webuser/files/*
