@@ -11,6 +11,7 @@ Requirements
 * Files:
     * `.vault_password` (Roles: webuser, php_censor, corpsee_site)
     * `inventories/group_vars/web_server/secret.yml` (Roles: webuser, php_censor, corpsee_site)
+    * `inventories/group_vars/web_server_local/secret.yml` (Roles: webuser)
     * `inventories/production.yml` (Roles: corpsee_site)
     * `roles/webuser/files/<webuser_host>_github.pub` (`web_server_github.pub`, `web_server_local_github.pub`) (Roles: webuser)
     * `roles/webuser/files/<webuser_host>_github` (`web_server_github`, `web_server_local_github`) (Roles: webuser)
@@ -41,6 +42,7 @@ Requirements
     * webuser:
         * `.vault_password`
         * `inventories/group_vars/web_server/secret.yml`
+        * `inventories/group_vars/web_server_local/secret.yml`
         * `roles/webuser/files/<webuser_host>_github.pub` (`web_server_github.pub`, `web_server_local_github.pub`)
         * `roles/webuser/files/<webuser_host>_github` (`web_server_github`, `web_server_local_github`)
         * `roles/webuser/files/<webuser_host>_<webuser>.pub` (`web_server_web.pub`, `web_server_local_web.pub`)
