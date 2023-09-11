@@ -5,9 +5,6 @@ all:
         192.168.56.10:
           ansible_python_interpreter: '/usr/bin/python3'
 
-          server_cert_email:   'mail@corpsee.test'
-          server_cert_domains: []
-
           server_domain:                     'corpsee.test'
           server_mode:                       'debug'
           server_openssh_port:               22

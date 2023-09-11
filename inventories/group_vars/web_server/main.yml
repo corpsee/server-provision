@@ -26,13 +26,7 @@ server_default_local: en_US.UTF-8
 
 #server_openssh_port: in secret.yml
 
-server_cert_email: 'poisoncorpsee@gmail.com'
-server_cert_domains:
-  - corpsee.com
-  - test.corpsee.com
-  - ci.php-censor.info
-  - ci-test.php-censor.info
-  - php-censor.info
+server_certs_copy_enabled: yes
 
 
 ### packages role

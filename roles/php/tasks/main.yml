@@ -57,3 +57,4 @@
 
 - name:    Set default PHP version
   command: update-alternatives --set php "/usr/bin/php{{ php_default_version }}"
+  when:    php_default_version == php_version

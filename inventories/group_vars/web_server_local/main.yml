@@ -26,8 +26,7 @@ server_default_local: en_US.UTF-8
 
 #server_openssh_port: in secret.yml
 
-server_cert_email: 'poisoncorpsee@gmail.com'
-server_cert_domains: []
+server_certs_copy_enabled: no
 
 
 ### packages role

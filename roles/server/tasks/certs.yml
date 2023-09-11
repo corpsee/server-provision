@@ -2,3 +2,4 @@
 
 - name:      Copy Letsencrypt files to host
   unarchive: src="{{ role_path }}/files/letsencrypt.tar.gz" dest="/etc"
+  when:      server_certs_copy_enabled
