@@ -94,6 +94,7 @@ packages_items_to_install:
   - filezilla
   - ulauncher
   - flameshot
+  - gthumb
 
   - earlyoom
 
