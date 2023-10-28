@@ -117,33 +117,3 @@ alias composer_7.3="php7.3 /usr/local/bin/composer"
 alias composer_7.4="php7.4 /usr/local/bin/composer"
 alias composer_8.0="php8.0 /usr/local/bin/composer"
 alias composer_8.1="php8.1 /usr/local/bin/composer"
-
-alias restart_pulseaudio="killall -9 pulseaudio"
-
-function generate_ssh() {
-    if [[ $# -eq 0 ]]; then
-        ssh-keygen -o -t rsa -b 4096 -C "poisoncorpsee@gmail.com" -P "";
-    else
-        ssh-keygen -o -t rsa -b 4096 -C "poisoncorpsee@gmail.com" -P "" -f "$1";
-    fi;
-}
-
-# # Default tmux session
-# TMUX_SESSION="default"
-# # Don't start/attach default session for terminals in IDE
-# if [[ "${PWD}" == "${HOME}" ]]; then
-#     # 1. First you check if a tmux session exists with a given name.
-#     tmux has-session -t="${TMUX_SESSION}" 2> /dev/null
-#
-#     # 2. Create the session if it doesn't exists.
-#     if [[ $? -ne 0 ]]; then
-#         TMUX='' tmux new-session -d -s "${TMUX_SESSION}"
-#     fi
-#
-#     # 3. Attach if outside of tmux, switch if you're in tmux.
-#     if [[ -z "$TMUX" ]]; then
-#         tmux attach -t "${TMUX_SESSION}"
-#     else
-#         tmux switch-client -t "${TMUX_SESSION}"
-#     fi
-# fi
