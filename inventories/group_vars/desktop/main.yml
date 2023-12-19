@@ -182,7 +182,7 @@ postgresql_desktop_group: *group-reference
 
 ### mariadb role
 
-mariadb_version:       "10.10"
+mariadb_version:       "10.11" # 10.11 - LTS version to 16 feb 2028. See: https://endoflife.date/mariadb
 mariadb_root_password: root
 mariadb_timezone:      *timezone-reference
 
