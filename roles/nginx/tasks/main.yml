@@ -24,3 +24,6 @@
 
 - name: Clean /var/www
   file: path="/var/www/html" state=absent
+
+- name: Restart Nginx once per day
+  cron: minute=00 hour=00 name="Restart Nginx once per day" user="root" job="systemctl restart nginx.service"
