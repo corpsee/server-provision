@@ -1,11 +1,11 @@
 ---
 
-- include: terminal.yml
+- include_tasks: terminal.yml
 
-- include: user_dirs.yml
+- include_tasks: user_dirs.yml
 
-- include: configs.yml
+- include_tasks: configs.yml
 
-- include: sysctl.yml
+- include_tasks: sysctl.yml
 
-- include: earlyoom.yml
+- include_tasks: earlyoom.yml

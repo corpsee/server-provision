@@ -4,7 +4,7 @@ Server deployment
 Requirements
 ------------
 
-* Ansible v2.9+.
+* Ansible v9+ (ansible-code v2.16+).
 
 * Ubuntu 20.04+ (22.04 recommended) or Mint 20+ for desktop (21 recommended).
 
