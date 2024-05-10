@@ -1,13 +1,13 @@
 ---
 
-- include: ppa.yml
+- include_tasks: ppa.yml
 
-- include: repositories.yml
+- include_tasks: repositories.yml
 
-- include: install.yml
+- include_tasks: install.yml
 
-- include: snap.yml
+- include_tasks: snap.yml
 
-- include: flatpak.yml
+- include_tasks: flatpak.yml
 
-- include: remove.yml
+- include_tasks: remove.yml

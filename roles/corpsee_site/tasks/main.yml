@@ -1,11 +1,11 @@
 ---
 
-- include: database.yml
+- include_tasks: database.yml
 
-- include: logrotate.yml
+- include_tasks: logrotate.yml
 
-- include: host.yml
+- include_tasks: host.yml
 
-- include: cronjob.yml
+- include_tasks: cronjob.yml
 
-- include: application.yml
+- include_tasks: application.yml
