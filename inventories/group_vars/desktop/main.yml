@@ -19,6 +19,9 @@ packages_ppa:
   - ppa:      "bartbes/love-stable"
     filename: "love"
     key:      61F881CBF3A87BDF74E398A4F192197F81992645
+  - ppa:      "ansible/ansible"
+    filename: "ansible"
+    key:      6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367
 
 packages_repositories:
 #  - repository: "deb [arch=amd64 signed-by=/usr/share/keyrings/vagrant.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
