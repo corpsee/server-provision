@@ -73,6 +73,7 @@ packages_items_to_install:
 #  - clickhouse-server
 #  - clickhouse-client
   - love
+  - hugo
 
   - gnupg
   - sshpass
