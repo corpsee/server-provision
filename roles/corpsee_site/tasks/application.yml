@@ -1,18 +1,18 @@
 ---
 
-- name:     Check if Corpsee site directory is exists
+- name:     Check if Corpsee Site directory is exists
   stat:     path="/var/www/{{ corpsee_site_hostname }}/current"
-  register: site_directory
+  register: corpsee_site_directory
 
 - name: EXIT BECAUSE ALREADY INIT
   meta: end_play
-  when: site_directory.stat.exists
+  when: corpsee_site_directory.stat.exists
 
 - name:     Register release datetime
   command:  date +%Y-%m-%d_%H-%M-%S
   register: release_datetime
 
-- name:        Clone latest PHP Censor repository (LOCAL)
+- name:        Clone latest Corpsee Site repository (LOCAL)
   git:         repo="git@github.com:corpsee/corpsee-com.git" version="{{ corpsee_site_version }}" dest="{{ role_path }}/files/{{ release_datetime.stdout }}" accept_hostkey=yes
   become:      yes
   become_user: "{{ corpsee_site_localhost_user }}"
@@ -32,7 +32,7 @@
   become_user: "{{ corpsee_site_localhost_user }}"
   delegate_to: "127.0.0.1"
 
-- name:    Install Corpsee site dependencies (LOCAL)
+- name:    Install Corpsee Site dependencies (LOCAL)
   command: "php{{ corpsee_site_php_version }} /usr/local/bin/composer install --no-dev --optimize-autoloader --prefer-dist"
   args:
     chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
@@ -64,7 +64,7 @@
   become_user: "{{ corpsee_site_localhost_user }}"
   delegate_to: "127.0.0.1"
 
-- name:        Archive Corpsee site release (LOCAL)
+- name:        Archive Corpsee Site release (LOCAL)
   shell:       "tar --create --gzip --file=\"{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz\" ."
   become:      yes
   become_user: "{{ corpsee_site_localhost_user }}"
@@ -72,16 +72,16 @@
     chdir: "{{ role_path }}/files/{{ release_datetime.stdout }}"
   delegate_to: "127.0.0.1"
 
-- name: Creates Corpsee site release directory
+- name: Creates Corpsee Site release directory
   file: path="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" state=directory
 
-- name:      Copy Corpsee site release to host
+- name:      Copy Corpsee Site release to host
   unarchive: src="{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}"
 
 - name: Set current release link
   file: src="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ corpsee_site_hostname }}/current" state=link
 
-- name: Copy Corpsee site files to host
+- name: Copy Corpsee Site files to host
   copy: src="{{ role_path }}/files/{{ corpsee_site_www_dir_filename }}/" dest="/var/www/{{ corpsee_site_hostname }}/shared/www"
 
 - name: Creates empty shared directories directory
@@ -90,13 +90,13 @@
     - "logs"
     - "src/configs"
 
-- name:     Create Corpsee site config
+- name:     Create Corpsee Site config
   template: src=config.php dest="/var/www/{{ corpsee_site_hostname }}/shared/src/configs/config.php"
 
-- name:     Create Corpsee site index.php file
+- name:     Create Corpsee Site index.php file
   template: src=index.php dest="/var/www/{{ corpsee_site_hostname }}/shared/www/index.php"
 
-- name:     Create Corpsee site console file
+- name:     Create Corpsee Site console file
   template: src=console dest="/var/www/{{ corpsee_site_hostname }}/current/console"
 
 - name: Set shared directories links
@@ -113,10 +113,10 @@
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/index.php", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/index.php" }
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/src/configs/config.php", dest: "/var/www/{{ corpsee_site_hostname }}/current/src/configs/config.php" }
 
-- name: Set permissions for Corpsee site directory
+- name: Set permissions for Corpsee Site directory
   file: path="/var/www/{{ corpsee_site_hostname }}" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ug=rwX,o=rX" recurse=yes
 
-- name: Set Corpsee site console executable
+- name: Set Corpsee Site console executable
   file: path="/var/www/{{ corpsee_site_hostname }}/current/console" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ugo+x"
 
 - name:        Compile assets

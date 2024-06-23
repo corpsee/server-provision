@@ -26,7 +26,7 @@
   become:      yes
   become_user: "{{ corpsee_site_user }}"
 
-- name:        Clone latest PHP Censor repository (LOCAL)
+- name:        Clone latest Corpsee Site repository (LOCAL)
   git:         repo="git@github.com:corpsee/corpsee-com.git" version="{{ corpsee_site_version }}" dest="{{ role_path }}/files/{{ release_datetime.stdout }}" accept_hostkey=yes
   become:      yes
   become_user: "{{ corpsee_site_localhost_user }}"
@@ -46,7 +46,7 @@
   become_user: "{{ corpsee_site_localhost_user }}"
   delegate_to: "127.0.0.1"
 
-- name:    Install Corpsee site dependencies (LOCAL)
+- name:    Install Corpsee Site dependencies (LOCAL)
   command: "php{{ corpsee_site_php_version }} /usr/local/bin/composer install --no-dev --optimize-autoloader --prefer-dist"
   args:
     chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
@@ -78,7 +78,7 @@
   become_user: "{{ corpsee_site_localhost_user }}"
   delegate_to: "127.0.0.1"
 
-- name:        Archive Corpsee site release (LOCAL)
+- name:        Archive Corpsee Site release (LOCAL)
   shell:       "tar --create --gzip --file=\"{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz\" ."
   become:      yes
   become_user: "{{ corpsee_site_localhost_user }}"
@@ -86,13 +86,13 @@
     chdir: "{{ role_path }}/files/{{ release_datetime.stdout }}"
   delegate_to: "127.0.0.1"
 
-- name: Creates Corpsee site release directory
+- name: Creates Corpsee Site release directory
   file: path="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" state=directory
 
-- name:      Copy Corpsee site release to host
+- name:      Copy Corpsee Site release to host
   unarchive: src="{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}"
 
-- name:     Create Corpsee site console file
+- name:     Create Corpsee Site console file
   template: src=console dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/console"
 
 - name: Set shared directories links
@@ -109,10 +109,10 @@
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/index.php", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/www/index.php" }
     - { src: "/var/www/{{ corpsee_site_hostname }}/shared/src/configs/config.php", dest: "/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/src/configs/config.php" }
 
-- name: Set permissions for Corpsee site directory
+- name: Set permissions for Corpsee Site directory
   file: path="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ug=rwX,o=rX" recurse=yes
 
-- name: Set Corpsee site console executable
+- name: Set Corpsee Site console executable
   file: path="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}/console" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ugo+x"
 
 - name:        Compile assets

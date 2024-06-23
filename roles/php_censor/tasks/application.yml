@@ -2,11 +2,11 @@
 
 - name:     Check if PHP Censor directory is exists
   stat:     path="/var/www/{{ php_censor_hostname }}/current"
-  register: site_directory
+  register: php_censor_directory
 
 - name: EXIT BECAUSE ALREADY INIT
   meta: end_play
-  when: site_directory.stat.exists
+  when: php_censor_directory.stat.exists
 
 - name:     Register release datetime
   command:  date +%Y-%m-%d_%H-%M-%S

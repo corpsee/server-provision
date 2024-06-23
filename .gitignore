@@ -16,6 +16,12 @@
 /roles/corpsee_site_release/files/*
 !/roles/corpsee_site_release/files/.gitkeep
 
+/roles/corpsee_site_symfony/files/*
+!/roles/corpsee_site_symfony/files/.gitkeep
+
+/roles/corpsee_site_symfony_release/files/*
+!/roles/corpsee_site_symfony_release/files/.gitkeep
+
 /roles/php_censor/files/*
 !/roles/php_censor/files/.gitkeep
 
