@@ -266,6 +266,26 @@ corpsee_site_cert_pem_path_test:     "/etc/letsencrypt/live/test.corpsee.com/ful
 corpsee_site_cert_pem_key_path_test: "/etc/letsencrypt/live/test.corpsee.com/privkey.pem"
 
 
+### corpsee_site_symfony role
+
+corpsee_site_symfony_mode:              *mode-reference
+corpsee_site_symfony_php_version:       *php-version-reference
+corpsee_site_symfony_user:              *user-reference
+corpsee_site_symfony_group:             *group-reference
+corpsee_site_symfony_localhost_user:    corpsee
+corpsee_site_symfony_db_name:           corpsee_site_symfony
+corpsee_site_symfony_db_user:           corpsee_site_symfony
+# corpsee_site_symfony_db_password: in secret.yml
+corpsee_site_symfony_db_dump_filename:  corpsee_site_symfony
+corpsee_site_symfony_www_dir_filename:  public
+corpsee_site_symfony_hostname:          new.corpsee.com
+corpsee_site_symfony_cron_disabled:     yes
+corpsee_site_symfony_version:           master
+corpsee_site_symfony_cert_pem_path:     "/etc/letsencrypt/live/new.corpsee.com/fullchain.pem"
+corpsee_site_symfony_cert_pem_key_path: "/etc/letsencrypt/live/new.corpsee.com/privkey.pem"
+# corpsee_site_symfony_app_secret: in secret.yml
+
+
 ### php_censor_site role
 
 php_censor_site_mode:              *mode-reference

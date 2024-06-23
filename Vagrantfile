@@ -41,6 +41,14 @@ Vagrant.configure("2") do |config|
         corpsee_site_test_init.verbose            = "vvv"
     end
 
+    config.vm.provision "corpsee_site_symfony_init", type: "ansible", run: "never" do |corpsee_site_symfony_init|
+        corpsee_site_symfony_init.playbook           = "playbooks/web_server/corpsee_site_symfony_init.yml"
+        corpsee_site_symfony_init.inventory_path     = "inventories/vagrant.yml"
+        corpsee_site_symfony_init.compatibility_mode = "2.0"
+        corpsee_site_symfony_init.limit              = 'all'
+        corpsee_site_symfony_init.verbose            = "vvv"
+    end
+
     config.vm.provision "php_censor_init", type: "ansible", run: "never" do |php_censor_init|
         php_censor_init.playbook           = "playbooks/web_server/php_censor_init.yml"
         php_censor_init.inventory_path     = "inventories/vagrant.yml"
@@ -90,6 +98,19 @@ Vagrant.configure("2") do |config|
         corpsee_site_test_release.compatibility_mode = "2.0"
         corpsee_site_test_release.limit              = 'all'
         corpsee_site_test_release.verbose            = "vvv"
+    end
+
+    config.vm.provision "corpsee_site_symfony_release", type: "ansible", run: "never" do |corpsee_site_symfony_release|
+        corpsee_site_symfony_release.playbook           = "playbooks/web_server/corpsee_site_symfony_release.yml"
+        corpsee_site_symfony_release.inventory_path     = "inventories/vagrant.yml"
+        if ENV['RELEASE_VERSION']
+            corpsee_site_symfony_release.extra_vars = {
+                corpsee_site_symfony_version: ENV['RELEASE_VERSION']
+            }
+        end
+        corpsee_site_symfony_release.compatibility_mode = "2.0"
+        corpsee_site_symfony_release.limit              = 'all'
+        corpsee_site_symfony_release.verbose            = "vvv"
     end
 
     config.vm.provision "php_censor_release", type: "ansible", run: "never" do |php_censor_release|

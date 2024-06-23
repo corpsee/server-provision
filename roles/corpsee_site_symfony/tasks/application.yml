@@ -1,0 +1,135 @@
+---
+
+- name:     Check if Corpsee Site Symfony directory is exists
+  stat:     path="/var/www/{{ corpsee_site_symfony_hostname }}/current"
+  register: corpsee_site_symfony_directory
+
+- name: EXIT BECAUSE ALREADY INIT
+  meta: end_play
+  when: corpsee_site_symfony_directory.stat.exists
+
+- name:     Register release datetime
+  command:  date +%Y-%m-%d_%H-%M-%S
+  register: release_datetime
+
+- name:        Clone latest Corpsee Site Symfony repository (LOCAL)
+  git:         repo="git@github.com:corpsee/corpsee-site.git" version="{{ corpsee_site_symfony_version }}" dest="{{ role_path }}/files/{{ release_datetime.stdout }}" accept_hostkey=yes
+  become:      yes
+  become_user: "{{ corpsee_site_symfony_localhost_user }}"
+  delegate_to: "127.0.0.1"
+
+- name:     Create Corpsee Site Symfony ENV file (LOCAL)
+  template: src=".env.local.{{ corpsee_site_symfony_mode }}" dest="{{ role_path }}/files/{{ release_datetime.stdout }}/.env.local"
+  become:      yes
+  become_user: "{{ corpsee_site_symfony_localhost_user }}"
+  delegate_to: "127.0.0.1"
+
+- name:    Install Corpsee Site Symfony dependencies (LOCAL)
+  command: "php{{ corpsee_site_symfony_php_version }} /usr/local/bin/composer install --no-dev --optimize-autoloader --prefer-dist"
+  args:
+    chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
+    creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/vendor"
+  become:      yes
+  become_user: "{{ corpsee_site_symfony_localhost_user }}"
+  delegate_to: "127.0.0.1"
+
+- name:    Warmup cache (LOCAL)
+  command: "php{{ corpsee_site_symfony_php_version }} bin/console cache:clear"
+  args:
+    chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
+    creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/var/cache"
+  become:      yes
+  become_user: "{{ corpsee_site_symfony_localhost_user }}"
+  delegate_to: "127.0.0.1"
+
+- name:    Install Corpsee Site Symfony frontend dependencies (LOCAL)
+  command: "npm install"
+  args:
+    chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
+    creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/node_modules"
+  become:      yes
+  become_user: "{{ corpsee_site_symfony_localhost_user }}"
+  delegate_to: "127.0.0.1"
+
+- name:    Install Corpsee Site Symfony frontend dependencies and compile assets (LOCAL)
+  command: "node_modules/.bin/encore production"
+  args:
+    chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
+    creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/public/build"
+  become:      yes
+  become_user: "{{ corpsee_site_symfony_localhost_user }}"
+  delegate_to: "127.0.0.1"
+
+- name: Delete shared directories (LOCAL)
+  file: path="{{ role_path }}/files/{{ release_datetime.stdout }}/{{ item }}" state=absent
+  loop:
+    - "public/files"
+    - "var/log"
+    - ".env.local"
+  become:      yes
+  become_user: "{{ corpsee_site_symfony_localhost_user }}"
+  delegate_to: "127.0.0.1"
+
+- name: Delete non-production files (LOCAL)
+  file: path="{{ role_path }}/files/{{ release_datetime.stdout }}/{{ item }}" state=absent
+  loop:
+    - ".git"
+    - ".gitignore"
+    - ".php-censor.yml"
+    - "phpunit.xml.dist"
+    - "tests"
+    - "node_modules"
+  become:      yes
+  become_user: "{{ corpsee_site_symfony_localhost_user }}"
+  delegate_to: "127.0.0.1"
+
+- name:        Archive Corpsee Site Symfony release (LOCAL)
+  shell:       "tar --create --gzip --file=\"{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz\" ."
+  become:      yes
+  become_user: "{{ corpsee_site_symfony_localhost_user }}"
+  args:
+    chdir: "{{ role_path }}/files/{{ release_datetime.stdout }}"
+  delegate_to: "127.0.0.1"
+
+- name: Creates Corpsee Site Symfony release directory
+  file: path="/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}" state=directory
+
+- name:      Copy Corpsee Site Symfony release to host
+  unarchive: src="{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}"
+
+- name: Creates Corpsee Site Symfony release var directory
+  file: path="/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}/var" state=directory
+
+- name: Set current release link
+  file: src="/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ corpsee_site_symfony_hostname }}/current" state=link
+
+- name: Copy Corpsee Site Symfony files to host
+  copy: src="{{ role_path }}/files/{{ corpsee_site_symfony_www_dir_filename }}/" dest="/var/www/{{ corpsee_site_symfony_hostname }}/shared/public"
+
+- name: Creates empty shared directories directory
+  file: path="/var/www/{{ corpsee_site_symfony_hostname }}/shared/{{ item }}" state=directory
+  loop:
+    - "var/log"
+
+- name:     Create Corpsee Site Symfony ENV file
+  template: src=".env.local.{{ corpsee_site_symfony_mode }}" dest="/var/www/{{ corpsee_site_symfony_hostname }}/shared/.env.local"
+
+- name: Set shared directories links
+  file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
+  loop:
+    - { src: "/var/www/{{ corpsee_site_symfony_hostname }}/shared/public/files", dest: "/var/www/{{ corpsee_site_symfony_hostname }}/current/public/files" }
+    - { src: "/var/www/{{ corpsee_site_symfony_hostname }}/shared/var/log", dest: "/var/www/{{ corpsee_site_symfony_hostname }}/current/var/log" }
+    - { src: "/var/www/{{ corpsee_site_symfony_hostname }}/shared/.env.local", dest: "/var/www/{{ corpsee_site_symfony_hostname }}/current/.env.local" }
+
+- name: Set permissions for Corpsee Site Symfony directory
+  file: path="/var/www/{{ corpsee_site_symfony_hostname }}" owner={{ corpsee_site_symfony_user }} group={{ corpsee_site_symfony_group }} mode="ug=rwX,o=rX" recurse=yes
+
+- name: Set Corpsee Site Symfony console executable
+  file: path="/var/www/{{ corpsee_site_symfony_hostname }}/current/bin/console" owner={{ corpsee_site_symfony_user }} group={{ corpsee_site_symfony_group }} mode="ugo+x"
+
+- name:        Make migrations
+  command:     ./bin/console doctrine:migrations:migrate --no-interaction
+  become:      yes
+  become_user: "{{ corpsee_site_symfony_user }}"
+  args:
+    chdir: "/var/www/{{ corpsee_site_symfony_hostname }}/current"

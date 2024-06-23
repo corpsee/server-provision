@@ -23,6 +23,10 @@ Requirements
     * `corpsee.test-key.pem` (Roles: corpsee_site. For debug deploy/vagrant only)
     * `corpsee-test.test.pem` (Roles: corpsee_site. For debug deploy/vagrant only)
     * `corpsee-test.test-key.pem` (Roles: corpsee_site. For debug deploy/vagrant only)
+    * `roles/corpsee_site_symfony/files/corpsee_site_symfony.sql` (Roles: corpsee_site_symfony)
+    * `roles/corpsee_site_symfony/files/public` (Roles: corpsee_site_symfony)
+    * `corpsee-symfony.test.pem` (Roles: corpsee_site_symfony. For debug deploy/vagrant only)
+    * `corpsee-symfony.test-key.pem` (Roles: corpsee_site_symfony. For debug deploy/vagrant only)
     * `roles/php_censor/files/artifacts` (`artifacts_test`) (Roles: php_censor)
     * `roles/php_censor/files/php_censor.sql` (Roles: php_censor)
     * `roles/php_censor/files/php_censor_test.sql` (Roles: php_censor)
@@ -57,6 +61,14 @@ Requirements
         * `corpsee.test-key.pem` (For debug deploy/vagrant only)
         * `corpsee-test.test.pem` (For debug deploy/vagrant only)
         * `corpsee-test.test-key.pem` (For debug deploy/vagrant only)
+    * corpsee_site_symfony:
+        * `.vault_password`
+        * `inventories/group_vars/web_server/secret.yml`
+        * `inventories/production.yml`
+        * `roles/corpsee_site_symfony/files/corpsee_site_symfony.sql`
+        * `roles/corpsee_site_symfony/files/public`
+        * `corpsee-symfony.test.pem` (For debug deploy/vagrant only)
+        * `corpsee-symfony-key.pem` (For debug deploy/vagrant only)
     * php_censor:
         * `.vault_password`
         * `inventories/group_vars/web_server/secret.yml`
@@ -92,6 +104,10 @@ RELEASE_VERSION="master" vagrant up --provision-with corpsee_site_release
 vagrant up --provision-with corpsee_site_test_init
 RELEASE_VERSION="master" vagrant up --provision-with corpsee_site_test_release
 
+# corpsee-symfony.test
+vagrant up --provision-with corpsee_site_symfony_init
+RELEASE_VERSION="master" vagrant up --provision-with corpsee_site_symfony_release
+
 # php-censor.test
 vagrant up --provision-with php_censor_init
 RELEASE_VERSION="master" vagrant up --provision-with php_censor_release
@@ -117,6 +133,11 @@ ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_serve
 # test.corpsee.com (by web user with ssh key)
 ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_test_init.yml -vv
 ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_test_release.yml --extra-vars="corpsee_site_version=master" -vv
+
+# new.corpsee.com (by web user with ssh key)
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_symfony_init.yml -vv
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_symfony_release.yml --extra-vars="corpsee_site_symfony_version=master" -vv
+
 
 # ci.php-censor.info (by web user with ssh key)
 ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/php_censor_init.yml -vv
