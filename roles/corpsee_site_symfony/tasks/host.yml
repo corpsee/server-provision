@@ -1,0 +1,8 @@
+---
+
+- name:     Create Corpsee Site Symfony host
+  template: src="corpsee_site_symfony.{{ corpsee_site_symfony_mode }}.conf" dest="/etc/nginx/sites-available/{{ corpsee_site_symfony_hostname }}.conf"
+
+- name:   Enable Corpsee Site Symfony host
+  file:   src="/etc/nginx/sites-available/{{ corpsee_site_symfony_hostname }}.conf" dest="/etc/nginx/sites-enabled/{{ corpsee_site_symfony_hostname }}.conf" state=link
+  notify: Corpsee Site Symfony Restart Nginx

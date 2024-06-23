@@ -40,3 +40,7 @@ all:
           corpsee_site_hostname_test:          'corpsee-test.test'
           corpsee_site_cert_pem_path_test:     '/vagrant/corpsee-test.test.pem'
           corpsee_site_cert_pem_key_path_test: '/vagrant/corpsee-test.test-key.pem'
+
+          corpsee_site_symfony_hostname: 'corpsee-symfony.test'
+          corpsee_site_symfony_cert_pem_path: '/vagrant/corpsee-symfony.test.pem'
+          corpsee_site_symfony_cert_pem_key_path: '/vagrant/corpsee-symfony.test-key.pem'
