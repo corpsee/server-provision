@@ -1,6 +1,11 @@
 Vagrant.configure("2") do |config|
+    # Ubuntu 20.04 Focal Fossa
     #config.vm.box     = "ubuntu/focal64"
-    config.vm.box      = "ubuntu/jammy64"
+    # Ubuntu 22.04 Jammy Jellyfish
+    #config.vm.box      = "ubuntu/jammy64"
+    # Ubuntu 24.04 Noble Numba
+    #config.vm.box      = "ubuntu/noble64"
+    config.vm.box      = "alvistack/ubuntu-24.04"
     config.vm.hostname = "corpsee.test"
 
     config.vm.network :private_network, ip: "192.168.56.10"
