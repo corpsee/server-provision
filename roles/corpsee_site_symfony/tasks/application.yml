@@ -75,7 +75,6 @@
   loop:
     - ".git"
     - ".gitignore"
-    - ".php-censor.yml"
     - "phpunit.xml.dist"
     - "tests"
     - "node_modules"
