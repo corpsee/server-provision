@@ -9,12 +9,6 @@
 /roles/webuser/files/*
 !/roles/webuser/files/.gitkeep
 
-/roles/corpsee_site/files/*
-!/roles/corpsee_site/files/.gitkeep
-
-/roles/corpsee_site_release/files/*
-!/roles/corpsee_site_release/files/.gitkeep
-
 /roles/corpsee_site_symfony/files/*
 !/roles/corpsee_site_symfony/files/.gitkeep
 

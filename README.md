@@ -9,20 +9,13 @@ Requirements
 * Ubuntu 20.04+ (22.04 recommended) or Mint 20+ for desktop (21 recommended).
 
 * Files:
-    * `.vault_password` (Roles: webuser, php_censor, corpsee_site)
-    * `inventories/group_vars/web_server/secret.yml` (Roles: webuser, php_censor, corpsee_site)
-    * `inventories/production.yml` (Roles: corpsee_site)
+    * `.vault_password` (Roles: webuser, php_censor)
+    * `inventories/group_vars/web_server/secret.yml` (Roles: webuser, php_censor)
+    * `inventories/production.yml` (Roles: corpsee_site_symfony)
     * `roles/webuser/files/<webuser_host>_github.pub` (`web_server_github.pub`, `web_server_local_github.pub`) (Roles: webuser)
     * `roles/webuser/files/<webuser_host>_github` (`web_server_github`, `web_server_local_github`) (Roles: webuser)
     * `roles/webuser/files/<webuser_host>_<webuser>.pub` (`web_server_web.pub`, `web_server_local_web.pub`) (Roles: webuser)
     * `roles/webuser/files/<webuser_host>_<webuser>` (`web_server_web`, `web_server_local_web`) (Roles: webuser)
-    * `roles/corpsee_site/files/corpsee_site.sql` (Roles: corpsee_site)
-    * `roles/corpsee_site/files/corpsee_site_test.sql` (Roles: corpsee_site)
-    * `roles/corpsee_site/files/www` (`www_test`) (Roles: corpsee_site)
-    * `corpsee.test.pem` (Roles: corpsee_site. For debug deploy/vagrant only)
-    * `corpsee.test-key.pem` (Roles: corpsee_site. For debug deploy/vagrant only)
-    * `corpsee-test.test.pem` (Roles: corpsee_site. For debug deploy/vagrant only)
-    * `corpsee-test.test-key.pem` (Roles: corpsee_site. For debug deploy/vagrant only)
     * `roles/corpsee_site_symfony/files/corpsee_site_symfony.sql` (Roles: corpsee_site_symfony)
     * `roles/corpsee_site_symfony/files/public` (Roles: corpsee_site_symfony)
     * `corpsee-symfony.test.pem` (Roles: corpsee_site_symfony. For debug deploy/vagrant only)
@@ -49,18 +42,6 @@ Requirements
         * `roles/webuser/files/<webuser_host>_github` (`web_server_github`, `web_server_local_github`)
         * `roles/webuser/files/<webuser_host>_<webuser>.pub` (`web_server_web.pub`, `web_server_local_web.pub`)
         * `roles/webuser/files/<webuser_host>_<webuser>` (`web_server_web`, `web_server_local_web`)
-    * corpsee_site:
-        * `.vault_password`
-        * `inventories/group_vars/web_server/secret.yml`
-        * `inventories/production.yml`
-        * `roles/corpsee_site/files/corpsee_site.sql`
-        * `roles/corpsee_site/files/corpsee_site_test.sql`
-        * `roles/corpsee_site/files/www`
-        * `roles/corpsee_site/files/www_test`
-        * `corpsee.test.pem` (For debug deploy/vagrant only)
-        * `corpsee.test-key.pem` (For debug deploy/vagrant only)
-        * `corpsee-test.test.pem` (For debug deploy/vagrant only)
-        * `corpsee-test.test-key.pem` (For debug deploy/vagrant only)
     * corpsee_site_symfony:
         * `.vault_password`
         * `inventories/group_vars/web_server/secret.yml`
@@ -96,14 +77,6 @@ Debug deploy (Vagrant):
 # server
 vagrant box update && vagrant up --provision-with main
 
-# corpsee.test
-vagrant up --provision-with corpsee_site_init
-RELEASE_VERSION="master" vagrant up --provision-with corpsee_site_release
-
-# corpsee-test.test
-vagrant up --provision-with corpsee_site_test_init
-RELEASE_VERSION="master" vagrant up --provision-with corpsee_site_test_release
-
 # corpsee-symfony.test
 vagrant up --provision-with corpsee_site_symfony_init
 RELEASE_VERSION="master" vagrant up --provision-with corpsee_site_symfony_release
@@ -126,15 +99,8 @@ Production deploy:
 # server (by root user with password)
 ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/web_server/main.yml -vv
 
+
 # corpsee.com (by web user with ssh key)
-ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_init.yml -vv
-ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_release.yml --extra-vars="corpsee_site_version=master" -vv
-
-# test.corpsee.com (by web user with ssh key)
-ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_test_init.yml -vv
-ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_test_release.yml --extra-vars="corpsee_site_version=master" -vv
-
-# new.corpsee.com (by web user with ssh key)
 ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_symfony_init.yml -vv
 ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_symfony_release.yml --extra-vars="corpsee_site_symfony_version=master" -vv
 

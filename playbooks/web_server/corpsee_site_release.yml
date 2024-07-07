@@ -1,7 +1,0 @@
----
-
-- hosts:       web_server
-  become:      yes
-  become_user: root
-  roles:
-    - corpsee_site_release
