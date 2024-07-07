@@ -15,6 +15,7 @@ php_censor_db_dump_filename:           php_censor
 php_censor_artifacts_dir_filename:     artifacts.tar.gz
 php_censor_queue_name:                 php_censor
 php_censor_hostname:                   php-censor.test
+php_censor_dir_name:                   php_censor
 php_censor_url:                        '//php-censor.test'
 php_censor_from_email:                 'PHP Censor <mail@php-censor.test>'
 php_censor_smtp_address:               'smtp.php-censor.test'

@@ -35,4 +35,4 @@
   file: path="/home/{{ php_censor_user }}/backup_db_{{ php_censor_db_name }}_daily.sh" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwx,o=r"
 
 - name: Set PHP Censor DB dump cronjob
-  cron: minute=10 hour=21 weekday=5 name="{{ php_censor_hostname }} DB dump" user="{{ php_censor_user }}" job="~/backup_db_{{ php_censor_db_name }}.sh"
+  cron: minute=10 hour=21 weekday=5 name="{{ php_censor_dir_name }} DB dump" user="{{ php_censor_user }}" job="~/backup_db_{{ php_censor_db_name }}.sh"

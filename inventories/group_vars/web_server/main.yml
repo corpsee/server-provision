@@ -163,6 +163,7 @@ php_censor_db_dump_filename:           php_censor
 php_censor_artifacts_dir_filename:     artifacts.tar.gz
 php_censor_queue_name:                 php_censor
 php_censor_hostname:                   ci.php-censor.info
+php_censor_dir_name:                   php_censor
 php_censor_url:                        '//ci.php-censor.info'
 php_censor_from_email:                 'PHP Censor CI <mail@php-censor.info>'
 # php_censor_smtp_address:    in secret.yml
@@ -189,6 +190,7 @@ php_censor_db_dump_filename_test:           php_censor_test
 php_censor_artifacts_dir_filename_test:     artifacts_test.tar.gz
 php_censor_queue_name_test:                 php_censor_test
 php_censor_hostname_test:                   ci-test.php-censor.info
+php_censor_dir_name_test:                   php_censor_test
 php_censor_url_test:                        '//ci-test.php-censor.info'
 php_censor_from_email_test:                 'PHP Censor CI (Test) <mail@php-censor.info>'
 # php_censor_smtp_address_test:    in secret.yml
