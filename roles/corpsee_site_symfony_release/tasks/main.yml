@@ -5,24 +5,24 @@
   register: release_datetime
 
 - name:        Copy current release for backup
-  shell:       "cp --dereference --recursive --no-target-directory /var/www/{{ corpsee_site_symfony_hostname }}/current /var/www/{{ corpsee_site_symfony_hostname }}/{{ corpsee_site_symfony_hostname }}_{{ release_datetime.stdout }}"
+  shell:       "cp --dereference --recursive --no-target-directory /var/www/{{ corpsee_site_symfony_dir_name }}/current /var/www/{{ corpsee_site_symfony_dir_name }}/{{ corpsee_site_symfony_dir_name }}_{{ release_datetime.stdout }}"
   become:      yes
   become_user: "{{ corpsee_site_symfony_user }}"
 
 - name:        Copy current release SQL dump for backup
-  shell:       "pg_dump -O --column-inserts -F p -U {{ corpsee_site_symfony_db_user }} -d {{ corpsee_site_symfony_db_name }} -h 127.0.0.1 | grep -v -E '^(CREATE\ EXTENSION|COMMENT\ ON)' > /var/www/{{ corpsee_site_symfony_hostname }}/{{ corpsee_site_symfony_hostname }}_{{ release_datetime.stdout }}/{{ corpsee_site_symfony_db_name }}.backup.sql"
+  shell:       "pg_dump -O --column-inserts -F p -U {{ corpsee_site_symfony_db_user }} -d {{ corpsee_site_symfony_db_name }} -h 127.0.0.1 | grep -v -E '^(CREATE\ EXTENSION|COMMENT\ ON)' > /var/www/{{ corpsee_site_symfony_dir_name }}/{{ corpsee_site_symfony_dir_name }}_{{ release_datetime.stdout }}/{{ corpsee_site_symfony_db_name }}.backup.sql"
   become:      yes
   become_user: "{{ corpsee_site_symfony_user }}"
 
 - name:        Create current release backup archive
-  shell:       "tar --create --gzip --file=\"/home/web/backup/{{ corpsee_site_symfony_hostname }}_{{ release_datetime.stdout }}.tar.gz\" ."
+  shell:       "tar --create --gzip --file=\"/home/web/backup/{{ corpsee_site_symfony_dir_name }}_{{ release_datetime.stdout }}.tar.gz\" ."
   become:      yes
   become_user: "{{ corpsee_site_symfony_user }}"
   args:
-    chdir: "/var/www/{{ corpsee_site_symfony_hostname }}/{{ corpsee_site_symfony_hostname }}_{{ release_datetime.stdout }}"
+    chdir: "/var/www/{{ corpsee_site_symfony_dir_name }}/{{ corpsee_site_symfony_dir_name }}_{{ release_datetime.stdout }}"
 
 - name:        Delete current release for backup
-  file:        path="/var/www/{{ corpsee_site_symfony_hostname }}/{{ corpsee_site_symfony_hostname }}_{{ release_datetime.stdout }}" state=absent
+  file:        path="/var/www/{{ corpsee_site_symfony_dir_name }}/{{ corpsee_site_symfony_dir_name }}_{{ release_datetime.stdout }}" state=absent
   become:      yes
   become_user: "{{ corpsee_site_symfony_user }}"
 
@@ -105,36 +105,36 @@
   delegate_to: "127.0.0.1"
 
 - name: Creates Corpsee Site Symfony release directory
-  file: path="/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}" state=directory
+  file: path="/var/www/{{ corpsee_site_symfony_dir_name }}/releases/{{ release_datetime.stdout }}" state=directory
 
 - name:      Copy Corpsee Site Symfony release to host
-  unarchive: src="{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}"
+  unarchive: src="{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ corpsee_site_symfony_dir_name }}/releases/{{ release_datetime.stdout }}"
 
 - name: Creates Corpsee Site Symfony release var directory
-  file: path="/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}/var" state=directory
+  file: path="/var/www/{{ corpsee_site_symfony_dir_name }}/releases/{{ release_datetime.stdout }}/var" state=directory
 
 - name: Set shared directories links
   file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
   loop:
-    - { src: "/var/www/{{ corpsee_site_symfony_hostname }}/shared/public/files", dest: "/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}/public/files" }
-    - { src: "/var/www/{{ corpsee_site_symfony_hostname }}/shared/var/log", dest: "/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}/var/log" }
-    - { src: "/var/www/{{ corpsee_site_symfony_hostname }}/shared/.env.local", dest: "/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}/.env.local" }
+    - { src: "/var/www/{{ corpsee_site_symfony_dir_name }}/shared/public/files", dest: "/var/www/{{ corpsee_site_symfony_dir_name }}/releases/{{ release_datetime.stdout }}/public/files" }
+    - { src: "/var/www/{{ corpsee_site_symfony_dir_name }}/shared/var/log", dest: "/var/www/{{ corpsee_site_symfony_dir_name }}/releases/{{ release_datetime.stdout }}/var/log" }
+    - { src: "/var/www/{{ corpsee_site_symfony_dir_name }}/shared/.env.local", dest: "/var/www/{{ corpsee_site_symfony_dir_name }}/releases/{{ release_datetime.stdout }}/.env.local" }
 
 - name: Set permissions for Corpsee Site Symfony directory
-  file: path="/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}" owner={{ corpsee_site_symfony_user }} group={{ corpsee_site_symfony_group }} mode="ug=rwX,o=rX" recurse=yes
+  file: path="/var/www/{{ corpsee_site_symfony_dir_name }}/releases/{{ release_datetime.stdout }}" owner={{ corpsee_site_symfony_user }} group={{ corpsee_site_symfony_group }} mode="ug=rwX,o=rX" recurse=yes
 
 - name: Set Corpsee Site Symfony console executable
-  file: path="/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}/bin/console" owner={{ corpsee_site_symfony_user }} group={{ corpsee_site_symfony_group }} mode="ugo+x"
+  file: path="/var/www/{{ corpsee_site_symfony_dir_name }}/releases/{{ release_datetime.stdout }}/bin/console" owner={{ corpsee_site_symfony_user }} group={{ corpsee_site_symfony_group }} mode="ugo+x"
 
 - name:        Make migrations
   command:     ./bin/console doctrine:migrations:migrate --no-interaction
   become:      yes
   become_user: "{{ corpsee_site_symfony_user }}"
   args:
-    chdir: "/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}"
+    chdir: "/var/www/{{ corpsee_site_symfony_dir_name }}/releases/{{ release_datetime.stdout }}"
 
 - name: Set current release link
-  file: src="/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ corpsee_site_symfony_hostname }}/current" state=link
+  file: src="/var/www/{{ corpsee_site_symfony_dir_name }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ corpsee_site_symfony_dir_name }}/current" state=link
 
 - name:    Restart PHP FPM systemd service
   systemd: name="php{{ corpsee_site_symfony_php_version }}-fpm.service" state=restarted
