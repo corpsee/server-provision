@@ -17,6 +17,7 @@
       corpsee_site_db_dump_filename:  "{{ corpsee_site_db_dump_filename_test }}"
       corpsee_site_www_dir_filename:  "{{ corpsee_site_www_dir_filename_test }}"
       corpsee_site_hostname:          "{{ corpsee_site_hostname_test }}"
+      corpsee_site_dir_name:          "{{ corpsee_site_dir_name_test }}"
       corpsee_site_cron_disabled:     "{{ corpsee_site_cron_disabled_test }}"
       corpsee_site_version:           "{{ corpsee_site_version_test }}"
       corpsee_site_cert_pem_path:     "{{ corpsee_site_cert_pem_path_test }}"
