@@ -17,20 +17,20 @@ Requirements
     * `roles/webuser/files/<webuser_host>_github` (`web_server_github`, `web_server_local_github`) (Roles: webuser)
     * `roles/webuser/files/<webuser_host>_<webuser>.pub` (`web_server_web.pub`, `web_server_local_web.pub`) (Roles: webuser)
     * `roles/webuser/files/<webuser_host>_<webuser>` (`web_server_web`, `web_server_local_web`) (Roles: webuser)
-    * `roles/corpsee_site/files/corpsee_site.sql` (Roles: corpsee_site)
-    * `roles/corpsee_site/files/corpsee_site_test.sql` (Roles: corpsee_site)
+    * `roles/corpsee_site/files/corpsee_site.sql.xz` (Roles: corpsee_site)
+    * `roles/corpsee_site/files/corpsee_site_test.sql.xz` (Roles: corpsee_site)
     * `roles/corpsee_site/files/www` (`www_test`) (Roles: corpsee_site)
     * `corpsee.test.pem` (Roles: corpsee_site. For debug deploy/vagrant only)
     * `corpsee.test-key.pem` (Roles: corpsee_site. For debug deploy/vagrant only)
     * `corpsee-test.test.pem` (Roles: corpsee_site. For debug deploy/vagrant only)
     * `corpsee-test.test-key.pem` (Roles: corpsee_site. For debug deploy/vagrant only)
-    * `roles/corpsee_site_symfony/files/corpsee_site_symfony.sql` (Roles: corpsee_site_symfony)
+    * `roles/corpsee_site_symfony/files/corpsee_site_symfony.sql.xz` (Roles: corpsee_site_symfony)
     * `roles/corpsee_site_symfony/files/public` (Roles: corpsee_site_symfony)
     * `corpsee-symfony.test.pem` (Roles: corpsee_site_symfony. For debug deploy/vagrant only)
     * `corpsee-symfony.test-key.pem` (Roles: corpsee_site_symfony. For debug deploy/vagrant only)
     * `roles/php_censor/files/artifacts` (`artifacts_test`) (Roles: php_censor)
-    * `roles/php_censor/files/php_censor.sql` (Roles: php_censor)
-    * `roles/php_censor/files/php_censor_test.sql` (Roles: php_censor)
+    * `roles/php_censor/files/php_censor.sql.xz` (Roles: php_censor)
+    * `roles/php_censor/files/php_censor_test.sql.xz` (Roles: php_censor)
     * `roles/php_censor/files/periodical.yml` (Roles: php_censor)
     * `roles/php_censor/files/periodical_test.yml` (Roles: php_censor)
     * `php-censor.test.pem` (Roles: php_censor. For debug deploy/vagrant only)
@@ -55,8 +55,8 @@ Requirements
         * `.vault_password`
         * `inventories/group_vars/web_server/secret.yml`
         * `inventories/production.yml`
-        * `roles/corpsee_site/files/corpsee_site.sql`
-        * `roles/corpsee_site/files/corpsee_site_test.sql`
+        * `roles/corpsee_site/files/corpsee_site.sql.xz`
+        * `roles/corpsee_site/files/corpsee_site_test.sql.xz`
         * `roles/corpsee_site/files/www`
         * `roles/corpsee_site/files/www_test`
         * `corpsee.test.pem` (For debug deploy/vagrant only)
@@ -67,15 +67,15 @@ Requirements
         * `.vault_password`
         * `inventories/group_vars/web_server/secret.yml`
         * `inventories/production.yml`
-        * `roles/corpsee_site_symfony/files/corpsee_site_symfony.sql`
+        * `roles/corpsee_site_symfony/files/corpsee_site_symfony.sql.xz`
         * `roles/corpsee_site_symfony/files/public`
         * `corpsee-symfony.test.pem` (For debug deploy/vagrant only)
         * `corpsee-symfony-key.pem` (For debug deploy/vagrant only)
     * php_censor:
         * `.vault_password`
         * `inventories/group_vars/web_server/secret.yml`
-        * `roles/php_censor/files/php_censor.sql`
-        * `roles/php_censor/files/php_censor_test.sql`
+        * `roles/php_censor/files/php_censor.sql.xz`
+        * `roles/php_censor/files/php_censor_test.sql.xz`
         * `roles/php_censor/files/periodical.yml`
         * `roles/php_censor/files/periodical_test.yml`
         * `roles/php_censor/files/artifacts` (`artifacts_test`)
