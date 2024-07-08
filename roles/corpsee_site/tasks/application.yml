@@ -1,7 +1,7 @@
 ---
 
 - name:     Check if Corpsee Site directory is exists
-  stat:     path="/var/www/{{ corpsee_site_hostname }}/current"
+  stat:     path="/var/www/{{ corpsee_site_dir_name }}/current"
   register: corpsee_site_directory
 
 - name: EXIT BECAUSE ALREADY INIT
@@ -73,63 +73,63 @@
   delegate_to: "127.0.0.1"
 
 - name: Creates Corpsee Site release directory
-  file: path="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" state=directory
+  file: path="/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}" state=directory
 
 - name:      Copy Corpsee Site release to host
-  unarchive: src="{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}"
+  unarchive: src="{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}"
 
 - name: Set current release link
-  file: src="/var/www/{{ corpsee_site_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ corpsee_site_hostname }}/current" state=link
+  file: src="/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ corpsee_site_dir_name }}/current" state=link
 
 - name: Copy Corpsee Site files to host
-  copy: src="{{ role_path }}/files/{{ corpsee_site_www_dir_filename }}/" dest="/var/www/{{ corpsee_site_hostname }}/shared/www"
+  copy: src="{{ role_path }}/files/{{ corpsee_site_www_dir_filename }}/" dest="/var/www/{{ corpsee_site_dir_name }}/shared/www"
 
 - name: Creates empty shared directories directory
-  file: path="/var/www/{{ corpsee_site_hostname }}/shared/{{ item }}" state=directory
+  file: path="/var/www/{{ corpsee_site_dir_name }}/shared/{{ item }}" state=directory
   loop:
     - "logs"
     - "src/configs"
 
 - name:     Create Corpsee Site config
-  template: src=config.php dest="/var/www/{{ corpsee_site_hostname }}/shared/src/configs/config.php"
+  template: src=config.php dest="/var/www/{{ corpsee_site_dir_name }}/shared/src/configs/config.php"
 
 - name:     Create Corpsee Site index.php file
-  template: src=index.php dest="/var/www/{{ corpsee_site_hostname }}/shared/www/index.php"
+  template: src=index.php dest="/var/www/{{ corpsee_site_dir_name }}/shared/www/index.php"
 
 - name:     Create Corpsee Site console file
-  template: src=console dest="/var/www/{{ corpsee_site_hostname }}/current/console"
+  template: src=console dest="/var/www/{{ corpsee_site_dir_name }}/current/console"
 
 - name: Set shared directories links
   file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
   loop:
-    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/files/pictures/x", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/files/pictures/x" }
-    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/files/pictures/xgray", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/files/pictures/xgray" }
-    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/files/pictures/xmin", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/files/pictures/xmin" }
-    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/files/posts", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/files/posts" }
-    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/files/projects", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/files/projects" }
-    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/slides", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/slides" }
-    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/yanka", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/yanka" }
-    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/logs", dest: "/var/www/{{ corpsee_site_hostname }}/current/logs" }
-    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/www/index.php", dest: "/var/www/{{ corpsee_site_hostname }}/current/www/index.php" }
-    - { src: "/var/www/{{ corpsee_site_hostname }}/shared/src/configs/config.php", dest: "/var/www/{{ corpsee_site_hostname }}/current/src/configs/config.php" }
+    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/www/files/pictures/x", dest: "/var/www/{{ corpsee_site_dir_name }}/current/www/files/pictures/x" }
+    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/www/files/pictures/xgray", dest: "/var/www/{{ corpsee_site_dir_name }}/current/www/files/pictures/xgray" }
+    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/www/files/pictures/xmin", dest: "/var/www/{{ corpsee_site_dir_name }}/current/www/files/pictures/xmin" }
+    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/www/files/posts", dest: "/var/www/{{ corpsee_site_dir_name }}/current/www/files/posts" }
+    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/www/files/projects", dest: "/var/www/{{ corpsee_site_dir_name }}/current/www/files/projects" }
+    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/www/slides", dest: "/var/www/{{ corpsee_site_dir_name }}/current/www/slides" }
+    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/www/yanka", dest: "/var/www/{{ corpsee_site_dir_name }}/current/www/yanka" }
+    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/logs", dest: "/var/www/{{ corpsee_site_dir_name }}/current/logs" }
+    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/www/index.php", dest: "/var/www/{{ corpsee_site_dir_name }}/current/www/index.php" }
+    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/src/configs/config.php", dest: "/var/www/{{ corpsee_site_dir_name }}/current/src/configs/config.php" }
 
 - name: Set permissions for Corpsee Site directory
-  file: path="/var/www/{{ corpsee_site_hostname }}" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ug=rwX,o=rX" recurse=yes
+  file: path="/var/www/{{ corpsee_site_dir_name }}" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ug=rwX,o=rX" recurse=yes
 
 - name: Set Corpsee Site console executable
-  file: path="/var/www/{{ corpsee_site_hostname }}/current/console" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ugo+x"
+  file: path="/var/www/{{ corpsee_site_dir_name }}/current/console" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ugo+x"
 
 - name:        Compile assets
   command:     ./console assets:compile --package frontend
   become:      yes
   become_user: "{{ corpsee_site_user }}"
   args:
-    chdir:   "/var/www/{{ corpsee_site_hostname }}/current"
-    creates: "/var/www/{{ corpsee_site_hostname }}/current/www/files/compiled/frontend.min.css"
+    chdir:   "/var/www/{{ corpsee_site_dir_name }}/current"
+    creates: "/var/www/{{ corpsee_site_dir_name }}/current/www/files/compiled/frontend.min.css"
 
 - name:        Make migrations
   command:     ./console migrations:migrate -e corpsee_site
   become:      yes
   become_user: "{{ corpsee_site_user }}"
   args:
-    chdir: "/var/www/{{ corpsee_site_hostname }}/current"
+    chdir: "/var/www/{{ corpsee_site_dir_name }}/current"

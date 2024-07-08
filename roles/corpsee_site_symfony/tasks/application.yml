@@ -1,7 +1,7 @@
 ---
 
 - name:     Check if Corpsee Site Symfony directory is exists
-  stat:     path="/var/www/{{ corpsee_site_symfony_hostname }}/current"
+  stat:     path="/var/www/{{ corpsee_site_symfony_dir_name }}/current"
   register: corpsee_site_symfony_directory
 
 - name: EXIT BECAUSE ALREADY INIT
@@ -91,44 +91,44 @@
   delegate_to: "127.0.0.1"
 
 - name: Creates Corpsee Site Symfony release directory
-  file: path="/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}" state=directory
+  file: path="/var/www/{{ corpsee_site_symfony_dir_name }}/releases/{{ release_datetime.stdout }}" state=directory
 
 - name:      Copy Corpsee Site Symfony release to host
-  unarchive: src="{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}"
+  unarchive: src="{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ corpsee_site_symfony_dir_name }}/releases/{{ release_datetime.stdout }}"
 
 - name: Creates Corpsee Site Symfony release var directory
-  file: path="/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}/var" state=directory
+  file: path="/var/www/{{ corpsee_site_symfony_dir_name }}/releases/{{ release_datetime.stdout }}/var" state=directory
 
 - name: Set current release link
-  file: src="/var/www/{{ corpsee_site_symfony_hostname }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ corpsee_site_symfony_hostname }}/current" state=link
+  file: src="/var/www/{{ corpsee_site_symfony_dir_name }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ corpsee_site_symfony_dir_name }}/current" state=link
 
 - name: Copy Corpsee Site Symfony files to host
-  copy: src="{{ role_path }}/files/{{ corpsee_site_symfony_www_dir_filename }}/" dest="/var/www/{{ corpsee_site_symfony_hostname }}/shared/public"
+  copy: src="{{ role_path }}/files/{{ corpsee_site_symfony_www_dir_filename }}/" dest="/var/www/{{ corpsee_site_symfony_dir_name }}/shared/public"
 
 - name: Creates empty shared directories directory
-  file: path="/var/www/{{ corpsee_site_symfony_hostname }}/shared/{{ item }}" state=directory
+  file: path="/var/www/{{ corpsee_site_symfony_dir_name }}/shared/{{ item }}" state=directory
   loop:
     - "var/log"
 
 - name:     Create Corpsee Site Symfony ENV file
-  template: src=".env.local.{{ corpsee_site_symfony_mode }}" dest="/var/www/{{ corpsee_site_symfony_hostname }}/shared/.env.local"
+  template: src=".env.local.{{ corpsee_site_symfony_mode }}" dest="/var/www/{{ corpsee_site_symfony_dir_name }}/shared/.env.local"
 
 - name: Set shared directories links
   file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
   loop:
-    - { src: "/var/www/{{ corpsee_site_symfony_hostname }}/shared/public/files", dest: "/var/www/{{ corpsee_site_symfony_hostname }}/current/public/files" }
-    - { src: "/var/www/{{ corpsee_site_symfony_hostname }}/shared/var/log", dest: "/var/www/{{ corpsee_site_symfony_hostname }}/current/var/log" }
-    - { src: "/var/www/{{ corpsee_site_symfony_hostname }}/shared/.env.local", dest: "/var/www/{{ corpsee_site_symfony_hostname }}/current/.env.local" }
+    - { src: "/var/www/{{ corpsee_site_symfony_dir_name }}/shared/public/files", dest: "/var/www/{{ corpsee_site_symfony_dir_name }}/current/public/files" }
+    - { src: "/var/www/{{ corpsee_site_symfony_dir_name }}/shared/var/log", dest: "/var/www/{{ corpsee_site_symfony_dir_name }}/current/var/log" }
+    - { src: "/var/www/{{ corpsee_site_symfony_dir_name }}/shared/.env.local", dest: "/var/www/{{ corpsee_site_symfony_dir_name }}/current/.env.local" }
 
 - name: Set permissions for Corpsee Site Symfony directory
-  file: path="/var/www/{{ corpsee_site_symfony_hostname }}" owner={{ corpsee_site_symfony_user }} group={{ corpsee_site_symfony_group }} mode="ug=rwX,o=rX" recurse=yes
+  file: path="/var/www/{{ corpsee_site_symfony_dir_name }}" owner={{ corpsee_site_symfony_user }} group={{ corpsee_site_symfony_group }} mode="ug=rwX,o=rX" recurse=yes
 
 - name: Set Corpsee Site Symfony console executable
-  file: path="/var/www/{{ corpsee_site_symfony_hostname }}/current/bin/console" owner={{ corpsee_site_symfony_user }} group={{ corpsee_site_symfony_group }} mode="ugo+x"
+  file: path="/var/www/{{ corpsee_site_symfony_dir_name }}/current/bin/console" owner={{ corpsee_site_symfony_user }} group={{ corpsee_site_symfony_group }} mode="ugo+x"
 
 - name:        Make migrations
   command:     ./bin/console doctrine:migrations:migrate --no-interaction
   become:      yes
   become_user: "{{ corpsee_site_symfony_user }}"
   args:
-    chdir: "/var/www/{{ corpsee_site_symfony_hostname }}/current"
+    chdir: "/var/www/{{ corpsee_site_symfony_dir_name }}/current"

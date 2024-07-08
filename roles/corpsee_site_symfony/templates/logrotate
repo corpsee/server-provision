@@ -1,4 +1,4 @@
-/var/www/{{ corpsee_site_symfony_hostname }}/current/var/log/*.log {
+/var/www/{{ corpsee_site_symfony_dir_name }}/current/var/log/*.log {
     rotate 12
     weekly
     missingok

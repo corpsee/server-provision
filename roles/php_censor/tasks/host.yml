@@ -1,8 +1,8 @@
 ---
 
 - name:     Create PHP Censor host
-  template: src="php_censor.{{ php_censor_mode }}.conf" dest="/etc/nginx/sites-available/{{ php_censor_hostname }}.conf"
+  template: src="php_censor.{{ php_censor_mode }}.conf" dest="/etc/nginx/sites-available/{{ php_censor_dir_name }}.conf"
 
 - name:   Enable PHP Censor host
-  file:   src="/etc/nginx/sites-available/{{ php_censor_hostname }}.conf" dest="/etc/nginx/sites-enabled/{{ php_censor_hostname }}.conf" state=link
+  file:   src="/etc/nginx/sites-available/{{ php_censor_dir_name }}.conf" dest="/etc/nginx/sites-enabled/{{ php_censor_dir_name }}.conf" state=link
   notify: PHP Censor Restart Nginx

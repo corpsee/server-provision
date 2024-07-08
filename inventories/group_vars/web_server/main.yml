@@ -163,6 +163,7 @@ php_censor_db_dump_filename:           php_censor
 php_censor_artifacts_dir_filename:     artifacts.tar.gz
 php_censor_queue_name:                 php_censor
 php_censor_hostname:                   ci.php-censor.info
+php_censor_dir_name:                   php_censor
 php_censor_url:                        '//ci.php-censor.info'
 php_censor_from_email:                 'PHP Censor CI <mail@php-censor.info>'
 # php_censor_smtp_address:    in secret.yml
@@ -189,6 +190,7 @@ php_censor_db_dump_filename_test:           php_censor_test
 php_censor_artifacts_dir_filename_test:     artifacts_test.tar.gz
 php_censor_queue_name_test:                 php_censor_test
 php_censor_hostname_test:                   ci-test.php-censor.info
+php_censor_dir_name_test:                   php_censor_test
 php_censor_url_test:                        '//ci-test.php-censor.info'
 php_censor_from_email_test:                 'PHP Censor CI (Test) <mail@php-censor.info>'
 # php_censor_smtp_address_test:    in secret.yml
@@ -245,6 +247,7 @@ corpsee_site_db_user:           corpsee_site
 corpsee_site_db_dump_filename:  corpsee_site
 corpsee_site_www_dir_filename:  www
 corpsee_site_hostname:          corpsee.com
+corpsee_site_dir_name:          corpsee_site
 corpsee_site_cron_disabled:     yes
 corpsee_site_version:           master
 corpsee_site_cert_pem_path:     "/etc/letsencrypt/live/corpsee.com/fullchain.pem"
@@ -261,6 +264,7 @@ corpsee_site_db_user_test:           corpsee_site_test
 corpsee_site_db_dump_filename_test:  corpsee_site_test
 corpsee_site_www_dir_filename_test:  www_test
 corpsee_site_hostname_test:          test.corpsee.com
+corpsee_site_dir_name_test:          corpsee_site_test
 corpsee_site_cron_disabled_test:     yes
 corpsee_site_version_test:           master
 corpsee_site_cert_pem_path_test:     "/etc/letsencrypt/live/test.corpsee.com/fullchain.pem"
@@ -280,6 +284,7 @@ corpsee_site_symfony_db_user:           corpsee_site_symfony
 corpsee_site_symfony_db_dump_filename:  corpsee_site_symfony
 corpsee_site_symfony_www_dir_filename:  public
 corpsee_site_symfony_hostname:          new.corpsee.com
+corpsee_site_symfony_dir_name:          corpsee_site_symfony
 corpsee_site_symfony_cron_disabled:     yes
 corpsee_site_symfony_version:           master
 corpsee_site_symfony_cert_pem_path:     "/etc/letsencrypt/live/new.corpsee.com/fullchain.pem"
@@ -292,6 +297,7 @@ corpsee_site_symfony_cert_pem_key_path: "/etc/letsencrypt/live/new.corpsee.com/p
 php_censor_site_mode:              *mode-reference
 php_censor_site_php_version:       *php-version-reference
 php_censor_site_hostname:          php-censor.info
+php_censor_site_dir_name:          php_censor_site
 php_censor_site_user:              *user-reference
 php_censor_site_group:             *group-reference
 php_censor_site_cert_pem_path:     '/etc/letsencrypt/live/php-censor.info/fullchain.pem'

@@ -1,4 +1,4 @@
-/var/www/{{ php_censor_hostname }}/current/runtime/*.log {
+/var/www/{{ php_censor_dir_name }}/current/runtime/*.log {
     rotate 12
     weekly
     missingok

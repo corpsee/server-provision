@@ -11,6 +11,7 @@ corpsee_site_symfony_db_password:       corpsee_site_symfony
 corpsee_site_symfony_db_dump_filename:  corpsee_site_symfony
 corpsee_site_symfony_www_dir_filename:  public
 corpsee_site_symfony_hostname:          corpsee-symfony.test
+corpsee_site_symfony_dir_name:          corpsee_site_symfony
 corpsee_site_symfony_cron_disabled:     yes
 corpsee_site_symfony_version:           master
 corpsee_site_symfony_cert_pem_path:     '~/corpsee-symfony.test.pem'

@@ -11,6 +11,7 @@ corpsee_site_db_password:       corpsee_site
 corpsee_site_db_dump_filename:  corpsee_site
 corpsee_site_www_dir_filename:  www
 corpsee_site_hostname:          corpsee.test
+corpsee_site_dir_name:          corpsee_site
 corpsee_site_cron_disabled:     yes
 corpsee_site_version:           master
 corpsee_site_cert_pem_path:     '~/corpsee.test.pem'
