@@ -16,3 +16,4 @@ corpsee_site_symfony_version:           master
 corpsee_site_symfony_cert_pem_path:     '~/corpsee-symfony.test.pem'
 corpsee_site_symfony_cert_pem_key_path: '~/corpsee-symfony.test-key.pem'
 corpsee_site_symfony_app_secret:        'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+corpsee_site_symfony_ga_tracking:       'G-AAAAAAAAAA'
