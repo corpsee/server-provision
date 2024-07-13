@@ -253,6 +253,7 @@ corpsee_site_symfony_version:           master
 corpsee_site_symfony_cert_pem_path:     "/etc/letsencrypt/live/corpsee.com/fullchain.pem"
 corpsee_site_symfony_cert_pem_key_path: "/etc/letsencrypt/live/corpsee.com/privkey.pem"
 # corpsee_site_symfony_app_secret: in secret.yml
+# corpsee_site_symfony_ga_tracking: in secret.yml
 
 
 ### php_censor_site role
