@@ -7,20 +7,12 @@
 /inventories/group_vars/web_server_local/secret.yml
 /inventories/production.yml
 
+/files/*
+!/files/.gitkeep
+
 /roles/webuser/files/*
-!/roles/webuser/files/.gitkeep
-
-/roles/corpsee_site_symfony/files/*
-!/roles/corpsee_site_symfony/files/.gitkeep
-
-/roles/corpsee_site_symfony_release/files/*
-!/roles/corpsee_site_symfony_release/files/.gitkeep
-
-/roles/php_censor/files/*
-!/roles/php_censor/files/.gitkeep
-
-/roles/php_censor_release/files/*
-!/roles/php_censor_release/files/.gitkeep
-
 /roles/server/files/*
-!/roles/server/files/.gitkeep
+/roles/corpsee_site_symfony/files/*
+/roles/corpsee_site_symfony_release/files/*
+/roles/php_censor/files/*
+/roles/php_censor_release/files/*
