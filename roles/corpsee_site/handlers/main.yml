@@ -1,4 +1,4 @@
 ---
 
-- name:    Corpsee Site Symfony Restart Nginx
+- name:    Corpsee Site Restart Nginx
   service: name=nginx enabled=yes state=restarted

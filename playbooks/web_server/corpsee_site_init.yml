@@ -5,4 +5,4 @@
   become_user: root
   roles:
     - nginx
-    - corpsee_site_symfony
+    - corpsee_site

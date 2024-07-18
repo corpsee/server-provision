@@ -10,9 +10,9 @@
 /files/*
 !/files/.gitkeep
 
-/roles/webuser/files/*
-/roles/server/files/*
-/roles/corpsee_site_symfony/files/*
-/roles/corpsee_site_symfony_release/files/*
-/roles/php_censor/files/*
-/roles/php_censor_release/files/*
+/roles/webuser/files
+/roles/server/files
+/roles/corpsee_site/files
+/roles/corpsee_site_release/files
+/roles/php_censor/files
+/roles/php_censor_release/files
