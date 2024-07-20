@@ -6,7 +6,7 @@ set -o errexit
 CURRENT_DATE=$(date +%Y-%m-%d)
 
 PROJECT_BASE_DIR="${HOME}/workbench/provisions"
-PROJECT="webserver-provision-v2"
+PROJECT="webserver-vagrant-provision-v4"
 
 VERSION_NAME="new-version"
 
@@ -208,7 +208,7 @@ if [ ! -f "${CACHE_DIR}/public_files_${CURRENT_DATE}.tar" ]
 then
     ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "cd /var/www/corpsee.com/current/public && tar --create --dereference --file=/var/www/corpsee.com/current/public_files_${CURRENT_DATE}.tar files"
     scp -P "${WEBSERVER_PORT}" -r "${WEBSERVER_USER}@${WEBSERVER_HOST}:/var/www/corpsee.com/current/public_files_${CURRENT_DATE}.tar" "${CACHE_DIR}"
-    ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "rm --verbose /var/www/corpsee.com/current/public/public_files_${CURRENT_DATE}.tar"
+    ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "rm --verbose /var/www/corpsee.com/current/public_files_${CURRENT_DATE}.tar"
 fi
 
 tar --extract --file="${CACHE_DIR}/public_files_${CURRENT_DATE}.tar" --directory="roles/corpsee_site/files"
