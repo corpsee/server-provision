@@ -5,7 +5,7 @@
 user-reference:                &user-reference        "web"
 group-reference:               &group-reference       "www-data"
 mode-reference:                &mode-reference        "production"
-timezone-reference:            &timezone-reference    "Asia/Novosibirsk"
+timezone-reference:            &timezone-reference    "UTC"
 php-version-reference:         &php-version-reference "8.1"
 php-default-version-reference: &php-default-version-reference "8.1"
 
