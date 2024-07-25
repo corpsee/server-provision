@@ -1,26 +1,33 @@
 Vagrant.configure("2") do |config|
-    # Ubuntu 20.04 Focal Fossa
-    #config.vm.box     = "ubuntu/focal64"
-    # Ubuntu 22.04 Jammy Jellyfish
-    #config.vm.box      = "ubuntu/jammy64"
-    # Ubuntu 24.04 Noble Numba
-    #config.vm.box      = "ubuntu/noble64"
+#     Ubuntu 20.04 Focal Fossa
+#     config.vm.box     = "ubuntu/focal64"
+#     Ubuntu 22.04 Jammy Jellyfish
+#     config.vm.box      = "ubuntu/jammy64"
+#     Ubuntu 24.04 Noble Numba
+#     config.vm.box      = "ubuntu/noble64"
     config.vm.box      = "alvistack/ubuntu-24.04"
     config.vm.hostname = "corpsee.test"
 
     config.vm.network :private_network, ip: "192.168.56.10"
     config.ssh.forward_agent = true
 
-    config.vm.provider :virtualbox do |vb|
-        vb.name = "default"
-        vb.customize [
+    config.vm.provider :virtualbox do |virtualbox|
+        virtualbox.name = "webserver"
+        virtualbox.customize [
             "modifyvm", :id,
-            "--name", "default",
+            "--name", "webserver",
             "--memory", "1024",
             "--natdnshostresolver1", "on",
             "--cpus", 1,
         ]
     end
+
+#     config.vm.provider :libvirt do |libvirt|
+#         libvirt.uri = "qemu+unix:///system"
+#         libvirt.host = "corpsee.test"
+#         libvirt.cpus = 1
+#         libvirt.memory = 1024
+#     end
 
     config.vm.provision "main", type: "ansible" do |main|
         main.playbook           = "playbooks/web_server/main.yml"
@@ -101,5 +108,5 @@ Vagrant.configure("2") do |config|
         php_censor_test_release.verbose            = "vvv"
     end
 
-    config.vm.synced_folder "./", "/vagrant"
+    config.vm.synced_folder "./", "/vagrant", type: "nfs", mount_options: ["vers=3,tcp"]
 end

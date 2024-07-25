@@ -77,7 +77,7 @@ Debug deploy (Vagrant):
 
 ```bash
 # server
-vagrant box update && vagrant up --provision-with main
+vagrant box update && vagrant up --provider virtualbox --provision-with main
 
 # corpsee.test
 vagrant up --provision-with corpsee_site_init
