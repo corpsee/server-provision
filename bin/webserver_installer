@@ -211,7 +211,8 @@ then
     ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "rm --verbose /var/www/corpsee.com/current/public_files_${CURRENT_DATE}.tar"
 fi
 
-tar --extract --file="${CACHE_DIR}/public_files_${CURRENT_DATE}.tar" --directory="roles/corpsee_site/files"
+mkdir --verbose --parents "roles/corpsee_site/files/public"
+tar --extract --file="${CACHE_DIR}/public_files_${CURRENT_DATE}.tar" --directory="roles/corpsee_site/files/public"
 
 if [ ! -f "${CACHE_DIR}/artifacts_${CURRENT_DATE}.tar.gz" ]
 then
