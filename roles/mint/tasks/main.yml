@@ -47,3 +47,9 @@
     ansible_distribution_release: jammy
   when:
     - ansible_distribution_release == "virginia"
+
+- name: "Fix 'ansible_distribution_release' fact for Linux Mint 22"
+  set_fact:
+    ansible_distribution_release: noble
+  when:
+    - ansible_distribution_release == "wilma"
