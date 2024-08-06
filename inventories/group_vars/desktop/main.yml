@@ -13,9 +13,9 @@ php-default-version-reference: &php-default-version-reference "8.1"
 ### packages role
 
 packages_ppa:
-  - ppa:      "agornostal/ulauncher"
-    filename: "ulauncher"
-    key:      59EBDE772980C381CA13FA59FAF1020699503176
+#  - ppa:      "agornostal/ulauncher"
+#    filename: "ulauncher"
+#    key:      59EBDE772980C381CA13FA59FAF1020699503176
   - ppa:      "bartbes/love-stable"
     filename: "love"
     key:      61F881CBF3A87BDF74E398A4F192197F81992645
@@ -96,7 +96,7 @@ packages_items_to_install:
   - smplayer
   - smplayer-themes
   - filezilla
-  - ulauncher
+#  - ulauncher
   - flameshot
   - gthumb
 
@@ -115,11 +115,11 @@ packages_flatpak_items_to_install:
   - org.telegram.desktop
   - us.zoom.Zoom
 #  - com.slack.Slack
-  - com.mattermost.Desktop
-  - net.lutris.Lutris
-  - org.nickvision.tubeconverter
-  - org.nickvision.tagger
-  - org.nickvision.money
+#  - com.mattermost.Desktop
+#  - net.lutris.Lutris
+#  - org.nickvision.tubeconverter
+#  - org.nickvision.tagger
+#  - org.nickvision.money
   - md.obsidian.Obsidian
   - com.getpostman.Postman
   - org.blender.Blender
