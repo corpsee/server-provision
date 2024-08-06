@@ -5,7 +5,7 @@
 user-reference:                &user-reference        "web"
 group-reference:               &group-reference       "www-data"
 mode-reference:                &mode-reference        "production"
-timezone-reference:            &timezone-reference    "Asia/Novosibirsk"
+timezone-reference:            &timezone-reference    "UTC"
 php-version-reference:         &php-version-reference "8.1"
 php-default-version-reference: &php-default-version-reference "8.1"
 
@@ -234,26 +234,26 @@ php_censor_testdb_mysql_create_script_name_test:    create_test_ci_mysql_db_test
 php_censor_testdb_mysql_drop_script_name_test:      drop_test_ci_mysql_db_test
 
 
-### corpsee_site_symfony role
+### corpsee_site role
 
-corpsee_site_symfony_mode:              *mode-reference
-corpsee_site_symfony_php_version:       *php-version-reference
-corpsee_site_symfony_user:              *user-reference
-corpsee_site_symfony_group:             *group-reference
-corpsee_site_symfony_localhost_user:    corpsee
-corpsee_site_symfony_db_name:           corpsee_site_symfony
-corpsee_site_symfony_db_user:           corpsee_site_symfony
-# corpsee_site_symfony_db_password: in secret.yml
-corpsee_site_symfony_db_dump_filename:  corpsee_site_symfony
-corpsee_site_symfony_www_dir_filename:  public
-corpsee_site_symfony_hostname:          corpsee.com
-corpsee_site_symfony_dir_name:          corpsee_site_symfony
-corpsee_site_symfony_cron_disabled:     yes
-corpsee_site_symfony_version:           master
-corpsee_site_symfony_cert_pem_path:     "/etc/letsencrypt/live/corpsee.com/fullchain.pem"
-corpsee_site_symfony_cert_pem_key_path: "/etc/letsencrypt/live/corpsee.com/privkey.pem"
-# corpsee_site_symfony_app_secret: in secret.yml
-# corpsee_site_symfony_ga_tracking: in secret.yml
+corpsee_site_mode:              *mode-reference
+corpsee_site_php_version:       *php-version-reference
+corpsee_site_user:              *user-reference
+corpsee_site_group:             *group-reference
+corpsee_site_localhost_user:    corpsee
+corpsee_site_db_name:           corpsee_site
+corpsee_site_db_user:           corpsee_site
+# corpsee_site_db_password: in secret.yml
+corpsee_site_db_dump_filename:  corpsee_site
+corpsee_site_www_dir_filename:  public
+corpsee_site_hostname:          corpsee.com
+corpsee_site_dir_name:          corpsee_site
+corpsee_site_cron_disabled:     yes
+corpsee_site_version:           master
+corpsee_site_cert_pem_path:     "/etc/letsencrypt/live/corpsee.com/fullchain.pem"
+corpsee_site_cert_pem_key_path: "/etc/letsencrypt/live/corpsee.com/privkey.pem"
+# corpsee_site_app_secret: in secret.yml
+# corpsee_site_ga_tracking: in secret.yml
 
 
 ### php_censor_site role

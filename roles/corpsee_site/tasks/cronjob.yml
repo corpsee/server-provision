@@ -1,0 +1,10 @@
+---
+
+- name: Set Corpsee Site pullrequest cronjob
+  cron:
+    name:     "{{ corpsee_site_dir_name }} pullrequests:get (Daily)"
+    user:     "{{ corpsee_site_user }}"
+    minute:   "0"
+    hour:     "20"
+    job:      "/var/www/{{ corpsee_site_dir_name }}/current/bin/console app:update-pull-requests >> /var/www/{{ corpsee_site_dir_name }}/current/var/log/update_pull_requests.log 2>&1"
+    disabled: "{{ corpsee_site_cron_disabled }}"

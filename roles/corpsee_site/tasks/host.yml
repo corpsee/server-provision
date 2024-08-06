@@ -1,0 +1,8 @@
+---
+
+- name:     Create Corpsee Site host
+  template: src="corpsee_site.{{ corpsee_site_mode }}.conf" dest="/etc/nginx/sites-available/{{ corpsee_site_dir_name }}.conf"
+
+- name:   Enable Corpsee Site host
+  file:   src="/etc/nginx/sites-available/{{ corpsee_site_dir_name }}.conf" dest="/etc/nginx/sites-enabled/{{ corpsee_site_dir_name }}.conf" state=link
+  notify: Corpsee Site Restart Nginx

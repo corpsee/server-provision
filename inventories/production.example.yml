@@ -7,9 +7,9 @@ all:
     web_server:
       hosts:
         111.111.111.111:
-          ansible_python_interpreter:         '/usr/bin/python3'
-          ansible_port:                       22
-          corpsee_site_symfony_cron_disabled: no
+          ansible_python_interpreter: '/usr/bin/python3'
+          ansible_port:               22
+          corpsee_site_cron_disabled: no
     web_server_local:
       hosts:
         222.222.222.222:

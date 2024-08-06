@@ -1,0 +1,11 @@
+/var/www/{{ corpsee_site_dir_name }}/current/var/log/*.log {
+    rotate 12
+    weekly
+    missingok
+    nocreate
+    copytruncate
+    nocopy
+    compress
+    notifempty
+    su {{ corpsee_site_user }} {{ corpsee_site_group }}
+}

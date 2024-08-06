@@ -1,0 +1,243 @@
+#!/usr/bin/env bash
+
+set -o errexit
+#set -o xtrace
+
+CURRENT_DATE=$(date +%Y-%m-%d)
+
+PROJECT_BASE_DIR="${HOME}/workbench/provisions"
+PROJECT="webserver-vagrant-provision-v4"
+
+VERSION_NAME="new-version"
+
+SECRET_DIR="${HOME}/.secrets"
+CACHE_DIR="${HOME}/workbench/ansible-cache"
+
+#WEBSERVER_HOST, WEBSERVER_PORT, WEBSERVER_USER, NEW_WEBSERVER_HOST, SMTP_PASSWORD, GITHUB_TOKEN_PHP_CENSOR_BOT, GA_TRACKING_CORPSEE_COM
+source "${SECRET_DIR}/.webserver"
+
+mkdir --verbose --parents "${PROJECT_BASE_DIR}"
+mkdir --verbose --parents "${CACHE_DIR}"
+cd "${PROJECT_BASE_DIR}" || exit
+
+git clone https://github.com/corpsee/server-provision.git "${PROJECT}"
+cd "${PROJECT}" || exit
+
+git checkout "${VERSION_NAME}"
+
+ln --symbolic --relative files roles/webuser/files
+ln --symbolic --relative files roles/server/files
+ln --symbolic --relative files roles/corpsee_site/files
+ln --symbolic --relative files roles/corpsee_site_release/files
+ln --symbolic --relative files roles/php_censor/files
+ln --symbolic --relative files roles/php_censor_release/files
+
+echo "$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')" > .vault_password
+
+function secrets() {
+    mkcert -install
+
+    cd "${SECRET_DIR}" || exit
+
+    if [ ! -f "${SECRET_DIR}/corpsee.test.pem" ]
+    then
+        mkcert -cert-file "corpsee.test.pem" -key-file "corpsee.test-key.pem" "corpsee.test" "www.corpsee.test"
+    fi
+
+    if [ ! -f "${SECRET_DIR}/php-censor.test.pem" ]
+    then
+        mkcert -cert-file "php-censor.test.pem" -key-file "php-censor.test-key.pem" "php-censor.test" "www.php-censor.test"
+    fi
+
+    if [ ! -f "${SECRET_DIR}/php-censor-test.test.pem" ]
+    then
+        mkcert -cert-file "php-censor-test.test.pem" -key-file "php-censor-test.test-key.pem" "php-censor-test.test" "www.php-censor-test.test"
+    fi
+
+    if [ ! -f "${SECRET_DIR}/php-censor-site.test.pem" ]
+    then
+        mkcert -cert-file "php-censor-site.test.pem" -key-file "php-censor-site.test-key.pem" "php-censor-site.test" "www.php-censor-site.test"
+    fi
+
+    find "${HOME}/.secrets" -name "*.pem" -exec chmod 600 {} \;
+
+    cd "${PROJECT_BASE_DIR}/${PROJECT}" || exit
+
+    cp --verbose --force "${SECRET_DIR}/corpsee.test.pem" "corpsee.test.pem"
+    cp --verbose --force "${SECRET_DIR}/corpsee.test-key.pem" "corpsee.test-key.pem"
+
+    cp --verbose --force "${SECRET_DIR}/php-censor.test.pem" "php-censor.test.pem"
+    cp --verbose --force "${SECRET_DIR}/php-censor.test-key.pem" "php-censor.test-key.pem"
+
+    cp --verbose --force "${SECRET_DIR}/php-censor-test.test.pem" "php-censor-test.test.pem"
+    cp --verbose --force "${SECRET_DIR}/php-censor-test.test-key.pem" "php-censor-test.test-key.pem"
+
+    cp --verbose --force "${SECRET_DIR}/php-censor-site.test.pem" "php-censor-site.test.pem"
+    cp --verbose --force "${SECRET_DIR}/php-censor-site.test-key.pem" "php-censor-site.test-key.pem"
+}
+
+secrets;
+
+echo "---
+
+# Copy \`secret.example.yml\` to \`secret.yml\` and encrypt it:
+# (\`ansible-vault encrypt ./inventories/group_vars/web_server/secret.yml\`).
+
+### server role
+
+server_openssh_port: 2$((RANDOM % 10))$((RANDOM % 10))$((RANDOM % 10))
+
+
+### webuser role
+
+webuser_password: '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+
+
+### mariadb role
+
+mariadb_root_password: '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+
+
+### php_censor role
+
+php_censor_smtp_address:    'smtp.yandex.ru'
+php_censor_smtp_port:       465
+php_censor_smtp_username:   'mail@php-censor.info'
+php_censor_smtp_password:   '${SMTP_PASSWORD}'
+php_censor_smtp_encryption: 'ssl'
+
+php_censor_smtp_address_test:    'smtp.yandex.ru'
+php_censor_smtp_port_test:       465
+php_censor_smtp_username_test:   'mail@php-censor.info'
+php_censor_smtp_password_test:   '${SMTP_PASSWORD}'
+php_censor_smtp_encryption_test: 'ssl'
+
+php_censor_db_password:      '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+php_censor_db_password_test: '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+
+php_censor_github_token: '${GITHUB_TOKEN_PHP_CENSOR_BOT}'
+php_censor_github_token_test: '${GITHUB_TOKEN_PHP_CENSOR_BOT}'
+
+
+### php_censor_testdb
+
+php_censor_testdb_postgres_db_password: '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+php_censor_testdb_mysql_db_password:    '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+
+php_censor_testdb_postgres_db_password_test: '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+php_censor_testdb_mysql_db_password_test:    '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+
+
+### corpsee_site role
+
+corpsee_site_db_password: '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+corpsee_site_app_secret:  '$(date | md5sum | head -c32)'
+corpsee_site_ga_tracking: '${GA_TRACKING_CORPSEE_COM}'
+" > "inventories/group_vars/web_server/secret.yml"
+
+#rm --verbose "inventories/group_vars/web_server/secret.example.yml"
+cp "inventories/group_vars/web_server/secret.yml" "secret.web_server.raw.yml"
+
+ansible-vault encrypt "inventories/group_vars/web_server/secret.yml"
+
+echo "all:
+  children:
+    web_server:
+      hosts:
+        ${NEW_WEBSERVER_HOST}:
+          ansible_python_interpreter: '/usr/bin/python3'
+          ansible_port:               22
+          corpsee_site_cron_disabled: no
+" > "inventories/production.yml"
+
+echo "projects:
+    #4:
+    #    branches:
+    #        - master
+    #        - release-1.0
+    #        - release-2.0
+    #        - release-2.1
+    #    interval: P1W
+    #2:
+    #    branches:
+    #        - master
+    #        - release-1.0
+    #    interval: P7D
+    #7:
+    #    branches:
+    #        - master
+    #    interval: P7D
+    #10:
+    #    branches:
+    #        - master
+    #    interval: P7D
+" > "roles/php_censor/files/periodical.yml"
+
+echo "" > "roles/php_censor/files/periodical_test.yml"
+
+if [ ! -f "${CACHE_DIR}/letsencrypt_${CURRENT_DATE}.tar.gz" ]
+then
+    ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "cd /etc && sudo tar --create --gzip --file=/home/${WEBSERVER_USER}/letsencrypt_${CURRENT_DATE}.tar.gz letsencrypt"
+    scp -P "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}:/home/${WEBSERVER_USER}/letsencrypt_${CURRENT_DATE}.tar.gz" "${CACHE_DIR}/letsencrypt_${CURRENT_DATE}.tar.gz"
+    ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "rm --verbose /home/${WEBSERVER_USER}/letsencrypt_${CURRENT_DATE}.tar.gz"
+fi
+cp --verbose  "${CACHE_DIR}/letsencrypt_${CURRENT_DATE}.tar.gz" "roles/server/files/letsencrypt.tar.gz"
+
+if [ ! -f "${CACHE_DIR}/php_censor_${CURRENT_DATE}.sql.xz" ]
+then
+    ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "/home/${WEBSERVER_USER}/backup_db_php_censor_daily.sh"
+    scp -P "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}:/home/${WEBSERVER_USER}/backup/php_censor_${CURRENT_DATE}.sql.xz" "${CACHE_DIR}/php_censor_${CURRENT_DATE}.sql.xz"
+fi
+cp --verbose  "${CACHE_DIR}/php_censor_${CURRENT_DATE}.sql.xz" "roles/php_censor/files/php_censor.sql.xz"
+
+if [ ! -f "${CACHE_DIR}/php_censor_test_${CURRENT_DATE}.sql.xz" ]
+then
+    ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "/home/${WEBSERVER_USER}/backup_db_php_censor_test_daily.sh"
+    scp -P "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}:/home/${WEBSERVER_USER}/backup/php_censor_test_${CURRENT_DATE}.sql.xz" "${CACHE_DIR}/php_censor_test_${CURRENT_DATE}.sql.xz"
+fi
+cp --verbose  "${CACHE_DIR}/php_censor_test_${CURRENT_DATE}.sql.xz" "roles/php_censor/files/php_censor_test.sql.xz"
+
+if [ ! -f "${CACHE_DIR}/corpsee_site_${CURRENT_DATE}.sql.xz" ]
+then
+    ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "/home/${WEBSERVER_USER}/backup_db_corpsee_site_symfony_daily.sh"
+    scp -P "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}:/home/${WEBSERVER_USER}/backup/corpsee_site_symfony_${CURRENT_DATE}.sql.xz" "${CACHE_DIR}/corpsee_site_${CURRENT_DATE}.sql.xz"
+fi
+cp --verbose  "${CACHE_DIR}/corpsee_site_${CURRENT_DATE}.sql.xz" "roles/corpsee_site/files/corpsee_site.sql.xz"
+
+if [ ! -f "${CACHE_DIR}/public_files_${CURRENT_DATE}.tar" ]
+then
+    ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "cd /var/www/corpsee.com/current/public && tar --create --dereference --file=/var/www/corpsee.com/current/public_files_${CURRENT_DATE}.tar files"
+    scp -P "${WEBSERVER_PORT}" -r "${WEBSERVER_USER}@${WEBSERVER_HOST}:/var/www/corpsee.com/current/public_files_${CURRENT_DATE}.tar" "${CACHE_DIR}"
+    ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "rm --verbose /var/www/corpsee.com/current/public_files_${CURRENT_DATE}.tar"
+fi
+
+mkdir --verbose --parents "roles/corpsee_site/files/public"
+tar --extract --file="${CACHE_DIR}/public_files_${CURRENT_DATE}.tar" --directory="roles/corpsee_site/files/public"
+
+if [ ! -f "${CACHE_DIR}/artifacts_${CURRENT_DATE}.tar.gz" ]
+then
+    ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "cd /var/www/ci.php-censor.info/current/public && tar --create --dereference --gzip --file=/var/www/ci.php-censor.info/current/public/artifacts_${CURRENT_DATE}.tar.gz artifacts"
+    scp -P "${WEBSERVER_PORT}" -r "${WEBSERVER_USER}@${WEBSERVER_HOST}:/var/www/ci.php-censor.info/current/public/artifacts_${CURRENT_DATE}.tar.gz" "${CACHE_DIR}"
+    ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "rm --verbose /var/www/ci.php-censor.info/current/public/artifacts_${CURRENT_DATE}.tar.gz"
+fi
+cp --verbose  "${CACHE_DIR}/artifacts_${CURRENT_DATE}.tar.gz" "roles/php_censor/files/artifacts.tar.gz"
+
+if [ ! -f "${CACHE_DIR}/artifacts_test_${CURRENT_DATE}.tar.gz" ]
+then
+    ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "cd /var/www/ci-test.php-censor.info/current/public && tar --create --dereference --gzip --file=/var/www/ci-test.php-censor.info/current/public/artifacts_test_${CURRENT_DATE}.tar.gz artifacts"
+    scp -P "${WEBSERVER_PORT}" -r "${WEBSERVER_USER}@${WEBSERVER_HOST}:/var/www/ci-test.php-censor.info/current/public/artifacts_test_${CURRENT_DATE}.tar.gz" "${CACHE_DIR}"
+    ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "rm --verbose /var/www/ci-test.php-censor.info/current/public/artifacts_test_${CURRENT_DATE}.tar.gz"
+fi
+cp --verbose  "${CACHE_DIR}/artifacts_test_${CURRENT_DATE}.tar.gz" "roles/php_censor/files/artifacts_test.tar.gz"
+
+#ssh-keygen -o -t rsa -b 4096 -C "poisoncorpsee@gmail.com" -P "" -f "roles/webuser/files/web_server_github";
+cp --verbose "${HOME}/.ssh/github" "roles/webuser/files/web_server_github"
+cp --verbose "${HOME}/.ssh/github.pub" "roles/webuser/files/web_server_github.pub"
+
+#cp --verbose --force "web_server_github" "${HOME}/.ssh/web_server_github"
+#cp --verbose --force "web_server_github.pub" "${HOME}/.ssh/web_server_github.pub"
+
+ssh-keygen -o -t rsa -b 4096 -C "poisoncorpsee@gmail.com" -P "" -f "roles/webuser/files/web_server_web";
+
+#cp --verbose --force "web_server_web" "${HOME}/.ssh/web_server_web"
+#cp --verbose --force "web_server_web.pub" "${HOME}/.ssh/web_server_web.pub"

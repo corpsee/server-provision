@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -o errexit
+#set -o xtrace
+
+sudo aptitude update
+sudo aptitude install -y git ansible python3
+
+PROJECT="desktop-provision-v2"
+DESKTOP_USER="corpsee"
+DESKTOP_GROUP="corpsee"
+
+cd ~ || exit
+mkdir --verbose --parents workbench/provisions
+cd workbench/provisions || exit
+
+git clone https://github.com/corpsee/server-provision.git "${PROJECT}"
+cd "${PROJECT}" || exit
+
+echo "all:
+  children:
+    desktop:
+      hosts:
+        127.0.0.1:
+          ansible_python_interpreter: '/usr/bin/python3'
+" > "inventories/production.yml"
+
+echo "vault_password" > .vault_password
+
+ansible-playbook -i inventories/production.yml -c local -K playbooks/desktop/main.yml --extra-vars="user-reference=${DESKTOP_USER} group-reference=${DESKTOP_GROUP}" -vv
