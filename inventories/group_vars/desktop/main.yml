@@ -65,7 +65,7 @@ packages_items_to_install:
   - python3-pip
   - python3-virtualenv
   - ansible
-  - vagrant
+#  - vagrant
   - anacron
   - beanstalkd
   - supervisor
