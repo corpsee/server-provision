@@ -1,4 +1,4 @@
 ---
 
-golang_version: "1.19" # version: 1.13 ... 1.19
+golang_version: "1.22" # version: 1.21 ... 1.22
 golang_default: false

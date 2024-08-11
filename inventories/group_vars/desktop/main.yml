@@ -180,7 +180,7 @@ php_default_version: *php-default-version-reference
 
 ### golang role
 
-golang_version: "1.19"
+golang_version: "1.22"
 golang_default: true
 
 
