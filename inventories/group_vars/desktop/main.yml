@@ -111,7 +111,9 @@ packages_snap_items_to_install: []
 
 packages_flatpak_items_to_install:
 #  - com.skype.Client
-  - com.getmailspring.Mailspring
+#  - com.getmailspring.Mailspring
+  - org.mozilla.Thunderbird
+#  - com.ulduzsoft.Birdtray
   - org.telegram.desktop
   - us.zoom.Zoom
 #  - com.slack.Slack

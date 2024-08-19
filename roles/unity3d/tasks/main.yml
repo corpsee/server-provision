@@ -12,5 +12,5 @@
   apt:  name="{{ item }}" state=latest
   loop:
     - unityhub
-    - dotnet-sdk-6.0
-    - dotnet-runtime-6.0
+#    - dotnet-sdk-6.0
+#    - dotnet-runtime-6.0
