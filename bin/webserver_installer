@@ -8,7 +8,7 @@ CURRENT_DATE=$(date +%Y-%m-%d)
 PROJECT_BASE_DIR="${HOME}/workbench/provisions"
 PROJECT="webserver-vagrant-provision-v4"
 
-VERSION_NAME="new-version"
+VERSION_NAME="master"
 
 SECRET_DIR="${HOME}/.secrets"
 CACHE_DIR="${HOME}/workbench/ansible-cache"
