@@ -13,9 +13,6 @@ php-default-version-reference: &php-default-version-reference "8.1"
 ### packages role
 
 packages_ppa:
-#  - ppa:      "agornostal/ulauncher"
-#    filename: "ulauncher"
-#    key:      59EBDE772980C381CA13FA59FAF1020699503176
   - ppa:      "bartbes/love-stable"
     filename: "love"
     key:      61F881CBF3A87BDF74E398A4F192197F81992645
@@ -24,17 +21,10 @@ packages_ppa:
     key:      6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367
 
 packages_repositories:
-#  - repository: "deb [arch=amd64 signed-by=/usr/share/keyrings/vagrant.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
-#    filename:   "vagrant"
-#    url:        "https://apt.releases.hashicorp.com/gpg"
   - repository: "deb [arch=amd64 signed-by=/usr/share/keyrings/yandex-disk.gpg] http://repo.yandex.ru/yandex-disk/deb/ stable main"
     filename:   "yandex-disk"
     keyserver:  keyserver.ubuntu.com
     key:        EFC4571D7C90E5AF
-#  - repository: "deb [arch=amd64 signed-by=/usr/share/keyrings/clickhouse.gpg] http://repo.yandex.ru/clickhouse/deb/stable/ main/"
-#    filename:   "clickhouse"
-#    keyserver:  keyserver.ubuntu.com
-#    key:        E0C56BD4
 
 packages_items_to_install:
   - acl
@@ -65,13 +55,10 @@ packages_items_to_install:
   - python3-pip
   - python3-virtualenv
   - ansible
-#  - vagrant
   - anacron
   - beanstalkd
   - supervisor
   - redis-server
-#  - clickhouse-server
-#  - clickhouse-client
   - love
   - hugo
 
@@ -96,11 +83,18 @@ packages_items_to_install:
   - smplayer
   - smplayer-themes
   - filezilla
-#  - ulauncher
   - flameshot
   - gthumb
 
   - earlyoom
+
+  # For vagrant
+  - nfs-common
+  - nfs-kernel-server
+
+  - nodejs
+  - npm
+
 
 packages_items_to_remove:
   - hexchat
@@ -208,11 +202,6 @@ postgresql_desktop_group: *group-reference
 mariadb_version:       "10.11" # 10.11 - LTS version to 16 feb 2028. See: https://endoflife.date/mariadb
 mariadb_root_password: root
 mariadb_timezone:      *timezone-reference
-
-
-### nodejs role
-
-nodejs_version: 18
 
 
 ### docker role
