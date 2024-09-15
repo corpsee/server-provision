@@ -61,6 +61,8 @@ packages_items_to_install:
   - redis-server
   - love
   - hugo
+  - deluge
+  - deluge-gtk
 
   - gnupg
   - sshpass
@@ -78,7 +80,6 @@ packages_items_to_install:
   - gparted
   - keepassx
   - yandex-disk
-  - transmission
   - virtualbox-qt
   - smplayer
   - smplayer-themes
@@ -98,6 +99,8 @@ packages_items_to_install:
 
 packages_items_to_remove:
   - hexchat
+  - transmission
+  - transmission-qt
   - transmission-gtk
   - thunderbird
 
