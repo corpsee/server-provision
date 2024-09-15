@@ -86,6 +86,7 @@ packages_items_to_install:
   - filezilla
   - flameshot
   - gthumb
+  - parcellite
 
   - earlyoom
 
@@ -116,13 +117,15 @@ packages_flatpak_items_to_install:
 #  - com.slack.Slack
 #  - com.mattermost.Desktop
 #  - net.lutris.Lutris
-#  - org.nickvision.tubeconverter
-#  - org.nickvision.tagger
-#  - org.nickvision.money
+  - org.nickvision.tubeconverter
+  - org.nickvision.tagger
+  - org.nickvision.money
   - md.obsidian.Obsidian
   - com.getpostman.Postman
   - org.blender.Blender
   - rest.insomnia.Insomnia
+  - com.rtosta.zapzap
+  -
 
 
 ### oh-my-zsh role
