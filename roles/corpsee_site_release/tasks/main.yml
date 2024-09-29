@@ -116,9 +116,9 @@
 - name: Set shared directories links
   file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
   loop:
-    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/public/files", dest: "/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}/public/files" }
-    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/var/log", dest: "/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}/var/log" }
-    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/.env.local", dest: "/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}/.env.local" }
+    - { src: "../../../shared/public/files", dest: "/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}/public/files" }
+    - { src: "../../../shared/var/log", dest: "/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}/var/log" }
+    - { src: "../../shared/.env.local", dest: "/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}/.env.local" }
 
 - name: Set permissions for Corpsee Site directory
   file: path="/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ug=rwX,o=rX" recurse=yes
@@ -134,7 +134,7 @@
     chdir: "/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}"
 
 - name: Set current release link
-  file: src="/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ corpsee_site_dir_name }}/current" state=link
+  file: src="./releases/{{ release_datetime.stdout }}" dest="/var/www/{{ corpsee_site_dir_name }}/current" state=link
 
 - name:    Restart PHP FPM systemd service
   systemd: name="php{{ corpsee_site_php_version }}-fpm.service" state=restarted

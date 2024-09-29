@@ -100,7 +100,7 @@
   file: path="/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}/var" state=directory
 
 - name: Set current release link
-  file: src="/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ corpsee_site_dir_name }}/current" state=link
+  file: src="./releases/{{ release_datetime.stdout }}" dest="/var/www/{{ corpsee_site_dir_name }}/current" state=link
 
 - name: Copy Corpsee Site files to host
   copy: src="{{ role_path }}/files/{{ corpsee_site_www_dir_filename }}/" dest="/var/www/{{ corpsee_site_dir_name }}/shared/public"
@@ -116,9 +116,9 @@
 - name: Set shared directories links
   file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
   loop:
-    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/public/files", dest: "/var/www/{{ corpsee_site_dir_name }}/current/public/files" }
-    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/var/log", dest: "/var/www/{{ corpsee_site_dir_name }}/current/var/log" }
-    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/.env.local", dest: "/var/www/{{ corpsee_site_dir_name }}/current/.env.local" }
+    - { src: "../../shared/public/files", dest: "/var/www/{{ corpsee_site_dir_name }}/current/public/files" }
+    - { src: "../../shared/var/log", dest: "/var/www/{{ corpsee_site_dir_name }}/current/var/log" }
+    - { src: "../shared/.env.local", dest: "/var/www/{{ corpsee_site_dir_name }}/current/.env.local" }
 
 - name: Set permissions for Corpsee Site directory
   file: path="/var/www/{{ corpsee_site_dir_name }}" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ug=rwX,o=rX" recurse=yes
