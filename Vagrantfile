@@ -108,5 +108,6 @@ Vagrant.configure("2") do |config|
         php_censor_test_release.verbose            = "vvv"
     end
 
-    config.vm.synced_folder "./", "/vagrant", type: "nfs", mount_options: ["vers=3,tcp"]
+    #config.vm.synced_folder "./", "/vagrant", type: "nfs", mount_options: ["vers=3,tcp"]
+    config.vm.synced_folder "./", "/vagrant"
 end

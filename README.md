@@ -4,8 +4,7 @@ Server deployment
 Requirements
 ------------
 
-* Ansible v9+ (ansible-code v2.16+).
-
+* Ansible v9+ (ansible-code v2.16+), PHP, NodeJs v18+, Composer v2+, Mkcert.
 * Ubuntu 20.04+ (24.04 recommended) or Mint 22+ for desktop.
 
 * Files:
