@@ -27,13 +27,13 @@
   become_user: "{{ php_censor_user }}"
 
 - name:        Clone latest PHP Censor repository (LOCAL)
-  git:         repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="{{ role_path }}/files/{{ release_datetime.stdout }}" accept_hostkey=yes
+  git:         repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}" accept_hostkey=yes
   become:      yes
   become_user: "{{ php_censor_localhost_user }}"
   delegate_to: "127.0.0.1"
 
 - name: Delete shared directories (LOCAL)
-  file: path="{{ role_path }}/files/{{ release_datetime.stdout }}/{{ item }}" state=absent
+  file: path="{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}/{{ item }}" state=absent
   loop:
     - "runtime"
     - "public/artifacts"
@@ -45,14 +45,14 @@
 - name:    Install PHP Censor dependencies (LOCAL)
   command: "php{{ php_censor_php_version }} /usr/local/bin/composer install --no-dev --optimize-autoloader --prefer-dist"
   args:
-    chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
-    creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/vendor"
+    chdir:   "{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}"
+    creates: "{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}/vendor"
   become:      yes
   become_user: "{{ php_censor_localhost_user }}"
   delegate_to: "127.0.0.1"
 
 - name: Delete non-production files (LOCAL)
-  file: path="{{ role_path }}/files/{{ release_datetime.stdout }}/{{ item }}" state=absent
+  file: path="{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}/{{ item }}" state=absent
   loop:
     - ".git"
     - ".github"
@@ -74,18 +74,18 @@
   delegate_to: "127.0.0.1"
 
 - name:        Archive PHP Censor release (LOCAL)
-  shell:       "tar --create --gzip --file=\"{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz\" ."
+  shell:       "tar --create --gzip --file=\"{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}.tar.gz\" ."
   become:      yes
   become_user: "{{ php_censor_localhost_user }}"
   args:
-    chdir: "{{ role_path }}/files/{{ release_datetime.stdout }}"
+    chdir: "{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}"
   delegate_to: "127.0.0.1"
 
 - name: Creates PHP Censor release directory
   file: path="/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}" state=directory
 
 - name:      Copy PHP Censor release to host
-  unarchive: src="{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}"
+  unarchive: src="{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}"
 
 - name: Set shared directories links
   file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
