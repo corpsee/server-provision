@@ -17,8 +17,8 @@
     - webuser
     - oh_my_zsh
     - nginx
-    - { role: php, php_version: "8.3" }
-    - { role: php_default, php_version: "8.3" }
+    - php
+    - php_default
     - composer
     - symfony_cli
     - postgresql
