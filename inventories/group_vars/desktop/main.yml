@@ -6,8 +6,8 @@ user-reference:                &user-reference        "corpsee"
 group-reference:               &group-reference       "corpsee"
 mode-reference:                &mode-reference        "debug"
 timezone-reference:            &timezone-reference    "Asia/Novosibirsk"
-php-version-reference:         &php-version-reference "8.1"
-php-default-version-reference: &php-default-version-reference "8.1"
+php-version-reference:         &php-version-reference "8.3"
+php-default-version-reference: &php-default-version-reference "8.3"
 
 
 ### packages role

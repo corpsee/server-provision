@@ -13,13 +13,13 @@
   register: release_datetime
 
 - name:        Clone latest Corpsee Site repository (LOCAL)
-  git:         repo="git@github.com:corpsee/corpsee-site.git" version="{{ corpsee_site_version }}" dest="{{ role_path }}/files/{{ release_datetime.stdout }}" accept_hostkey=yes
+  git:         repo="git@github.com:corpsee/corpsee-site.git" version="{{ corpsee_site_version }}" dest="{{ role_path }}/files/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}" accept_hostkey=yes
   become:      yes
   become_user: "{{ corpsee_site_localhost_user }}"
   delegate_to: "127.0.0.1"
 
 - name:     Create Corpsee Site ENV file (LOCAL)
-  template: src=".env.local.{{ corpsee_site_mode }}" dest="{{ role_path }}/files/{{ release_datetime.stdout }}/.env.local"
+  template: src=".env.local.{{ corpsee_site_mode }}" dest="{{ role_path }}/files/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}/.env.local"
   become:      yes
   become_user: "{{ corpsee_site_localhost_user }}"
   delegate_to: "127.0.0.1"
@@ -27,8 +27,8 @@
 - name:    Install Corpsee Site dependencies (LOCAL)
   command: "php{{ corpsee_site_php_version }} /usr/local/bin/composer install --no-dev --optimize-autoloader --prefer-dist"
   args:
-    chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
-    creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/vendor"
+    chdir:   "{{ role_path }}/files/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}"
+    creates: "{{ role_path }}/files/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}/vendor"
   become:      yes
   become_user: "{{ corpsee_site_localhost_user }}"
   delegate_to: "127.0.0.1"
@@ -36,8 +36,8 @@
 - name:    Warmup cache (LOCAL)
   command: "php{{ corpsee_site_php_version }} bin/console cache:clear"
   args:
-    chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
-    creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/var/cache"
+    chdir:   "{{ role_path }}/files/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}"
+    creates: "{{ role_path }}/files/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}/var/cache"
   become:      yes
   become_user: "{{ corpsee_site_localhost_user }}"
   delegate_to: "127.0.0.1"
@@ -45,8 +45,8 @@
 - name:    Install Corpsee Site frontend dependencies (LOCAL)
   command: "npm install"
   args:
-    chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
-    creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/node_modules"
+    chdir:   "{{ role_path }}/files/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}"
+    creates: "{{ role_path }}/files/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}/node_modules"
   become:      yes
   become_user: "{{ corpsee_site_localhost_user }}"
   delegate_to: "127.0.0.1"
@@ -54,14 +54,14 @@
 - name:    Install Corpsee Site frontend dependencies and compile assets (LOCAL)
   command: "node_modules/.bin/encore production"
   args:
-    chdir:   "{{ role_path }}/files/{{ release_datetime.stdout }}"
-    creates: "{{ role_path }}/files/{{ release_datetime.stdout }}/public/build"
+    chdir:   "{{ role_path }}/files/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}"
+    creates: "{{ role_path }}/files/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}/public/build"
   become:      yes
   become_user: "{{ corpsee_site_localhost_user }}"
   delegate_to: "127.0.0.1"
 
 - name: Delete shared directories (LOCAL)
-  file: path="{{ role_path }}/files/{{ release_datetime.stdout }}/{{ item }}" state=absent
+  file: path="{{ role_path }}/files/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}/{{ item }}" state=absent
   loop:
     - "public/files"
     - "var/log"
@@ -71,7 +71,7 @@
   delegate_to: "127.0.0.1"
 
 - name: Delete non-production files (LOCAL)
-  file: path="{{ role_path }}/files/{{ release_datetime.stdout }}/{{ item }}" state=absent
+  file: path="{{ role_path }}/files/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}/{{ item }}" state=absent
   loop:
     - ".git"
     - ".gitignore"
@@ -83,24 +83,24 @@
   delegate_to: "127.0.0.1"
 
 - name:        Archive Corpsee Site release (LOCAL)
-  shell:       "tar --create --gzip --file=\"{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz\" ."
+  shell:       "tar --create --gzip --file=\"{{ role_path }}/files/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}.tar.gz\" ."
   become:      yes
   become_user: "{{ corpsee_site_localhost_user }}"
   args:
-    chdir: "{{ role_path }}/files/{{ release_datetime.stdout }}"
+    chdir: "{{ role_path }}/files/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}"
   delegate_to: "127.0.0.1"
 
 - name: Creates Corpsee Site release directory
   file: path="/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}" state=directory
 
 - name:      Copy Corpsee Site release to host
-  unarchive: src="{{ role_path }}/files/{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}"
+  unarchive: src="{{ role_path }}/files/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}"
 
 - name: Creates Corpsee Site release var directory
   file: path="/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}/var" state=directory
 
 - name: Set current release link
-  file: src="/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}" dest="/var/www/{{ corpsee_site_dir_name }}/current" state=link
+  file: src="./releases/{{ release_datetime.stdout }}" dest="/var/www/{{ corpsee_site_dir_name }}/current" state=link
 
 - name: Copy Corpsee Site files to host
   copy: src="{{ role_path }}/files/{{ corpsee_site_www_dir_filename }}/" dest="/var/www/{{ corpsee_site_dir_name }}/shared/public"
@@ -116,9 +116,9 @@
 - name: Set shared directories links
   file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
   loop:
-    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/public/files", dest: "/var/www/{{ corpsee_site_dir_name }}/current/public/files" }
-    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/var/log", dest: "/var/www/{{ corpsee_site_dir_name }}/current/var/log" }
-    - { src: "/var/www/{{ corpsee_site_dir_name }}/shared/.env.local", dest: "/var/www/{{ corpsee_site_dir_name }}/current/.env.local" }
+    - { src: "../../../shared/public/files", dest: "/var/www/{{ corpsee_site_dir_name }}/current/public/files" }
+    - { src: "../../../shared/var/log", dest: "/var/www/{{ corpsee_site_dir_name }}/current/var/log" }
+    - { src: "../../shared/.env.local", dest: "/var/www/{{ corpsee_site_dir_name }}/current/.env.local" }
 
 - name: Set permissions for Corpsee Site directory
   file: path="/var/www/{{ corpsee_site_dir_name }}" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ug=rwX,o=rX" recurse=yes
