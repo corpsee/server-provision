@@ -15,7 +15,7 @@
   become_user: "{{ corpsee_site_user }}"
 
 - name:        Create current release backup archive
-  shell:       "tar --create --gzip --file=\"/home/web/backup/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}.tar.gz\" ."
+  shell:       "tar --create --gzip --file=\"/home/web/backup/{{ corpsee_site_dir_name }}/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}.tar.gz\" ."
   become:      yes
   become_user: "{{ corpsee_site_user }}"
   args:
