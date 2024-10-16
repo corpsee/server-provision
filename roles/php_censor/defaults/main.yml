@@ -1,7 +1,7 @@
 ---
 
 php_censor_mode:                       debug # mode: production|debug
-php_censor_php_version:                "8.3"
+php_censor_php_version:                "8.1"
 php_censor_workers_count:              2
 php_censor_user:                       www-data
 php_censor_group:                      www-data
