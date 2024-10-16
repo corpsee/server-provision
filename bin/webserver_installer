@@ -32,7 +32,7 @@ ln --symbolic --relative files roles/corpsee_site_release/files
 ln --symbolic --relative files roles/php_censor/files
 ln --symbolic --relative files roles/php_censor_release/files
 
-echo "$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')" > .vault_password
+echo "$(< /dev/urandom tr -dc '12345qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')" > .vault_password
 
 function secrets() {
     mkcert -install
@@ -90,12 +90,12 @@ server_openssh_port: 2$((RANDOM % 10))$((RANDOM % 10))$((RANDOM % 10))
 
 ### webuser role
 
-webuser_password: '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+webuser_password: '$(< /dev/urandom tr -dc '12345qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
 
 
 ### mariadb role
 
-mariadb_root_password: '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+mariadb_root_password: '$(< /dev/urandom tr -dc '12345qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
 
 
 ### php_censor role
@@ -112,8 +112,8 @@ php_censor_smtp_username_test:   'mail@php-censor.info'
 php_censor_smtp_password_test:   '${SMTP_PASSWORD}'
 php_censor_smtp_encryption_test: 'ssl'
 
-php_censor_db_password:      '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
-php_censor_db_password_test: '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+php_censor_db_password:      '$(< /dev/urandom tr -dc '12345qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+php_censor_db_password_test: '$(< /dev/urandom tr -dc '12345qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
 
 php_censor_github_token: '${GITHUB_TOKEN_PHP_CENSOR_BOT}'
 php_censor_github_token_test: '${GITHUB_TOKEN_PHP_CENSOR_BOT}'
@@ -121,16 +121,16 @@ php_censor_github_token_test: '${GITHUB_TOKEN_PHP_CENSOR_BOT}'
 
 ### php_censor_testdb
 
-php_censor_testdb_postgres_db_password: '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
-php_censor_testdb_mysql_db_password:    '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+php_censor_testdb_postgres_db_password: '$(< /dev/urandom tr -dc '12345qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+php_censor_testdb_mysql_db_password:    '$(< /dev/urandom tr -dc '12345qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
 
-php_censor_testdb_postgres_db_password_test: '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
-php_censor_testdb_mysql_db_password_test:    '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+php_censor_testdb_postgres_db_password_test: '$(< /dev/urandom tr -dc '12345qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+php_censor_testdb_mysql_db_password_test:    '$(< /dev/urandom tr -dc '12345qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
 
 
 ### corpsee_site role
 
-corpsee_site_db_password: '$(< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
+corpsee_site_db_password: '$(< /dev/urandom tr -dc '12345qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')'
 corpsee_site_app_secret:  '$(date | md5sum | head -c32)'
 corpsee_site_ga_tracking: '${GA_TRACKING_CORPSEE_COM}'
 " > "inventories/group_vars/web_server/secret.yml"
