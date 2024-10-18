@@ -14,6 +14,9 @@
   become:      yes
   become_user: "{{ php_censor_user }}"
 
+- name: Create backup directory
+  file: path="/home/web/backup/{{ php_censor_dir_name }}" state=directory mode=0755 owner={{ php_censor_user }} group={{ php_censor_group }}
+
 - name:        Create current release backup archive
   shell:       "tar --create --gzip --file=\"/home/web/backup/{{ php_censor_dir_name }}/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}.tar.gz\" ."
   become:      yes

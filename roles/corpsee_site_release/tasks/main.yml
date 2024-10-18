@@ -14,6 +14,9 @@
   become:      yes
   become_user: "{{ corpsee_site_user }}"
 
+- name: Create backup directory
+  file: path="/home/web/backup/{{ corpsee_site_dir_name }}" state=directory mode=0755 owner={{ corpsee_site_user }} group={{ corpsee_site_group }}
+
 - name:        Create current release backup archive
   shell:       "tar --create --gzip --file=\"/home/web/backup/{{ corpsee_site_dir_name }}/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}.tar.gz\" ."
   become:      yes
