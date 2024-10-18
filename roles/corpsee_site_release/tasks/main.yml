@@ -91,9 +91,18 @@
   file: path="{{ role_path }}/files/{{ corpsee_site_dir_name }}_{{ release_datetime.stdout }}/{{ item }}" state=absent
   loop:
     - ".git"
-    - ".gitignore"
-    - "phpunit.xml.dist"
+    - ".github"
     - "tests"
+    - "codecov.yml"
+    - ".editorconfig"
+    - ".gitattributes"
+    - ".gitignore"
+    - ".php-censor.yml"
+    - ".php-cs-fixer.dist.php"
+    - "phpmd.xml.dist"
+    - "phpunit.xml.dist"
+    - "infection.json.dist"
+    - "psalm.xml.dist"
     - "node_modules"
   become:      yes
   become_user: "{{ corpsee_site_localhost_user }}"
