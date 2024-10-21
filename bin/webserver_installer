@@ -185,24 +185,26 @@ cp --verbose  "${CACHE_DIR}/letsencrypt_${CURRENT_DATE}.tar.gz" "roles/server/fi
 
 if [ ! -f "${CACHE_DIR}/php_censor_${CURRENT_DATE}.sql.xz" ]
 then
+    #ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "/home/${WEBSERVER_USER}/backup_db_php_censor.sh"
+    #scp -P "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}:/home/${WEBSERVER_USER}/backup/php_censor/php_censor_${CURRENT_DATE}_daily.sql.xz" "${CACHE_DIR}/php_censor_${CURRENT_DATE}.sql.xz"
     ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "/home/${WEBSERVER_USER}/backup_db_php_censor_daily.sh"
-    #scp -P "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}:/home/${WEBSERVER_USER}/backup/php_censor/php_censor_${CURRENT_DATE}.sql.xz" "${CACHE_DIR}/php_censor_${CURRENT_DATE}.sql.xz"
     scp -P "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}:/home/${WEBSERVER_USER}/backup/php_censor_${CURRENT_DATE}.sql.xz" "${CACHE_DIR}/php_censor_${CURRENT_DATE}.sql.xz"
 fi
 cp --verbose  "${CACHE_DIR}/php_censor_${CURRENT_DATE}.sql.xz" "roles/php_censor/files/php_censor.sql.xz"
 
 if [ ! -f "${CACHE_DIR}/php_censor_test_${CURRENT_DATE}.sql.xz" ]
 then
+    #ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "/home/${WEBSERVER_USER}/backup_db_php_censor_test.sh"
+    #scp -P "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}:/home/${WEBSERVER_USER}/backup/php_censor_test/php_censor_test_${CURRENT_DATE}_daily.sql.xz" "${CACHE_DIR}/php_censor_test_${CURRENT_DATE}.sql.xz"
     ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "/home/${WEBSERVER_USER}/backup_db_php_censor_test_daily.sh"
-    #scp -P "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}:/home/${WEBSERVER_USER}/backup/php_censor_test/php_censor_test_${CURRENT_DATE}.sql.xz" "${CACHE_DIR}/php_censor_test_${CURRENT_DATE}.sql.xz"
     scp -P "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}:/home/${WEBSERVER_USER}/backup/php_censor_test_${CURRENT_DATE}.sql.xz" "${CACHE_DIR}/php_censor_test_${CURRENT_DATE}.sql.xz"
 fi
 cp --verbose  "${CACHE_DIR}/php_censor_test_${CURRENT_DATE}.sql.xz" "roles/php_censor/files/php_censor_test.sql.xz"
 
 if [ ! -f "${CACHE_DIR}/corpsee_site_${CURRENT_DATE}.sql.xz" ]
 then
-    #ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "/home/${WEBSERVER_USER}/backup_db_corpsee_site_daily.sh"
-    #scp -P "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}:/home/${WEBSERVER_USER}/backup/corpsee_site/corpsee_site_${CURRENT_DATE}.sql.xz" "${CACHE_DIR}/corpsee_site_${CURRENT_DATE}.sql.xz"
+    #ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "/home/${WEBSERVER_USER}/backup_db_corpsee_site.sh"
+    #scp -P "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}:/home/${WEBSERVER_USER}/backup/corpsee_site/corpsee_site_${CURRENT_DATE}_daily.sql.xz" "${CACHE_DIR}/corpsee_site_${CURRENT_DATE}.sql.xz"
     ssh -p "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}" "/home/${WEBSERVER_USER}/backup_db_corpsee_site_symfony_daily.sh"
     scp -P "${WEBSERVER_PORT}" "${WEBSERVER_USER}@${WEBSERVER_HOST}:/home/${WEBSERVER_USER}/backup/corpsee_site_symfony_${CURRENT_DATE}.sql.xz" "${CACHE_DIR}/corpsee_site_${CURRENT_DATE}.sql.xz"
 fi
