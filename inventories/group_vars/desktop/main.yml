@@ -97,6 +97,8 @@ packages_items_to_install:
   - nodejs
   - npm
 
+  - python3-passlib # For ansible
+
 
 packages_items_to_remove:
   - hexchat

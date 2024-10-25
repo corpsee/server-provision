@@ -59,6 +59,7 @@ packages_items_to_install:
   - ncdu
   - xz-utils
   - p7zip-full
+  - python3-passlib # For ansible
 
 packages_items_to_remove: []
 

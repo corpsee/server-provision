@@ -4,4 +4,4 @@
   command: /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata
 
 - name:    Restart OpenSSH
-  service: name=sshd enabled=yes state=restarted
+  service: name=ssh enabled=yes state=restarted

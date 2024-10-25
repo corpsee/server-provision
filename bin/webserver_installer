@@ -6,7 +6,7 @@ set -o errexit
 CURRENT_DATE=$(date +%Y-%m-%d)
 
 PROJECT_BASE_DIR="${HOME}/workbench/provisions"
-PROJECT="webserver-vagrant-provision-v4"
+PROJECT="webserver-provision-v4"
 
 VERSION_NAME="master"
 
