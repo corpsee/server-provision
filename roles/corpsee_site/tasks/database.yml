@@ -28,4 +28,4 @@
   file: path="/home/{{ corpsee_site_user }}/backup_db_{{ corpsee_site_db_name }}.sh" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ug=rwx,o=r"
 
 - name: Set Corpsee Site DB dump cronjob
-  cron: minute=0 hour=21 weekday=5 name="{{ corpsee_site_dir_name }} DB dump" user="{{ corpsee_site_user }}" job="~/backup_db_{{ corpsee_site_db_name }}.sh"
+  cron: minute=0 hour=0 name="{{ corpsee_site_dir_name }} DB dump" user="{{ corpsee_site_user }}" job="~/backup_db_{{ corpsee_site_db_name }}.sh"
