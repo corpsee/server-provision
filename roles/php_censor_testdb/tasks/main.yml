@@ -46,7 +46,7 @@
   file: path="/home/{{ php_censor_user }}/{{ php_censor_testdb_mysql_create_script_name }}.sh" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwx,o=r"
 
 - name:     Create PHP Censor Test DB drop script (Mysql)
-  template: src=drop_test_ci_mysql_db.sh dest="/home/{{ php_censor_user }}/drop_test_ci_mysql_db.sh"
+  template: src=drop_test_ci_mysql_db.sh dest="/home/{{ php_censor_user }}/{{ php_censor_testdb_mysql_drop_script_name }}.sh"
 
 - name: Set permissions PHP Censor Test DB drop script (Mysql)
-  file: path="/home/{{ php_censor_user }}/drop_test_ci_mysql_db.sh" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwx,o=r"
+  file: path="/home/{{ php_censor_user }}/{{ php_censor_testdb_mysql_drop_script_name }}.sh" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwx,o=r"
