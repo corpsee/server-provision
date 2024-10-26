@@ -11,7 +11,7 @@
 - name: Install MariaDB
   apt:  name=mariadb-server state=latest
 
-- name: Install Mysqldb
+- name: Install Python Mysqldb integration
   apt:  name="python3-mysqldb" state=latest
 
 - name:       Set MariaDB root user password
