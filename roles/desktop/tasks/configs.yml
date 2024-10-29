@@ -6,6 +6,7 @@
   become_user: "{{ desktop_user }}"
   loop:
     - "/home/{{ desktop_user }}/.config/mc"
+    - "/home/{{ desktop_user }}/.config/mpv"
 
 - name:        Set Midnight Commander config
   template:    src=mc_ini dest="/home/{{ desktop_user }}/.config/mc/ini"
@@ -14,5 +15,10 @@
 
 - name:        Set Midnight Commander panels config
   template:    src="mc_panels.ini" dest="/home/{{ desktop_user }}/.config/mc/panels.ini"
+  become:      true
+  become_user: "{{ desktop_user }}"
+
+- name:        Set MPV config (For Celluloid)
+  template:    src="mpv.conf" dest="/home/{{ desktop_user }}/.config/mpv/mpv.conf"
   become:      true
   become_user: "{{ desktop_user }}"
