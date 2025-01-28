@@ -110,15 +110,9 @@ packages_items_to_remove:
 packages_snap_items_to_install: []
 
 packages_flatpak_items_to_install:
-#  - com.skype.Client
-#  - com.getmailspring.Mailspring
   - org.mozilla.Thunderbird
-#  - com.ulduzsoft.Birdtray
   - org.telegram.desktop
   - us.zoom.Zoom
-#  - com.slack.Slack
-#  - com.mattermost.Desktop
-#  - net.lutris.Lutris
   - org.nickvision.tubeconverter
   - org.nickvision.tagger
   - org.nickvision.money
@@ -127,7 +121,7 @@ packages_flatpak_items_to_install:
   - org.blender.Blender
   - rest.insomnia.Insomnia
   - com.rtosta.zapzap
-  -
+  - org.localsend.localsend_app
 
 
 ### oh-my-zsh role
