@@ -19,6 +19,9 @@ packages_ppa:
   - ppa:      "ansible/ansible"
     filename: "ansible"
     key:      6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367
+  - ppa:      "graphics-drivers/ppa"
+    filename: "nvidia"
+    key:      2388FF3BE10A76F638F80723FCAE110B1118213C
 
 packages_repositories:
   - repository: "deb [arch=amd64 signed-by=/usr/share/keyrings/yandex-disk.gpg] http://repo.yandex.ru/yandex-disk/deb/ stable main"
