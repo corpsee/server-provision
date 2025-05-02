@@ -7,6 +7,7 @@
     - nginx
     - role:                                  php_censor
       php_censor_mode:                       "{{ php_censor_mode_test }}"
+      php_censor_workers_periodical_count:   "{{ php_censor_workers_periodical_count_test }}"
       php_censor_workers_count:              "{{ php_censor_workers_count_test }}"
       php_censor_php_version:                "{{ php_censor_php_version_test }}"
       php_censor_user:                       "{{ php_censor_user_test }}"

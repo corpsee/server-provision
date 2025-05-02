@@ -117,6 +117,9 @@
 - name: Set current release link
   file: src="./releases/{{ release_datetime.stdout }}" dest="/var/www/{{ php_censor_dir_name }}/current" state=link
 
+- name:  Restart PHP Censor worker (with periodical work) systemd service
+  shell: "systemctl restart '{{ php_censor_queue_name }}_periodical@*.service'"
+
 - name:  Restart PHP Censor worker systemd service
   shell: "systemctl restart '{{ php_censor_queue_name }}@*.service'"
 
