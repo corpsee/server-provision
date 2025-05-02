@@ -1,5 +1,9 @@
 ---
 
+- name:     Create PHP Censor worker (with periodical work) systemd service
+  template: src="php_censor_periodical@.service" dest="/etc/systemd/system/{{ php_censor_queue_name }}_periodical@.service"
+  notify:   PHP Censor Restart Worker (With Periodical Work)
+
 - name:     Create PHP Censor worker systemd service
   template: src="php_censor@.service" dest="/etc/systemd/system/{{ php_censor_queue_name }}@.service"
   notify:   PHP Censor Restart Worker

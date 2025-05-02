@@ -152,6 +152,7 @@ mariadb_timezone: *timezone-reference
 ### php_censor role
 
 php_censor_mode:                       *mode-reference
+php_censor_workers_periodical_count:   1
 php_censor_workers_count:              2
 php_censor_php_version:                *php-version-reference
 php_censor_user:                       *user-reference
@@ -179,6 +180,7 @@ php_censor_cert_pem_path:              '/etc/letsencrypt/live/ci.php-censor.info
 php_censor_cert_pem_key_path:          '/etc/letsencrypt/live/ci.php-censor.info/privkey.pem'
 
 php_censor_mode_test:                       *mode-reference
+php_censor_workers_periodical_count_test:   1
 php_censor_workers_count_test:              2
 php_censor_php_version_test:                *php-version-reference
 php_censor_user_test:                       *user-reference
