@@ -1,5 +1,5 @@
 [Unit]
-Description="PHPCensor Worker (With Periodical Work)"
+Description="PHPCensor Worker (With Periodical Work) (Instance %i)"
 After=network.target
 
 [Service]

@@ -1,5 +1,5 @@
 [Unit]
-Description="PHPCensor Worker"
+Description="PHPCensor Worker (Instance %i)"
 After=network.target
 
 [Service]
