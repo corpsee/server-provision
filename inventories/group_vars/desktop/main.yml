@@ -53,6 +53,7 @@ packages_items_to_install:
   - ncdu
   - xz-utils
   - p7zip-full
+  - pipx
 
   # For development
   - python3-pip
