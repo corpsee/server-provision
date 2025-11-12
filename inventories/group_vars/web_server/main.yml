@@ -119,7 +119,7 @@ php_packages:
   - amqp
   - memcache
   - memcached
-
+  - ldap
 
 ### php_default role
 
