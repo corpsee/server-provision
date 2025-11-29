@@ -40,7 +40,7 @@
 - name:         Get timezone data
   command:      mysql -NBe "SELECT COUNT(*) FROM mysql.time_zone"
   register:     mysql_timezones_count
-  changed_when: false
+  changed_when: no
   check_mode:   no
 
 - name:   Ensure timezone data is imported

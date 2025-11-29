@@ -5,13 +5,13 @@
 
 - name:          Create Corpsee Site DB
   postgresql_db: name="{{ corpsee_site_db_name }}" state=present
-  become:        true
+  become:        yes
   become_user:   postgres
   register:      corpsee_site_database
 
 - name:            Create Corpsee Site DB user
   postgresql_user: db="{{ corpsee_site_db_name }}" name="{{ corpsee_site_db_user }}" password="{{ corpsee_site_db_password }}" role_attr_flags="NOSUPERUSER,NOCREATEDB,NOCREATEROLE,NOREPLICATION" encrypted=yes priv=ALL
-  become:          true
+  become:          yes
   become_user:     postgres
 
 - name: Copy Corpsee Site DB dump to host

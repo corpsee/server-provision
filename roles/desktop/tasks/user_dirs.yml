@@ -2,7 +2,7 @@
 
 - name:        Create new user directories ('XDG_')
   file:        path="{{ item }}" state=directory
-  become:      true
+  become:      yes
   become_user: "{{ desktop_user }}"
   loop:
     - "/home/{{ desktop_user }}/Desktop"
@@ -20,17 +20,17 @@
 
 - name:        Set 'user-dirs.dirs' config for user
   template:    src="user-dirs.dirs" dest="/home/{{ desktop_user }}/.config/user-dirs.dirs"
-  become:      true
+  become:      yes
   become_user: "{{ desktop_user }}"
 
 - name:        Update user directorues ('XDG_')
   command:     "xdg-user-dirs-update"
-  become:      true
+  become:      yes
   become_user: "{{ desktop_user }}"
 
 - name:          Move user directories content to new user directories ('XDG_')
   shell:         "[ -z \"$(ls \"/home/{{ desktop_user }}/{{ item.from }}\")\" ] || mv --no-target-directory \"/home/{{ desktop_user }}/{{ item.from }}\" \"/home/{{ desktop_user }}/{{ item.to }}\""
-  become:        true
+  become:        yes
   become_user:   "{{ desktop_user }}"
   loop:
     - from: "Рабочий стол"
@@ -52,7 +52,7 @@
 
 - name:        Delete old user directories ('XDG_')
   file:        path="{{ item }}" state=absent
-  become:      true
+  become:      yes
   become_user: "{{ desktop_user }}"
   loop:
     - "/home/{{ desktop_user }}/Рабочий стол"
@@ -66,5 +66,5 @@
 
 - name:        Fix GTK bookmarks
   template:    src="bookmarks" dest="/home/{{ desktop_user }}/.config/gtk-3.0/bookmarks"
-  become:      true
+  become:      yes
   become_user: "{{ desktop_user }}"

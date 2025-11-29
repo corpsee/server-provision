@@ -2,7 +2,7 @@
 
 - name:            Change postgres user password
   postgresql_user: name="postgres" password="postgres" encrypted=yes
-  become:          true
+  become:          yes
   become_user:     postgres
 
 - name:       Added auth info to .pgpass config

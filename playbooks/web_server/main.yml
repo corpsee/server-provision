@@ -3,11 +3,11 @@
 - hosts:        web_server
   become:       yes
   become_user:  root
-  gather_facts: false
+  gather_facts: no
   pre_tasks:
     - name:         Install aptitude for Ansible
       raw:          test -e aptitude || (apt -y update && apt -y install aptitude)
-      changed_when: false
+      changed_when: no
 
     - name:  Setup and gather facts
       setup:

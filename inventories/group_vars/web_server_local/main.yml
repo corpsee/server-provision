@@ -24,7 +24,7 @@ server_locales:
 
 server_default_local: en_US.UTF-8
 
-#server_openssh_port: in secret.yml
+# server_openssh_port: in secret.yml
 
 server_certs_copy_enabled: no
 
@@ -71,7 +71,7 @@ packages_flatpak_items_to_install: []
 ### webuser role
 
 webuser_user:         *user-reference
-#webuser_password: in secret.yml
+# webuser_password: in secret.yml
 webuser_group:        *group-reference
 webuser_groups:       []
 webuser_ssh_key_name: web_server_local

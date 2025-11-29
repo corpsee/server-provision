@@ -2,7 +2,7 @@
 
 - name:         Upgrade server packages
   apt:          upgrade=yes update_cache=yes cache_valid_time=3600
-  changed_when: false
+  changed_when: no
 
 - name: Install packages
   apt:  name="{{ item }}" state=latest

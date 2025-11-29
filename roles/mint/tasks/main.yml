@@ -8,12 +8,12 @@
 
 - name: "Fix 'ansible_distribution_release' fact for Linux Mint 22.1"
   set_fact:
-      ansible_distribution_release: noble
+    ansible_distribution_release: noble
   when:
-      - ansible_distribution_release == "xia"
+    - ansible_distribution_release == "xia"
 
 - name: "Fix 'ansible_distribution_release' fact for Linux Mint 22.2"
   set_fact:
-      ansible_distribution_release: noble
+    ansible_distribution_release: noble
   when:
-      - ansible_distribution_release == "zara"
+    - ansible_distribution_release == "zara"

@@ -14,7 +14,7 @@
 
 - name:         Upgrade server packages
   apt:          upgrade=yes update_cache=yes cache_valid_time=3600
-  changed_when: false
+  changed_when: no
   when:         php_packages is defined and php_packages | length > 0
 
 - name: Install PHP packages
