@@ -1,7 +1,9 @@
 ---
 
-- name:        Create new user directories ('XDG_')
-  file:        path="{{ item }}" state=directory
+- name: Create new user directories ('XDG_')
+  file:
+    path: "{{ item }}"
+    state: directory
   become:      yes
   become_user: "{{ desktop_user }}"
   loop:
@@ -18,13 +20,16 @@
     - "/home/{{ desktop_user }}/Projects"
     - "/home/{{ desktop_user }}/Programs"
 
-- name:        Set 'user-dirs.dirs' config for user
-  template:    src="user-dirs.dirs" dest="/home/{{ desktop_user }}/.config/user-dirs.dirs"
+- name: Set 'user-dirs.dirs' config for user
+  template:
+    src: "user-dirs.dirs"
+    dest: "/home/{{ desktop_user }}/.config/user-dirs.dirs"
   become:      yes
   become_user: "{{ desktop_user }}"
 
-- name:        Update user directorues ('XDG_')
-  command:     "xdg-user-dirs-update"
+- name: Update user directorues ('XDG_')
+  command:
+    cmd: "xdg-user-dirs-update"
   become:      yes
   become_user: "{{ desktop_user }}"
 
@@ -50,8 +55,10 @@
     - from: "Видео"
       to:   "Videos"
 
-- name:        Delete old user directories ('XDG_')
-  file:        path="{{ item }}" state=absent
+- name: Delete old user directories ('XDG_')
+  file:
+    path: "{{ item }}"
+    state: absent
   become:      yes
   become_user: "{{ desktop_user }}"
   loop:
@@ -64,7 +71,9 @@
     - "/home/{{ desktop_user }}/Изображения"
     - "/home/{{ desktop_user }}/Видео"
 
-- name:        Fix GTK bookmarks
-  template:    src="bookmarks" dest="/home/{{ desktop_user }}/.config/gtk-3.0/bookmarks"
+- name: Fix GTK bookmarks
+  template:
+    src: bookmarks
+    dest: "/home/{{ desktop_user }}/.config/gtk-3.0/bookmarks"
   become:      yes
   become_user: "{{ desktop_user }}"

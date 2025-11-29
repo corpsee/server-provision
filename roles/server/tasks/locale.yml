@@ -1,8 +1,12 @@
 ---
 
-- name:       Generate locales
-  locale_gen: name="{{ item }}" state=present
+- name: Generate locales
+  locale_gen:
+    name: "{{ item }}"
+    state: present
   loop:       "{{ server_locales | default([]) }}"
 
-- name:     Set default locale
-  template: src=locale dest=/etc/default/locale
+- name: Set default locale
+  template:
+    src: locale
+    dest: /etc/default/locale

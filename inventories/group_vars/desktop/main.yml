@@ -2,12 +2,12 @@
 
 ### references
 
-user-reference:                &user-reference        "corpsee"
-group-reference:               &group-reference       "corpsee"
-mode-reference:                &mode-reference        "debug"
-timezone-reference:            &timezone-reference    "Asia/Novosibirsk"
-php-version-reference:         &php-version-reference "8.1"
-php-default-version-reference: &php-default-version-reference "8.1"
+user_reference:                &user_reference        "corpsee"
+group_reference:               &group_reference       "corpsee"
+mode_reference:                &mode_reference        "debug"
+timezone_reference:            &timezone_reference    "Asia/Novosibirsk"
+php_version_reference:         &php_version_reference "8.1"
+php_default_version_reference: &php_default_version_reference "8.1"
 
 
 ### packages role
@@ -53,11 +53,11 @@ packages_items_to_install:
   - ncdu
   - xz-utils
   - p7zip-full
-  - pipx
 
   # For development
   - python3-pip
   - python3-virtualenv
+  - pipx
   - ansible
   - anacron
   - beanstalkd
@@ -130,30 +130,30 @@ packages_flatpak_items_to_install:
 
 ### oh-my-zsh role
 
-oh_my_zsh_user:  *user-reference
-oh_my_zsh_group: *group-reference
+oh_my_zsh_user:  *user_reference
+oh_my_zsh_group: *group_reference
 
 
 ### desktop role
 
-desktop_user: *user-reference
+desktop_user: *user_reference
 
 
 ### nginx role
 
-nginx_mode:  *mode-reference
-nginx_user:  *user-reference
-nginx_group: *group-reference
+nginx_mode:  *mode_reference
+nginx_user:  *user_reference
+nginx_group: *group_reference
 
 
 ### php role
 
-php_mode:            *mode-reference
-php_timezone:        *timezone-reference
-php_version:         *php-version-reference
+php_mode:            *mode_reference
+php_timezone:        *timezone_reference
+php_version:         *php_version_reference
 php_memory:          -1
-php_fpm_user:        *user-reference
-php_fpm_group:       *group-reference
+php_fpm_user:        *user_reference
+php_fpm_group:       *group_reference
 php_packages:
   - bcmath
   - mbstring
@@ -178,7 +178,7 @@ php_packages:
 
 ### php_default role
 
-php_default_version: *php-default-version-reference
+php_default_version: *php_default_version_reference
 
 
 ### golang role
@@ -195,22 +195,22 @@ composer_path: /usr/local/bin/composer
 ### postgresql role
 
 postgresql_version:  14
-postgresql_timezone: *timezone-reference
+postgresql_timezone: *timezone_reference
 
 
 ### postgresql_desktop role
 
-postgresql_desktop_user:  *user-reference
-postgresql_desktop_group: *group-reference
+postgresql_desktop_user:  *user_reference
+postgresql_desktop_group: *group_reference
 
 
 ### mariadb role
 
 mariadb_version:       "10.11" # 10.11 - LTS version to 16 feb 2028. See: https://endoflife.date/mariadb
 mariadb_root_password: root
-mariadb_timezone:      *timezone-reference
+mariadb_timezone:      *timezone_reference
 
 
 ### docker role
 
-docker_user: *user-reference
+docker_user: *user_reference

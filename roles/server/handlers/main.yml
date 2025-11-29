@@ -1,7 +1,11 @@
 ---
 
-- name:    Update TZData
-  command: /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata
+- name: Update TZData
+  command:
+    cmd: /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata
 
-- name:    Restart OpenSSH
-  service: name=ssh enabled=yes state=restarted
+- name: Restart OpenSSH
+  service:
+    name: ssh
+    enabled: yes
+    state: restarted

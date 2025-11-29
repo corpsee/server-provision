@@ -5,11 +5,16 @@
   args:
     creates: "/usr/share/keyrings/unity3d.gpg"
 
-- name:           Add Unity3d Hub repository
-  apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/unity3d.gpg] https://hub.unity3d.com/linux/repos/deb stable main" filename="unity3d" update_cache=yes
+- name: Add Unity3d Hub repository
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/unity3d.gpg] https://hub.unity3d.com/linux/repos/deb stable main"
+    filename: "unity3d"
+    update_cache: yes
 
 - name: Install Unity3d Hub and .NET Runtime
-  apt:  name="{{ item }}" state=latest
+  apt:
+    name: "{{ item }}"
+    state: latest
   loop:
     - unityhub
 #    - dotnet-sdk-6.0

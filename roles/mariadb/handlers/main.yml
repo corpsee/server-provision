@@ -1,4 +1,7 @@
 ---
 
-- name:    Restart MariaDB
-  service: name="mysql" enabled=yes state=restarted
+- name: Restart MariaDB
+  service:
+    name: "mysql"
+    enabled: yes
+    state: restarted

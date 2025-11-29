@@ -3,7 +3,9 @@
 # https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
 
 - name:     Set Sysctl config
-  template: src=sysctl.conf dest="/etc/sysctl.conf"
+  template:
+    src: "sysctl.conf"
+    dest: "/etc/sysctl.conf"
 
 - name:  Apply Sysctl changes
   shell: "sysctl --load --system"

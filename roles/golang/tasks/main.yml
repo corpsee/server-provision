@@ -1,24 +1,45 @@
 ---
 
-- name:    Add Golang PPA repositories GPG key
-  apt_key: id="52B59B1571A79DBC054901C0F6BC817356A3D45E" keyserver="keyserver.ubuntu.com" keyring="/usr/share/keyrings/golang.gpg" state=present
+- name: Add Golang PPA repositories GPG key
+  apt_key:
+    id: "52B59B1571A79DBC054901C0F6BC817356A3D45E"
+    keyserver: "keyserver.ubuntu.com"
+    keyring: "/usr/share/keyrings/golang.gpg"
+    state: present
 
-- name:           Add Golang PPA repository
-  apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/golang.gpg] https://ppa.launchpadcontent.net/longsleep/golang-backports/ubuntu {{ ansible_distribution_release }} main" filename="golang" update_cache=yes
+- name: Add Golang PPA repository
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/golang.gpg] https://ppa.launchpadcontent.net/longsleep/golang-backports/ubuntu {{ ansible_distribution_release }} main"
+    filename: golang
+    update_cache: yes
 
 - name: Install Golang
-  apt:  name="golang-{{ golang_version }}" state=latest
+  apt:
+    name: "golang-{{ golang_version }}"
+    state: latest
 
 - name: Create symlink to "/usr/local/bin" fo go
-  file: src="/usr/lib/go-{{ golang_version }}/bin/go" dest="/usr/local/bin/go{{ golang_version }}" state=link
+  file:
+    src: "/usr/lib/go-{{ golang_version }}/bin/go"
+    dest: "/usr/local/bin/go{{ golang_version }}"
+    state: link
 
 - name: Create symlink to "/usr/local/bin" fo gofmt
-  file: src="/usr/lib/go-{{ golang_version }}/bin/gofmt" dest="/usr/local/bin/gofmt{{ golang_version }}" state=link
+  file:
+    src: "/usr/lib/go-{{ golang_version }}/bin/gofmt"
+    dest: "/usr/local/bin/gofmt{{ golang_version }}"
+    state: link
 
 - name: Create symlink to "/usr/local/bin" fo go (default go)
-  file: src="/usr/lib/go-{{ golang_version }}/bin/go" dest="/usr/local/bin/go" state=link
+  file:
+    src: "/usr/lib/go-{{ golang_version }}/bin/go"
+    dest: "/usr/local/bin/go"
+    state: link
   when: golang_default
 
 - name: Create symlink to "/usr/local/bin" fo gofmt (default gofmt)
-  file: src="/usr/lib/go-{{ golang_version }}/bin/gofmt" dest="/usr/local/bin/gofmt" state=link
+  file:
+    src: "/usr/lib/go-{{ golang_version }}/bin/gofmt"
+    dest: "/usr/local/bin/gofmt"
+    state: link
   when: golang_default

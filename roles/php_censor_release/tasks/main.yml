@@ -1,7 +1,8 @@
 ---
 
-- name:     Register release datetime
-  command:  date +%Y-%m-%d_%H-%M-%S
+- name: Register release datetime
+  command:
+    cmd: "date +%Y-%m-%d_%H-%M-%S"
   register: release_datetime
 
 - name:        Copy current release for backup
@@ -15,7 +16,12 @@
   become_user: "{{ php_censor_user }}"
 
 - name: Create backup directory
-  file: path="/home/web/backup/{{ php_censor_dir_name }}" state=directory mode=0755 owner={{ php_censor_user }} group={{ php_censor_group }}
+  file:
+    path: "/home/web/backup/{{ php_censor_dir_name }}"
+    state: directory
+    mode: "0755"
+    owner: "{{ php_censor_user }}"
+    group: "{{ php_censor_group }}"
 
 - name:        Create current release backup archive
   shell:       "tar --create --gzip --file=\"/home/web/backup/{{ php_censor_dir_name }}/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}.tar.gz\" ."
@@ -24,19 +30,27 @@
   args:
     chdir: "/var/www/{{ php_censor_dir_name }}/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}"
 
-- name:        Delete current release for backup
-  file:        path="/var/www/{{ php_censor_dir_name }}/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}" state=absent
+- name: Delete current release for backup
+  file:
+    path: "/var/www/{{ php_censor_dir_name }}/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}"
+    state: absent
   become:      yes
   become_user: "{{ php_censor_user }}"
 
-- name:        Clone latest PHP Censor repository (LOCAL)
-  git:         repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}" accept_hostkey=yes
+- name: Clone latest PHP Censor repository (LOCAL)
+  git:
+    repo: "git@github.com:php-censor/php-censor.git"
+    version: "{{ php_censor_version }}"
+    dest: "{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}"
+    accept_hostkey: yes
   become:      yes
   become_user: "{{ php_censor_localhost_user }}"
   delegate_to: "127.0.0.1"
 
 - name: Delete shared directories (LOCAL)
-  file: path="{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}/{{ item }}" state=absent
+  file:
+    path: "{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}/{{ item }}"
+    state: absent
   loop:
     - "runtime"
     - "public/artifacts"
@@ -45,8 +59,9 @@
   become_user: "{{ php_censor_localhost_user }}"
   delegate_to: "127.0.0.1"
 
-- name:    Install PHP Censor dependencies (LOCAL)
-  command: "php{{ php_censor_php_version }} /usr/local/bin/composer install --no-dev --optimize-autoloader --prefer-dist"
+- name: Install PHP Censor dependencies (LOCAL)
+  command:
+    cmd: "php{{ php_censor_php_version }} /usr/local/bin/composer install --no-dev --optimize-autoloader --prefer-dist"
   args:
     chdir:   "{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}"
     creates: "{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}/vendor"
@@ -55,7 +70,9 @@
   delegate_to: "127.0.0.1"
 
 - name: Delete non-production files (LOCAL)
-  file: path="{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}/{{ item }}" state=absent
+  file:
+    path: "{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}/{{ item }}"
+    state: absent
   loop:
     - ".git"
     - ".github"
@@ -89,33 +106,54 @@
   delegate_to: "127.0.0.1"
 
 - name: Creates PHP Censor release directory
-  file: path="/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}" state=directory
+  file:
+    path: "/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}"
+    state: directory
 
-- name:      Copy PHP Censor release to host
-  unarchive: src="{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}"
+- name: Copy PHP Censor release to host
+  unarchive:
+    src: "{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}.tar.gz"
+    dest: "/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}"
 
 - name: Set shared directories links
-  file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
   loop:
     - { src: "../../shared/runtime", dest: "/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}/runtime" }
     - { src: "../../../shared/public/artifacts", dest: "/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}/public/artifacts" }
     - { src: "../../shared/app", dest: "/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}/app" }
 
 - name: Set permissions for PHP Censor directory
-  file: path="/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwX,o=rX" recurse=yes
+  file:
+    path: "/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}"
+    owner: "{{ php_censor_user }}"
+    group: "{{ php_censor_group }}"
+    mode: "ug=rwX,o=rX"
+    recurse: yes
 
 - name: Set PHP Censor console executable
-  file: path="/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}/bin" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ugo+x" recurse=yes
+  file:
+    path: "/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}/bin"
+    owner: "{{ php_censor_user }}"
+    group: "{{ php_censor_group }}"
+    mode: "ugo+x"
+    recurse: yes
 
-- name:        Make migrations
-  command:     ./bin/console php-censor-migrations:migrate
+- name: Make migrations
+  command:
+    cmd: ./bin/console php-censor-migrations:migrate
   become:      yes
   become_user: "{{ php_censor_user }}"
   args:
     chdir: "/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}"
 
 - name: Set current release link
-  file: src="./releases/{{ release_datetime.stdout }}" dest="/var/www/{{ php_censor_dir_name }}/current" state=link
+  file:
+    src: "./releases/{{ release_datetime.stdout }}"
+    dest: "/var/www/{{ php_censor_dir_name }}/current"
+    state: link
 
 - name:  Restart PHP Censor worker (with periodical work) systemd service
   shell: "systemctl restart '{{ php_censor_queue_name }}_periodical@*.service'"
@@ -123,5 +161,7 @@
 - name:  Restart PHP Censor worker systemd service
   shell: "systemctl restart '{{ php_censor_queue_name }}@*.service'"
 
-- name:    Restart PHP FPM systemd service
-  systemd: name="php{{ php_censor_php_version }}-fpm.service" state=restarted
+- name: Restart PHP FPM systemd service
+  systemd:
+    name: "php{{ php_censor_php_version }}-fpm.service"
+    state: restarted

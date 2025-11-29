@@ -1,7 +1,11 @@
 ---
 
-- name:    Add repositories GPG keys (by key id)
-  apt_key: id="{{ item.key }}" keyserver="{{ item.keyserver }}" keyring="/usr/share/keyrings/{{ item.filename }}.gpg" state=present
+- name: Add repositories GPG keys (by key id)
+  apt_key:
+    id: "{{ item.key }}"
+    keyserver: "{{ item.keyserver }}"
+    keyring: "/usr/share/keyrings/{{ item.filename }}.gpg"
+    state: present
   when:    item.keyserver | default('', true) | trim != ''
   loop:    "{{ packages_repositories | default([]) }}"
 
@@ -12,6 +16,9 @@
   loop:  "{{ packages_repositories | default([]) }}"
   when:  item.url | default('', true) | trim != ''
 
-- name:           Add repositories
-  apt_repository: repo="{{ item.repository }}" filename="{{ item.filename }}" update_cache=yes
-  loop:           "{{ packages_repositories | default([]) }}"
+- name: Add repositories
+  apt_repository:
+    repo: "{{ item.repository }}"
+    filename: "{{ item.filename }}"
+    update_cache: yes
+  loop: "{{ packages_repositories | default([]) }}"

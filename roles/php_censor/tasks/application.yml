@@ -1,25 +1,33 @@
 ---
 
-- name:     Check if PHP Censor directory is exists
-  stat:     path="/var/www/{{ php_censor_dir_name }}/current"
+- name: Check if PHP Censor directory is exists
+  stat:
+    path: "/var/www/{{ php_censor_dir_name }}/current"
   register: php_censor_directory
 
 - name: EXIT BECAUSE ALREADY INIT
   meta: end_play
   when: php_censor_directory.stat.exists
 
-- name:     Register release datetime
-  command:  date +%Y-%m-%d_%H-%M-%S
+- name: Register release datetime
+  command:
+    cmd: "date +%Y-%m-%d_%H-%M-%S"
   register: release_datetime
 
-- name:        Clone latest PHP Censor repository (LOCAL)
-  git:         repo="git@github.com:php-censor/php-censor.git" version="{{ php_censor_version }}" dest="{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}" accept_hostkey=yes
+- name: Clone latest PHP Censor repository (LOCAL)
+  git:
+    repo: "git@github.com:php-censor/php-censor.git"
+    version: "{{ php_censor_version }}"
+    dest: "{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}"
+    accept_hostkey: yes
   become:      yes
   become_user: "{{ php_censor_localhost_user }}"
   delegate_to: "127.0.0.1"
 
 - name: Delete shared directories (LOCAL)
-  file: path="{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}/{{ item }}" state=absent
+  file:
+    path: "{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}/{{ item }}"
+    state: absent
   loop:
     - "runtime"
     - "public/artifacts"
@@ -28,8 +36,9 @@
   become_user: "{{ php_censor_localhost_user }}"
   delegate_to: "127.0.0.1"
 
-- name:    Install PHP Censor dependencies (LOCAL)
-  command: "php{{ php_censor_php_version }} /usr/local/bin/composer install --no-dev --optimize-autoloader --prefer-dist"
+- name: Install PHP Censor dependencies (LOCAL)
+  command:
+    cmd: "php{{ php_censor_php_version }} /usr/local/bin/composer install --no-dev --optimize-autoloader --prefer-dist"
   args:
     chdir:   "{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}"
     creates: "{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}/vendor"
@@ -38,7 +47,9 @@
   delegate_to: "127.0.0.1"
 
 - name: Delete non-production files (LOCAL)
-  file: path="{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}/{{ item }}" state=absent
+  file:
+    path: "{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}/{{ item }}"
+    state: absent
   loop:
     - ".git"
     - ".github"
@@ -71,16 +82,25 @@
   delegate_to: "127.0.0.1"
 
 - name: Creates PHP Censor release directory
-  file: path="/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}" state=directory
+  file:
+    path: "/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}"
+    state: directory
 
-- name:      Copy PHP Censor release to host
-  unarchive: src="{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}.tar.gz" dest="/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}"
+- name: Copy PHP Censor release to host
+  unarchive:
+    src: "{{ role_path }}/files/{{ php_censor_dir_name }}_{{ release_datetime.stdout }}.tar.gz"
+    dest: "/var/www/{{ php_censor_dir_name }}/releases/{{ release_datetime.stdout }}"
 
 - name: Set current release link
-  file: src="./releases/{{ release_datetime.stdout }}" dest="/var/www/{{ php_censor_dir_name }}/current" state=link
+  file:
+    src: "./releases/{{ release_datetime.stdout }}"
+    dest: "/var/www/{{ php_censor_dir_name }}/current"
+    state: link
 
 - name: Creates shared directories
-  file: path="{{ item }}" state=directory
+  file:
+    path: "{{ item }}"
+    state: directory
   loop:
     - "/var/www/{{ php_censor_dir_name }}/shared/runtime/builds"
     - "/var/www/{{ php_censor_dir_name }}/shared/runtime/cache"
@@ -88,30 +108,50 @@
     - "/var/www/{{ php_censor_dir_name }}/shared/public"
     - "/var/www/{{ php_censor_dir_name }}/shared/app"
 
-- name:      Copy PHP Censor files to host
-  unarchive: src="{{ role_path }}/files/{{ php_censor_artifacts_dir_filename }}" dest="/var/www/{{ php_censor_dir_name }}/shared/public"
+- name: Copy PHP Censor files to host
+  unarchive:
+    src: "{{ role_path }}/files/{{ php_censor_artifacts_dir_filename }}"
+    dest: "/var/www/{{ php_censor_dir_name }}/shared/public"
 
-- name:     Create PHP Censor application config (config.yml)
-  template: src=config.yml dest="/var/www/{{ php_censor_dir_name }}/shared/app/config.yml"
+- name: Create PHP Censor application config (config.yml)
+  template:
+    src: config.yml
+    dest: "/var/www/{{ php_censor_dir_name }}/shared/app/config.yml"
 
 - name: Create PHP Censor periodical config (periodical.yml)
-  copy: src="{{ role_path }}/files/{{ php_censor_periodical_config_filename }}" dest="/var/www/{{ php_censor_dir_name }}/shared/app/periodical.yml"
+  copy:
+    src: "{{ role_path }}/files/{{ php_censor_periodical_config_filename }}"
+    dest: "/var/www/{{ php_censor_dir_name }}/shared/app/periodical.yml"
 
 - name: Set shared directories links
-  file: src="{{ item.src }}" dest="{{ item.dest }}" state=link
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
   loop:
     - { src: "../../shared/runtime", dest: "/var/www/{{ php_censor_dir_name }}/current/runtime" }
     - { src: "../../../shared/public/artifacts", dest: "/var/www/{{ php_censor_dir_name }}/current/public/artifacts" }
     - { src: "../../shared/app", dest: "/var/www/{{ php_censor_dir_name }}/current/app" }
 
 - name: Set permissions for PHP Censor directory
-  file: path="/var/www/{{ php_censor_dir_name }}" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwX,o=rX" recurse=yes
+  file:
+    path: "/var/www/{{ php_censor_dir_name }}"
+    owner: "{{ php_censor_user }}"
+    group: "{{ php_censor_group }}"
+    mode: "ug=rwX,o=rX"
+    recurse: yes
 
 - name: Set PHP Censor console executable
-  file: path="/var/www/{{ php_censor_dir_name }}/current/bin" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ugo+x" recurse=yes
+  file:
+    path: "/var/www/{{ php_censor_dir_name }}/current/bin"
+    owner: "{{ php_censor_user }}"
+    group: "{{ php_censor_group }}"
+    mode: "ugo+x"
+    recurse: yes
 
-- name:        Make migrations
-  command:     ./bin/console php-censor-migrations:migrate
+- name: Make migrations
+  command:
+    cmd: ./bin/console php-censor-migrations:migrate
   become:      yes
   become_user: "{{ php_censor_user }}"
   args:

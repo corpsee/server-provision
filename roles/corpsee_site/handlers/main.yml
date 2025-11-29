@@ -1,4 +1,7 @@
 ---
 
-- name:    Corpsee Site Restart Nginx
-  service: name=nginx enabled=yes state=restarted
+- name: Corpsee Site Restart Nginx
+  service:
+    name: nginx
+    enabled: yes
+    state: restarted

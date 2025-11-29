@@ -2,21 +2,21 @@
 
 ### references
 
-user-reference:                &user-reference        "web"
-group-reference:               &group-reference       "www-data"
-mode-reference:                &mode-reference        "production"
-timezone-reference:            &timezone-reference    "UTC"
-php-version-reference:         &php-version-reference "8.1"
-php-default-version-reference: &php-default-version-reference "8.1"
+user_reference:                &user_reference        "web"
+group_reference:               &group_reference       "www-data"
+mode_reference:                &mode_reference        "production"
+timezone_reference:            &timezone_reference    "UTC"
+php_version_reference:         &php_version_reference "8.1"
+php_default_version_reference: &php_default_version_reference "8.1"
 
 
 ### server role
 
-server_mode:     *mode-reference
+server_mode:     *mode_reference
 server_hostname: corpsee
 server_domain:   corpsee.com
 
-server_timezone: *timezone-reference
+server_timezone: *timezone_reference
 
 server_locales:
   - en_US.UTF-8
@@ -71,34 +71,34 @@ packages_flatpak_items_to_install: []
 
 ### webuser role
 
-webuser_user:         *user-reference
+webuser_user:         *user_reference
 # webuser_password: in secret.yml
-webuser_group:        *group-reference
+webuser_group:        *group_reference
 webuser_groups:       []
 webuser_ssh_key_name: web_server
 
 
 ### oh-my-zsh role
 
-oh_my_zsh_user:  *user-reference
-oh_my_zsh_group: *group-reference
+oh_my_zsh_user:  *user_reference
+oh_my_zsh_group: *group_reference
 
 
 ### nginx role
 
-nginx_mode:  *mode-reference
-nginx_user:  *user-reference
-nginx_group: *group-reference
+nginx_mode:  *mode_reference
+nginx_user:  *user_reference
+nginx_group: *group_reference
 
 
 ### php role
 
-php_mode:            *mode-reference
-php_timezone:        *timezone-reference
-php_version:         *php-version-reference
+php_mode:            *mode_reference
+php_timezone:        *timezone_reference
+php_version:         *php_version_reference
 php_memory:          256M
-php_fpm_user:        *user-reference
-php_fpm_group:       *group-reference
+php_fpm_user:        *user_reference
+php_fpm_group:       *group_reference
 
 php_packages:
   - bcmath
@@ -123,7 +123,7 @@ php_packages:
 
 ### php_default role
 
-php_default_version: *php-default-version-reference
+php_default_version: *php_default_version_reference
 
 
 ### composer role
@@ -139,24 +139,24 @@ symfony_cli_path: /usr/local/bin/symfony
 ### postgresql role
 
 postgresql_version:  14
-postgresql_timezone: *timezone-reference
+postgresql_timezone: *timezone_reference
 
 
 ### mariadb role
 
 mariadb_version:  "10.11" # 10.11 - LTS version to 16 feb 2028. See: https://endoflife.date/mariadb
 # mariadb_root_password: in secret.yml
-mariadb_timezone: *timezone-reference
+mariadb_timezone: *timezone_reference
 
 
 ### php_censor role
 
-php_censor_mode:                       *mode-reference
+php_censor_mode:                       *mode_reference
 php_censor_workers_periodical_count:   1
 php_censor_workers_count:              2
-php_censor_php_version:                *php-version-reference
-php_censor_user:                       *user-reference
-php_censor_group:                      *group-reference
+php_censor_php_version:                *php_version_reference
+php_censor_user:                       *user_reference
+php_censor_group:                      *group_reference
 php_censor_localhost_user:             corpsee
 php_censor_db_name:                    php_censor
 php_censor_db_user:                    php_censor
@@ -179,12 +179,12 @@ php_censor_periodical_config_filename: periodical.yml
 php_censor_cert_pem_path:              '/etc/letsencrypt/live/ci.php-censor.info/fullchain.pem'
 php_censor_cert_pem_key_path:          '/etc/letsencrypt/live/ci.php-censor.info/privkey.pem'
 
-php_censor_mode_test:                       *mode-reference
+php_censor_mode_test:                       *mode_reference
 php_censor_workers_periodical_count_test:   1
 php_censor_workers_count_test:              2
-php_censor_php_version_test:                *php-version-reference
-php_censor_user_test:                       *user-reference
-php_censor_group_test:                      *group-reference
+php_censor_php_version_test:                *php_version_reference
+php_censor_user_test:                       *user_reference
+php_censor_group_test:                      *group_reference
 php_censor_localhost_user_test:             corpsee
 php_censor_db_name_test:                    php_censor_test
 php_censor_db_user_test:                    php_censor_test
@@ -210,8 +210,8 @@ php_censor_cert_pem_key_path_test:          '/etc/letsencrypt/live/ci-test.php-c
 
 ### php_censor_testdb
 
-php_censor_testdb_user:                        *user-reference
-php_censor_testdb_group:                       *group-reference
+php_censor_testdb_user:                        *user_reference
+php_censor_testdb_group:                       *group_reference
 php_censor_testdb_postgres_db_name:            php_censor_testdb
 php_censor_testdb_postgres_db_user:            php_censor_testdb
 # php_censor_testdb_postgres_db_password: in secret.yml
@@ -223,8 +223,8 @@ php_censor_testdb_mysql_db_user:               php_censor_testdb
 php_censor_testdb_mysql_create_script_name:    create_test_ci_mysql_db
 php_censor_testdb_mysql_drop_script_name:      drop_test_ci_mysql_db
 
-php_censor_testdb_user_test:                        *user-reference
-php_censor_testdb_group_test:                       *group-reference
+php_censor_testdb_user_test:                        *user_reference
+php_censor_testdb_group_test:                       *group_reference
 php_censor_testdb_postgres_db_name_test:            php_censor_test_testdb
 php_censor_testdb_postgres_db_user_test:            php_censor_test_testdb
 # php_censor_testdb_postgres_db_password_test: in secret.yml
@@ -239,10 +239,10 @@ php_censor_testdb_mysql_drop_script_name_test:      drop_test_ci_mysql_db_test
 
 ### corpsee_site role
 
-corpsee_site_mode:              *mode-reference
-corpsee_site_php_version:       *php-version-reference
-corpsee_site_user:              *user-reference
-corpsee_site_group:             *group-reference
+corpsee_site_mode:              *mode_reference
+corpsee_site_php_version:       *php_version_reference
+corpsee_site_user:              *user_reference
+corpsee_site_group:             *group_reference
 corpsee_site_localhost_user:    corpsee
 corpsee_site_db_name:           corpsee_site
 corpsee_site_db_user:           corpsee_site
@@ -261,11 +261,11 @@ corpsee_site_cert_pem_key_path: "/etc/letsencrypt/live/corpsee.com/privkey.pem"
 
 ### php_censor_site role
 
-php_censor_site_mode:              *mode-reference
-php_censor_site_php_version:       *php-version-reference
+php_censor_site_mode:              *mode_reference
+php_censor_site_php_version:       *php_version_reference
 php_censor_site_hostname:          php-censor.info
 php_censor_site_dir_name:          php_censor_site
-php_censor_site_user:              *user-reference
-php_censor_site_group:             *group-reference
+php_censor_site_user:              *user_reference
+php_censor_site_group:             *group_reference
 php_censor_site_cert_pem_path:     '/etc/letsencrypt/live/php-censor.info/fullchain.pem'
 php_censor_site_cert_pem_key_path: '/etc/letsencrypt/live/php-censor.info/privkey.pem'

@@ -1,0 +1,11 @@
+---
+
+profile: basic
+
+skip_list:
+    - name[play]
+    - yaml[line-length]
+    - var-naming[no-role-prefix]
+    - name[missing]
+    - command-instead-of-module
+    - command-instead-of-shell

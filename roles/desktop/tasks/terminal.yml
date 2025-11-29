@@ -1,7 +1,9 @@
 ---
 
-- name:        Copy Gnome Terminal settings to host
-  template:    src=terminal.settings dest="/home/{{ desktop_user }}/terminal.settings"
+- name: Copy Gnome Terminal settings to host
+  template:
+    src: terminal.settings
+    dest: "/home/{{ desktop_user }}/terminal.settings"
   become:      yes
   become_user: "{{ desktop_user }}"
 

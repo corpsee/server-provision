@@ -1,7 +1,8 @@
 ---
 
-- name:     Check Composer
-  stat:     path="{{ composer_path }}"
+- name: Check Composer
+  stat:
+    path: "{{ composer_path }}"
   register: composer_bin
 
 - name: Download Composer installer
@@ -12,7 +13,12 @@
   when: not composer_bin.stat.exists
 
 - name:    Run Composer installer
-  command: php -d memory_limit=-1 composer-installer.php chdir=/tmp creates="{{ composer_path }}"
+  command:
+    cmd: "php -d memory_limit=-1 composer-installer.php"
+    chdir: /tmp
+    creates: "{{ composer_path }}"
 
 - name:    Move Composer to global path
-  command: mv /tmp/composer.phar "{{ composer_path }}" creates="{{ composer_path }}"
+  command:
+    cmd: "mv /tmp/composer.phar {{ composer_path }}"
+    creates: "{{ composer_path }}"

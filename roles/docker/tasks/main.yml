@@ -5,11 +5,19 @@
   args:
     creates: "/usr/share/keyrings/docker.gpg"
 
-- name:           Add Docker repository
-  apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable" filename="docker" update_cache=yes
+- name: Add Docker repository
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    filename: docker
+    update_cache: yes
 
 - name: Install Docker CE
-  apt:  name="docker-ce" state=latest
+  apt:
+    name: "docker-ce"
+    state: latest
 
 - name: Adding user to Docker group
-  user: name="{{ docker_user }}" groups="docker" append=yes
+  user:
+    name: "{{ docker_user }}"
+    groups: docker
+    append: yes

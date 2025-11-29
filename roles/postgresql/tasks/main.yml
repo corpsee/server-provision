@@ -5,18 +5,29 @@
   args:
     creates: "/usr/share/keyrings/postgres.gpg"
 
-- name:           Add PostgreSQL repository
-  apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/postgres.gpg] http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main" filename="postgres" update_cache=yes
+- name: Add PostgreSQL repository
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/postgres.gpg] http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main"
+    filename: postgres
+    update_cache: yes
 
 - name: Install PostgreSQL
-  apt:  name="postgresql-{{ postgresql_version }}" state=latest
+  apt:
+    name: "postgresql-{{ postgresql_version }}"
+    state: latest
 
 - name: Install Psycopg2
-  apt:  name="python3-psycopg2" state=latest
+  apt:
+    name: "python3-psycopg2"
+    state: latest
 
-- name:    Save origin postgresql.conf config
-  command: mv -fv "/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf" "/etc/postgresql/{{ postgresql_version }}/postgresql.conf-origin" creates="/etc/postgresql/{{ postgresql_version }}/postgresql.conf-origin"
+- name: Save origin postgresql.conf config
+  command:
+    cmd: mv -fv "/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf" "/etc/postgresql/{{ postgresql_version }}/postgresql.conf-origin"
+    creates: "/etc/postgresql/{{ postgresql_version }}/postgresql.conf-origin"
 
-- name:     Set server.cnf config
-  template: src="postgresql.conf" dest="/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf"
-  notify:   Restart PostgreSQL
+- name: Set server.cnf config
+  template:
+    src: "postgresql.conf"
+    dest: "/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf"
+  notify: Restart PostgreSQL

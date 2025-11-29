@@ -1,5 +1,7 @@
 ---
 
 - name: Remove packages
-  apt:  name="{{ item }}" state=absent
+  apt:
+    name: "{{ item }}"
+    state: absent
   loop: "{{ packages_items_to_remove | default([]) }}"

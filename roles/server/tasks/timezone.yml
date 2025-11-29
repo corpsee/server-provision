@@ -1,15 +1,21 @@
 ---
 
-- name:         Check current timezone
-  command:      cat /etc/timezone
+- name: Check current timezone
+  command:
+    cmd: cat /etc/timezone
   register:     current_timezone
   changed_when: current_timezone.stdout != server_timezone
 
-- name:    Configure the timezone
-  command: echo "{{ server_timezone }}" > /etc/timezone
+- name: Configure the timezone
+  command:
+    cmd: echo "{{ server_timezone }}" > /etc/timezone
   notify:  Update TZData
   when:    current_timezone.stdout != server_timezone
 
 - name: More Configure the timezone
-  file: src="/usr/share/zoneinfo/{{ server_timezone }}" dest=/etc/localtime state=link force=yes
+  file:
+    src: "/usr/share/zoneinfo/{{ server_timezone }}"
+    dest: /etc/localtime
+    state: link
+    force: yes
   when: current_timezone.stdout != server_timezone

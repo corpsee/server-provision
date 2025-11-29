@@ -1,12 +1,21 @@
 ---
 
-- name:    PHP Censor Restart Nginx
-  service: name=nginx enabled=yes state=restarted
+- name: PHP Censor Restart Nginx
+  service:
+    name: nginx
+    enabled: yes
+    state: restarted
 
-- name:    PHP Censor Restart Worker (With Periodical Work)
-  systemd: name="{{ php_censor_queue_name }}_periodical@{{item}}.service" state=started enabled=yes
-  loop:    "{{ range(1, php_censor_workers_periodical_count + 1) | list }}"
+- name: PHP Censor Restart Worker (With Periodical Work)
+  systemd:
+    name: "{{ php_censor_queue_name }}_periodical@{{ item }}.service"
+    state: started
+    enabled: yes
+  loop: "{{ range(1, php_censor_workers_periodical_count + 1) | list }}"
 
-- name:    PHP Censor Restart Worker
-  systemd: name="{{ php_censor_queue_name }}@{{item}}.service" state=started enabled=yes
-  loop:    "{{ range(1, php_censor_workers_count + 1) | list }}"
+- name: PHP Censor Restart Worker
+  systemd:
+    name: "{{ php_censor_queue_name }}@{{ item }}.service"
+    state: started
+    enabled: yes
+  loop: "{{ range(1, php_censor_workers_count + 1) | list }}"
