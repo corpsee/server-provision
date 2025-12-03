@@ -1,4 +1,6 @@
 ---
 
-- name:     Set logrotate config
-  template: src=logrotate dest="/etc/logrotate.d/{{ php_censor_db_name }}"
+- name: Set logrotate config
+  template:
+    src: logrotate
+    dest: "/etc/logrotate.d/{{ php_censor_db_name }}"

@@ -1,7 +1,7 @@
 ---
 
 - hosts:       desktop
-  become:      true
+  become:      yes
   become_user: root
   roles:
     - mint
@@ -16,7 +16,7 @@
     - { role: php, php_version: "8.3" }
     - { role: php, php_version: "8.4" }
     - { role: php, php_version: "8.5" }
-    - { role: php_default, php_version: "8.1" }
+    - { role: php_default, php_default_version: "8.1" }
     - golang
     - composer
     - postgresql

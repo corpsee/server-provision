@@ -1,8 +1,10 @@
 ---
 
-- name:        Create new user directories ('XDG_')
-  file:        path="{{ item }}" state=directory
-  become:      true
+- name: Create new user directories ('XDG_')
+  file:
+    path: "{{ item }}"
+    state: directory
+  become:      yes
   become_user: "{{ desktop_user }}"
   loop:
     - "/home/{{ desktop_user }}/Desktop"
@@ -18,19 +20,22 @@
     - "/home/{{ desktop_user }}/Projects"
     - "/home/{{ desktop_user }}/Programs"
 
-- name:        Set 'user-dirs.dirs' config for user
-  template:    src="user-dirs.dirs" dest="/home/{{ desktop_user }}/.config/user-dirs.dirs"
-  become:      true
+- name: Set 'user-dirs.dirs' config for user
+  template:
+    src: "user-dirs.dirs"
+    dest: "/home/{{ desktop_user }}/.config/user-dirs.dirs"
+  become:      yes
   become_user: "{{ desktop_user }}"
 
-- name:        Update user directorues ('XDG_')
-  command:     "xdg-user-dirs-update"
-  become:      true
+- name: Update user directorues ('XDG_')
+  command:
+    cmd: "xdg-user-dirs-update"
+  become:      yes
   become_user: "{{ desktop_user }}"
 
 - name:          Move user directories content to new user directories ('XDG_')
   shell:         "[ -z \"$(ls \"/home/{{ desktop_user }}/{{ item.from }}\")\" ] || mv --no-target-directory \"/home/{{ desktop_user }}/{{ item.from }}\" \"/home/{{ desktop_user }}/{{ item.to }}\""
-  become:        true
+  become:        yes
   become_user:   "{{ desktop_user }}"
   loop:
     - from: "Рабочий стол"
@@ -50,9 +55,11 @@
     - from: "Видео"
       to:   "Videos"
 
-- name:        Delete old user directories ('XDG_')
-  file:        path="{{ item }}" state=absent
-  become:      true
+- name: Delete old user directories ('XDG_')
+  file:
+    path: "{{ item }}"
+    state: absent
+  become:      yes
   become_user: "{{ desktop_user }}"
   loop:
     - "/home/{{ desktop_user }}/Рабочий стол"
@@ -64,7 +71,9 @@
     - "/home/{{ desktop_user }}/Изображения"
     - "/home/{{ desktop_user }}/Видео"
 
-- name:        Fix GTK bookmarks
-  template:    src="bookmarks" dest="/home/{{ desktop_user }}/.config/gtk-3.0/bookmarks"
-  become:      true
+- name: Fix GTK bookmarks
+  template:
+    src: bookmarks
+    dest: "/home/{{ desktop_user }}/.config/gtk-3.0/bookmarks"
+  become:      yes
   become_user: "{{ desktop_user }}"

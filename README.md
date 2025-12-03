@@ -1,11 +1,12 @@
 Server deployment
 =================
 
-Requirements
-------------
+## Requirements
 
 * Ansible v9+ (ansible-code v2.16+), PHP, NodeJs v18+, Composer v2+, Mkcert.
 * Ubuntu 20.04+ (24.04 recommended) or Mint 22+ for desktop.
+
+## Structure
 
 * Files:
     * `.vault_password` (Roles: webuser, php_censor, corpsee_site)
@@ -69,10 +70,9 @@ Requirements
         * `php-censor-site.test.pem` (For debug deploy/vagrant only)
         * `php-censor-site.test-key.pem` (For debug deploy/vagrant only)
 
-Deploy
-------
+## Deploy
 
-Debug deploy (Vagrant):
+### Debug deploy (Vagrant)
 
 ```bash
 # server
@@ -94,7 +94,7 @@ RELEASE_VERSION="master" vagrant up --provision-with php_censor_test_release
 vagrant up --provision-with php_censor_site_init
 ```
 
-Production deploy:
+### Production deploy
 
 ```bash
 # server (by root user with password)
@@ -126,14 +126,13 @@ ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_serve
 ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server_local/php_censor_release.yml --extra-vars="php_censor_version=master" -vv
 ```
 
-Desktop:
+### Desktop
 
 ```bash
 ansible-playbook -i ./inventories/production.yml -c local -K ./playbooks/desktop/main.yml -vv
 ```
 
-Secret data
------------
+## Secret data
 
 ```bash
 ansible-vault encrypt ./inventories/group_vars/web_server/secret.yml
@@ -143,11 +142,24 @@ ansible-vault encrypt ./inventories/group_vars/web_server/secret.yml
 ansible-vault decrypt ./inventories/group_vars/web_server/secret.yml
 ```
 
-Facts
------
+## Facts
 
 ```bash
 ansible -m setup localhost
+```
+
+## Linters
+
+```bash
+pipx install yamllint && pipx install ansible-lint
+```
+
+```bash
+yamllint . 
+```
+
+```bash
+ansible-lint
 ```
 
 ## License

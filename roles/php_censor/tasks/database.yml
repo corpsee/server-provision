@@ -1,32 +1,66 @@
 ---
 
 - name:       Added auth info to .pgpass config
-  lineinfile: path="/home/{{ php_censor_user }}/.pgpass" owner="{{ php_censor_user }}" group="{{ php_censor_group }}" mode=0600 create=yes line="127.0.0.1:5432:{{ php_censor_db_name }}:{{ php_censor_db_user }}:{{ php_censor_db_password }}" insertbefore=BOF
+  lineinfile:
+    path: "/home/{{ php_censor_user }}/.pgpass"
+    owner: "{{ php_censor_user }}"
+    group: "{{ php_censor_group }}"
+    mode: 0600
+    create: yes
+    line: "127.0.0.1:5432:{{ php_censor_db_name }}:{{ php_censor_db_user }}:{{ php_censor_db_password }}"
+    insertbefore: BOF
 
-- name:          Create PHP Censor DB
-  postgresql_db: name="{{ php_censor_db_name }}" state=present
-  become:        true
-  become_user:   postgres
-  register:      php_censor_database
+- name: Create PHP Censor DB
+  postgresql_db:
+    name: "{{ php_censor_db_name }}"
+    state: present
+  become:      yes
+  become_user: postgres
+  register:    php_censor_database
 
-- name:            Create PHP Censor DB user
-  postgresql_user: db="{{ php_censor_db_name }}" name="{{ php_censor_db_user }}" password="{{ php_censor_db_password }}" role_attr_flags="NOSUPERUSER,NOCREATEDB,NOCREATEROLE,NOREPLICATION" encrypted=yes priv=ALL
-  become:          true
-  become_user:     postgres
+- name: Create PHP Censor DB user
+  postgresql_user:
+    db: "{{ php_censor_db_name }}"
+    name: "{{ php_censor_db_user }}"
+    password: "{{ php_censor_db_password }}"
+    role_attr_flags: "NOSUPERUSER,NOCREATEDB,NOCREATEROLE,NOREPLICATION"
+    encrypted: yes
+    priv: ALL
+  become:      yes
+  become_user: postgres
 
 - name: Copy PHP Censor DB dump to host
-  copy: src="{{ role_path }}/files/{{ php_censor_db_dump_filename }}.sql.xz" dest="/tmp"
+  copy:
+    src: "{{ role_path }}/files/{{ php_censor_db_dump_filename }}.sql.xz"
+    dest: "/tmp"
   when: php_censor_database.changed
 
-- name:          Restore PHP Censor DB dump
-  postgresql_db: name="{{ php_censor_db_name }}" state=restore target="/tmp/{{ php_censor_db_dump_filename }}.sql.xz" login_user="{{ php_censor_db_user }}" login_password="{{ php_censor_db_password }}" login_host="127.0.0.1"
-  when:          php_censor_database.changed
+- name: Restore PHP Censor DB dump
+  postgresql_db:
+    name: "{{ php_censor_db_name }}"
+    state: restore
+    target: "/tmp/{{ php_censor_db_dump_filename }}.sql.xz"
+    login_user: "{{ php_censor_db_user }}"
+    login_password: "{{ php_censor_db_password }}"
+    login_host: "127.0.0.1"
+  when: php_censor_database.changed
 
-- name:     Create PHP Censor DB dump script
-  template: src=backup_db.sh dest="/home/{{ php_censor_user }}/backup_db_{{ php_censor_db_name }}.sh"
+- name: Create PHP Censor DB dump script
+  template:
+    src: backup_db.sh
+    dest: "/home/{{ php_censor_user }}/backup_db_{{ php_censor_db_name }}.sh"
 
 - name: Set permissions for PHP Censor DB dump script
-  file: path="/home/{{ php_censor_user }}/backup_db_{{ php_censor_db_name }}.sh" owner={{ php_censor_user }} group={{ php_censor_group }} mode="ug=rwx,o=r"
+  file:
+    path: "/home/{{ php_censor_user }}/backup_db_{{ php_censor_db_name }}.sh"
+    owner: "{{ php_censor_user }}"
+    group: "{{ php_censor_group }}"
+    mode: "ug=rwx,o=r"
 
 - name: Set PHP Censor DB dump cronjob
-  cron: minute=10 hour=0 name="{{ php_censor_dir_name }} DB dump" user="{{ php_censor_user }}" job="~/backup_db_{{ php_censor_db_name }}.sh"
+  cron:
+    minute: 10
+    hour: 0
+    name: "{{ php_censor_dir_name }} DB dump"
+    user: "{{ php_censor_user }}"
+    job: "~/backup_db_{{ php_censor_db_name }}.sh"

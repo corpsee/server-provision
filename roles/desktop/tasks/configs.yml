@@ -1,24 +1,32 @@
 ---
 
-- name:        Create programs directories
-  file:        path="{{ item }}" state=directory
-  become:      true
+- name: Create programs directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  become:      yes
   become_user: "{{ desktop_user }}"
   loop:
     - "/home/{{ desktop_user }}/.config/mc"
     - "/home/{{ desktop_user }}/.config/mpv"
 
-- name:        Set Midnight Commander config
-  template:    src=mc_ini dest="/home/{{ desktop_user }}/.config/mc/ini"
-  become:      true
+- name: Set Midnight Commander config
+  template:
+    src: mc_ini
+    dest: "/home/{{ desktop_user }}/.config/mc/ini"
+  become:      yes
   become_user: "{{ desktop_user }}"
 
-- name:        Set Midnight Commander panels config
-  template:    src="mc_panels.ini" dest="/home/{{ desktop_user }}/.config/mc/panels.ini"
-  become:      true
+- name: Set Midnight Commander panels config
+  template:
+    src: "mc_panels.ini"
+    dest: "/home/{{ desktop_user }}/.config/mc/panels.ini"
+  become:      yes
   become_user: "{{ desktop_user }}"
 
 - name:        Set MPV config (For Celluloid)
-  template:    src="mpv.conf" dest="/home/{{ desktop_user }}/.config/mpv/mpv.conf"
-  become:      true
+  template:
+    src: "mpv.conf"
+    dest: "/home/{{ desktop_user }}/.config/mpv/mpv.conf"
+  become:      yes
   become_user: "{{ desktop_user }}"

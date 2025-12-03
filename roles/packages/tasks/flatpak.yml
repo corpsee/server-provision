@@ -1,14 +1,21 @@
 ---
 
 - name:         Upgrade server packages
-  apt:          upgrade=yes update_cache=yes cache_valid_time=3600
-  changed_when: false
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 3600
+  changed_when: no
   when:         packages_flatpak_items_to_install is defined and packages_flatpak_items_to_install | length > 0
 
 - name: Install Flatpak package
-  apt:  name="flatpak" state=latest
+  apt:
+    name: flatpak
+    state: latest
   when: packages_flatpak_items_to_install is defined and packages_flatpak_items_to_install | length > 0
 
 - name: Install Flatpak packages
-  flatpak: name="{{ item }}" state=present
+  flatpak:
+    name: "{{ item }}"
+    state: present
   loop:  "{{ packages_flatpak_items_to_install | default([]) }}"

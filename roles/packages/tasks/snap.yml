@@ -1,12 +1,17 @@
 ---
 
-- name:         Upgrade server packages
-  apt:          upgrade=yes update_cache=yes cache_valid_time=3600
-  changed_when: false
+- name: Upgrade server packages
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 3600
+  changed_when: no
   when:         packages_snap_items_to_install is defined and packages_snap_items_to_install | length > 0
 
 - name: Install Snap package
-  apt:  name="snap" state=latest
+  apt:
+    name: snap
+    state: latest
   when: packages_snap_items_to_install is defined and packages_snap_items_to_install | length > 0
 
 - name:  Update Snap core

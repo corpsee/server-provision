@@ -1,4 +1,5 @@
 ---
 
-- name:    Set default PHP version
-  command: update-alternatives --set php "/usr/bin/php{{ php_default_version }}"
+- name: Set default PHP version
+  command:
+    cmd: update-alternatives --set php "/usr/bin/php{{ php_default_version }}"

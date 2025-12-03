@@ -1,4 +1,7 @@
 ---
 
-- name:    Restart PHP-FPM
-  service: name="php{{ php_version }}-fpm" enabled=yes state=restarted
+- name: Restart PHP-FPM
+  service:
+    name: "php{{ php_version }}-fpm"
+    enabled: yes
+    state: restarted

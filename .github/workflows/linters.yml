@@ -1,0 +1,54 @@
+---
+
+# yamllint disable rule:truthy
+name: Linters
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  yamllint:
+    name: yamllint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install yamllint
+        run: pip install --upgrade pip yamllint
+
+      - name: Run yamllint
+        run: yamllint -s .
+
+  ansible_lint:
+    name: ansible-lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create vault password file
+        run: |
+            echo "${{ secrets.ANSIBLE_VAULT_PASSWORD }}" > .vault_password
+            chmod 600 .vault_password
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install ansible-lint
+        run: |
+          pip install --upgrade pip ansible ansible-lint
+
+      - name: Run ansible-lint
+        run: ansible-lint -s

@@ -27,4 +27,4 @@ echo "all:
 
 echo "vault_password" > .vault_password
 
-ansible-playbook -i inventories/production.yml -c local -K playbooks/desktop/main.yml --extra-vars="user-reference=${DESKTOP_USER} group-reference=${DESKTOP_GROUP}" -vv
+ansible-playbook -i inventories/production.yml -c local -K playbooks/desktop/main.yml --extra-vars="user_reference=${DESKTOP_USER} group_reference=${DESKTOP_GROUP}" -vv

@@ -1,7 +1,8 @@
 ---
 
-- name:     Check Symfony CLI
-  stat:     path="{{ symfony_cli_path }}"
+- name: Check Symfony CLI
+  stat:
+    path: "{{ symfony_cli_path }}"
   register: symfony_cli_bin
 
 - name: Download Symfony CLI installer
@@ -11,11 +12,18 @@
     mode: 0755
   when: not symfony_cli_bin.stat.exists
 
-- name:    Run Symfony CLI installer
-  command: bash symfony-cli-installer.php chdir=/tmp creates="{{ symfony_cli_path }}"
+- name: Run Symfony CLI installer
+  command:
+    cmd: bash symfony-cli-installer.php
+    chdir: /tmp
+    creates: "{{ symfony_cli_path }}"
 
-- name:    Move Symfony CLI to global path
-  command: mv /root/.symfony5/bin/symfony "{{ symfony_cli_path }}" creates="{{ symfony_cli_path }}"
+- name: Move Symfony CLI to global path
+  command:
+    cmd: mv /root/.symfony5/bin/symfony "{{ symfony_cli_path }}"
+    creates: "{{ symfony_cli_path }}"
 
 - name: Clean Symfony CLI installer
-  file: path="/root/.symfony" state=absent
+  file:
+    path: "/root/.symfony"
+    state: absent

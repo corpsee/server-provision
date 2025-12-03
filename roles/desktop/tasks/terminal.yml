@@ -1,13 +1,15 @@
 ---
 
-- name:        Copy Gnome Terminal settings to host
-  template:    src=terminal.settings dest="/home/{{ desktop_user }}/terminal.settings"
-  become:      true
+- name: Copy Gnome Terminal settings to host
+  template:
+    src: terminal.settings
+    dest: "/home/{{ desktop_user }}/terminal.settings"
+  become:      yes
   become_user: "{{ desktop_user }}"
 
 # dconf dump /org/gnome/terminal/ > /home/{{ desktop_user }}/terminal.settings"
 # dconf reset -f /org/gnome/terminal/
 - name:        Restore Gnome Terminal settings
   shell:       "dconf load /org/gnome/terminal/ < /home/{{ desktop_user }}/terminal.settings"
-  become:      true
+  become:      yes
   become_user: "{{ desktop_user }}"

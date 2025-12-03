@@ -1,7 +1,9 @@
 ---
 
-- name:     Set Sysctl config
-  template: src=sysctl.conf dest="/etc/sysctl.conf"
+- name: Set Sysctl config
+  template:
+    src: sysctl.conf
+    dest: "/etc/sysctl.conf"
 
-- name:  Apply Sysctl changes
+- name: Apply Sysctl changes
   shell: "sysctl --load --system"

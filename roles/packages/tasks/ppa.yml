@@ -1,9 +1,16 @@
 ---
 
-- name:    Add PPA repositories GPG keys
-  apt_key: id="{{ item.key }}" keyserver="keyserver.ubuntu.com" keyring="/usr/share/keyrings/{{ item.filename }}.gpg" state=present
+- name: Add PPA repositories GPG keys
+  apt_key:
+    id: "{{ item.key }}"
+    keyserver: "keyserver.ubuntu.com"
+    keyring: "/usr/share/keyrings/{{ item.filename }}.gpg"
+    state: present
   loop:    "{{ packages_ppa | default([]) }}"
 
-- name:           Add PPA repositories
-  apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/{{ item.filename }}.gpg] https://ppa.launchpadcontent.net/{{ item.ppa }}/ubuntu {{ ansible_distribution_release }} main" filename="{{ item.filename }}" update_cache=yes
-  loop:           "{{ packages_ppa | default([]) }}"
+- name: Add PPA repositories
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/{{ item.filename }}.gpg] https://ppa.launchpadcontent.net/{{ item.ppa }}/ubuntu {{ ansible_distribution_release }} main"
+    filename: "{{ item.filename }}"
+    update_cache: yes
+  loop: "{{ packages_ppa | default([]) }}"

@@ -5,11 +5,16 @@
   args:
     creates: "/usr/share/keyrings/mariadb.gpg"
 
-- name:           Add MariaDB repository
-  apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/mariadb.gpg] http://mirror.mephi.ru/mariadb/repo/{{ mariadb_version }}/ubuntu {{ ansible_distribution_release }} main" filename="mariadb" update_cache=yes
+- name: Add MariaDB repository
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/mariadb.gpg] http://mirror.mephi.ru/mariadb/repo/{{ mariadb_version }}/ubuntu {{ ansible_distribution_release }} main"
+    filename: "mariadb"
+    update_cache: yes
 
 - name: Install MariaDB+
-  apt:  name="{{ item }}" state=latest
+  apt:
+    name: "{{ item }}"
+    state: latest
   loop:
     - mariadb-server
     - mariadb-plugin-provider-bzip2
@@ -19,28 +24,43 @@
     - mariadb-plugin-provider-snappy
     - python3-mysqldb
 
-- name:       Set MariaDB root user password
-  mysql_user: name="root" host="{{ item }}" password="{{ mariadb_root_password }}" login_user="root" state=present
+- name: Set MariaDB root user password
+  mysql_user:
+    name: root
+    host: "{{ item }}"
+    password: "{{ mariadb_root_password }}"
+    login_user: root
+    state: present
   loop:
     - "127.0.0.1"
     - "::1"
     - "localhost"
   notify: Restart MariaDB
 
-- name:    Save origin server.cnf config
-  command: mv -fv "/etc/mysql/mariadb.conf.d/50-server.cnf" "/etc/mysql/mariadb.conf.d/50-server.cnf-origin" creates="/etc/mysql/mariadb.conf.d/50-server.cnf-origin"
+- name: Save origin server.cnf config
+  command:
+    cmd: mv -fv "/etc/mysql/mariadb.conf.d/50-server.cnf" "/etc/mysql/mariadb.conf.d/50-server.cnf-origin"
+    creates: "/etc/mysql/mariadb.conf.d/50-server.cnf-origin"
 
 - name:     Set server.cnf config
-  template: src="50-server.cnf" dest="/etc/mysql/mariadb.conf.d/50-server.cnf"
+  template:
+    src: "50-server.cnf"
+    dest: "/etc/mysql/mariadb.conf.d/50-server.cnf"
   notify:   Restart MariaDB
 
-- name:     Add .my.cnf for root
-  template: src=.my.cnf dest=/root/.my.cnf owner=root group=root mode=0600
+- name: Add .my.cnf for root
+  template:
+    src: ".my.cnf"
+    dest: "/root/.my.cnf"
+    owner: root
+    group: root
+    mode: 0600
 
-- name:         Get timezone data
-  command:      mysql -NBe "SELECT COUNT(*) FROM mysql.time_zone"
+- name: Get timezone data
+  command:
+    cmd: mysql -NBe "SELECT COUNT(*) FROM mysql.time_zone"
   register:     mysql_timezones_count
-  changed_when: false
+  changed_when: no
   check_mode:   no
 
 - name:   Ensure timezone data is imported
