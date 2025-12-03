@@ -6,7 +6,7 @@
     keyserver: "keyserver.ubuntu.com"
     keyring: "/usr/share/keyrings/{{ item.filename }}.gpg"
     state: present
-  loop:    "{{ packages_ppa | default([]) }}"
+  loop: "{{ packages_ppa | default([]) }}"
 
 - name: Add PPA repositories
   apt_repository:

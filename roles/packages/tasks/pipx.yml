@@ -1,0 +1,19 @@
+---
+
+- name: Upgrade server packages
+  apt:
+      upgrade: yes
+      update_cache: yes
+      cache_valid_time: 3600
+  changed_when: no
+  when: packages_pipx_items_to_install is defined and packages_pipx_items_to_install | length > 0
+
+- name: Install Pipx package
+  apt:
+      name: pipx
+      state: latest
+  when: packages_pipx_items_to_install is defined and packages_pipx_items_to_install | length > 0
+
+- name:  Install Pipx packages
+  shell: "pipx install {{ item }}"
+  loop:  "{{ packages_pipx_items_to_install | default([]) }}"

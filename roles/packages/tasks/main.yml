@@ -10,4 +10,6 @@
 
 - include_tasks: flatpak.yml
 
+- include_tasks: pipx.yml
+
 - include_tasks: remove.yml

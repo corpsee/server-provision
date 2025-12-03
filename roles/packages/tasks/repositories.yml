@@ -6,15 +6,15 @@
     keyserver: "{{ item.keyserver }}"
     keyring: "/usr/share/keyrings/{{ item.filename }}.gpg"
     state: present
-  when:    item.keyserver | default('', true) | trim != ''
-  loop:    "{{ packages_repositories | default([]) }}"
+  when: item.keyserver | default('', true) | trim != ''
+  loop: "{{ packages_repositories | default([]) }}"
 
 - name:  Add repositories GPG keys (by url)
   shell: "curl -sL {{ item.url }} | gpg --dearmor | tee /usr/share/keyrings/{{ item.filename }}.gpg >/dev/null"
   args:
     creates: "/usr/share/keyrings/{{ item.filename }}.gpg"
-  loop:  "{{ packages_repositories | default([]) }}"
-  when:  item.url | default('', true) | trim != ''
+  loop: "{{ packages_repositories | default([]) }}"
+  when: item.url | default('', true) | trim != ''
 
 - name: Add repositories
   apt_repository:

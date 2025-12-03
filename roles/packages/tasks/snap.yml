@@ -6,7 +6,7 @@
     update_cache: yes
     cache_valid_time: 3600
   changed_when: no
-  when:         packages_snap_items_to_install is defined and packages_snap_items_to_install | length > 0
+  when: packages_snap_items_to_install is defined and packages_snap_items_to_install | length > 0
 
 - name: Install Snap package
   apt:

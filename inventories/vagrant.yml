@@ -12,6 +12,7 @@ all:
           server_openssh_port:               22
           packages_snap_items_to_install:    []
           packages_flatpak_items_to_install: []
+          packages_pipx_items_to_install:    []
 
           php_mode: 'debug'
 
