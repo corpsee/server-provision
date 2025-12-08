@@ -1,0 +1,106 @@
+---
+
+- name: Register release datetime
+  command:
+    cmd: "date +%Y-%m-%d_%H-%M-%S"
+  register: release_datetime
+
+- name: Check if current symlink exists
+  stat:
+    path: "/var/www/{{ corpsee_blog_dir_name }}/current"
+  register: corpsee_blog_current
+
+- name: Copy current release for backup
+  shell: "cp --dereference --recursive --no-target-directory /var/www/{{ corpsee_blog_dir_name }}/current /var/www/{{ corpsee_blog_dir_name }}/{{ corpsee_blog_dir_name }}_{{ release_datetime.stdout }}"
+  when: corpsee_blog_current.stat.exists
+  become: yes
+  become_user: "{{ corpsee_blog_user }}"
+
+- name: Create backup directory
+  file:
+    path: "/home/web/backup/{{ corpsee_blog_dir_name }}"
+    state: directory
+    mode: "0755"
+    owner: "{{ corpsee_blog_user }}"
+    group: "{{ corpsee_blog_group }}"
+
+- name: Create current release backup archive
+  shell: "tar --create --gzip --file=\"/home/web/backup/{{ corpsee_blog_dir_name }}/{{ corpsee_blog_dir_name }}_{{ release_datetime.stdout }}.tar.gz\" ."
+  when: corpsee_blog_current.stat.exists
+  become: yes
+  become_user: "{{ corpsee_blog_user }}"
+  args:
+    chdir: "/var/www/{{ corpsee_blog_dir_name }}/{{ corpsee_blog_dir_name }}_{{ release_datetime.stdout }}"
+
+- name: Delete current release backup directory
+  file:
+    path: "/var/www/{{ corpsee_blog_dir_name }}/{{ corpsee_blog_dir_name }}_{{ release_datetime.stdout }}"
+    state: absent
+  when: corpsee_blog_current.stat.exists
+  become:      yes
+  become_user: "{{ corpsee_blog_user }}"
+
+- name: Clone latest Corpsee Blog repository (LOCAL)
+  git:
+    repo: "git@github.com:corpsee/personal-blog.git"
+    version: "{{ corpsee_blog_version }}"
+    dest: "{{ role_path }}/files/{{ corpsee_blog_dir_name }}_{{ release_datetime.stdout }}"
+    accept_hostkey: yes
+  become:      yes
+  become_user: "{{ corpsee_blog_localhost_user }}"
+  delegate_to: "127.0.0.1"
+
+- name: Build Hugo site (LOCAL)
+  command:
+    cmd: "hugo"
+  args:
+    chdir: "{{ role_path }}/files/{{ corpsee_blog_dir_name }}_{{ release_datetime.stdout }}"
+    creates: "{{ role_path }}/files/{{ corpsee_blog_dir_name }}_{{ release_datetime.stdout }}/public"
+  become:      yes
+  become_user: "{{ corpsee_blog_localhost_user }}"
+  delegate_to: "127.0.0.1"
+
+- name: Archive Corpsee Blog release from built public (LOCAL)
+  shell: "tar --create --gzip --file=\"{{ role_path }}/files/{{ corpsee_blog_dir_name }}_{{ release_datetime.stdout }}.tar.gz\" ."
+  args:
+    chdir: "{{ role_path }}/files/{{ corpsee_blog_dir_name }}_{{ release_datetime.stdout }}/public"
+  become:      yes
+  become_user: "{{ corpsee_blog_localhost_user }}"
+  delegate_to: "127.0.0.1"
+
+- name: Creates Corpsee Blog release directory
+  file:
+    path: "/var/www/{{ corpsee_blog_dir_name }}/releases/{{ release_datetime.stdout }}"
+    state: directory
+
+- name: Copy Corpsee Blog release to host
+  unarchive:
+    src: "{{ role_path }}/files/{{ corpsee_blog_dir_name }}_{{ release_datetime.stdout }}.tar.gz"
+    dest: "/var/www/{{ corpsee_blog_dir_name }}/releases/{{ release_datetime.stdout }}"
+
+- name: Creates Corpsee Blog release var directory
+  file:
+    path: "/var/www/{{ corpsee_blog_dir_name }}/releases/{{ release_datetime.stdout }}/var"
+    state: directory
+
+- name: Set shared directories links
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "../../../shared/var/log", dest: "/var/www/{{ corpsee_blog_dir_name }}/releases/{{ release_datetime.stdout }}/var/log" }
+
+- name: Set permissions for Corpsee Blog release
+  file:
+    path: "/var/www/{{ corpsee_blog_dir_name }}/releases/{{ release_datetime.stdout }}"
+    owner: "{{ corpsee_blog_user }}"
+    group: "{{ corpsee_blog_group }}"
+    mode: "ug=rwX,o=rX"
+    recurse: yes
+
+- name: Set current release link
+  file:
+    src: "./releases/{{ release_datetime.stdout }}"
+    dest: "/var/www/{{ corpsee_blog_dir_name }}/current"
+    state: link

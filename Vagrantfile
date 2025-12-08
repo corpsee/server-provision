@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
 #     config.vm.box      = "ubuntu/jammy64"
 #     Ubuntu 24.04 Noble Numba
 #     config.vm.box      = "ubuntu/noble64"
-    config.vm.box      = "alvistack/ubuntu-24.04"
+    config.vm.box      = "bento/ubuntu-24.04"
     config.vm.hostname = "corpsee.test"
 
     config.vm.network :private_network, ip: "192.168.56.10"
@@ -35,6 +35,14 @@ Vagrant.configure("2") do |config|
         main.compatibility_mode = "2.0"
         main.limit              = 'all'
         main.verbose            = "vvv"
+    end
+
+    config.vm.provision "corpsee_blog_init", type: "ansible", run: "never" do |corpsee_blog_init|
+        corpsee_blog_init.playbook           = "playbooks/web_server/corpsee_blog_init.yml"
+        corpsee_blog_init.inventory_path     = "inventories/vagrant.yml"
+        corpsee_blog_init.compatibility_mode = "2.0"
+        corpsee_blog_init.limit              = 'all'
+        corpsee_blog_init.verbose            = "vvv"
     end
 
     config.vm.provision "corpsee_site_init", type: "ansible", run: "never" do |corpsee_site_init|
@@ -67,6 +75,19 @@ Vagrant.configure("2") do |config|
         php_censor_site_init.compatibility_mode = "2.0"
         php_censor_site_init.limit              = 'all'
         php_censor_site_init.verbose            = "vvv"
+    end
+
+    config.vm.provision "corpsee_blog_release", type: "ansible", run: "never" do |corpsee_blog_release|
+        corpsee_blog_release.playbook           = "playbooks/web_server/corpsee_blog_release.yml"
+        corpsee_blog_release.inventory_path     = "inventories/vagrant.yml"
+        if ENV['RELEASE_VERSION']
+            corpsee_blog_release.extra_vars = {
+                corpsee_blog_version: ENV['RELEASE_VERSION']
+            }
+        end
+        corpsee_blog_release.compatibility_mode = "2.0"
+        corpsee_blog_release.limit              = 'all'
+        corpsee_blog_release.verbose            = "vvv"
     end
 
     config.vm.provision "corpsee_site_release", type: "ansible", run: "never" do |corpsee_site_release|

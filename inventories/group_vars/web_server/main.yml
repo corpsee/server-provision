@@ -261,6 +261,19 @@ corpsee_site_cert_pem_key_path: "/etc/letsencrypt/live/corpsee.com/privkey.pem"
 # corpsee_site_ga_tracking: in secret.yml
 
 
+### corpsee_blog role
+
+corpsee_blog_mode:              *mode_reference
+corpsee_blog_user:              *user_reference
+corpsee_blog_group:             *group_reference
+corpsee_blog_localhost_user:    corpsee
+corpsee_blog_hostname:          blog.corpsee.com
+corpsee_blog_dir_name:          corpsee_blog
+corpsee_blog_version:           master
+corpsee_blog_cert_pem_path:     "/etc/letsencrypt/live/blog.corpsee.com/fullchain.pem"
+corpsee_blog_cert_pem_key_path: "/etc/letsencrypt/live/blog.corpsee.com/privkey.pem"
+
+
 ### php_censor_site role
 
 php_censor_site_mode:              *mode_reference

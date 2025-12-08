@@ -39,3 +39,7 @@ all:
           corpsee_site_hostname:          'corpsee.test'
           corpsee_site_cert_pem_path:     '/vagrant/corpsee.test.pem'
           corpsee_site_cert_pem_key_path: '/vagrant/corpsee.test-key.pem'
+
+          corpsee_blog_hostname:          'blog-corpsee.test'
+          corpsee_blog_cert_pem_path:     '/vagrant/blog-corpsee.test.pem'
+          corpsee_blog_cert_pem_key_path: '/vagrant/blog-corpsee.test-key.pem'
