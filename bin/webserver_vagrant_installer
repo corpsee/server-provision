@@ -6,10 +6,8 @@ set -o xtrace
 # Current date in UTC
 CURRENT_DATE=$(date -u +%Y-%m-%d)
 
-PROJECT_BASE_DIR="${HOME}/workbench/provisions"
-PROJECT="webserver-provision-v5"
-
-VERSION_NAME="master"
+PROJECT_BASE_DIR="${HOME}/Projects/Personal"
+PROJECT="server-provision"
 
 SECRET_DIR="${HOME}/.secrets"
 CACHE_DIR="${HOME}/workbench/ansible-cache"
@@ -21,10 +19,7 @@ mkdir --verbose --parents "${PROJECT_BASE_DIR}"
 mkdir --verbose --parents "${CACHE_DIR}"
 cd "${PROJECT_BASE_DIR}" || exit
 
-git clone https://github.com/corpsee/server-provision.git "${PROJECT}"
 cd "${PROJECT}" || exit
-
-git checkout "${VERSION_NAME}"
 
 ln --symbolic --relative --force --no-dereference files roles/webuser/files
 ln --symbolic --relative --force --no-dereference files roles/server/files
@@ -36,6 +31,58 @@ ln --symbolic --relative --force --no-dereference files roles/php_censor/files
 ln --symbolic --relative --force --no-dereference files roles/php_censor_release/files
 
 echo "$(< /dev/urandom tr -dc '12345qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c20; echo '')" > .vault_password
+
+function secrets() {
+    mkcert -install
+
+    cd "${SECRET_DIR}" || exit
+
+    if [ ! -f "${SECRET_DIR}/blog-corpsee.test.pem" ]
+    then
+        mkcert -cert-file "blog-corpsee.test.pem" -key-file "blog-corpsee.test-key.pem" "blog-corpsee.test" "www.blog-corpsee.test"
+    fi
+
+    if [ ! -f "${SECRET_DIR}/corpsee.test.pem" ]
+    then
+        mkcert -cert-file "corpsee.test.pem" -key-file "corpsee.test-key.pem" "corpsee.test" "www.corpsee.test"
+    fi
+
+    if [ ! -f "${SECRET_DIR}/php-censor.test.pem" ]
+    then
+        mkcert -cert-file "php-censor.test.pem" -key-file "php-censor.test-key.pem" "php-censor.test" "www.php-censor.test"
+    fi
+
+    if [ ! -f "${SECRET_DIR}/php-censor-test.test.pem" ]
+    then
+        mkcert -cert-file "php-censor-test.test.pem" -key-file "php-censor-test.test-key.pem" "php-censor-test.test" "www.php-censor-test.test"
+    fi
+
+    if [ ! -f "${SECRET_DIR}/php-censor-site.test.pem" ]
+    then
+        mkcert -cert-file "php-censor-site.test.pem" -key-file "php-censor-site.test-key.pem" "php-censor-site.test" "www.php-censor-site.test"
+    fi
+
+    find "${HOME}/.secrets" -name "*.pem" -exec chmod 600 {} \;
+
+    cd "${PROJECT_BASE_DIR}/${PROJECT}" || exit
+
+    cp --verbose --force "${SECRET_DIR}/blog-corpsee.test.pem" "blog-corpsee.test.pem"
+    cp --verbose --force "${SECRET_DIR}/blog-corpsee.test-key.pem" "blog-corpsee.test-key.pem"
+
+    cp --verbose --force "${SECRET_DIR}/corpsee.test.pem" "corpsee.test.pem"
+    cp --verbose --force "${SECRET_DIR}/corpsee.test-key.pem" "corpsee.test-key.pem"
+
+    cp --verbose --force "${SECRET_DIR}/php-censor.test.pem" "php-censor.test.pem"
+    cp --verbose --force "${SECRET_DIR}/php-censor.test-key.pem" "php-censor.test-key.pem"
+
+    cp --verbose --force "${SECRET_DIR}/php-censor-test.test.pem" "php-censor-test.test.pem"
+    cp --verbose --force "${SECRET_DIR}/php-censor-test.test-key.pem" "php-censor-test.test-key.pem"
+
+    cp --verbose --force "${SECRET_DIR}/php-censor-site.test.pem" "php-censor-site.test.pem"
+    cp --verbose --force "${SECRET_DIR}/php-censor-site.test-key.pem" "php-censor-site.test-key.pem"
+}
+
+secrets;
 
 echo "---
 
@@ -117,11 +164,12 @@ echo "projects:
     #        - release-2.0
     #        - release-2.1
     #    interval: P1W
-    #2:
-    #    branches:
-    #        - master
-    #        - release-1.0
-    #    interval: P7D
+    2:
+        branches:
+            - master # release-2.2
+            - release-2.0
+            - release-2.1
+        interval: P7D
     #7:
     #    branches:
     #        - master

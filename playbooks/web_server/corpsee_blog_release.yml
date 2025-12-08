@@ -1,0 +1,7 @@
+---
+
+- hosts:       web_server
+  become:      yes
+  become_user: root
+  roles:
+    - corpsee_blog_release

@@ -1,0 +1,7 @@
+---
+
+- name: Corpsee Blog Restart Nginx
+  service:
+    name: nginx
+    enabled: yes
+    state: restarted

@@ -4,7 +4,7 @@ Server deployment
 Requirements
 ------------
 
-* Ansible v9+ (ansible-code v2.16+), PHP, NodeJs v18+, Composer v2+, Mkcert.
+* Ansible v12+ (ansible-core v2.19+), PHP, NodeJs v18+, Composer v2+, Mkcert.
 * Ubuntu 20.04+ (24.04 recommended) or Mint 22+ for desktop.
 
 * Files:
@@ -78,6 +78,10 @@ Debug deploy (Vagrant):
 # server
 vagrant box update && vagrant up --provider virtualbox --provision-with main
 
+# blog-corpsee.test
+vagrant up --provision-with corpsee_blog_init
+RELEASE_VERSION="master" vagrant up --provision-with corpsee_blog_release
+
 # corpsee.test
 vagrant up --provision-with corpsee_site_init
 RELEASE_VERSION="master" vagrant up --provision-with corpsee_site_release
@@ -100,11 +104,13 @@ Production deploy:
 # server (by root user with password)
 ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/web_server/main.yml -vv
 
+# blog.corpsee.com (by web user with ssh key)
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_blog_init.yml -vv
+ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_blog_release.yml --extra-vars="corpsee_blog_version=master" -vv
 
-# new.corpsee.com (by web user with ssh key)
+# corpsee.com (by web user with ssh key)
 ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_init.yml -vv
 ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_site_release.yml --extra-vars="corpsee_site_version=master" -vv
-
 
 # ci.php-censor.info (by web user with ssh key)
 ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/php_censor_init.yml -vv
@@ -116,7 +122,6 @@ ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_serve
 
 # php-censor.info (by web user with ssh key)
 ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/php_censor_site_init.yml -vv
-
 
 # local server (by root user with password)
 ansible-playbook -i ./inventories/production.yml -kK -u corpsee ./playbooks/web_server_local/main.yml -vv

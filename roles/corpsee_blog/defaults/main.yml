@@ -1,0 +1,11 @@
+---
+
+corpsee_blog_mode:              debug # production|debug
+corpsee_blog_user:              www-data
+corpsee_blog_group:             www-data
+corpsee_blog_localhost_user:    corpsee
+corpsee_blog_hostname:          blog-corpsee.test
+corpsee_blog_dir_name:          corpsee_blog
+corpsee_blog_version:           master
+corpsee_blog_cert_pem_path:     '~/blog-corpsee.test.pem'
+corpsee_blog_cert_pem_key_path: '~/blog-corpsee.test-key.pem'
