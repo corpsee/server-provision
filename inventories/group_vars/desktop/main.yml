@@ -126,11 +126,13 @@ packages_flatpak_items_to_install:
   - rest.insomnia.Insomnia
   - com.rtosta.zapzap
   - org.localsend.localsend_app
+  - com.github.artemanufrij.regextester
+  - me.iepure.devtoolbox
 
 packages_pipx_items_to_install:
-    - ansible-lint
-    - yamllint
-    - github-backup
+  - ansible-lint
+  - yamllint
+  - github-backup
 
 
 ### oh-my-zsh role
