@@ -23,7 +23,7 @@
     - { role: php, php_version: "8.2" }
     - { role: php, php_version: "8.3" }
     - { role: php, php_version: "8.4" }
-    - { role: php, php_version: "8.5" }
+    # - { role: php, php_version: "8.5" }
     - { role: php_default, php_default_version: "8.1" }
     - composer
     - symfony_cli

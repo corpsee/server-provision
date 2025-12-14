@@ -1,0 +1,13 @@
+---
+
+- name:     Create Corpsee Blog host
+  template:
+    src: "corpsee_blog.{{ corpsee_blog_mode }}.conf"
+    dest: "/etc/nginx/sites-available/{{ corpsee_blog_dir_name }}.conf"
+
+- name: Enable Corpsee Blog host
+  file:
+    src: "/etc/nginx/sites-available/{{ corpsee_blog_dir_name }}.conf"
+    dest: "/etc/nginx/sites-enabled/{{ corpsee_blog_dir_name }}.conf"
+    state: link
+  notify: Corpsee Blog Restart Nginx

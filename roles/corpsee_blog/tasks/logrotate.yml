@@ -1,0 +1,6 @@
+---
+
+- name:     Set logrotate config
+  template:
+    src: logrotate
+    dest: "/etc/logrotate.d/{{ corpsee_blog_dir_name }}"

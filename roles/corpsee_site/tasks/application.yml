@@ -141,7 +141,7 @@
     src: "{{ role_path }}/files/{{ corpsee_site_www_dir_filename }}/"
     dest: "/var/www/{{ corpsee_site_dir_name }}/shared/public"
 
-- name: Creates empty shared directories directory
+- name: Creates empty shared directories
   file:
     path: "/var/www/{{ corpsee_site_dir_name }}/shared/{{ item }}"
     state: directory

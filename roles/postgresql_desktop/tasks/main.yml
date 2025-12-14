@@ -8,7 +8,7 @@
   become:      yes
   become_user: postgres
 
-- name:       Added auth info to .pgpass config
+- name: Added auth info to .pgpass config
   lineinfile:
     path: "/home/{{ postgresql_desktop_user }}/.pgpass"
     owner: "{{ postgresql_desktop_user }}"

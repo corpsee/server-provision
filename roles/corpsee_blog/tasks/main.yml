@@ -1,0 +1,7 @@
+---
+
+- include_tasks: logrotate.yml
+
+- include_tasks: host.yml
+
+- include_tasks: application.yml

@@ -3,18 +3,19 @@
 extends: default
 
 rules:
-    colons: disable
-    line-length: disable
-    comments:
-        min-spaces-from-content: 1
-    braces:
-        min-spaces-inside: 1
-        max-spaces-inside: 1
-    truthy:
-        allowed-values: ["yes", "no"]
-        level: error
+  colons: disable
+  line-length: disable
+  comments:
+    min-spaces-from-content: 1
+  braces:
+    min-spaces-inside: 1
+    max-spaces-inside: 1
+  truthy:
+    allowed-values: ["yes", "no"]
+    level: error
 
 ignore:
-    - 'inventories/group_vars/*/secret.yml'
-    - 'roles/php_censor/files/*'
-    - 'roles/php_censor/templates/config.yml'
+  - 'files/*'
+  - 'inventories/group_vars/*/secret.yml'
+  - 'roles/php_censor/files/*'
+  - 'roles/php_censor/templates/config.yml'
