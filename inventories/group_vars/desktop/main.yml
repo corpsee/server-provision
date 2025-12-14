@@ -84,8 +84,8 @@ packages_items_to_install:
   - gparted
   - keepassx
   - yandex-disk
-# Actual version of VirtualBox 7.0 for Ubuntu 24.04: https://download.virtualbox.org/virtualbox/7.0.*/
-#  - virtualbox-qt
+  # Actual version of VirtualBox 7.0 for Ubuntu 24.04: https://download.virtualbox.org/virtualbox/7.0.*/
+  #  - virtualbox-qt
   - smplayer
   - smplayer-themes
   - filezilla
@@ -131,9 +131,9 @@ packages_flatpak_items_to_install:
   - me.iepure.devtoolbox
 
 packages_pipx_items_to_install:
-    - ansible-lint
-    - yamllint
-    - github-backup
+  - ansible-lint
+  - yamllint
+  - github-backup
 
 
 ### oh-my-zsh role

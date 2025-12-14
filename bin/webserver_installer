@@ -99,7 +99,9 @@ cp "inventories/group_vars/web_server/secret.yml" "secret.web_server.raw.yml"
 
 ansible-vault encrypt "inventories/group_vars/web_server/secret.yml"
 
-echo "all:
+echo "---
+
+all:
   children:
     web_server:
       hosts:
