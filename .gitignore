@@ -12,6 +12,8 @@
 
 /roles/webuser/files
 /roles/server/files
+/roles/corpsee_blog/files
+/roles/corpsee_blog_release/files
 /roles/corpsee_site/files
 /roles/corpsee_site_release/files
 /roles/php_censor/files
