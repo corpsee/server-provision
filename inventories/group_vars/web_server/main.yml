@@ -263,9 +263,9 @@ corpsee_site_cert_pem_key_path: "/etc/letsencrypt/live/corpsee.com/privkey.pem"
 
 ### corpsee_blog role
 
-corpsee_blog_mode:              *mode_reference
-corpsee_blog_user:              *user_reference
-corpsee_blog_group:             *group_reference
+corpsee_blog_mode:              *mode-reference
+corpsee_blog_user:              *user-reference
+corpsee_blog_group:             *group-reference
 corpsee_blog_localhost_user:    corpsee
 corpsee_blog_hostname:          blog.corpsee.com
 corpsee_blog_dir_name:          corpsee_blog
