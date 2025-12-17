@@ -9,10 +9,25 @@
   become_user:   postgres
   register:      php_censor_database
 
-- name:            Create PHP Censor DB user
-  postgresql_user: db="{{ php_censor_db_name }}" name="{{ php_censor_db_user }}" password="{{ php_censor_db_password }}" role_attr_flags="NOSUPERUSER,NOCREATEDB,NOCREATEROLE,NOREPLICATION" encrypted=yes priv=ALL
-  become:          true
-  become_user:     postgres
+- name: Create PHP Censor DB user
+  postgresql_user:
+    name: "{{ php_censor_db_user }}"
+    password: "{{ php_censor_db_password }}"
+    role_attr_flags: "NOSUPERUSER,NOCREATEDB,NOCREATEROLE,NOREPLICATION"
+    encrypted: yes
+    state: present
+  become: yes
+  become_user: postgres
+
+- name: Grant ALL privileges on PHP Censor DB
+  postgresql_privs:
+    type: database
+    database: "{{ php_censor_db_name }}"
+    role: "{{ php_censor_db_user }}"
+    privs: "ALL"
+    state: present
+  become: yes
+  become_user: postgres
 
 - name: Copy PHP Censor DB dump to host
   copy: src="{{ role_path }}/files/{{ php_censor_db_dump_filename }}.sql.xz" dest="/tmp"

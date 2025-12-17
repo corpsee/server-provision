@@ -9,10 +9,25 @@
   become_user:   postgres
   register:      corpsee_site_database
 
-- name:            Create Corpsee Site DB user
-  postgresql_user: db="{{ corpsee_site_db_name }}" name="{{ corpsee_site_db_user }}" password="{{ corpsee_site_db_password }}" role_attr_flags="NOSUPERUSER,NOCREATEDB,NOCREATEROLE,NOREPLICATION" encrypted=yes priv=ALL
-  become:          true
-  become_user:     postgres
+- name: Create Corpsee Site DB user
+  postgresql_user:
+    name: "{{ corpsee_site_db_user }}"
+    password: "{{ corpsee_site_db_password }}"
+    role_attr_flags: "NOSUPERUSER,NOCREATEDB,NOCREATEROLE,NOREPLICATION"
+    encrypted: yes
+    state: present
+  become: yes
+  become_user: postgres
+
+- name: Grant ALL privileges on Corpsee Site DB
+  postgresql_privs:
+    type: database
+    database: "{{ corpsee_site_db_name }}"
+    role: "{{ corpsee_site_db_user }}"
+    privs: "ALL"
+    state: present
+  become: yes
+  become_user: postgres
 
 - name: Copy Corpsee Site DB dump to host
   copy: src="{{ role_path }}/files/{{ corpsee_site_db_dump_filename }}.sql.xz" dest="/tmp"

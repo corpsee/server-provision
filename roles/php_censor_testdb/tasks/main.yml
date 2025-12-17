@@ -8,10 +8,25 @@
   become:        true
   become_user:   postgres
 
-- name:            Create PHP Censor Test DB user (Postgres)
-  postgresql_user: db="{{ php_censor_testdb_postgres_db_name }}" name="{{ php_censor_testdb_postgres_db_user }}" password="{{ php_censor_testdb_postgres_db_password }}" role_attr_flags="NOSUPERUSER,NOCREATEDB,NOCREATEROLE,NOREPLICATION" encrypted=yes priv=ALL
-  become:          true
-  become_user:     postgres
+- name: Create PHP Censor Test DB user (Postgres)
+  postgresql_user:
+    name: "{{ php_censor_testdb_postgres_db_user }}"
+    password: "{{ php_censor_testdb_postgres_db_password }}"
+    role_attr_flags: "NOSUPERUSER,NOCREATEDB,NOCREATEROLE,NOREPLICATION"
+    encrypted: yes
+    state: present
+  become: yes
+  become_user: postgres
+
+- name: Grant ALL privileges on PHP Censor Test DB (Postgres)
+  postgresql_privs:
+    type: database
+    database: "{{ php_censor_testdb_postgres_db_name }}"
+    role: "{{ php_censor_testdb_postgres_db_user }}"
+    privs: "ALL"
+    state: present
+  become: yes
+  become_user: postgres
 
 - name:     Create PHP Censor Test DB create script (Postgres)
   template: src=create_test_ci_postgres_db.sh dest="/home/{{ php_censor_user }}/{{ php_censor_testdb_postgres_create_script_name }}.sh"
