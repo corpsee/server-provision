@@ -52,5 +52,5 @@
     - { name: "USER", value: "{{ webuser_user }}" }
     - { name: "LOGNAME", value: "{{ webuser_user }}" }
     - { name: "HOME", value: "/home/{{ webuser_user }}" }
-    - { name: "PATH", value: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/{{ webuser_user }}/bin:/home/{{ webuser_user }}/Bin" }
+    - { name: "PATH", value: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/{{ webuser_user }}/.local/bin:/home/{{ webuser_user }}/bin" }
     - { name: "SHELL", value: "/bin/bash" }

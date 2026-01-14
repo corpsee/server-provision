@@ -16,7 +16,6 @@
     - "/home/{{ desktop_user }}/Pictures"
     - "/home/{{ desktop_user }}/Videos"
 
-    - "/home/{{ desktop_user }}/Bin"
     - "/home/{{ desktop_user }}/Projects"
     - "/home/{{ desktop_user }}/Programs"
 
