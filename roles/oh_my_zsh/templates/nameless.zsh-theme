@@ -24,6 +24,7 @@ local return_code="%(?..%{$FG[160]%}{↳ %?}%{$reset_color%})";
 local time="%{$FG[033]%}{time %*}%{$reset_color%}";
 
 local php_version=$(php -v 2>&1 | grep --color=never -oe '^PHP\s*[0-9.]\+' | awk '{print $2}');
+local golang_version=$(go version 2>&1 | awk '{print $3}' | sed 's/go//');
 
 if [ -z "${php_version}" ]; then
     local php_version_formatted="{php ---}";
@@ -31,9 +32,15 @@ else
     local php_version_formatted="{php v${php_version}}";
 fi;
 
+if [ -z "${golang_version}" ]; then
+    local golang_version_formatted="{go ---}";
+else
+    local golang_version_formatted="{go v${golang_version}}";
+fi;
+
 PROMPT='${user_host} ${place} $(git_prompt_nameless)
 ${cursor} ';
-RPROMPT='${return_code} ${php_version_formatted} ${time}';
+RPROMPT='${return_code} ${php_version_formatted} ${golang_version_formatted} ${time}';
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$FG[201]%}{± ";
 ZSH_THEME_GIT_PROMPT_SUFFIX="}%{$FG[$code]%}";
