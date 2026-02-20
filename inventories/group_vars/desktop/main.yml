@@ -2,12 +2,14 @@
 
 ### references
 
-user_reference:                &user_reference        "corpsee"
-group_reference:               &group_reference       "corpsee"
-mode_reference:                &mode_reference        "debug"
-timezone_reference:            &timezone_reference    "Asia/Novosibirsk"
-php_version_reference:         &php_version_reference "8.1"
-php_default_version_reference: &php_default_version_reference "8.1"
+user_reference:                   &user_reference                   "corpsee"
+group_reference:                  &group_reference                  "corpsee"
+mode_reference:                   &mode_reference                   "debug"
+timezone_reference:               &timezone_reference               "Asia/Novosibirsk"
+php_version_reference:            &php_version_reference            "8.1"
+php_default_version_reference:    &php_default_version_reference    "8.1"
+golang_version_reference:         &golang_version_reference         "1.26"
+golang_default_version_reference: &golang_default_version_reference "1.26"
 
 
 ### packages role
@@ -191,8 +193,13 @@ php_default_version: *php_default_version_reference
 
 ### golang role
 
-golang_version: "1.22"
-golang_default: yes
+golang_version: *golang_version_reference
+golang_priority: 100
+
+
+### golang_default role
+
+golang_default_version: *golang_default_version_reference
 
 
 ### composer role

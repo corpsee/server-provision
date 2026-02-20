@@ -160,11 +160,11 @@ pipx install yamllint && pipx install ansible-lint
 ```
 
 ```bash
-yamllint . 
+yamllint -s . 
 ```
 
 ```bash
-ansible-lint
+ansible-lint -s
 ```
 
 ## License

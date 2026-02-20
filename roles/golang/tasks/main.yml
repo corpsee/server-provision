@@ -30,16 +30,10 @@
     dest: "/usr/local/bin/gofmt{{ golang_version }}"
     state: link
 
-- name: Create symlink to "/usr/local/bin" fo go (default go)
-  file:
-    src: "/usr/lib/go-{{ golang_version }}/bin/go"
-    dest: "/usr/local/bin/go"
-    state: link
-  when: golang_default
+- name: Set Golang to update-alternatives
+  command:
+    cmd: update-alternatives --install "/usr/local/bin/go" go "/usr/local/bin/go{{ golang_version }}" "{{ golang_priority }}"
 
-- name: Create symlink to "/usr/local/bin" fo gofmt (default gofmt)
-  file:
-    src: "/usr/lib/go-{{ golang_version }}/bin/gofmt"
-    dest: "/usr/local/bin/gofmt"
-    state: link
-  when: golang_default
+- name: Set Golang Fmt to update-alternatives
+  command:
+    cmd: update-alternatives --install "/usr/local/bin/gofmt" gofmt "/usr/local/bin/gofmt{{ golang_version }}" "{{ golang_priority }}"

@@ -1,0 +1,9 @@
+---
+
+- name: Set default Golang version
+  command:
+    cmd: update-alternatives --set go "/usr/local/bin/go{{ golang_default_version }}"
+
+- name: Set default Golang Fmt version
+  command:
+    cmd: update-alternatives --set go "/usr/local/bin/gofmt{{ golang_default_version }}"
