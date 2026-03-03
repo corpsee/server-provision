@@ -101,6 +101,7 @@ packages_items_to_install:
 
   - nodejs
   - npm
+  - shellcheck
 
   - python3-passlib # For ansible
 
