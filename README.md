@@ -1,12 +1,43 @@
 Server deployment
 =================
 
+Ansible playbooks for automated deployment of web servers, local servers, and personal desktop environments.
+
+- [Requirements](#requirements)
+- [Quick Start](#quick-start)
+- [Structure](#structure)
+- [Deploy](#deploy)
+    - [Debug deploy (Vagrant)](#debug-deploy-vagrant)
+    - [Production deploy](#production-deploy)
+    - [Desktop](#desktop)
+- [Secrets](#secrets)
+- [Development Tools](#development-tools)
+- [License](#license)
+
 ## Requirements
 
 * Ansible v12+ (ansible-core v2.19+), PHP, NodeJs v18+, Composer v2+, Mkcert.
 * Ubuntu 20.04+ (24.04 recommended) or Mint 22+ for desktop.
 
+## Quick Start
+
+1. **Install Ansible dependencies:**
+   ```bash
+   ansible-galaxy install -r requirements.yml
+   ```
+
+2. **Prepare secrets:**
+   Create a `.vault_password` file in the project root with the password for decrypting Ansible Vault.
+
+3. **Decrypt secret variables:**
+   ```bash
+   make decrypt-secrets
+   ```
+
 ## Structure
+
+<details>
+<summary>List of main files and their role assignment</summary>
 
 * Files:
     * `.vault_password` (Roles: webuser, php_censor, corpsee_site)
@@ -69,6 +100,7 @@ Server deployment
     * php_censor_site:
         * `php-censor-site.test.pem` (For debug deploy/vagrant only)
         * `php-censor-site.test-key.pem` (For debug deploy/vagrant only)
+</details>
 
 ## Deploy
 
@@ -106,6 +138,7 @@ ansible-playbook -i ./inventories/production.yml -k -u root ./playbooks/web_serv
 
 # blog.corpsee.com (by web user with ssh key)
 ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_blog_init.yml -vv
+# RELEASE_VERSION="master" can be overridden via --extra-vars
 ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_server/corpsee_blog_release.yml --extra-vars="corpsee_blog_version=master" -vv
 
 # corpsee.com (by web user with ssh key)
@@ -137,17 +170,25 @@ ansible-playbook -i ./inventories/production.yml -K -u web ./playbooks/web_serve
 ansible-playbook -i ./inventories/production.yml -c local -K ./playbooks/desktop/main.yml -vv
 ```
 
-## Secret data
+## Secrets
+
+To manage secrets, it's recommended to use the `Makefile`:
+
+```bash
+make encrypt-secrets  # Encrypt secrets
+make decrypt-secrets  # Decrypt secrets
+```
+
+Or manually via Ansible Vault:
 
 ```bash
 ansible-vault encrypt ./inventories/group_vars/web_server/secret.yml
-```
-
-```bash
 ansible-vault decrypt ./inventories/group_vars/web_server/secret.yml
 ```
 
-## Facts
+## Development Tools
+
+### Facts
 
 ```bash
 ansible -m setup localhost
