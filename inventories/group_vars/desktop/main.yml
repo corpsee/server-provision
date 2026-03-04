@@ -126,10 +126,10 @@ packages_flatpak_items_to_install:
   - com.getpostman.Postman
   - org.blender.Blender
   - rest.insomnia.Insomnia
-  - com.rtosta.zapzap
   - org.localsend.localsend_app
   - com.github.artemanufrij.regextester
   - me.iepure.devtoolbox
+  - org.getoutline.OutlineClient
 
 packages_pipx_items_to_install:
   - ansible-lint
