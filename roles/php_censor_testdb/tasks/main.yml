@@ -10,13 +10,6 @@
     line: "127.0.0.1:5432:{{ php_censor_testdb_postgres_db_name }}:{{ php_censor_testdb_postgres_db_user }}:{{ php_censor_testdb_postgres_db_password }}"
     insertbefore: BOF
 
-- name: Create PHP Censor Test DB (Postgres)
-  postgresql_db:
-    name: "{{ php_censor_testdb_postgres_db_name }}"
-    state: present
-  become:      yes
-  become_user: postgres
-
 - name: Create PHP Censor Test DB user (Postgres)
   postgresql_user:
     name: "{{ php_censor_testdb_postgres_db_user }}"
@@ -27,7 +20,15 @@
   become: yes
   become_user: postgres
 
-- name: Grant ALL privileges on PHP Censor Test DB
+- name: Create PHP Censor Test DB (Postgres)
+  postgresql_db:
+    name: "{{ php_censor_testdb_postgres_db_name }}"
+    owner: "{{ php_censor_testdb_postgres_db_user }}"
+    state: present
+  become: yes
+  become_user: postgres
+
+- name: Grant ALL privileges on PHP Censor Test DB (Postgres)
   postgresql_privs:
     type: database
     database: "{{ php_censor_testdb_postgres_db_name }}"
