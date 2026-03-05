@@ -3,4 +3,4 @@
 - name: Install Beanstalkd queue
   apt:
     name: beanstalkd
-    state: latest
+    state: present

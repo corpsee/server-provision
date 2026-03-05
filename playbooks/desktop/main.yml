@@ -15,9 +15,14 @@
     - { role: php, php_version: "8.2" }
     - { role: php, php_version: "8.3" }
     - { role: php, php_version: "8.4" }
-    # - { role: php, php_version: "8.5" }
+    - { role: php, php_version: "8.5" }
     - { role: php_default, php_default_version: "8.1" }
     - golang
+    - { role: golang, golang_version: "1.23", golang_priority: 123 }
+    - { role: golang, golang_version: "1.24", golang_priority: 124 }
+    - { role: golang, golang_version: "1.25", golang_priority: 125 }
+    - { role: golang, golang_version: "1.26", golang_priority: 126 }
+    - { role: golang_default, golang_default_version: "1.26" }
     - composer
     - postgresql
     - postgresql_desktop

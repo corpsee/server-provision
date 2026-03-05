@@ -1,6 +1,6 @@
 ---
 
-- name:       Added auth info to .pgpass config
+- name: Added auth info to .pgpass config
   lineinfile:
     path: "/home/{{ php_censor_user }}/.pgpass"
     owner: "{{ php_censor_user }}"
@@ -9,14 +9,6 @@
     create: yes
     line: "127.0.0.1:5432:{{ php_censor_db_name }}:{{ php_censor_db_user }}:{{ php_censor_db_password }}"
     insertbefore: BOF
-
-- name: Create PHP Censor DB
-  postgresql_db:
-    name: "{{ php_censor_db_name }}"
-    state: present
-  become:      yes
-  become_user: postgres
-  register:    php_censor_database
 
 - name: Create PHP Censor DB user
   postgresql_user:
@@ -27,6 +19,15 @@
     state: present
   become: yes
   become_user: postgres
+
+- name: Create PHP Censor DB
+  postgresql_db:
+    name: "{{ php_censor_db_name }}"
+    owner: "{{ php_censor_db_user }}"
+    state: present
+  become: yes
+  become_user: postgres
+  register: php_censor_database
 
 - name: Grant ALL privileges on PHP Censor DB
   postgresql_privs:

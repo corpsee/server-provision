@@ -1,4 +1,4 @@
 ---
 
-golang_version: "1.22" # version: 1.21 ... 1.22
-golang_default: no
+golang_version:  "1.26" # version: 1.21 ... 1.26
+golang_priority: 100 # update-alternatives priority

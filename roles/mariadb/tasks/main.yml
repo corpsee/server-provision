@@ -1,20 +1,20 @@
 ---
 
-- name: Add MariaDB repository GPG key
+- name: "Add MariaDB{{ mariadb_version }} repository GPG key"
   shell: "curl -sL https://mariadb.org/mariadb_release_signing_key.asc | gpg --dearmor | tee /usr/share/keyrings/mariadb.gpg >/dev/null"
   args:
     creates: "/usr/share/keyrings/mariadb.gpg"
 
-- name: Add MariaDB repository
+- name: "Add MariaDB{{ mariadb_version }} repository"
   apt_repository:
     repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/mariadb.gpg] http://mirror.mephi.ru/mariadb/repo/{{ mariadb_version }}/ubuntu {{ ansible_distribution_release }} main"
     filename: "mariadb"
     update_cache: yes
 
-- name: Install MariaDB+
+- name: "Install MariaDB{{ mariadb_version }}"
   apt:
     name: "{{ item }}"
-    state: latest
+    state: present
   loop:
     - mariadb-server
     - mariadb-plugin-provider-bzip2
@@ -24,7 +24,7 @@
     - mariadb-plugin-provider-snappy
     - python3-mysqldb
 
-- name: Set MariaDB root user password
+- name: "Set MariaDB{{ mariadb_version }} root user password"
   mysql_user:
     name: root
     host: "{{ item }}"
@@ -37,18 +37,18 @@
     - "localhost"
   notify: Restart MariaDB
 
-- name: Save origin server.cnf config
+- name: "Save origin server.cnf config for MariaDB{{ mariadb_version }}"
   command:
     cmd: mv -fv "/etc/mysql/mariadb.conf.d/50-server.cnf" "/etc/mysql/mariadb.conf.d/50-server.cnf-origin"
     creates: "/etc/mysql/mariadb.conf.d/50-server.cnf-origin"
 
-- name:     Set server.cnf config
+- name: "Set server.cnf config for MariaDB{{ mariadb_version }}"
   template:
     src: "50-server.cnf"
     dest: "/etc/mysql/mariadb.conf.d/50-server.cnf"
   notify:   Restart MariaDB
 
-- name: Add .my.cnf for root
+- name: "Add .my.cnf for root for MariaDB{{ mariadb_version }}"
   template:
     src: ".my.cnf"
     dest: "/root/.my.cnf"
@@ -56,14 +56,14 @@
     group: root
     mode: 0600
 
-- name: Get timezone data
+- name: "Get timezone data for MariaDB{{ mariadb_version }}"
   command:
     cmd: mysql -NBe "SELECT COUNT(*) FROM mysql.time_zone"
   register:     mysql_timezones_count
   changed_when: no
   check_mode:   no
 
-- name:   Ensure timezone data is imported
-  shell:  "mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql mysql"
-  when:   mysql_timezones_count.stdout | int < 1
+- name: "Ensure timezone data is imported for MariaDB{{ mariadb_version }}"
+  shell: "mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql mysql"
+  when: mysql_timezones_count.stdout | int < 1
   notify: Restart MariaDB

@@ -1,32 +1,29 @@
 ---
 
-- name: Add PostgreSQL repository GPG key
+- name: "Add PostgreSQL{{ postgresql_version }} repository GPG key"
   shell: "curl -sL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | tee /usr/share/keyrings/postgres.gpg >/dev/null"
   args:
     creates: "/usr/share/keyrings/postgres.gpg"
 
-- name: Add PostgreSQL repository
+- name: "Add PostgreSQL{{ postgresql_version }} repository"
   apt_repository:
     repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/postgres.gpg] http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main"
     filename: postgres
     update_cache: yes
 
-- name: Install PostgreSQL
+- name: "Install PostgreSQL{{ postgresql_version }}"
   apt:
-    name: "postgresql-{{ postgresql_version }}"
-    state: latest
+    name:
+      - "postgresql-{{ postgresql_version }}"
+      - "python3-psycopg2"
+    state: present
 
-- name: Install Psycopg2
-  apt:
-    name: "python3-psycopg2"
-    state: latest
-
-- name: Save origin postgresql.conf config
+- name: "Save origin postgresql.conf config for PostgreSQL{{ postgresql_version }}"
   command:
     cmd: mv -fv "/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf" "/etc/postgresql/{{ postgresql_version }}/postgresql.conf-origin"
     creates: "/etc/postgresql/{{ postgresql_version }}/postgresql.conf-origin"
 
-- name: Set server.cnf config
+- name: "Set server.cnf config for PostgreSQL{{ postgresql_version }}"
   template:
     src: "postgresql.conf"
     dest: "/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf"

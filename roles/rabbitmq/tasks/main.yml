@@ -3,9 +3,9 @@
 - name: Install RabbitMq
   apt:
     name: rabbitmq-server
-    state: latest
+    state: present
 
 # Web: http://<host>:15672
-- name: Install RabbitMq Managment Plugin
+- name: Install RabbitMq Management Plugin
   command:
     cmd: "rabbitmq-plugins enable rabbitmq_management"

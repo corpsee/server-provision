@@ -2,12 +2,14 @@
 
 ### references
 
-user_reference:                &user_reference        "corpsee"
-group_reference:               &group_reference       "corpsee"
-mode_reference:                &mode_reference        "debug"
-timezone_reference:            &timezone_reference    "Asia/Novosibirsk"
-php_version_reference:         &php_version_reference "8.1"
-php_default_version_reference: &php_default_version_reference "8.1"
+user_reference:                   &user_reference                   "corpsee"
+group_reference:                  &group_reference                  "corpsee"
+mode_reference:                   &mode_reference                   "debug"
+timezone_reference:               &timezone_reference               "Asia/Novosibirsk"
+php_version_reference:            &php_version_reference            "8.1"
+php_default_version_reference:    &php_default_version_reference    "8.1"
+golang_version_reference:         &golang_version_reference         "1.26"
+golang_default_version_reference: &golang_default_version_reference "1.26"
 
 
 ### packages role
@@ -180,7 +182,6 @@ php_packages:
   - mysql
   - redis
   - amqp
-  - memcache
   - memcached
   - ldap
 
@@ -192,8 +193,13 @@ php_default_version: *php_default_version_reference
 
 ### golang role
 
-golang_version: "1.22"
-golang_default: yes
+golang_version: *golang_version_reference
+golang_priority: 100
+
+
+### golang_default role
+
+golang_default_version: *golang_default_version_reference
 
 
 ### composer role
@@ -203,7 +209,7 @@ composer_path: /usr/local/bin/composer
 
 ### postgresql role
 
-postgresql_version:  14
+postgresql_version:  18
 postgresql_timezone: *timezone_reference
 
 
@@ -215,7 +221,7 @@ postgresql_desktop_group: *group_reference
 
 ### mariadb role
 
-mariadb_version:       "10.11" # 10.11 - LTS version to 16 feb 2028. See: https://endoflife.date/mariadb
+mariadb_version:       "11.8" # 11.8 - LTS version to 15 Oct 2033. See: https://endoflife.date/mariadb
 mariadb_root_password: root
 mariadb_timezone:      *timezone_reference
 

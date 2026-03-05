@@ -119,7 +119,6 @@ php_packages:
   - mysql
   - redis
   - amqp
-  - memcache
   - memcached
   - ldap
 
@@ -140,13 +139,13 @@ symfony_cli_path: /usr/local/bin/symfony
 
 ### postgresql role
 
-postgresql_version:  14
+postgresql_version:  18
 postgresql_timezone: *timezone_reference
 
 
 ### mariadb role
 
-mariadb_version:  "10.11" # 10.11 - LTS version to 16 feb 2028. See: https://endoflife.date/mariadb
+mariadb_version:  "11.8" # 11.8 - LTS version to 15 Oct 2033. See: https://endoflife.date/mariadb
 # mariadb_root_password: in secret.yml
 mariadb_timezone: *timezone_reference
 

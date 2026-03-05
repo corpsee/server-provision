@@ -3,7 +3,7 @@
 - name: Install Nginx
   apt:
     name: nginx
-    state: latest
+    state: present
 
 - name: Save origin Nginx config
   command:

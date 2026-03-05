@@ -2,11 +2,10 @@
 
 - name: Install Zsh and Git
   apt:
-    name: "{{ item }}"
-    state: latest
-  loop:
-    - zsh
-    - git
+    name:
+      - zsh
+      - git
+    state: present
 
 - name: Clone '.oh-my-zsh' for root
   git:
