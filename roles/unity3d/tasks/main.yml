@@ -13,9 +13,8 @@
 
 - name: Install Unity3d Hub and .NET Runtime
   apt:
-    name: "{{ item }}"
-    state: latest
-  loop:
-    - unityhub
-#    - dotnet-sdk-6.0
-#    - dotnet-runtime-6.0
+    name:
+      - unityhub
+      # - dotnet-sdk-6.0
+      # - dotnet-runtime-6.0
+    state: present

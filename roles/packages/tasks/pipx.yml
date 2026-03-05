@@ -4,14 +4,13 @@
   apt:
       upgrade: yes
       update_cache: yes
-      cache_valid_time: 3600
   changed_when: no
   when: packages_pipx_items_to_install is defined and packages_pipx_items_to_install | length > 0
 
 - name: Install Pipx package
   apt:
       name: pipx
-      state: latest
+      state: present
   when: packages_pipx_items_to_install is defined and packages_pipx_items_to_install | length > 0
 
 - name:  Install Pipx packages

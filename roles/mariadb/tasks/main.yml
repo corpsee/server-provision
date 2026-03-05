@@ -14,7 +14,7 @@
 - name: Install MariaDB+
   apt:
     name: "{{ item }}"
-    state: latest
+    state: present
   loop:
     - mariadb-server
     - mariadb-plugin-provider-bzip2

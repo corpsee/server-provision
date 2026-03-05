@@ -13,13 +13,10 @@
 
 - name: Install PostgreSQL
   apt:
-    name: "postgresql-{{ postgresql_version }}"
-    state: latest
-
-- name: Install Psycopg2
-  apt:
-    name: "python3-psycopg2"
-    state: latest
+    name:
+      - "postgresql-{{ postgresql_version }}"
+      - "python3-psycopg2"
+    state: present
 
 - name: Save origin postgresql.conf config
   command:

@@ -14,7 +14,7 @@
 - name: Install Docker CE
   apt:
     name: "docker-ce"
-    state: latest
+    state: present
 
 - name: Adding user to Docker group
   user:

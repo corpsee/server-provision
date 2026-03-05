@@ -16,7 +16,7 @@
 - name: Install Golang
   apt:
     name: "golang-{{ golang_version }}"
-    state: latest
+    state: present
 
 - name: Create symlink to "/usr/local/bin" fo go
   file:
