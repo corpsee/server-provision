@@ -1,0 +1,3 @@
+---
+
+nodejs_version: 24 # 24 - LTS version to 30 Apr 2028. See: https://endoflife.date/nodejs

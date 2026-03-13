@@ -16,7 +16,7 @@ Ansible playbooks for automated deployment of web servers, local servers, and pe
 
 ## Requirements
 
-* Ansible v12+ (ansible-core v2.19+), PHP, NodeJs v18+, Composer v2+, Mkcert.
+* Ansible v12+ (ansible-core v2.19+).
 * Ubuntu 20.04+ (24.04 recommended) or Mint 22+ for desktop.
 
 ## Quick Start

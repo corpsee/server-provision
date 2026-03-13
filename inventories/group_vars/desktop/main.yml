@@ -101,8 +101,6 @@ packages_items_to_install:
   - nfs-common
   - nfs-kernel-server
 
-  - nodejs
-  - npm
   - shellcheck
 
   - python3-passlib # For ansible
@@ -222,9 +220,14 @@ postgresql_desktop_group: *group_reference
 
 ### mariadb role
 
-mariadb_version:       "11.8" # 11.8 - LTS version to 15 Oct 2033. See: https://endoflife.date/mariadb
+mariadb_version: "11.8" # 11.8 - LTS version to 15 Oct 2033. See: https://endoflife.date/mariadb
 mariadb_root_password: root
-mariadb_timezone:      *timezone_reference
+mariadb_timezone: *timezone_reference
+
+
+### nodejs role
+
+nodejs_version: 24 # 24 - LTS version to 30 Apr 2028. See: https://endoflife.date/nodejs
 
 
 ### docker role

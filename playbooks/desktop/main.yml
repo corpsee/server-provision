@@ -28,5 +28,6 @@
     - postgresql_desktop
     - mariadb
     - rabbitmq
+    - nodejs
     - docker
     - unity3d
