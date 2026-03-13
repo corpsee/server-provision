@@ -123,7 +123,7 @@ packages_flatpak_items_to_install:
   - org.nickvision.tagger
   - org.nickvision.money
   - md.obsidian.Obsidian
-  - com.getpostman.Postman
+#  - com.getpostman.Postman
   - org.blender.Blender
   - rest.insomnia.Insomnia
   - org.localsend.localsend_app

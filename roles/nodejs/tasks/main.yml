@@ -9,7 +9,7 @@
   apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/nodejs.gpg] https://deb.nodesource.com/node_{{ nodejs_version }}.x nodistro main" filename="nodejs" update_cache=yes
 
 - name: Install Nodejs and NPM
-  apt:  name="nodejs npm" state=latest
+  apt:  name="nodejs" state=present
 
 - name: Add Yarn repository GPG key
   shell: "curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarn.gpg >/dev/null"
@@ -20,4 +20,4 @@
   apt_repository: repo="deb [arch=amd64 signed-by=/usr/share/keyrings/yarn.gpg] https://dl.yarnpkg.com/debian/ stable main" filename="yarn" update_cache=yes
 
 - name: Install Yarn
-  apt:  name="yarn" state=latest
+  apt:  name="yarn" state=present
