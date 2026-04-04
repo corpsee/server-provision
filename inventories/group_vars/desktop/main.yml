@@ -131,6 +131,7 @@ packages_flatpak_items_to_install:
   - me.iepure.devtoolbox
   - org.getoutline.OutlineClient'
   - fr.handbrake.ghb
+  - com.simplenote.Simplenote
 
 packages_pipx_items_to_install:
   - ansible-lint
