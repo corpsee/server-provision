@@ -139,7 +139,7 @@
   file: path="/var/www/{{ corpsee_site_dir_name }}/releases/{{ release_datetime.stdout }}/bin/console" owner={{ corpsee_site_user }} group={{ corpsee_site_group }} mode="ugo+x"
 
 - name:        Make migrations
-  command:     ./bin/console doctrine:migrations:migrate --no-interaction
+  command:     "php{{ corpsee_site_php_version }} bin/console doctrine:migrations:migrate --no-interaction"
   become:      yes
   become_user: "{{ corpsee_site_user }}"
   args:

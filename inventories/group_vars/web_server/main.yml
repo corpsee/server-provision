@@ -240,7 +240,7 @@ php_censor_testdb_mysql_drop_script_name_test:      drop_test_ci_mysql_db_test
 ### corpsee_site role
 
 corpsee_site_mode:              *mode-reference
-corpsee_site_php_version:       *php-version-reference
+corpsee_site_php_version:       '8.2'
 corpsee_site_user:              *user-reference
 corpsee_site_group:             *group-reference
 corpsee_site_localhost_user:    corpsee
