@@ -143,7 +143,7 @@
 
 - name: Make migrations
   command:
-    cmd: ./bin/console php-censor-migrations:migrate
+    cmd: "php{{ php_censor_php_version }} bin/console php-censor-migrations:migrate"
   become:      yes
   become_user: "{{ php_censor_user }}"
   args:

@@ -180,7 +180,7 @@
 
 - name: Make migrations
   command:
-    cmd: "./bin/console doctrine:migrations:migrate --no-interaction"
+    cmd: "php{{ corpsee_site_php_version }} bin/console doctrine:migrations:migrate --no-interaction"
   become:      yes
   become_user: "{{ corpsee_site_user }}"
   args:
