@@ -18,4 +18,7 @@ ignore:
   - 'files/*'
   - 'inventories/group_vars/*/secret.yml'
   - 'roles/php_censor/files/*'
+  - 'roles/php_censor_release/files/*'
   - 'roles/php_censor/templates/config.yml'
+  - 'roles/corpsee_site_release/files/*'
+  - 'roles/corpsee_site/files/*'
